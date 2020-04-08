@@ -1,0 +1,6 @@
+*.pyc
+*.egg-info/
+*.so
+
+.pytest_cache
+__pycache__
