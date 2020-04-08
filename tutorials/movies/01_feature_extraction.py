@@ -71,6 +71,8 @@ luminance_test = compute_luminance("test")
 from scipy.signal import decimate
 from glabtools.feature_spaces.moten_gpu import compute_filter_responses
 
+
+# fixed experiment settings
 N_FRAMES_PER_SEC = 15
 N_FRAMES_PER_TR = 15
 N_TRS_PER_RUN = 600
@@ -85,7 +87,7 @@ def compute_motion_energy(luminance,
         batch = slice(start, start + batch_size)
         print("run %d" % ii)
 
-        # add some noise to deal with constant areas
+        # add some noise to deal with constant black areas
         luminance_batch = luminance[batch].copy()
         luminance_batch += np.random.randn(*luminance_batch.shape) * noise
         luminance_batch[luminance_batch < 0] = 0
