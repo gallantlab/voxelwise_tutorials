@@ -3,7 +3,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 
 class Delayer(BaseEstimator, TransformerMixin):
-    """Transformer to add delays to features.
+    """Scikit-learn Transformer to add delays to features.
     """
     def __init__(self, delays=[1, 2, 3, 4]):
         self.delays = delays

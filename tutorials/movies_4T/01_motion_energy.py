@@ -40,9 +40,9 @@ with h5py.File(op.join(path, 'Stimuli.mat'), 'r') as f:
 # on each image.
 
 import numpy as np
-from skimage.color import rgb2lab
+from moten.io import imagearray2luminance
 
-from himalaya.progress_bar import bar
+from voxelwise.progress_bar import bar
 
 
 def compute_luminance(train_or_test, batch_size=1024):
@@ -63,13 +63,15 @@ def compute_luminance(train_or_test, batch_size=1024):
             batch = slice(start, start + batch_size)
 
             # transpose to corresponds to rgb2lab inputs
-            rgb_batch = np.transpose(data[batch], [2, 3, 0, 1])
+            rgb_batch = np.transpose(data[batch], [0, 2, 3, 1])
+
+            # make sure we use uint8
+            if rgb_batch.dtype != 'uint8':
+                rgb_batch = np.int_(np.clip(rgb_batch, 0, 1) * 255).astype(
+                    np.uint8)
 
             # convert RGB images to a single luminance channel
-            luminance_batch = rgb2lab(rgb_batch)[:, :, :, 0]
-
-            # store in the luminance array
-            luminance[batch] = np.transpose(luminance_batch, [2, 0, 1])
+            luminance[batch] = imagearray2luminance(rgb_batch)
 
     return luminance
 
