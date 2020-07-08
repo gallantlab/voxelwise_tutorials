@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.utils.validation import check_random_state
 
 
 def generate_leave_one_run_out(n_samples, run_onsets, random_state=None,
@@ -25,7 +26,6 @@ def generate_leave_one_run_out(n_samples, run_onsets, random_state=None,
     val : array of int of shape (n_samples_val, )
         Validation set indices.
     """
-    from sklearn.utils.validation import check_random_state
     random_state = check_random_state(random_state)
 
     n_runs = len(run_onsets)

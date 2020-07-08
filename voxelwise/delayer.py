@@ -4,6 +4,32 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 class Delayer(BaseEstimator, TransformerMixin):
     """Scikit-learn Transformer to add delays to features.
+
+    This assumes that the samples are ordered in time.
+    Adding a delay of 0 corresponds to leave the features unchanged.
+    Adding a delay of 1 corresponds to using features from the previous sample.
+
+    Adding multiple delays can be used to take into account the slow
+    hemodynamic response, with for example `delays=[1, 2, 3, 4]`.
+
+    Parameters
+    ----------
+    delays : array-like or None
+        Indices of the delays applied to each feature. If multiple values are
+        given, each feature is duplicated for each delay.
+
+    Attributes
+    ----------
+    n_features_in_ : int
+        Number of features seen during the fit.
+
+    Example
+    -------
+    >>> from sklearn.pipeline import make_pipeline
+    >>> from voxelwise.delayer import Delayer
+    >>> from himalaya.kernel_ridge import KernelRidgeCV
+    >>> pipeline = make_pipeline(Delayer(delays=[1, 2, 3, 4), KernelRidgeCV())
+    >>> pipeline.fit(..., ...)
     """
     def __init__(self, delays=[1, 2, 3, 4]):
         self.delays = delays
@@ -17,6 +43,9 @@ class Delayer(BaseEstimator, TransformerMixin):
         if n_features != self.n_features_in_:
             raise ValueError(
                 'Different number of features in X than during fit.')
+
+        if self.delays is None:
+            return X
 
         X_delayed = np.zeros((n_samples, n_features * len(self.delays)),
                              dtype=X.dtype)
