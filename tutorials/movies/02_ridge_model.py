@@ -1,5 +1,5 @@
 """In this example, we model the fMRI responses with a regularized linear
-regression model, using the motion energy features computed in a previous
+regression model, using the motion-energy features computed in the previous
 script.
 
 We first concatenate the features with multiple delays, to account for the
@@ -7,7 +7,7 @@ hemodynamic response. The linear regression model will then weight each delayed
 feature with a different weight, to build a predictive model.
 
 The linear regression is regularized to improve robustness to correlated
-features and to improve the predictions. The optimal regularization
+features and to improve generalization. The optimal regularization
 hyperparameter is selected over a grid-search with cross-validation.
 
 Finally, the model generalization performance is evaluated on a held-out test
@@ -45,7 +45,7 @@ with h5py.File(op.join(path, 'VoxelResponses_subject1.mat'), 'r') as f:
     Y_train = Y_train.T
     Y_test_repeats = np.transpose(Y_test_repeats, [1, 2, 0])
 
-    # Change to True to select only voxels from left hemisphere V1 ("v1lh");
+    # Change to True to select only voxels from (e.g.) left V1 ("v1lh");
     # Otherwise, all voxels will be modeled.
     if False:
         roi = np.array(f['/roi/v1lh']).ravel()
@@ -62,12 +62,12 @@ Y_test_repeats /= np.std(Y_test_repeats, axis=1, keepdims=True)
 # fMRI responses.
 Y_test = Y_test_repeats.mean(0)
 
-# remove nans, mainly on non-cortical voxels
+# remove nans, mainly present on non-cortical voxels
 Y_train = np.nan_to_num(Y_train)
 Y_test = np.nan_to_num(Y_test)
 
 ###############################################################################
-# Here we load the motion energy features, that are going to be used for the
+# Here we load the motion-energy features, that are going to be used for the
 # linear regression model.
 
 X_train = np.load(op.join(path, "features", "motion_energy_train.npy"))
@@ -79,7 +79,7 @@ X_test = X_test.astype("float32")
 
 ###############################################################################
 # To select the best hyperparameter through cross-validation, we must define a
-# train-validation splitting scheme. Since fMRI time series are autocorrelated
+# train-validation splitting scheme. Since fMRI time-series are autocorrelated
 # in time, we should preserve as much as possible the time blocks.
 # In other words, since consecutive time samples are correlated, we should not
 # put one time sample in the training set and the immediately following time
@@ -89,10 +89,13 @@ X_test = X_test.astype("float32")
 from sklearn.model_selection import check_cv
 from voxelwise.utils import generate_leave_one_run_out
 
-# indice of first sample of each run, each run having 600 samples
-run_onsets = np.arange(0, X_train.shape[0], 600)
+n_samples_train = X_train.shape[0]
 
-cv = generate_leave_one_run_out(X_train.shape[0], run_onsets)
+# indice of first sample of each run, each run having 600 samples
+run_onsets = np.arange(0, n_samples_train, 600)
+
+# define a cross-validation splitter, compatible with scikit-learn
+cv = generate_leave_one_run_out(n_samples_train, run_onsets)
 cv = check_cv(cv)  # copy the splitter into a reusable list
 
 ###############################################################################
@@ -110,7 +113,7 @@ backend = set_backend("torch_cuda")
 # The scale of the regularization hyperparameter alpha is unknown, so we use
 # a large range, and we will check after the fit that best hyperparameters are
 # not all on one range edge.
-alphas = np.logspace(0, 20, 40)
+alphas = np.logspace(1, 20, 20)
 
 # The scikit-learn Pipeline can be used as a regular estimator, calling
 # pipeline.fit, pipeline.predict, etc.
@@ -129,7 +132,7 @@ pipeline = make_pipeline(
 # GridSearchCV, to select the optimal hyperparameters over cross-validation.
 # However, GridSearchCV can only optimize one score. Thus, in the multiple
 # target case, GridSearchCV can only optimize e.g. the mean score over targets.
-# Here, we want to find a different optimal hyperparameter per target, so
+# Here, we want to find a different optimal hyperparameter per target/voxel, so
 # we use himalaya's KernelRidgeCV instead.
 
 ###############################################################################
@@ -176,6 +179,10 @@ scores_nodelay = backend.to_numpy(scores_nodelay)
 
 ###############################################################################
 # Here we plot the comparison of model performances with a 2D histogram.
+# All 70k voxels are represented in this histogram, where the diagonal
+# corresponds to identical performance for both models. A distibution deviating
+# from the diagonal means that one model has better predictive performances
+# than the other.
 
 from voxelwise.viz import plot_hist2d
 

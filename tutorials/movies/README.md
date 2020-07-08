@@ -12,6 +12,10 @@ The data is briefly described in the dataset
     J. L. (2011). Reconstructing visual experiences from brain activity evoked
     by natural movies. Current Biology, 21(19), 1641-1646.
 
+> [2] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2012). A
+    continuous semantic space describes the representation of thousands of
+    object and action categories across the human brain. Neuron, 76(6),
+    1210-1224.
 
 ## Requirements
 

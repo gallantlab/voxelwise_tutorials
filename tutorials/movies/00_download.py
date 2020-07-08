@@ -58,7 +58,7 @@ def uncompress(local_filename):
 
 
 ###############################################################################
-# Then, we run the donwload from CRCNS. A (free) account is required.
+# Then, we run the download from CRCNS. A (free) account is required.
 #
 # We will only use the first subject in this tutorial, but you can run the same
 # analysis on the two other subjects.

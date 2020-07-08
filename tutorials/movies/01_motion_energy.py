@@ -1,20 +1,29 @@
 """
-This script describes how to extract motion energy features from the stimuli.
+This script describes how to extract motion-energy features from the stimuli.
+
+Motion-energy features result from filtering a video stimulus with
+spatio-temporal Gabor filters. A pyramid of filters is used to compute the
+motion-energy features at multiple spatial and temporal scales.
+
+The motion-energy extraction is performed by the package "pymoten", available
+at https://github.com/gallantlab/pymoten.
+
 """
 
 ###############################################################################
-# Once we downloaded the files, we update the path variable to link to the
-# directory containing the data.
+# We downloaded the files in the previous script, and here we update the path
+# variable to link to the directory containing the data.
 
 path = '/data1/tutorials/vim2/'
 
 ###############################################################################
-# Then, we load the stimuli.
+# Then, we preload the stimuli.
+#
+# Here the data is not loaded in memory, we only take a peak at the data shape.
 
 import h5py
 import os.path as op
 
-# Here the data is not loaded in memory, we only take a peak at the data shape.
 with h5py.File(op.join(path, 'Stimuli.mat'), 'r') as f:
     print(f.keys())  # Show all variables
 
@@ -22,9 +31,13 @@ with h5py.File(op.join(path, 'Stimuli.mat'), 'r') as f:
         print(f[key])
 
 ###############################################################################
-# Then, we compute the lunminance of the images.
-# To avoid loading the entire array in memory, we use (arbitrary) batches of
-# data.
+# Then, we compute the luminance of the stimulus images.
+#
+# Indeed, the motion energy is typically not computed on RGB (color) images,
+# but on the luminance channel of the LAB color space.
+# To avoid loading the entire simulus array in memory, we use batches of data.
+# These batches can be arbitray, since the luminance is computed independently
+# on each image.
 
 import numpy as np
 from skimage.color import rgb2lab
@@ -66,11 +79,17 @@ luminance_test = compute_luminance("test")
 
 ###############################################################################
 # Finally, we compute the motion energy features.
-# We use batches corresponding to run lengths.
+#
+# This is done with a `MotionEnergyPyramid` object of the `pymoten` package.
+# The parameters used are the one described in [Nishimoto et al. 2011].
+#
+# Here we use batches corresponding to run lengths. Indeed, motion energy is
+# computed over multiple images, since the filters have a temporal component.
+# Therefore, motion-energy is not independent of other images, and we cannot
+# arbitrarily split the images.
 
 from scipy.signal import decimate
-from glabtools.feature_spaces.moten_gpu import compute_filter_responses
-
+from moten.pyramids import MotionEnergyPyramid
 
 # fixed experiment settings
 N_FRAMES_PER_SEC = 15
@@ -82,8 +101,16 @@ def compute_motion_energy(luminance,
                           batch_size=N_TRS_PER_RUN * N_FRAMES_PER_TR,
                           noise=0.1):
 
-    motion_energy = np.zeros((luminance.shape[0], 6555))
-    for ii, start in enumerate(range(0, luminance.shape[0], batch_size)):
+    n_frames, height, width = luminance.shape
+
+    # We create a pyramid instance, with the main motion-energy parameters.
+    pyramid = MotionEnergyPyramid(stimulus_vhsize=(height, width),
+                                  stimulus_fps=N_FRAMES_PER_SEC,
+                                  spatial_frequencies=[0, 2, 4, 8, 16, 32])
+
+    # We batch images run by run.
+    motion_energy = np.zeros((n_frames, pyramid.nfilters))
+    for ii, start in enumerate(range(0, n_frames, batch_size)):
         batch = slice(start, start + batch_size)
         print("run %d" % ii)
 
@@ -93,9 +120,7 @@ def compute_motion_energy(luminance,
         luminance_batch[luminance_batch < 0] = 0
         luminance_batch[luminance_batch > 100] = 100
 
-        motion_energy_batch = compute_filter_responses(
-            luminance_batch, stimulus_fps=N_FRAMES_PER_SEC)
-        motion_energy[batch] = motion_energy_batch.cpu().numpy()
+        motion_energy[batch] = pyramid.project_stimulus(luminance_batch)
 
     # decimate to the sampling frequency of fMRI responses
     motion_energy_decimated = decimate(motion_energy, N_FRAMES_PER_TR,
