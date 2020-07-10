@@ -14,7 +14,7 @@ at https://github.com/gallantlab/pymoten.
 # We downloaded the files in the previous script, and here we update the path
 # variable to link to the directory containing the data.
 
-path = '/data1/tutorials/vim2/'
+directory = '/data1/tutorials/vim-2/'
 
 ###############################################################################
 # Then, we preload the stimuli.
@@ -24,7 +24,7 @@ path = '/data1/tutorials/vim2/'
 import h5py
 import os.path as op
 
-with h5py.File(op.join(path, 'Stimuli.mat'), 'r') as f:
+with h5py.File(op.join(directory, 'Stimuli.mat'), 'r') as f:
     print(f.keys())  # Show all variables
 
     for key in f.keys():
@@ -47,7 +47,7 @@ from voxelwise.progress_bar import bar
 
 def compute_luminance(train_or_test, batch_size=1024):
 
-    with h5py.File(op.join(path, 'Stimuli.mat'), 'r') as f:
+    with h5py.File(op.join(directory, 'Stimuli.mat'), 'r') as f:
 
         if train_or_test == 'train':
             data = f['st']
@@ -138,8 +138,10 @@ motion_energy_test = compute_motion_energy(luminance_test)
 
 import os
 
-directory = op.join(path, "features")
-if not op.exists(directory):
-    os.makedirs(directory)
-np.save(op.join(directory, "motion_energy_train.npy"), motion_energy_train)
-np.save(op.join(directory, "motion_energy_test.npy"), motion_energy_test)
+features_directory = op.join(directory, "features")
+if not op.exists(features_directory):
+    os.makedirs(features_directory)
+np.save(op.join(features_directory, "motion_energy_train.npy"),
+        motion_energy_train)
+np.save(op.join(features_directory, "motion_energy_test.npy"),
+        motion_energy_test)

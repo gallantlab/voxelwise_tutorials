@@ -16,7 +16,7 @@ responses.
 """
 
 # path of the data directory
-path = '/data1/tutorials/vim2/'
+directory = '/data1/tutorials/vim-2/'
 
 ###############################################################################
 # We first take a peak at the data shape.
@@ -25,7 +25,7 @@ import h5py
 import os.path as op
 
 # Here the data is not loaded in memory, we only take a peak at the data shape.
-with h5py.File(op.join(path, 'VoxelResponses_subject1.mat'), 'r') as f:
+with h5py.File(op.join(directory, 'VoxelResponses_subject1.mat'), 'r') as f:
     print(f.keys())  # Show all variables
     for key in f.keys():
         print(f[key])
@@ -35,7 +35,7 @@ with h5py.File(op.join(path, 'VoxelResponses_subject1.mat'), 'r') as f:
 
 import numpy as np
 
-with h5py.File(op.join(path, 'VoxelResponses_subject1.mat'), 'r') as f:
+with h5py.File(op.join(directory, 'VoxelResponses_subject1.mat'), 'r') as f:
     # training set fMRI responses
     Y_train = np.array(f['rt'])
     # testing set fMRI responses, repeated 10 times
@@ -70,8 +70,8 @@ Y_test = np.nan_to_num(Y_test)
 # Here we load the motion-energy features, that are going to be used for the
 # linear regression model.
 
-X_train = np.load(op.join(path, "features", "motion_energy_train.npy"))
-X_test = np.load(op.join(path, "features", "motion_energy_test.npy"))
+X_train = np.load(op.join(directory, "features", "motion_energy_train.npy"))
+X_test = np.load(op.join(directory, "features", "motion_energy_test.npy"))
 
 # We use single precision float to speed up model fitting on GPU.
 X_train = X_train.astype("float32")
