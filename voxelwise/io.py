@@ -3,6 +3,9 @@ import os.path as op
 import requests
 import shutil
 
+import h5py
+import scipy.sparse
+
 from .progress_bar import ProgressBar
 
 URL_CRCNS = 'https://portal.nersc.gov/project/crcns/download/index.php'
@@ -85,3 +88,62 @@ def unpack_archive(archive_name):
     print('\tUnpacking')
     extract_dir = op.dirname(archive_name)
     shutil.unpack_archive(archive_name, extract_dir=extract_dir)
+
+
+def load_hdf5_array(file_name, key=None):
+    """Function to load data from an hdf file.
+
+    Parameters
+    ----------
+    file_name: string
+        hdf5 file name
+    key: string
+        Key name to load. If not provided, all keys will be loaded.
+
+    Returns
+    -------
+    result : array or dictionary
+        Array, or dictionary of arrays (if `key` is None).
+    """
+    with h5py.File(file_name, mode='r') as hf:
+        if key is None:
+            data = dict()
+            for k in hf.keys():
+                data[k] = hf[k][()]
+            return data
+        else:
+            return hf[key][()]
+
+
+def save_hdf5_dataset(file_name, dataset, mode='w'):
+    """Save a dataset of arrays and sparse arrays.
+
+    Parameters
+    ----------
+    file_name : str
+        Full name of the file.
+    dataset : dict of arrays
+        Mappers to save.
+    mode : str
+        File opening model.
+        Use 'w' to write from scratch, 'a' to add to existing file.
+    """
+    print("Saving... ", end="", flush=True)
+
+    with h5py.File(file_name, mode=mode) as hf:
+        for name, array in dataset.items():
+
+            if scipy.sparse.issparse(array):  # sparse array
+                array = array.tocsr()
+                hf.create_dataset(name + '_indices', data=array.indices,
+                                  compression='gzip')
+                hf.create_dataset(name + '_data', data=array.data,
+                                  compression='gzip')
+                hf.create_dataset(name + '_indptr', data=array.indptr,
+                                  compression='gzip')
+                hf.create_dataset(name + '_shape', data=array.shape,
+                                  compression='gzip')
+            else:  # dense array
+                hf.create_dataset(name, data=array, compression='gzip')
+
+    print("Saved %s" % file_name)
