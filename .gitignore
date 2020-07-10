@@ -1,6 +1,7 @@
 *.pyc
 *.egg-info/
 *.so
+*.png
 
 .pytest_cache
 __pycache__

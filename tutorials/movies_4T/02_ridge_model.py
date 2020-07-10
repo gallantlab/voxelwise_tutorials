@@ -13,6 +13,10 @@ hyperparameter is selected over a grid-search with cross-validation.
 Finally, the model generalization performance is evaluated on a held-out test
 set, comparing the model predictions with the corresponding ground-truth fMRI
 responses.
+
+The ridge model uses the package "himalaya", available
+at https://github.com/gallantlab/himalaya.
+This package can fit the model either on CPU or on GPU.
 """
 
 # path of the data directory
@@ -103,16 +107,32 @@ cv = check_cv(cv)  # copy the splitter into a reusable list
 
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
-from voxelwise.delayer import Delayer
+
+# With one target, we could directly use the pipeline in scikit-learn's
+# GridSearchCV, to select the optimal hyperparameters over cross-validation.
+# However, GridSearchCV can only optimize one score. Thus, in the multiple
+# target case, GridSearchCV can only optimize e.g. the mean score over targets.
+# Here, we want to find a different optimal hyperparameter per target/voxel, so
+# we use himalaya's KernelRidgeCV instead.
 from himalaya.kernel_ridge import KernelRidgeCV
 
-# we set the backend to "torch_cuda" to fit the model using GPU.
+# We first concatenate the features with multiple delays, to account for the
+# hemodynamic response. The linear regression model will then weight each
+# delayed feature with a different weight, to build a predictive model.
+from voxelwise.delayer import Delayer
+
+# We set the backend to "torch_cuda" to fit the model using GPU.
+# The available backends are:
+# - "numpy" (CPU) (default)
+# - "torch" (CPU)
+# - "torch_cuda" (GPU)
+# - "cupy" (GPU)
 from himalaya.backend import set_backend
 backend = set_backend("torch_cuda")
 
 # The scale of the regularization hyperparameter alpha is unknown, so we use
-# a large range, and we will check after the fit that best hyperparameters are
-# not all on one range edge.
+# a large logarithmic range, and we will check after the fit that best
+# hyperparameters are not all on one range edge.
 alphas = np.logspace(1, 20, 20)
 
 # The scikit-learn Pipeline can be used as a regular estimator, calling
@@ -127,13 +147,6 @@ pipeline = make_pipeline(
         solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
                            n_targets_batch_refit=100)),
 )
-
-# With one target, we could directly use the pipeline in scikit-learn's
-# GridSearchCV, to select the optimal hyperparameters over cross-validation.
-# However, GridSearchCV can only optimize one score. Thus, in the multiple
-# target case, GridSearchCV can only optimize e.g. the mean score over targets.
-# Here, we want to find a different optimal hyperparameter per target/voxel, so
-# we use himalaya's KernelRidgeCV instead.
 
 ###############################################################################
 # We fit on the train set, and score on the test set.
@@ -151,6 +164,10 @@ scores = backend.to_numpy(scores)
 # Since the scale of alphas is unknown, we plot the optimal alphas selected by
 # the solver over cross-validation. This plot is helpful to refine the alpha
 # grid if the range is too small or too large.
+#
+# Note that some voxels are at the maximum regularization of the grid. These
+# are voxels where the model has no predictive power, and where the optimal
+# regularization is large to lead to a prediction equal to zero.
 
 import matplotlib.pyplot as plt
 from himalaya.viz import plot_alphas_diagnostic
@@ -179,7 +196,7 @@ scores_nodelay = backend.to_numpy(scores_nodelay)
 
 ###############################################################################
 # Here we plot the comparison of model performances with a 2D histogram.
-# All 70k voxels are represented in this histogram, where the diagonal
+# All ~70k voxels are represented in this histogram, where the diagonal
 # corresponds to identical performance for both models. A distibution deviating
 # from the diagonal means that one model has better predictive performances
 # than the other.
