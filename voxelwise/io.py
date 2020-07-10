@@ -115,6 +115,28 @@ def load_hdf5_array(file_name, key=None):
             return hf[key][()]
 
 
+def load_hdf5_sparse_array(file_name, key):
+    """Load a scipy sparse array from an hdf file
+
+    Parameters
+    ----------
+    file_name : string
+        File name containing array to be loaded.
+    key : string
+        Name of variable to be loaded.
+
+    Notes
+    -----
+    This function relies on variables being stored with specific naming
+    conventions, so cannot be used to load arbitrary sparse arrays.
+    """
+    with h5py.File(file_name, mode='r') as hf:
+        data = (hf['%s_data' % key], hf['%s_indices' % key],
+                hf['%s_indptr' % key])
+        sparsemat = scipy.sparse.csr_matrix(data, shape=hf['%s_shape' % key])
+    return sparsemat
+
+
 def save_hdf5_dataset(file_name, dataset, mode='w'):
     """Save a dataset of arrays and sparse arrays.
 

@@ -185,3 +185,40 @@ ax = plot_hist2d(scores_nodelay, scores)
 ax.set(title='Generalization R2 scores', xlabel='model without delays',
        ylabel='model with delays')
 plt.show()
+
+###############################################################################
+# To better visualize the model performances, we can plot them on a flatten
+# surface of the brain, using a mapper that is specific to the subject brain.
+
+from voxelwise.viz import plot_flatmap_from_mapper
+
+mapper_file = op.join(directory, "mappers", f"{subject}_mappers.hdf")
+ax = plot_flatmap_from_mapper(scores, mapper_file, vmin=0)
+plt.show()
+
+###############################################################################
+# Another possible visualization is to map the voxel data to a Freesurfer
+# average surface ("fsaverage").
+
+import cortex
+from voxelwise.io import load_hdf5_sparse_array
+
+surface = "fsaverage"  # (may need "fsaverage_pycortex" inside the Gallant lab)
+
+# First, let's download the fsaverage surface if it does not exist
+if not hasattr(cortex.db, surface):
+    cortex.utils.download_subject(subject_id=surface)
+
+# Then, we use load the fsaverage mappers, and use it with a dot product
+voxel_to_fsaverage = load_hdf5_sparse_array(mapper_file, 'voxel_to_fsaverage')
+projected = voxel_to_fsaverage @ scores
+
+# Finally, we use the data projected on a surface, using pycortex
+vertex = cortex.Vertex(projected, surface, vmin=0, cmap='inferno',
+                       with_curvature=True)
+fig = cortex.quickshow(vertex)
+plt.show()
+
+# Alternatively, we can start a webGL viewer in the browser, to visualize the
+# surface in 3D.
+cortex.webshow(vertex, open_browser=True)
