@@ -1,4 +1,8 @@
 """
+===============================================
+Extract motion energy features from the stimuli
+===============================================
+
 This script describes how to extract motion-energy features from the stimuli.
 
 Motion-energy features result from filtering a video stimulus with
@@ -9,8 +13,9 @@ The motion-energy extraction is performed by the package "pymoten", available
 at https://github.com/gallantlab/pymoten.
 
 """
-
+# sphinx_gallery_thumbnail_path = "_static/moten.png"
 ###############################################################################
+
 # We downloaded the files in the previous script, and here we update the path
 # variable to link to the directory containing the data.
 

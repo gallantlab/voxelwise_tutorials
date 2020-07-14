@@ -6,3 +6,9 @@
 .pytest_cache
 __pycache__
 .vscode/
+
+# Documentation build
+doc/_build/
+doc/_statis/
+doc/_template/
+doc/auto_examples/

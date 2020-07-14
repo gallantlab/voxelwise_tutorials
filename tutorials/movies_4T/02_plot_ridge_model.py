@@ -1,6 +1,11 @@
-"""In this example, we model the fMRI responses with a regularized linear
-regression model, using semantic labeling features manually annotated to the
-movie stimulus.
+"""
+=============================================
+Fit a ridge model with motion energy features
+=============================================
+
+In this example, we model the fMRI responses with a regularized linear
+regression model, using the motion-energy features computed in the previous
+script.
 
 We first concatenate the features with multiple delays, to account for the
 hemodynamic response. The linear regression model will then weight each delayed
@@ -18,41 +23,66 @@ The ridge model uses the package "himalaya", available
 at https://github.com/gallantlab/himalaya.
 This package can fit the model either on CPU or on GPU.
 """
+# sphinx_gallery_thumbnail_number = 2
+###############################################################################
 
 # path of the data directory
-directory = '/data1/tutorials/vim-4/'
-
-# modify to use another subject
-subject = "S01"
+directory = '/data1/tutorials/vim-2/'
 
 ###############################################################################
-# We first load the fMRI responses.
+# We first take a peak at the data shape.
+
+import h5py
 import os.path as op
+
+# Here the data is not loaded in memory, we only take a peak at the data shape.
+with h5py.File(op.join(directory, 'VoxelResponses_subject1.mat'), 'r') as f:
+    print(f.keys())  # Show all variables
+    for key in f.keys():
+        print(f[key])
+
+###############################################################################
+# Then we load the fMRI responses.
+
 import numpy as np
 
-from voxelwise.io import load_hdf5_array
+with h5py.File(op.join(directory, 'VoxelResponses_subject1.mat'), 'r') as f:
+    # training set fMRI responses
+    Y_train = np.array(f['rt'])
+    # testing set fMRI responses, repeated 10 times
+    Y_test_repeats = np.array(f['rva'])
 
-file_name = op.join(directory, "responses", f"{subject}_responses.hdf")
-print("data loading..")
-Y_train = load_hdf5_array(file_name, key="Y_train")
-Y_test = load_hdf5_array(file_name, key="Y_test")
-run_onsets = load_hdf5_array(file_name, key="run_onsets")
+    # transpose to fit in scikit-learn's API
+    Y_train = Y_train.T
+    Y_test_repeats = np.transpose(Y_test_repeats, [1, 2, 0])
+
+    # Change to True to select only voxels from (e.g.) left V1 ("v1lh");
+    # Otherwise, all voxels will be modeled.
+    if False:
+        roi = np.array(f['/roi/v1lh']).ravel()
+        mask = (roi == 1)
+        Y_train = Y_train[:, mask]
+        Y_test_repeats = Y_test_repeats[:, :, mask]
+
+# Z-score test runs, since the mean and scale of fMRI responses changes for
+# each run. The train runs are already zscored.
+Y_test_repeats -= np.mean(Y_test_repeats, axis=1, keepdims=True)
+Y_test_repeats /= np.std(Y_test_repeats, axis=1, keepdims=True)
 
 # Average test repeats, since we cannot model the non-repeatable part of
 # fMRI responses.
-Y_test = Y_test.mean(0)
+Y_test = Y_test_repeats.mean(0)
 
 # remove nans, mainly present on non-cortical voxels
 Y_train = np.nan_to_num(Y_train)
 Y_test = np.nan_to_num(Y_test)
 
 ###############################################################################
-# Here we load the semantic labeling "wordnet" features, that are going to be
-# used for the linear regression model.
+# Here we load the motion-energy features, that are going to be used for the
+# linear regression model.
 
-file_name = op.join(directory, "features", "wordnet.hdf")
-X_train = load_hdf5_array(file_name, key="X_train")
-X_test = load_hdf5_array(file_name, key="X_test")
+X_train = np.load(op.join(directory, "features", "motion_energy_train.npy"))
+X_test = np.load(op.join(directory, "features", "motion_energy_test.npy"))
 
 # We use single precision float to speed up model fitting on GPU.
 X_train = X_train.astype("float32")
@@ -84,6 +114,10 @@ cv = check_cv(cv)  # copy the splitter into a reusable list
 
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+
+# display the scikit-learn pipeline with an HTML diagram
+from sklearn import set_config
+set_config(display='diagram')
 
 # With one target, we could directly use the pipeline in scikit-learn's
 # GridSearchCV, to select the optimal hyperparameters over cross-validation.
@@ -118,12 +152,13 @@ alphas = np.logspace(1, 20, 20)
 # cross-validation mistakes, or automatically cache intermediate results.
 pipeline = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
-    Delayer(delays=[1, 2, 3, 4]),
+    Delayer(delays=[1, 2, 3, 4, 5, 6, 7, 8]),
     KernelRidgeCV(
         alphas=alphas, cv=cv,
         solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
                            n_targets_batch_refit=100)),
 )
+pipeline
 
 ###############################################################################
 # We fit on the train set, and score on the test set.
@@ -145,13 +180,11 @@ scores = backend.to_numpy(scores)
 # Note that some voxels are at the maximum regularization of the grid. These
 # are voxels where the model has no predictive power, and where the optimal
 # regularization is large to lead to a prediction equal to zero.
-
 import matplotlib.pyplot as plt
 from himalaya.viz import plot_alphas_diagnostic
 
 plot_alphas_diagnostic(best_alphas=backend.to_numpy(pipeline[-1].best_alphas_),
                        alphas=alphas)
-
 plt.show()
 
 ###############################################################################
@@ -166,6 +199,7 @@ pipeline_nodelay = make_pipeline(
         solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
                            n_targets_batch_refit=100)),
 )
+pipeline
 
 print("model fitting..")
 pipeline_nodelay.fit(X_train, Y_train)
@@ -185,40 +219,3 @@ ax = plot_hist2d(scores_nodelay, scores)
 ax.set(title='Generalization R2 scores', xlabel='model without delays',
        ylabel='model with delays')
 plt.show()
-
-###############################################################################
-# To better visualize the model performances, we can plot them on a flatten
-# surface of the brain, using a mapper that is specific to the subject brain.
-
-from voxelwise.viz import plot_flatmap_from_mapper
-
-mapper_file = op.join(directory, "mappers", f"{subject}_mappers.hdf")
-ax = plot_flatmap_from_mapper(scores, mapper_file, vmin=0)
-plt.show()
-
-###############################################################################
-# Another possible visualization is to map the voxel data to a Freesurfer
-# average surface ("fsaverage").
-
-import cortex
-from voxelwise.io import load_hdf5_sparse_array
-
-surface = "fsaverage"  # (may need "fsaverage_pycortex" inside the Gallant lab)
-
-# First, let's download the fsaverage surface if it does not exist
-if not hasattr(cortex.db, surface):
-    cortex.utils.download_subject(subject_id=surface)
-
-# Then, we use load the fsaverage mappers, and use it with a dot product
-voxel_to_fsaverage = load_hdf5_sparse_array(mapper_file, 'voxel_to_fsaverage')
-projected = voxel_to_fsaverage @ scores
-
-# Finally, we use the data projected on a surface, using pycortex
-vertex = cortex.Vertex(projected, surface, vmin=0, cmap='inferno',
-                       with_curvature=True)
-fig = cortex.quickshow(vertex)
-plt.show()
-
-# Alternatively, we can start a webGL viewer in the browser, to visualize the
-# surface in 3D.
-cortex.webshow(vertex, open_browser=True)
