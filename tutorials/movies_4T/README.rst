@@ -11,6 +11,12 @@ The data is briefly described in the dataset
 `description PDF <https://crcns.org/files/data/vim-2/crcns-vim-2-data-description.pdf>`_.
 The experiment is described in more details in the original publication [3]_.
 
+.. Note::
+    This tutorial is redundant with the "Movies 3T" tutorial. It uses a
+    different data set, with brain responses limited to the occipital lobe.
+    Using the "Movies 3T" tutorial with full brain responses is recommended.
+
+
 Requirements
 ============
 

@@ -8,8 +8,8 @@ Voxelwise modeling tutorial
 This repository contains some tutorials describing how to perform voxelwise
 modeling, based for instance on visual imaging experiments [1]_ [2]_.
 
-- `Movies 3T <tutorials/movies_3T>`_.
-- `Movies 4T <tutorials/movies_4T>`_.
+- `Movies 3T tutorial <tutorials/movies_3T>`_.
+- `Movies 4T tutorial <tutorials/movies_4T>`_.
 
 Installation
 ============
