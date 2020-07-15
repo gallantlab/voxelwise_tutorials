@@ -1,14 +1,19 @@
 Voxelwise modeling tutorials
 ============================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+
+Welcome to the voxelwise modeling tutorial from the Gallant lab.
 
 
 Tutorials
 ---------
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 4
     
    auto_examples/index
+
+.. toctree::
+   :maxdepth: 2
+
+   quickstart
+

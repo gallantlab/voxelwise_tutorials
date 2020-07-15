@@ -51,6 +51,8 @@ sphinx_gallery_conf = {
     'filename_pattern': 'plot_',
     # 'ignore_pattern': 'download',
     'within_subsection_order': FileNameSortKey,
+    'remove_config_comments': 'True',
+    'plot_gallery': 'True',
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -108,11 +110,13 @@ html_theme = 'alabaster'
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    # 'logo': 'logo.png',
     'github_user': 'gallantlab',
     'github_repo': 'tutorials',
     'github_type': 'star',
     'page_width': '1140px',
+    'logo': 'flatmap.png',
+    'logo_name': 'voxelwise',
+    'description': 'Voxelwise modeling tutorials',
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -127,10 +131,13 @@ html_static_path = ['_static']
 # refs: http://alabaster.readthedocs.io/en/latest/installation.html#sidebars
 html_sidebars = {
     '**': [
+        'about.html',
         'relations.html',  # needs 'show_related': True theme option to display
+        'navigation.html',
         'searchbox.html',
     ]
 }
+
 
 # -- Options for HTMLHelp output ------------------------------------------
 
