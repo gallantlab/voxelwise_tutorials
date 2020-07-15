@@ -1,17 +1,22 @@
 """
-=======================================
-Fit a ridge model with wordnet features
-=======================================
+=============================================
+Fit a ridge model with motion energy features
+=============================================
 
-In this example, we model the fMRI responses with a regularized linear
-regression model, using semantic labeling features manually annotated to the
-movie stimulus.
+In this second example, we model the fMRI responses with a regularized linear
+regression model, using a different feature space. Instead of using manually
+annotated semanteic features, we use motion-energy features.
 
-We first concatenate the features with multiple delays, to account for the
-hemodynamic response. The linear regression model will then weight each delayed
-feature with a different weight, to build a predictive model.
+Motion-energy features result from filtering a video stimulus with
+spatio-temporal Gabor filters. A pyramid of filters is used to compute the
+motion-energy features at multiple spatial and temporal scales.
 
-The linear regression is regularized to improve robustness to correlated
+As in the previous example, we first concatenate the features with multiple
+delays, to account for the hemodynamic response. The linear regression model
+will then weight each delayedbfeature with a different weight, to build a
+predictive model.
+
+Again, the linear regression is regularized to improve robustness to correlated
 features and to improve generalization. The optimal regularization
 hyperparameter is selected over a grid-search with cross-validation.
 
@@ -53,10 +58,10 @@ Y_train = np.nan_to_num(Y_train)
 Y_test = np.nan_to_num(Y_test)
 
 ###############################################################################
-# Here we load the semantic labeling "wordnet" features, that are going to be
-# used for the linear regression model.
+# Here we load the "motion_energy" features, that are going to be used for the
+# linear regression model.
 
-feature_space = "wordnet"
+feature_space = "motion_energy"
 file_name = op.join(directory, "features", f"{feature_space}.hdf")
 X_train = load_hdf5_array(file_name, key="X_train")
 X_test = load_hdf5_array(file_name, key="X_test")
@@ -127,7 +132,7 @@ alphas = np.logspace(1, 20, 20)
 # pipeline.fit, pipeline.predict, etc.
 # Using a pipeline can be useful to clarify the different steps, avoid
 # cross-validation mistakes, or automatically cache intermediate results.
-pipeline = make_pipeline(
+pipeline_motion_energy = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
     Delayer(delays=[1, 2, 3, 4]),
     KernelRidgeCV(
@@ -135,19 +140,19 @@ pipeline = make_pipeline(
         solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
                            n_targets_batch_refit=100)),
 )
-pipeline
+pipeline_motion_energy
 
 ###############################################################################
 # We fit on the train set, and score on the test set.
 
 print("model fitting..")
-pipeline.fit(X_train, Y_train)
+pipeline_motion_energy.fit(X_train, Y_train)
 
-scores = pipeline.score(X_test, Y_test)
+scores_motion_energy = pipeline_motion_energy.score(X_test, Y_test)
 # Since we performed the KernelRidgeCV on GPU, scores are returned as
 # torch.Tensor on GPU. Thus, we need to move them into numpy arrays on CPU, to
 # be able to use them e.g. in a matplotlib figure.
-scores = backend.to_numpy(scores)
+scores_motion_energy = backend.to_numpy(scores_motion_energy)
 
 ###############################################################################
 # To visualize the model performances, we can plot them on a flatten
@@ -156,7 +161,8 @@ import matplotlib.pyplot as plt
 from voxelwise.viz import plot_flatmap_from_mapper
 
 mapper_file = op.join(directory, "mappers", f"{subject}_mappers.hdf")
-ax = plot_flatmap_from_mapper(scores, mapper_file, vmin=0)
+ax = plot_flatmap_from_mapper(scores_motion_energy, mapper_file, vmin=0,
+                              vmax=0.5)
 plt.show()
 
 ###############################################################################
@@ -174,10 +180,10 @@ if not hasattr(cortex.db, surface):
 
 # Then, we use load the fsaverage mappers, and use it with a dot product
 voxel_to_fsaverage = load_hdf5_sparse_array(mapper_file, 'voxel_to_fsaverage')
-projected = voxel_to_fsaverage @ scores
+projected = voxel_to_fsaverage @ scores_motion_energy
 
 # Finally, we use the data projected on a surface, using pycortex
-vertex = cortex.Vertex(projected, surface, vmin=0, cmap='inferno',
+vertex = cortex.Vertex(projected, surface, vmin=0, vmax=0.5, cmap='inferno',
                        with_curvature=True)
 fig = cortex.quickshow(vertex)
 plt.show()
@@ -188,39 +194,27 @@ if False:
     cortex.webshow(vertex, open_browser=True)
 
 ###############################################################################
-# Since the scale of alphas is unknown, we plot the optimal alphas selected by
-# the solver over cross-validation. This plot is helpful to refine the alpha
-# grid if the range is too small or too large.
-#
-# Note that some voxels are at the maximum regularization of the grid. These
-# are voxels where the model has no predictive power, and where the optimal
-# regularization is large to lead to a prediction equal to zero.
+# It is interesting to compare the performances of this motion-energy model,
+# to the performances of the semantic "wordnet" model fitted in the previous
+# example. To compare them, we first need to fit again the semantic model.
 
-from himalaya.viz import plot_alphas_diagnostic
+feature_space = "wordnet"
+file_name = op.join(directory, "features", f"{feature_space}.hdf")
+X_train = load_hdf5_array(file_name, key="X_train")
+X_test = load_hdf5_array(file_name, key="X_test")
 
-plot_alphas_diagnostic(best_alphas=backend.to_numpy(pipeline[-1].best_alphas_),
-                       alphas=alphas)
+# We use single precision float to speed up model fitting on GPU.
+X_train = X_train.astype("float32")
+X_test = X_test.astype("float32")
 
-plt.show()
-
-###############################################################################
-# To present an example of model comparison, we define here another model,
-# without feature delays (i.e. no Delayer). This model is unlikely to perform
-# well, since fMRI responses are delayed in time with respect to the stimulus.
-
-pipeline_nodelay = make_pipeline(
-    StandardScaler(with_mean=True, with_std=False),
-    KernelRidgeCV(
-        alphas=alphas, cv=cv,
-        solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
-                           n_targets_batch_refit=100)),
-)
-pipeline
+# we can create an unfitted copy of the pipeline with the `clone` function
+from sklearn.base import clone
+pipeline_wordnet = clone(pipeline_motion_energy)
 
 print("model fitting..")
-pipeline_nodelay.fit(X_train, Y_train)
-scores_nodelay = pipeline_nodelay.score(X_test, Y_test)
-scores_nodelay = backend.to_numpy(scores_nodelay)
+pipeline_wordnet.fit(X_train, Y_train)
+scores_wordnet = pipeline_wordnet.score(X_test, Y_test)
+scores_wordnet = backend.to_numpy(scores_wordnet)
 
 ###############################################################################
 # Here we plot the comparison of model performances with a 2D histogram.
@@ -231,7 +225,21 @@ scores_nodelay = backend.to_numpy(scores_nodelay)
 
 from voxelwise.viz import plot_hist2d
 
-ax = plot_hist2d(scores_nodelay, scores)
-ax.set(title='Generalization R2 scores', xlabel='model without delays',
-       ylabel='model with delays')
+ax = plot_hist2d(scores_wordnet, scores_motion_energy)
+ax.set(title='Generalization R2 scores', xlabel='semantic wordnet model',
+       ylabel='motion energy model')
+plt.show()
+
+###############################################################################
+# Interestingly, the well predicted voxels are different in the two models.
+# To further describe these differences, we can plot the performances on a
+# flatmap.
+
+from voxelwise.viz import plot_2d_flatmap_from_mapper
+
+mapper_file = op.join(directory, "mappers", f"{subject}_mappers.hdf")
+ax = plot_2d_flatmap_from_mapper(scores_wordnet, scores_motion_energy,
+                                 mapper_file, vmin=0, vmax=0.5, vmin2=0,
+                                 vmax2=0.5, label_1="wordnet",
+                                 label_2="motion energy")
 plt.show()
