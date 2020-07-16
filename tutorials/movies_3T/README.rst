@@ -4,21 +4,23 @@ Movies 3T tutorial
 This tutorial describes how to perform voxelwise modeling on a visual
 imaging experiment.
 
-This tutorial is based on publicly available data `published on CRCNS <TBD>`_
-[4]_.
-The data is briefly described in the dataset `description PDF <TBD>`_.
-The experiment is described in more details in the original publication
-[1]_.
+**Data set:**
+This tutorial is based on publicly available data
+`published on CRCNS <TBD>`_ [4]_.
+The data is briefly described in the dataset `description PDF <TBD>`_,
+and in more details in the original publication [1]_.
+If you publish work using this data set, please cite the original
+publication [1]_, and the CRCNS data set [4]_.
 
+**Models:**
 This tutorial implements different voxelwise models:
 
-- the wordnet model described in [1]_
-- the motion-energy model described in [2]_
-- the banded-ridge model described in [3]_
+- a ridge model with wordnet semantic features as described in [1]_.
+- a ridge model with motion-energy features as described in [2]_.
+- a banded-ridge model with both feature spaces as described in [3]_.
 
 
-**Requirements**
-
+**Requirements:**
 This tutorial requires the following Python packages:
 
 - numpy  (for the data array)
@@ -30,10 +32,7 @@ This tutorial requires the following Python packages:
 - voxelwise  (this repository)
 
 
-**References**
-
-If you publish work using this data set, please cite the original
-publication [1]_, and the CRCNS data set [4]_.
+**References:**
 
 .. [1] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2012).
     A continuous semantic space describes the representation of thousands of
