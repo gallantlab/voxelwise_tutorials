@@ -120,6 +120,7 @@ def plot_flatmap_from_mapper(voxels, mapper_file, ax=None, alpha=0.7,
         figsize = np.array(flatmap_mask.shape) / 100.
         fig = plt.figure(figsize=figsize)
         ax = fig.add_axes((0, 0, 1, 1))
+        ax.axis('off')
 
     # process plotting parameters
     if vmin is None:
@@ -268,6 +269,7 @@ def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
         figsize = np.array(flatmap_mask.shape) / 100.
         fig = plt.figure(figsize=figsize)
         ax = fig.add_axes((0, 0, 1, 1))
+        ax.axis('off')
 
     # process plotting parameters
     if vmin is None:
