@@ -117,6 +117,7 @@ html_theme_options = {
     'logo': 'flatmap.png',
     'logo_name': 'voxelwise',
     'description': 'Voxelwise modeling tutorials',
+    'fixed_sidebar': 'True',
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

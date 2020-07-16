@@ -7,17 +7,16 @@
 
 
 This repository contains some tutorials describing how to perform voxelwise
-modeling, based for instance on visual imaging experiments [1]_ [2]_.
-
+modeling, based for instance on visual imaging experiments.
 The best way to explore these tutorials is to go to the
 `website <https://gallantlab.github.io/tutorials/>`_.
 
 Installation
 ------------
 
-This repository also contains a small Python package called `voxelwise`, which
-contains useful fonctions to download the data, load the files, process the
-data, and visualize the results.
+On top of tutorials, this repository also contains a small Python package
+called `voxelwise`, which contains useful fonctions to download the data sets,
+load the files, process the data, and visualize the results.
 
 To install this package, run
 
@@ -39,20 +38,20 @@ Requirements
 ------------
 
 The Python package contained in this repository, `voxelwise`, requires the
-following Python packages:
+following dependencies:
 
-- numpy
-- scipy
-- scikit-learn
-- matplotlib
+- `numpy <https://github.com/numpy/numpy>`_
+- `scipy <https://github.com/scipy/scipy>`_
+- `scikit-learn <https://github.com/scikit-learn/scikit-learn>`_
+- `matplotlib <https://github.com/matplotlib/matplotlib>`_
 
-Each tutorial requires additional packages, as listed in their respective
+Each tutorial requires additional dependencies, as listed in their respective
 documentations, such as:
 
-- h5py (https://github.com/h5py/h5py)
-- himalaya (https://github.com/gallantlab/himalaya)
-- pymoten (https://github.com/gallantlab/pymoten)
-- voxelwise (this repository)
+- `h5py <https://github.com/h5py/h5py>`_
+- `himalaya <https://github.com/gallantlab/himalaya>`_
+- `pymoten <https://github.com/gallantlab/pymoten>`_
+- `voxelwise <https://github.com/gallantlab/tutorials>`_ (this repository)
 
 
 .. |Github| image:: https://img.shields.io/badge/github-tutorials-blue

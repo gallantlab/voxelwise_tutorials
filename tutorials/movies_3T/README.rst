@@ -33,7 +33,7 @@ publication [1], and the data set [3].
 .. [1] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2012). A
     continuous semantic space describes the representation of thousands of
     object and action categories across the human brain. Neuron, 76(6),
-    1210-1224.    
+    1210-1224.
 
 .. [2] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., & Gallant,
     J. L. (2011). Reconstructing visual experiences from brain activity evoked
@@ -41,4 +41,4 @@ publication [1], and the data set [3].
 
 .. [3] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2020):
     Gallant Lab Natural Movie 3T fMRI Data. CRCNS.org.
-    http://dx.doi.org/10.6080/TDB
+    http://dx.doi.org/10.6080/TBD

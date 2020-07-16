@@ -3,23 +3,39 @@
 Download the data set from CRCNS
 ================================
 
-This script describes how to download the data from CRCNS.
+In this script, we download the data set from CRCNS.
+A (free) account is required.
+
+Cite this data set
+------------------
 
 This tutorial is based on publicly available data
-[published on CRCNS](https://crcns.org/data-sets/TBD).
+`published on CRCNS <https://crcns.org/data-sets/vc/TBD>`_.
+If you publish any work using this data set, please cite the original
+publication [1]_, and the data set [2]_.
+
+.. [1] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2012). A
+    continuous semantic space describes the representation of thousands of
+    object and action categories across the human brain. Neuron, 76(6),
+    1210-1224.
+
+.. [2] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2020):
+    Gallant Lab Natural Movie 3T fMRI Data. CRCNS.org.
+    http://dx.doi.org/10.6080/TBD
 """
 # sphinx_gallery_thumbnail_path = "_static/crcns.png"
 
 ###############################################################################
-# Update the directory variable to link to the directory containing the data.
+# Download
+# --------
 
+# Update the directory variable to link to the directory containing the data.
 directory = '/data1/tutorials/vim-4/'
 
 ###############################################################################
-# We run the download from CRCNS. A (free) account is required.
-#
 # We will only use the first subject in this tutorial, but you can run the same
-# analysis on the four other subjects.
+# analysis on the four other subjects. Uncomment the lines in `DATAFILES` to
+# download more subjects, or to download the stimuli images.
 #
 # We also skip the stimuli files, since the dataset provides two processed
 # feature spaces to perform voxelwise modeling without requiring the original

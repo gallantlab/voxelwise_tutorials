@@ -3,9 +3,9 @@
 Fit a ridge model with motion energy features
 =============================================
 
-In this second example, we model the fMRI responses with a regularized linear
-regression model, using a different feature space. Instead of using manually
-annotated semanteic features, we use motion-energy features.
+In this second example, we model the fMRI responses with motion-energy features
+extracted from the movie stimulus. The model is still a regularized linear
+regression model.
 
 Motion-energy features result from filtering a video stimulus with
 spatio-temporal Gabor filters. A pyramid of filters is used to compute the
@@ -37,6 +37,9 @@ directory = '/data1/tutorials/vim-4/'
 subject = "S01"
 
 ###############################################################################
+# Load the data
+# -------------
+#
 # We first load the fMRI responses.
 import os.path as op
 import numpy as np
@@ -44,7 +47,6 @@ import numpy as np
 from voxelwise.io import load_hdf5_array
 
 file_name = op.join(directory, "responses", f"{subject}_responses.hdf")
-print("data loading..")
 Y_train = load_hdf5_array(file_name, key="Y_train")
 Y_test = load_hdf5_array(file_name, key="Y_test")
 run_onsets = load_hdf5_array(file_name, key="run_onsets")
@@ -58,7 +60,7 @@ Y_train = np.nan_to_num(Y_train)
 Y_test = np.nan_to_num(Y_test)
 
 ###############################################################################
-# Here we load the "motion_energy" features, that are going to be used for the
+# Then we load the "motion_energy" features, that are going to be used for the
 # linear regression model.
 
 feature_space = "motion_energy"
@@ -71,6 +73,9 @@ X_train = X_train.astype("float32")
 X_test = X_test.astype("float32")
 
 ###############################################################################
+# Define the cross-validation scheme
+# ----------------------------------
+#
 # To select the best hyperparameter through cross-validation, we must define a
 # train-validation splitting scheme. Since fMRI time-series are autocorrelated
 # in time, we should preserve as much as possible the time blocks.
@@ -92,7 +97,10 @@ cv = generate_leave_one_run_out(n_samples_train, run_onsets)
 cv = check_cv(cv)  # copy the splitter into a reusable list
 
 ###############################################################################
-# Then we define the model pipeline.
+# Define the model
+# ----------------
+#
+# Now, let's define the model pipeline.
 
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -101,6 +109,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn import set_config
 set_config(display='diagram')
 
+###############################################################################
 # With one target, we could directly use the pipeline in scikit-learn's
 # GridSearchCV, to select the optimal hyperparameters over cross-validation.
 # However, GridSearchCV can only optimize one score. Thus, in the multiple
@@ -109,11 +118,17 @@ set_config(display='diagram')
 # we use himalaya's KernelRidgeCV instead.
 from himalaya.kernel_ridge import KernelRidgeCV
 
+###############################################################################
 # We first concatenate the features with multiple delays, to account for the
 # hemodynamic response. The linear regression model will then weight each
 # delayed feature with a different weight, to build a predictive model.
+#
+# With a sample every 2 seconds, we use 4 delays [1, 2, 3, 4] to cover the
+# most part of the hemodynamic response peak.
+
 from voxelwise.delayer import Delayer
 
+###############################################################################
 # We set the backend to "torch_cuda" to fit the model using GPU.
 # The available backends are:
 # - "numpy" (CPU) (default)
@@ -123,11 +138,13 @@ from voxelwise.delayer import Delayer
 from himalaya.backend import set_backend
 backend = set_backend("torch_cuda")
 
+###############################################################################
 # The scale of the regularization hyperparameter alpha is unknown, so we use
 # a large logarithmic range, and we will check after the fit that best
 # hyperparameters are not all on one range edge.
 alphas = np.logspace(1, 20, 20)
 
+###############################################################################
 # The scikit-learn Pipeline can be used as a regular estimator, calling
 # pipeline.fit, pipeline.predict, etc.
 # Using a pipeline can be useful to clarify the different steps, avoid
@@ -143,9 +160,11 @@ pipeline_motion_energy = make_pipeline(
 pipeline_motion_energy
 
 ###############################################################################
+# Fit the model
+# -------------
+#
 # We fit on the train set, and score on the test set.
 
-print("model fitting..")
 pipeline_motion_energy.fit(X_train, Y_train)
 
 scores_motion_energy = pipeline_motion_energy.score(X_test, Y_test)
@@ -155,6 +174,9 @@ scores_motion_energy = pipeline_motion_energy.score(X_test, Y_test)
 scores_motion_energy = backend.to_numpy(scores_motion_energy)
 
 ###############################################################################
+# Plot the model performances
+# ---------------------------
+#
 # To visualize the model performances, we can plot them on a flatten
 # surface of the brain, using a mapper that is specific to the subject brain.
 import matplotlib.pyplot as plt
@@ -194,6 +216,9 @@ if False:
     cortex.webshow(vertex, open_browser=True)
 
 ###############################################################################
+# Compare with the wordnet model
+# ------------------------------
+#
 # It is interesting to compare the performances of this motion-energy model,
 # to the performances of the semantic "wordnet" model fitted in the previous
 # example. To compare them, we first need to fit again the semantic model.
@@ -211,7 +236,6 @@ X_test = X_test.astype("float32")
 from sklearn.base import clone
 pipeline_wordnet = clone(pipeline_motion_energy)
 
-print("model fitting..")
 pipeline_wordnet.fit(X_train, Y_train)
 scores_wordnet = pipeline_wordnet.score(X_test, Y_test)
 scores_wordnet = backend.to_numpy(scores_wordnet)

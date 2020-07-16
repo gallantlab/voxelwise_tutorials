@@ -3,22 +3,37 @@
 Download the data set from CRCNS
 ================================
 
-This script describes how to download the data from CRCNS.
+In this script, we download the data set from CRCNS.
+A (free) account is required.
+
+Cite this data set
+------------------
 
 This tutorial is based on publicly available data
-[published on CRCNS](https://crcns.org/data-sets/vc/vim-2/about-vim-2).
+`published on CRCNS <https://crcns.org/data-sets/vc/vim-2/about-vim-2>`_.
+If you publish any work using this data set, please cite the original
+publication [1]_, and the data set [2]_.
+
+.. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &
+    Gallant, J. L. (2011). Reconstructing visual experiences from brain
+    activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
+
+.. [2] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &
+    Gallant, J. L. (2014): Gallant Lab Natural Movie 4T fMRI Data. CRCNS.org.
+    http://dx.doi.org/10.6080/K00Z715X
 """
 # sphinx_gallery_thumbnail_path = "_static/crcns.png"
 ###############################################################################
-# Update the directory variable to link to the directory containing the data.
+# Download
+# --------
 
+# Update the directory variable to link to the directory containing the data.
 directory = '/data1/tutorials/vim-2/'
 
 ###############################################################################
-# We run the download from CRCNS. A (free) account is required.
-#
 # We will only use the first subject in this tutorial, but you can run the same
-# analysis on the two other subjects.
+# analysis on the twofour other subjects. Uncomment the lines in `DATAFILES` to
+# download more subjects, or to download the stimuli images.
 
 import getpass
 

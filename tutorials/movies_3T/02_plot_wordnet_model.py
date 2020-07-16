@@ -3,9 +3,9 @@
 Fit a ridge model with wordnet features
 =======================================
 
-In this example, we model the fMRI responses with a regularized linear
-regression model, using semantic labeling features manually annotated to the
-movie stimulus.
+In this first example, we model the fMRI responses with semantic labeling
+"wordnet" features manually annotated to the movie stimulus, using a
+regularized linear regression model.
 
 We first concatenate the features with multiple delays, to account for the
 hemodynamic response. The linear regression model will then weight each delayed
@@ -32,6 +32,9 @@ directory = '/data1/tutorials/vim-4/'
 subject = "S01"
 
 ###############################################################################
+# Load the data
+# -------------
+#
 # We first load the fMRI responses.
 import os.path as op
 import numpy as np
@@ -39,7 +42,6 @@ import numpy as np
 from voxelwise.io import load_hdf5_array
 
 file_name = op.join(directory, "responses", f"{subject}_responses.hdf")
-print("data loading..")
 Y_train = load_hdf5_array(file_name, key="Y_train")
 Y_test = load_hdf5_array(file_name, key="Y_test")
 run_onsets = load_hdf5_array(file_name, key="run_onsets")
@@ -53,7 +55,7 @@ Y_train = np.nan_to_num(Y_train)
 Y_test = np.nan_to_num(Y_test)
 
 ###############################################################################
-# Here we load the semantic labeling "wordnet" features, that are going to be
+# Then, we load the semantic labeling "wordnet" features, that are going to be
 # used for the linear regression model.
 
 feature_space = "wordnet"
@@ -66,6 +68,9 @@ X_train = X_train.astype("float32")
 X_test = X_test.astype("float32")
 
 ###############################################################################
+# Define the cross-validation scheme
+# ----------------------------------
+#
 # To select the best hyperparameter through cross-validation, we must define a
 # train-validation splitting scheme. Since fMRI time-series are autocorrelated
 # in time, we should preserve as much as possible the time blocks.
@@ -87,7 +92,10 @@ cv = generate_leave_one_run_out(n_samples_train, run_onsets)
 cv = check_cv(cv)  # copy the splitter into a reusable list
 
 ###############################################################################
-# Then we define the model pipeline.
+# Define the model
+# ----------------
+#
+# Now, let's define the model pipeline.
 
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -96,6 +104,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn import set_config
 set_config(display='diagram')
 
+###############################################################################
 # With one target, we could directly use the pipeline in scikit-learn's
 # GridSearchCV, to select the optimal hyperparameters over cross-validation.
 # However, GridSearchCV can only optimize one score. Thus, in the multiple
@@ -104,11 +113,16 @@ set_config(display='diagram')
 # we use himalaya's KernelRidgeCV instead.
 from himalaya.kernel_ridge import KernelRidgeCV
 
+###############################################################################
 # We first concatenate the features with multiple delays, to account for the
 # hemodynamic response. The linear regression model will then weight each
 # delayed feature with a different weight, to build a predictive model.
+#
+# With a sample every 2 seconds, we use 4 delays [1, 2, 3, 4] to cover the
+# most part of the hemodynamic response peak.
 from voxelwise.delayer import Delayer
 
+###############################################################################
 # We set the backend to "torch_cuda" to fit the model using GPU.
 # The available backends are:
 # - "numpy" (CPU) (default)
@@ -118,11 +132,13 @@ from voxelwise.delayer import Delayer
 from himalaya.backend import set_backend
 backend = set_backend("torch_cuda")
 
+###############################################################################
 # The scale of the regularization hyperparameter alpha is unknown, so we use
 # a large logarithmic range, and we will check after the fit that best
 # hyperparameters are not all on one range edge.
 alphas = np.logspace(1, 20, 20)
 
+###############################################################################
 # The scikit-learn Pipeline can be used as a regular estimator, calling
 # pipeline.fit, pipeline.predict, etc.
 # Using a pipeline can be useful to clarify the different steps, avoid
@@ -138,18 +154,26 @@ pipeline = make_pipeline(
 pipeline
 
 ###############################################################################
+# Fit the model
+# -------------
+#
 # We fit on the train set, and score on the test set.
+# Here the scores are the R^2 scores, with values in ]-inf, 1].
+# A value of 1 means the predictions are perfect.
 
-print("model fitting..")
 pipeline.fit(X_train, Y_train)
 
 scores = pipeline.score(X_test, Y_test)
+###############################################################################
 # Since we performed the KernelRidgeCV on GPU, scores are returned as
 # torch.Tensor on GPU. Thus, we need to move them into numpy arrays on CPU, to
 # be able to use them e.g. in a matplotlib figure.
 scores = backend.to_numpy(scores)
 
 ###############################################################################
+# Plot the model performances
+# ---------------------------
+#
 # To visualize the model performances, we can plot them on a flatten
 # surface of the brain, using a mapper that is specific to the subject brain.
 import matplotlib.pyplot as plt
@@ -204,6 +228,9 @@ plot_alphas_diagnostic(best_alphas=backend.to_numpy(pipeline[-1].best_alphas_),
 plt.show()
 
 ###############################################################################
+# Compare with a model without delays
+# -----------------------------------
+#
 # To present an example of model comparison, we define here another model,
 # without feature delays (i.e. no Delayer). This model is unlikely to perform
 # well, since fMRI responses are delayed in time with respect to the stimulus.
@@ -217,7 +244,6 @@ pipeline_nodelay = make_pipeline(
 )
 pipeline
 
-print("model fitting..")
 pipeline_nodelay.fit(X_train, Y_train)
 scores_nodelay = pipeline_nodelay.score(X_test, Y_test)
 scores_nodelay = backend.to_numpy(scores_nodelay)
