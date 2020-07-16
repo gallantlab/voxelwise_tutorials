@@ -12,6 +12,8 @@ Tutorials
     
    auto_examples/index
 
+Voxelwise package
+-----------------
 .. toctree::
    :maxdepth: 2
 

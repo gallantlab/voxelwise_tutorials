@@ -1,9 +1,13 @@
 .. raw:: html
 
-   <h1>Voxelwise modeling tutorial</h1>
+   <h1>Voxelwise modeling tutorials</h1>
 
 
-|Github| |Python| 
+|Github| |Python|
+
+.. raw:: html
+
+   <h2>Tutorials</h2>
 
 
 This repository contains some tutorials describing how to perform voxelwise
@@ -11,12 +15,15 @@ modeling, based for instance on visual imaging experiments.
 The best way to explore these tutorials is to go to the
 `website <https://gallantlab.github.io/tutorials/>`_.
 
-Installation
-------------
+Voxelwise package
+=================
 
 On top of tutorials, this repository also contains a small Python package
-called `voxelwise`, which contains useful fonctions to download the data sets,
+called ``voxelwise``, which contains useful fonctions to download the data sets,
 load the files, process the data, and visualize the results.
+
+Installation
+------------
 
 To install this package, run
 

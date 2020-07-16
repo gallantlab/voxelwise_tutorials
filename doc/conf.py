@@ -53,6 +53,7 @@ sphinx_gallery_conf = {
     'within_subsection_order': FileNameSortKey,
     'remove_config_comments': 'True',
     'plot_gallery': 'True',
+    'thumbnail_size': (480, 250),
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -113,7 +114,7 @@ html_theme_options = {
     'github_user': 'gallantlab',
     'github_repo': 'tutorials',
     'github_type': 'star',
-    'page_width': '1140px',
+    'page_width': '1200px',
     'logo': 'flatmap.png',
     'logo_name': 'voxelwise',
     'description': 'Voxelwise modeling tutorials',
