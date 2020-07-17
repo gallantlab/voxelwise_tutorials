@@ -24,7 +24,7 @@ Finally, the model generalization performance is evaluated on a held-out test
 set, comparing the model predictions with the corresponding ground-truth fMRI
 responses.
 
-The ridge model uses the package "himalaya", available
+The ridge model uses the package ``himalaya``, available
 at https://github.com/gallantlab/himalaya.
 This package can fit the model either on CPU or on GPU.
 """
@@ -129,8 +129,9 @@ from himalaya.kernel_ridge import KernelRidgeCV
 from voxelwise.delayer import Delayer
 
 ###############################################################################
-# We set the backend to "torch_cuda" to fit the model using GPU.
+# We set himalaya's backend to "torch_cuda" to fit the model using GPU.
 # The available backends are:
+#
 # - "numpy" (CPU) (default)
 # - "torch" (CPU)
 # - "torch_cuda" (GPU)

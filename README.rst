@@ -44,8 +44,7 @@ Developers can also install the package in editable mode via:
 Requirements
 ------------
 
-The Python package contained in this repository, `voxelwise`, requires the
-following dependencies:
+The Python package ``voxelwise`` requires the following dependencies:
 
 - `numpy <https://github.com/numpy/numpy>`_
 - `scipy <https://github.com/scipy/scipy>`_

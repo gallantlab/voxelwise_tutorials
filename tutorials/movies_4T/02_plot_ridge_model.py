@@ -19,26 +19,23 @@ Finally, the model generalization performance is evaluated on a held-out test
 set, comparing the model predictions with the corresponding ground-truth fMRI
 responses.
 
-The ridge model uses the package "himalaya", available
+The ridge model uses the package ``himalaya``, available
 at https://github.com/gallantlab/himalaya.
 This package can fit the model either on CPU or on GPU.
 """
 # sphinx_gallery_thumbnail_number = 2
 ###############################################################################
-
+# Load the data
+# -------------
+#
 # path of the data directory
 directory = '/data1/tutorials/vim-2/'
 
 ###############################################################################
-# Load the data
-# -------------
-#
-# We first take a peak at the data shape.
-
+# Here the data is not loaded in memory, we only take a peak at the data shape.
 import h5py
 import os.path as op
 
-# Here the data is not loaded in memory, we only take a peak at the data shape.
 with h5py.File(op.join(directory, 'VoxelResponses_subject1.mat'), 'r') as f:
     print(f.keys())  # Show all variables
     for key in f.keys():
@@ -49,23 +46,23 @@ with h5py.File(op.join(directory, 'VoxelResponses_subject1.mat'), 'r') as f:
 
 import numpy as np
 
-with h5py.File(op.join(directory, 'VoxelResponses_subject1.mat'), 'r') as f:
-    # training set fMRI responses
-    Y_train = np.array(f['rt'])
-    # testing set fMRI responses, repeated 10 times
-    Y_test_repeats = np.array(f['rva'])
+from voxelwise.io import load_hdf5_array
 
-    # transpose to fit in scikit-learn's API
-    Y_train = Y_train.T
-    Y_test_repeats = np.transpose(Y_test_repeats, [1, 2, 0])
+file_name = op.join(directory, 'VoxelResponses_subject1.mat')
+Y_train = load_hdf5_array(file_name, key='rt')
+Y_test_repeats = load_hdf5_array(file_name, key='rva')
 
-    # Change to True to select only voxels from (e.g.) left V1 ("v1lh");
-    # Otherwise, all voxels will be modeled.
-    if False:
-        roi = np.array(f['/roi/v1lh']).ravel()
-        mask = (roi == 1)
-        Y_train = Y_train[:, mask]
-        Y_test_repeats = Y_test_repeats[:, :, mask]
+# transpose to fit in scikit-learn's API
+Y_train = Y_train.T
+Y_test_repeats = np.transpose(Y_test_repeats, [1, 2, 0])
+
+# Change to True to select only voxels from (e.g.) left V1 ("v1lh");
+# Otherwise, all voxels will be modeled.
+if False:
+    roi = load_hdf5_array(file_name, key='/roi/v1lh').ravel()
+    mask = (roi == 1)
+    Y_train = Y_train[:, mask]
+    Y_test_repeats = Y_test_repeats[:, :, mask]
 
 # Z-score test runs, since the mean and scale of fMRI responses changes for
 # each run. The train runs are already zscored.
@@ -84,8 +81,9 @@ Y_test = np.nan_to_num(Y_test)
 # Here we load the motion-energy features, that are going to be used for the
 # linear regression model.
 
-X_train = np.load(op.join(directory, "features", "motion_energy_train.npy"))
-X_test = np.load(op.join(directory, "features", "motion_energy_test.npy"))
+file_name = op.join(directory, "features", "motion_energy.hdf")
+X_train = load_hdf5_array(file_name, key='X_train')
+X_test = load_hdf5_array(file_name, key='X_test')
 
 # We use single precision float to speed up model fitting on GPU.
 X_train = X_train.astype("float32")
@@ -147,8 +145,9 @@ from himalaya.kernel_ridge import KernelRidgeCV
 from voxelwise.delayer import Delayer
 
 ###############################################################################
-# We set the backend to "torch_cuda" to fit the model using GPU.
+# We set himalaya's backend to "torch_cuda" to fit the model using GPU.
 # The available backends are:
+#
 # - "numpy" (CPU) (default)
 # - "torch" (CPU)
 # - "torch_cuda" (GPU)

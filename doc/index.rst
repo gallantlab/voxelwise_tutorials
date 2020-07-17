@@ -8,7 +8,8 @@ Welcome to the voxelwise modeling tutorial from the Gallant lab.
 Tutorials
 ---------
 .. toctree::
-   :maxdepth: 4
+   :includehidden:
+   :maxdepth: 2
     
    auto_examples/index
 

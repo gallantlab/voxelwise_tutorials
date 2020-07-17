@@ -5,40 +5,49 @@ Extract motion energy features from the stimuli
 
 This script describes how to extract motion-energy features from the stimuli.
 
+Motion-energy
+-------------
+
 Motion-energy features result from filtering a video stimulus with
 spatio-temporal Gabor filters. A pyramid of filters is used to compute the
 motion-energy features at multiple spatial and temporal scales.
+Motion-energy features were introduced in [1]_.
 
-The motion-energy extraction is performed by the package "pymoten", available
+The motion-energy extraction is performed by the package ``pymoten``, available
 at https://github.com/gallantlab/pymoten.
+
+.. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
+    B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
+    activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
 
 """
 # sphinx_gallery_thumbnail_path = "_static/moten.png"
 ###############################################################################
-
+# Load the stimuli images
+# -----------------------
+#
 # We downloaded the files in the previous script, and here we update the path
 # variable to link to the directory containing the data.
 
 directory = '/data1/tutorials/vim-2/'
 
 ###############################################################################
-# Then, we preload the stimuli.
-#
 # Here the data is not loaded in memory, we only take a peak at the data shape.
 
 import h5py
-import os.path as op
+import os
 
-with h5py.File(op.join(directory, 'Stimuli.mat'), 'r') as f:
+with h5py.File(os.path.join(directory, 'Stimuli.mat'), 'r') as f:
     print(f.keys())  # Show all variables
 
     for key in f.keys():
         print(f[key])
 
 ###############################################################################
-# Then, we compute the luminance of the stimulus images.
+# Compute the luminance
+# ---------------------
 #
-# Indeed, the motion energy is typically not computed on RGB (color) images,
+# The motion energy is typically not computed on RGB (color) images,
 # but on the luminance channel of the LAB color space.
 # To avoid loading the entire simulus array in memory, we use batches of data.
 # These batches can be arbitray, since the luminance is computed independently
@@ -52,7 +61,7 @@ from voxelwise.progress_bar import bar
 
 def compute_luminance(train_or_test, batch_size=1024):
 
-    with h5py.File(op.join(directory, 'Stimuli.mat'), 'r') as f:
+    with h5py.File(os.path.join(directory, 'Stimuli.mat'), 'r') as f:
 
         if train_or_test == 'train':
             data = f['st']
@@ -85,10 +94,11 @@ luminance_train = compute_luminance("train")
 luminance_test = compute_luminance("test")
 
 ###############################################################################
-# Finally, we compute the motion energy features.
+# Compute the motion energy
+# -------------------------
 #
-# This is done with a `MotionEnergyPyramid` object of the `pymoten` package.
-# The parameters used are the one described in [Nishimoto et al. 2011].
+# This is done with a ``MotionEnergyPyramid`` object of the ``pymoten``
+# package. The parameters used are the one described in [1]_.
 #
 # Here we use batches corresponding to run lengths. Indeed, motion energy is
 # computed over multiple images, since the filters have a temporal component.
@@ -139,14 +149,15 @@ motion_energy_train = compute_motion_energy(luminance_train)
 motion_energy_test = compute_motion_energy(luminance_test)
 
 ###############################################################################
-# We end with saving the features.
+# We end this script with saving the features, to use them in voxelwise
+# modeling in the following example.
 
-import os
+from voxelwise.io import save_hdf5_dataset
 
-features_directory = op.join(directory, "features")
-if not op.exists(features_directory):
+features_directory = os.path.join(directory, "features")
+if not os.path.exists(features_directory):
     os.makedirs(features_directory)
-np.save(op.join(features_directory, "motion_energy_train.npy"),
-        motion_energy_train)
-np.save(op.join(features_directory, "motion_energy_test.npy"),
-        motion_energy_test)
+
+save_hdf5_dataset(
+    os.path.join(features_directory, "motion_energy.hdf"),
+    dataset=dict(X_train=motion_energy_train, X_test=motion_energy_test))
