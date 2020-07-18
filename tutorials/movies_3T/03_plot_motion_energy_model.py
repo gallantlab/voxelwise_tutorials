@@ -24,9 +24,8 @@ Finally, the model generalization performance is evaluated on a held-out test
 set, comparing the model predictions with the corresponding ground-truth fMRI
 responses.
 
-The ridge model uses the package ``himalaya``, available
-at https://github.com/gallantlab/himalaya.
-This package can fit the model either on CPU or on GPU.
+The banded ridge model is fitted with the package
+`himalaya <https://github.com/gallantlab/himalaya>`_.
 """
 ###############################################################################
 

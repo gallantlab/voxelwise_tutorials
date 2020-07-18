@@ -9,7 +9,7 @@ Tutorials
 ---------
 .. toctree::
    :includehidden:
-   :maxdepth: 2
+   :maxdepth: 3
     
    auto_examples/index
 

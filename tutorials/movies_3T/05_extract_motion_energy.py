@@ -18,8 +18,8 @@ spatio-temporal Gabor filters. A pyramid of filters is used to compute the
 motion-energy features at multiple spatial and temporal scales.
 Motion-energy features were introduced in [1]_.
 
-The motion-energy extraction is performed by the package ``pymoten``, available
-at https://github.com/gallantlab/pymoten.
+The motion-energy extraction is performed by the package
+`pymoten <https://github.com/gallantlab/pymoten>`_.
 
 .. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
     B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
