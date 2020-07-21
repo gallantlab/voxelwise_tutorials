@@ -17,7 +17,7 @@ features for each repeat, it can only model the component that is common to
 all repeats. This shared component can be estimated by taking the mean over
 repeats of the same experiment.
 """
-
+# sphinx_gallery_thumbnail_number = 2
 ###############################################################################
 
 # path of the data directory
@@ -41,19 +41,30 @@ Y_test = load_hdf5_array(file_name, "Y_test")
 
 ###############################################################################
 # Then, we compute the explainable variance per voxel.
-# The variance of the signal is estimated by taking the average variance over
-# repeats (``mean_var``). The variance of the component shared across repeats
+# The variance of the signal is estimated by taking the variance over
+# time (``var``). The variance of the component shared across repeats
 # is estimated by taking the variance of the average response (``var_mean``).
 # Then, we can compute the explainable variance by dividing the two quantities.
 
-mean_var = np.mean(np.var(Y_test, axis=1), axis=0)
+var = np.var(Y_test.reshape(-1, Y_test.shape[-1]), axis=0)
 var_mean = np.var(np.mean(Y_test, axis=0), axis=0)
-explainable_variance = var_mean / mean_var
+explainable_variance = var_mean / var
+
+###############################################################################
+# Plot the distribution of explainable variance over voxels.
+import matplotlib.pyplot as plt
+
+plt.hist(explainable_variance, bins=np.linspace(0, 1, 100), log=True,
+         histtype='step')
+plt.xlabel("Explainable variance")
+plt.ylabel("Number of voxels")
+plt.title('Histogram of explainable variance')
+plt.grid('on')
+plt.show()
 
 ###############################################################################
 # Map to subject flatmap
 # ----------------------
-import matplotlib.pyplot as plt
 from voxelwise.viz import plot_flatmap_from_mapper
 
 mapper_file = os.path.join(directory, 'mappers', f'{subject}_mappers.hdf')

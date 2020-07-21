@@ -19,7 +19,7 @@ Finally, the model generalization performance is evaluated on a held-out test
 set, comparing the model predictions with the corresponding ground-truth fMRI
 responses.
 
-The banded ridge model is fitted with the package
+The ridge model is fitted with the package
 `himalaya <https://github.com/gallantlab/himalaya>`_.
 """
 # sphinx_gallery_thumbnail_number = 2

@@ -19,7 +19,7 @@ Finally, the model generalization performance is evaluated on a held-out test
 set, comparing the model predictions with the corresponding ground-truth fMRI
 responses.
 
-The banded ridge model is fitted with the package
+The ridge model is fitted with the package
 `himalaya <https://github.com/gallantlab/himalaya>`_.
 """
 ###############################################################################
@@ -95,15 +95,32 @@ cv = check_cv(cv)  # copy the splitter into a reusable list
 # ----------------
 #
 # Now, let's define the model pipeline.
-
-from sklearn.pipeline import make_pipeline
+#
+# We first center the features, since we will not use an intercept.
 from sklearn.preprocessing import StandardScaler
 
-# display the scikit-learn pipeline with an HTML diagram
-from sklearn import set_config
-set_config(display='diagram')
+scaler = StandardScaler(with_mean=True, with_std=False)
 
 ###############################################################################
+# Then we concatenate the features with multiple delays, to account for the
+# hemodynamic response. The linear regression model will then weight each
+# delayed feature with a different weight, to build a predictive model.
+#
+# With a sample every 2 seconds, we use 4 delays [1, 2, 3, 4] to cover the
+# most part of the hemodynamic response peak.
+from voxelwise.delayer import Delayer
+
+delayer = Delayer(delays=[1, 2, 3, 4])
+
+###############################################################################
+# The model we use is a ridge regression. When the number of features is
+# larger than the number of samples, it is more efficient to solve a ridge
+# regression using the (equivalent) dual formulation, kernel ridge regression
+# with a linear kernel.
+# Here, we have 3600 training samples, and 1705 * 4 = 6820 features (we
+# multiply by 4 since we use 4 time delays), therefore we use kernel ridge
+# regression.
+
 # With one target, we could directly use the pipeline in scikit-learn's
 # GridSearchCV, to select the optimal hyperparameters over cross-validation.
 # However, GridSearchCV can only optimize one score. Thus, in the multiple
@@ -113,13 +130,15 @@ set_config(display='diagram')
 from himalaya.kernel_ridge import KernelRidgeCV
 
 ###############################################################################
-# We first concatenate the features with multiple delays, to account for the
-# hemodynamic response. The linear regression model will then weight each
-# delayed feature with a different weight, to build a predictive model.
-#
-# With a sample every 2 seconds, we use 4 delays [1, 2, 3, 4] to cover the
-# most part of the hemodynamic response peak.
-from voxelwise.delayer import Delayer
+# The scale of the regularization hyperparameter alpha is unknown, so we use
+# a large logarithmic range, and we will check after the fit that best
+# hyperparameters are not all on one range edge.
+alphas = np.logspace(1, 20, 20)
+
+kernel_ridge_cv = KernelRidgeCV(
+    alphas=alphas, cv=cv,
+    solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
+                       n_targets_batch_refit=100))
 
 ###############################################################################
 # We set himalaya's backend to "torch_cuda" to fit the model using GPU.
@@ -133,24 +152,25 @@ from himalaya.backend import set_backend
 backend = set_backend("torch_cuda")
 
 ###############################################################################
-# The scale of the regularization hyperparameter alpha is unknown, so we use
-# a large logarithmic range, and we will check after the fit that best
-# hyperparameters are not all on one range edge.
-alphas = np.logspace(1, 20, 20)
-
-###############################################################################
+# We use scikit-learn Pipeline to link the different steps together.
 # The scikit-learn Pipeline can be used as a regular estimator, calling
-# pipeline.fit, pipeline.predict, etc.
+# `pipeline.fit`, `pipeline.predict`, etc.
 # Using a pipeline can be useful to clarify the different steps, avoid
 # cross-validation mistakes, or automatically cache intermediate results.
+from sklearn.pipeline import make_pipeline
+
+# define the pipeline
 pipeline = make_pipeline(
-    StandardScaler(with_mean=True, with_std=False),
-    Delayer(delays=[1, 2, 3, 4]),
-    KernelRidgeCV(
-        alphas=alphas, cv=cv,
-        solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
-                           n_targets_batch_refit=100)),
+    scaler,
+    delayer,
+    kernel_ridge_cv,
 )
+
+###############################################################################
+# We can display the scikit-learn pipeline with an HTML diagram.
+from sklearn import set_config
+set_config(display='diagram')
+
 pipeline
 
 ###############################################################################
@@ -164,6 +184,7 @@ pipeline
 pipeline.fit(X_train, Y_train)
 
 scores = pipeline.score(X_test, Y_test)
+
 ###############################################################################
 # Since we performed the KernelRidgeCV on GPU, scores are returned as
 # torch.Tensor on GPU. Thus, we need to move them into numpy arrays on CPU, to
@@ -232,7 +253,7 @@ plt.show()
 # -----------------------------------
 #
 # To present an example of model comparison, we define here another model,
-# without feature delays (i.e. no Delayer). This model is unlikely to perform
+# without feature delays (i.e. no `Delayer`). This model is unlikely to perform
 # well, since fMRI responses are delayed in time with respect to the stimulus.
 
 pipeline_nodelay = make_pipeline(
@@ -261,3 +282,61 @@ ax = plot_hist2d(scores_nodelay, scores)
 ax.set(title='Generalization R2 scores', xlabel='model without delays',
        ylabel='model with delays')
 plt.show()
+
+###############################################################################
+# Visualize the HRF
+# -----------------
+#
+# Here we will visualize the hemodynamic response function (HRF), as captured
+# in the ridge regression weights.
+#
+# Fitting a kernel ridge regression results in a set of coefficients called the
+# "dual" coefficients. These coefficients are different from the "primal"
+# coefficients obtained with a ridge regression, but the primal coefficients
+# can be computed from the dual coefficients using the training features.
+#
+# To better visualize the HRF, we will refit a model with more delays, but only
+# on a selection of voxels to speed up the computations.
+
+# pick the 10 best voxels
+voxel_selection = np.argsort(scores)[-10:]
+
+# define a pipeline with more delays
+pipeline_many_delays = make_pipeline(
+    StandardScaler(with_mean=True, with_std=False),
+    Delayer(delays=np.arange(7)),
+    KernelRidgeCV(
+        alphas=alphas, cv=cv,
+        solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
+                           n_targets_batch_refit=100)),
+)
+
+pipeline_many_delays.fit(X_train, Y_train[:, voxel_selection])
+
+# get the (primal) ridge regression coefficients
+primal_coef = pipeline_many_delays[-1].get_primal_coef()
+primal_coef = backend.to_numpy(primal_coef)
+
+# get the delays
+delays = pipeline_many_delays.named_steps['delayer'].delays
+# split the ridge coefficients per delays
+primal_coef_per_delay = np.stack(np.split(primal_coef, len(delays), axis=0))
+
+# select the feature with the largest coefficients for each voxel
+feature_selection = np.argmax(np.sum(np.abs(primal_coef_per_delay), axis=0),
+                              axis=0)
+primal_coef_selection = primal_coef_per_delay[:, feature_selection,
+                                              np.arange(len(voxel_selection))]
+
+plt.plot(delays, primal_coef_selection)
+plt.xlabel('Delays')
+plt.xticks(delays)
+plt.ylabel('Ridge coefficients')
+plt.title(f'Largest feature for the {len(voxel_selection)} best voxels')
+plt.axhline(0, color='k', linewidth=0.5)
+plt.show()
+
+###############################################################################
+# We see that the hemodynamic response function (HRF) is captured in the model
+# weights. In practice, we can limit the number of features by using only
+# the most informative delays, for example [1, 2, 3, 4].

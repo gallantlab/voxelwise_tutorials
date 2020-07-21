@@ -9,7 +9,8 @@ Tutorials
 ---------
 .. toctree::
    :includehidden:
-   :maxdepth: 3
+   :maxdepth: 2
+   
     
    auto_examples/index
 
@@ -18,5 +19,5 @@ Voxelwise package
 .. toctree::
    :maxdepth: 2
 
-   quickstart
+   voxelwise
 
