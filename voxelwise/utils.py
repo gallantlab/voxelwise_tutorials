@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.stats
 from sklearn.utils.validation import check_random_state
 
 
@@ -43,3 +44,34 @@ def generate_leave_one_run_out(n_samples, run_onsets, random_state=None,
             [runs[jj] for jj in range(n_runs) if jj not in val_runs])
         val = np.hstack([runs[jj] for jj in range(n_runs) if jj in val_runs])
         yield train, val
+
+
+def explainable_variance(data, bias_correction=True, do_zscore=True):
+    """Compute explainable variance for a set of voxels.
+
+    Parameters
+    ----------
+    data : array of shape (n_repeats, n_times, n_voxels)
+        fMRI reponses of the repeated test set.
+    bias_correction: bool
+        Perform bias correction based on the number of repetitions.
+    do_zscore: bool
+        z-score the data in time. Only set to False if your data time courses
+        are already z-scored.
+
+    Returns
+    -------
+    ev : array of shape (n_voxels, )
+        Explainable variance per voxel.
+    """
+    if do_zscore:
+        data = scipy.stats.zscore(data, axis=1)
+
+    mean_var = data.var(axis=1, dtype=np.float64, ddof=1).mean(axis=0)
+    var_mean = data.mean(axis=0).var(axis=0, dtype=np.float64, ddof=1)
+    ev = var_mean / mean_var
+
+    if bias_correction:
+        n_repeats = data.shape[0]
+        ev = ev - (1 - ev) / (n_repeats - 1)
+    return ev

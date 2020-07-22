@@ -23,13 +23,14 @@ This tutorial implements different voxelwise models:
 **Requirements:**
 This tutorial requires the following Python packages:
 
-- numpy  (for the data array)
-- scipy  (for motion energy extraction)
-- h5py  (for loading the data files)
-- scikit-learn  (for preprocessing and modeling)
-- himalaya  (for modeling)
-- pymoten  (for extracting motion energy)
+- numpy
+- scipy
+- h5py
+- scikit-learn
 - voxelwise  (this repository)
+- himalaya
+- pymoten  (optional, for extracting motion energy)
+- cupy/pytorch (optional, to use GPU in himalaya)
 
 
 **References:**

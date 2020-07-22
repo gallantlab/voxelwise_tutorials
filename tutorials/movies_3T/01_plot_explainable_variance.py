@@ -41,20 +41,21 @@ Y_test = load_hdf5_array(file_name, "Y_test")
 
 ###############################################################################
 # Then, we compute the explainable variance per voxel.
-# The variance of the signal is estimated by taking the variance over
-# time (``var``). The variance of the component shared across repeats
-# is estimated by taking the variance of the average response (``var_mean``).
-# Then, we can compute the explainable variance by dividing the two quantities.
+# The variance of the signal is estimated by taking the average variance over
+# repeats. The variance of the component shared across repeats is estimated by
+# taking the variance of the average response. Then, we compute the
+# explainable variance by dividing these two quantities.
+# Finally, an correction can be applied to account for small numbers of repeat.
 
-var = np.var(Y_test.reshape(-1, Y_test.shape[-1]), axis=0)
-var_mean = np.var(np.mean(Y_test, axis=0), axis=0)
-explainable_variance = var_mean / var
+from voxelwise.utils import explainable_variance
+
+ev = explainable_variance(Y_test, bias_correction=False)
 
 ###############################################################################
 # Plot the distribution of explainable variance over voxels.
 import matplotlib.pyplot as plt
 
-plt.hist(explainable_variance, bins=np.linspace(0, 1, 100), log=True,
+plt.hist(ev, bins=np.linspace(0, 1, 100), log=True,
          histtype='step')
 plt.xlabel("Explainable variance")
 plt.ylabel("Number of voxels")
@@ -68,7 +69,7 @@ plt.show()
 from voxelwise.viz import plot_flatmap_from_mapper
 
 mapper_file = os.path.join(directory, 'mappers', f'{subject}_mappers.hdf')
-plot_flatmap_from_mapper(explainable_variance, mapper_file, vmin=0, vmax=0.7)
+plot_flatmap_from_mapper(ev, mapper_file, vmin=0, vmax=0.7)
 plt.show()
 
 ###############################################################################
