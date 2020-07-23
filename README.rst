@@ -15,8 +15,8 @@ modeling, based for instance on visual imaging experiments.
 The best way to explore these tutorials is to go to the
 `website <https://gallantlab.github.io/tutorials/>`_.
 
-Voxelwise package
-=================
+The ``voxelwise`` package
+=========================
 
 On top of tutorials, this repository also contains a small Python package
 called ``voxelwise``, which contains useful fonctions to download the data sets,

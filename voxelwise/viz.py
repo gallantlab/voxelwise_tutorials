@@ -298,6 +298,7 @@ def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
         cbar.imshow(cmap_image, aspect='equal',
                     extent=(vmin, vmax, vmin2, vmax2))
         cbar.set(xlabel=label_1, ylabel=label_2)
+        cbar.set(xticks=[vmin, vmax], yticks=[vmin2, vmax2])
 
     # plot additional layers if present
     with h5py.File(mapper_file, mode='r') as hf:

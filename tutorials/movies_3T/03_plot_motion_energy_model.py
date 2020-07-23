@@ -254,6 +254,7 @@ ax.set(title='Generalization R2 scores', xlabel='semantic wordnet model',
        ylabel='motion energy model')
 plt.show()
 
+
 ###############################################################################
 # Interestingly, the well predicted voxels are different in the two models.
 # To further describe these differences, we can plot the performances on a
