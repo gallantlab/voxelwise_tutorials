@@ -6,15 +6,18 @@ Fit a ridge model with wordnet features
 In this first example, we model the fMRI responses with semantic labeling
 "wordnet" features manually annotated to the movie stimulus, using a
 regularized linear regression model.
+This is called a (voxelwise) encoding model.
+
+This tutorial reproduces part of the analysis described in Huth et al (2012)
+[1]_. See this publication for more details about the experiment, the wordnet
+features, along with more results and more discussions.
 
 We first concatenate the features with multiple delays, to account for the
-hemodynamic response. The linear regression model will then weight each delayed
-feature with a different weight, to build a predictive model.
-
+hemodynamic response. A linear regression model then weights each delayed
+feature with a different weight, to build a predictive model of BOLD activity.
 The linear regression is regularized to improve robustness to correlated
 features and to improve generalization. The optimal regularization
 hyperparameter is selected over a grid-search with cross-validation.
-
 Finally, the model generalization performance is evaluated on a held-out test
 set, comparing the model predictions with the corresponding ground-truth fMRI
 responses.
@@ -35,30 +38,30 @@ subject = "S01"
 # -------------
 #
 # We first load the fMRI responses.
-import os.path as op
+import os
 import numpy as np
-
 from voxelwise.io import load_hdf5_array
 
-file_name = op.join(directory, "responses", f"{subject}_responses.hdf")
+file_name = os.path.join(directory, "responses", f"{subject}_responses.hdf")
 Y_train = load_hdf5_array(file_name, key="Y_train")
 Y_test = load_hdf5_array(file_name, key="Y_test")
 run_onsets = load_hdf5_array(file_name, key="run_onsets")
 
-# Average test repeats, since we cannot model the non-repeatable part of
-# fMRI responses.
+# We average the test repeats, since we cannot model the non-repeatable part of
+# fMRI responses. It means that the prediction :math:`R^2` scores will be
+# relative to the explainable variance.
 Y_test = Y_test.mean(0)
 
-# remove nans, mainly present on non-cortical voxels
+# We remove NaN values present on non-cortical voxels.
 Y_train = np.nan_to_num(Y_train)
 Y_test = np.nan_to_num(Y_test)
 
 ###############################################################################
-# Then, we load the semantic labeling "wordnet" features, that are going to be
-# used for the linear regression model.
+# Then, we load the semantic labeling "wordnet" features, that we will
+# use for the linear regression model.
 
 feature_space = "wordnet"
-file_name = op.join(directory, "features", f"{feature_space}.hdf")
+file_name = os.path.join(directory, "features", f"{feature_space}.hdf")
 X_train = load_hdf5_array(file_name, key="X_train")
 X_test = load_hdf5_array(file_name, key="X_test")
 
@@ -81,14 +84,13 @@ X_test = X_test.astype("float32")
 from sklearn.model_selection import check_cv
 from voxelwise.utils import generate_leave_one_run_out
 
+# indice of first sample of each run
+run_onsets = load_hdf5_array(file_name, key="run_onsets")
+
+# define a cross-validation splitter, compatible with ``scikit-learn`` API
 n_samples_train = X_train.shape[0]
-
-# indice of first sample of each run, each run having 600 samples
-run_onsets = np.arange(0, n_samples_train, 600)
-
-# define a cross-validation splitter, compatible with scikit-learn
 cv = generate_leave_one_run_out(n_samples_train, run_onsets)
-cv = check_cv(cv)  # copy the splitter into a reusable list
+cv = check_cv(cv)  # copy the cross-validation splitter into a reusable list
 
 ###############################################################################
 # Define the model
@@ -97,69 +99,65 @@ cv = check_cv(cv)  # copy the splitter into a reusable list
 # Now, let's define the model pipeline.
 #
 # We first center the features, since we will not use an intercept.
+# The mean value in fMRI recording is non-informative, so each run is detrended
+# and demeaned independently, and we do not need to predict an intercept value
+# in the linear model.
 from sklearn.preprocessing import StandardScaler
-
 scaler = StandardScaler(with_mean=True, with_std=False)
 
 ###############################################################################
 # Then we concatenate the features with multiple delays, to account for the
-# hemodynamic response. The linear regression model will then weight each
-# delayed feature with a different weight, to build a predictive model.
-#
-# With a sample every 2 seconds, we use 4 delays [1, 2, 3, 4] to cover the
-# most part of the hemodynamic response peak.
+# hemodynamic response. Indeed, the BOLD signal recorded in fMRI experiments is
+# delayed in time with respect to the stimulus. With different delayed versions
+# of the features, the linear regression model will weight each
+# delayed feature with a different weight, to maximize the predictions.
+# With a sample every 2 seconds, we typically use 4 delays [1, 2, 3, 4] to
+# cover the most part of the hemodynamic response peak.
 from voxelwise.delayer import Delayer
-
 delayer = Delayer(delays=[1, 2, 3, 4])
 
 ###############################################################################
-# The model we use is a ridge regression. When the number of features is
+# Finally, we use a ridge regression model. When the number of features is
 # larger than the number of samples, it is more efficient to solve a ridge
 # regression using the (equivalent) dual formulation, kernel ridge regression
 # with a linear kernel.
 # Here, we have 3600 training samples, and 1705 * 4 = 6820 features (we
 # multiply by 4 since we use 4 time delays), therefore we use kernel ridge
 # regression.
-
-# With one target, we could directly use the pipeline in scikit-learn's
-# GridSearchCV, to select the optimal hyperparameters over cross-validation.
-# However, GridSearchCV can only optimize one score. Thus, in the multiple
-# target case, GridSearchCV can only optimize e.g. the mean score over targets.
-# Here, we want to find a different optimal hyperparameter per target/voxel, so
-# we use himalaya's KernelRidgeCV instead.
+#
+# With one target, we could directly use the pipeline in ``scikit-learn``'s
+# ``GridSearchCV``, to select the optimal hyperparameters over
+# cross-validation.
+# However, ``GridSearchCV`` can only optimize one score. Thus, in the multiple
+# target case, ``GridSearchCV`` can only optimize e.g. the mean score over
+# targets. Here, we want to find a different optimal hyperparameter per
+# target/voxel, so we use ``himalaya``'s ``KernelRidgeCV`` instead.
+# Moreover, ``himalaya`` implements different computational backends; we will
+# use the "torch_cuda" backend to use fast computations on GPU.
 from himalaya.kernel_ridge import KernelRidgeCV
 
+from himalaya.backend import set_backend
+backend = set_backend("torch_cuda")
+
 ###############################################################################
-# The scale of the regularization hyperparameter alpha is unknown, so we use
-# a large logarithmic range, and we will check after the fit that best
+# The scale of the regularization hyperparameter ``alpha`` is unknown, so we
+# use a large logarithmic range, and we will check after the fit that best
 # hyperparameters are not all on one range edge.
 alphas = np.logspace(1, 20, 20)
 
+# We also indicate some batch sizes to limit the GPU memory.
 kernel_ridge_cv = KernelRidgeCV(
     alphas=alphas, cv=cv,
     solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
                        n_targets_batch_refit=100))
 
 ###############################################################################
-# We set himalaya's backend to "torch_cuda" to fit the model using GPU.
-# The available backends are:
-#
-# - "numpy" (CPU) (default)
-# - "torch" (CPU)
-# - "torch_cuda" (GPU)
-# - "cupy" (GPU)
-from himalaya.backend import set_backend
-backend = set_backend("torch_cuda")
-
-###############################################################################
-# We use scikit-learn Pipeline to link the different steps together.
-# The scikit-learn Pipeline can be used as a regular estimator, calling
-# `pipeline.fit`, `pipeline.predict`, etc.
+# We use ``scikit-learn``'s ``Pipeline`` to link the different steps together.
+# A ``Pipeline`` can be used as a regular estimator, calling
+# ``pipeline.fit``, ``pipeline.predict``, etc.
 # Using a pipeline can be useful to clarify the different steps, avoid
 # cross-validation mistakes, or automatically cache intermediate results.
 from sklearn.pipeline import make_pipeline
-
-# define the pipeline
 pipeline = make_pipeline(
     scaler,
     delayer,
@@ -170,7 +168,6 @@ pipeline = make_pipeline(
 # We can display the scikit-learn pipeline with an HTML diagram.
 from sklearn import set_config
 set_config(display='diagram')
-
 pipeline
 
 ###############################################################################
@@ -178,17 +175,17 @@ pipeline
 # -------------
 #
 # We fit on the train set, and score on the test set.
-# Here the scores are the R^2 scores, with values in ]-inf, 1].
-# A value of 1 means the predictions are perfect.
+# Here the scores are the :math:`R^2` scores, with values in
+# :math:`]-\infty 1]`. A value of 1 means the predictions are perfect.
 
 pipeline.fit(X_train, Y_train)
 
 scores = pipeline.score(X_test, Y_test)
 
 ###############################################################################
-# Since we performed the KernelRidgeCV on GPU, scores are returned as
-# torch.Tensor on GPU. Thus, we need to move them into numpy arrays on CPU, to
-# be able to use them e.g. in a matplotlib figure.
+# Since we fitted the model on GPU, scores are returned as ``torch.Tensor``` on
+# GPU. Thus, we need to move them into ``numpy`` arrays on CPU, to
+# be able to use them for example in a ``matplotlib`` figure.
 scores = backend.to_numpy(scores)
 
 ###############################################################################
@@ -197,42 +194,32 @@ scores = backend.to_numpy(scores)
 #
 # To visualize the model performances, we can plot them on a flatten
 # surface of the brain, using a mapper that is specific to the subject brain.
+# (Check previous example to see how to use the mapper to Freesurfer average
+# surface.)
 import matplotlib.pyplot as plt
 from voxelwise.viz import plot_flatmap_from_mapper
 
-mapper_file = op.join(directory, "mappers", f"{subject}_mappers.hdf")
+mapper_file = os.path.join(directory, "mappers", f"{subject}_mappers.hdf")
 ax = plot_flatmap_from_mapper(scores, mapper_file, vmin=0, vmax=0.4)
 plt.show()
 
 ###############################################################################
-# Another possible visualization is to map the voxel data to a Freesurfer
-# average surface ("fsaverage").
-
-import cortex
-from voxelwise.io import load_hdf5_sparse_array
-
-surface = "fsaverage_pycortex"  # ("fsaverage" outside the Gallant lab)
-
-# First, let's download the fsaverage surface if it does not exist
-if not hasattr(cortex.db, surface):
-    cortex.utils.download_subject(subject_id=surface)
-
-# Then, we use load the fsaverage mappers, and use it with a dot product
-voxel_to_fsaverage = load_hdf5_sparse_array(mapper_file, 'voxel_to_fsaverage')
-projected = voxel_to_fsaverage @ scores
-
-# Finally, we use the data projected on a surface, using pycortex
-vertex = cortex.Vertex(projected, surface, vmin=0, vmax=0.4, cmap='inferno',
-                       with_curvature=True)
-fig = cortex.quickshow(vertex)
-plt.show()
-
-# Alternatively, we can start a webGL viewer in the browser, to visualize the
-# surface in 3D. Note that this cannot be executed on sphinx gallery.
-if False:
-    cortex.webshow(vertex, open_browser=True)
+# We can see that the "wordnet" features successfully predict brain activity,
+# with :math:`R^2` scores as high as 0.4. Note that these scores are
+# generalization scores, since they awere computed on a test set not seen
+# during the mode fitting. Since we fitted a model independently on each voxel,
+# we can show the generalization performances at the maximal resolution,
+# the voxel.
+#
+# The best performances are located in visual semantic areas like EBA, or FFA.
+# This is expected since the wordnet features encode (categorical) semantic
+# information about the visual stimulus. For more discussions about these
+# results, we refer the reader to the original publication [1]_.
 
 ###############################################################################
+# Plot the selected hyperparameters
+# ---------------------------------
+#
 # Since the scale of alphas is unknown, we plot the optimal alphas selected by
 # the solver over cross-validation. This plot is helpful to refine the alpha
 # grid if the range is too small or too large.
@@ -240,12 +227,11 @@ if False:
 # Note that some voxels are at the maximum regularization of the grid. These
 # are voxels where the model has no predictive power, and where the optimal
 # regularization is large to lead to a prediction equal to zero.
+# We do not need to extend the alpha range for these voxels.
 
 from himalaya.viz import plot_alphas_diagnostic
-
-plot_alphas_diagnostic(best_alphas=backend.to_numpy(pipeline[-1].best_alphas_),
-                       alphas=alphas)
-
+best_alphas = backend.to_numpy(pipeline[-1].best_alphas_)
+plot_alphas_diagnostic(best_alphas=best_alphas, alphas=alphas)
 plt.show()
 
 ###############################################################################
@@ -253,8 +239,9 @@ plt.show()
 # -----------------------------------
 #
 # To present an example of model comparison, we define here another model,
-# without feature delays (i.e. no `Delayer`). This model is unlikely to perform
-# well, since fMRI responses are delayed in time with respect to the stimulus.
+# without feature delays (i.e. no ``Delayer```). This model is unlikely to
+# perform well, since fMRI responses are delayed in time with respect to
+# the stimulus.
 
 pipeline_nodelay = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
@@ -263,8 +250,9 @@ pipeline_nodelay = make_pipeline(
         solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
                            n_targets_batch_refit=100)),
 )
-pipeline
+pipeline_nodelay
 
+###############################################################################
 pipeline_nodelay.fit(X_train, Y_train)
 scores_nodelay = pipeline_nodelay.score(X_test, Y_test)
 scores_nodelay = backend.to_numpy(scores_nodelay)
@@ -284,16 +272,29 @@ ax.set(title='Generalization R2 scores', xlabel='model without delays',
 plt.show()
 
 ###############################################################################
+# We see that the model with delays performs much better than the model without
+# delays. This can be seen in voxels with scores above 0. The distribution
+# of scores below zero is not very informative, since it corresponds to voxels
+# with poor predictive performances anyway, and it only shows which model is
+# overfitting the most.
+
+###############################################################################
 # Visualize the HRF
 # -----------------
 #
-# Here we will visualize the hemodynamic response function (HRF), as captured
-# in the ridge regression weights.
+# We just saw that delays are necessary to model the BOLD response in such
+# fMRI recordings. Here we show how to visualize the hemodynamic response
+# function (HRF), as captured in the ridge regression weights.
 #
 # Fitting a kernel ridge regression results in a set of coefficients called the
-# "dual" coefficients. These coefficients are different from the "primal"
-# coefficients obtained with a ridge regression, but the primal coefficients
-# can be computed from the dual coefficients using the training features.
+# "dual" coefficients :math:`w`. These coefficients are different from the
+# "primal" coefficients :math:`\beta` obtained with a ridge regression,
+# but the primal coefficients can be computed from the dual coefficients
+# using the training features :math:`X`:
+#
+# .. math::
+#
+#     \beta = X^\top w
 #
 # To better visualize the HRF, we will refit a model with more delays, but only
 # on a selection of voxels to speed up the computations.
@@ -340,3 +341,12 @@ plt.show()
 # We see that the hemodynamic response function (HRF) is captured in the model
 # weights. In practice, we can limit the number of features by using only
 # the most informative delays, for example [1, 2, 3, 4].
+
+###############################################################################
+# References
+# ----------
+#
+# .. [1] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2012).
+#    A continuous semantic space describes the representation of thousands of
+#    object and action categories across the human brain. Neuron, 76(6),
+#    1210-1224.

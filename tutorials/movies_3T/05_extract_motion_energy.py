@@ -21,10 +21,6 @@ Motion-energy features were introduced in [1]_.
 The motion-energy extraction is performed by the package
 `pymoten <https://github.com/gallantlab/pymoten>`_.
 
-.. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
-    B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
-    activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
-
 """
 # sphinx_gallery_thumbnail_path = "_static/moten.png"
 ###############################################################################
@@ -150,7 +146,7 @@ motion_energy_test = compute_motion_energy(luminance_test)
 
 ###############################################################################
 # We end this script with saving the features. These features should be
-# approximately equal to the "motion_energy" features already precomputed in
+# approximately equal to the "motion-energy" features already precomputed in
 # the public data set.
 
 from voxelwise.io import save_hdf5_dataset
@@ -162,3 +158,11 @@ if not os.path.exists(features_directory):
 save_hdf5_dataset(
     os.path.join(features_directory, "motion_energy_recomputed.hdf"),
     dataset=dict(X_train=motion_energy_train, X_test=motion_energy_test))
+
+###############################################################################
+# References
+# ----------
+#
+# .. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
+#     B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
+#     activity evoked by natural movies. Current Biology, 21(19), 1641-1646.

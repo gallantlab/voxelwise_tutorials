@@ -2,7 +2,8 @@ Voxelwise modeling tutorials
 ============================
 
 
-Welcome to the voxelwise modeling tutorial from the Gallant lab.
+Welcome to the voxelwise modeling tutorial from the
+`Gallantlab <https://gallantlab.org>`_.
 
 Getting started
 ---------------

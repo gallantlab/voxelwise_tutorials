@@ -44,7 +44,7 @@ This tutorial requires the following Python packages:
     B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
     activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
 
-.. [3] Nunez-Elizalde, A. O., Huth, A. G., & Gallant, J. L. (2019). 
+.. [3] Nunez-Elizalde, A. O., Huth, A. G., & Gallant, J. L. (2019).
     Voxelwise encoding models with non-spherical multivariate normal priors.
     Neuroimage, 197, 482-492.
 

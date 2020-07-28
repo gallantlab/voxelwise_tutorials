@@ -35,9 +35,9 @@ directory = '/data1/tutorials/vim-4/'
 ###############################################################################
 # We will only use the first subject in this tutorial, but you can run the same
 # analysis on the four other subjects. Uncomment the lines in `DATAFILES` to
-# download more subjects, or to download the stimuli images.
+# download more subjects.
 #
-# We also skip the stimuli files, since the dataset provides two processed
+# We also skip the stimuli files, since the dataset provides two preprocessed
 # feature spaces to perform voxelwise modeling without requiring the original
 # stimuli.
 
