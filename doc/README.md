@@ -13,5 +13,6 @@ sphinx_gallery
 ```bash
 cd doc
 make html
+make notebooks
 firefox _build/html/index.html
 ```

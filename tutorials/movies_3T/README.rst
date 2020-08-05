@@ -27,7 +27,7 @@ This tutorial requires the following Python packages:
 - scipy
 - h5py
 - scikit-learn
-- voxelwise  (this repository)
+- voxelwise_tutorials  (this repository)
 - himalaya
 - pymoten  (optional, for extracting motion energy)
 - cupy/pytorch (optional, to use GPU in himalaya)

@@ -28,3 +28,6 @@ html-noplot:
 	@echo
 	@echo "Build finished (noplot). The HTML pages are in $(BUILDDIR)/html."
 
+notebooks:
+	rm -f ../tutorials/notebooks/*/*.ipynb
+	python create_notebooks.py
