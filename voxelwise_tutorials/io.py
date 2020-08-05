@@ -1,5 +1,4 @@
 import os
-import os.path as op
 import requests
 import shutil
 
@@ -51,16 +50,17 @@ def download_crcns(datafile, username, password, destination,
                 raise RuntimeError(response.text)
 
         # remove the dataset name
-        filename = op.join(*login_data['fn'].split('/')[1:])
-        local_filename = op.join(destination, filename)
+        filename = os.path.join(*login_data['fn'].split('/')[1:])
+        local_filename = os.path.join(destination, filename)
 
         # create subdirectory if necessary
-        local_directory = op.dirname(local_filename)
-        if not op.exists(local_directory) or not op.isdir(local_directory):
+        local_directory = os.path.dirname(local_filename)
+        if not os.path.exists(local_directory) or not os.path.isdir(
+                local_directory):
             os.makedirs(local_directory)
 
         # download the file if it does not already exist
-        if op.exists(local_filename):
+        if os.path.exists(local_filename):
             print("%s already exists." % local_filename)
         else:
             bar = ProgressBar(title=filename, max_value=content_length)
@@ -71,7 +71,7 @@ def download_crcns(datafile, username, password, destination,
                         f.write(chunk)
 
     # uncompress archives
-    if unpack and op.splitext(local_filename)[1] in [".zip", ".gz"]:
+    if unpack and os.path.splitext(local_filename)[1] in [".zip", ".gz"]:
         unpack_archive(local_filename)
 
     return local_filename
@@ -86,7 +86,7 @@ def unpack_archive(archive_name):
         Local name of the archive.
     """
     print('\tUnpacking')
-    extract_dir = op.dirname(archive_name)
+    extract_dir = os.path.dirname(archive_name)
     shutil.unpack_archive(archive_name, extract_dir=extract_dir)
 
 
@@ -169,3 +169,43 @@ def save_hdf5_dataset(file_name, dataset, mode='w'):
                 hf.create_dataset(name, data=array, compression='gzip')
 
     print("Saved %s" % file_name)
+
+
+def get_data_home(data_home=None) -> str:
+    """Return the path of the voxelwise tutorials data dir.
+
+    This folder is used by some large dataset loaders to avoid downloading the
+    data several times. By default the data dir is set to a folder named
+    'voxelwise_tutorials' in the user home folder. Alternatively, it can be set
+    by the 'VOXELWISE_TUTORIALS_DATA' environment variable or programmatically
+    by giving an explicit folder path. The '~' symbol is expanded to the user
+    home folder. If the folder does not already exist, it is automatically
+    created.
+
+    Parameters
+    ----------
+    data_home : str | None
+        The path to voxelwise tutorials data dir.
+    """
+    if data_home is None:
+        data_home = os.environ.get(
+            'VOXELWISE_TUTORIALS_DATA',
+            os.path.join('~', 'voxelwise_tutorials_data'))
+
+    data_home = os.path.expanduser(data_home)
+    if not os.path.exists(data_home):
+        os.makedirs(data_home)
+
+    return data_home
+
+
+def clear_data_home(data_home=None):
+    """Delete all the content of the data home cache.
+
+    Parameters
+    ----------
+    data_home : str | None
+        The path to voxelwise tutorials data dir.
+    """
+    data_home = get_data_home(data_home)
+    shutil.rmtree(data_home)

@@ -26,16 +26,22 @@ The ridge model is fitted with the package
 ###############################################################################
 # Load the data
 # -------------
-#
+
 # path of the data directory
-directory = '/data1/tutorials/vim-2/'
+import os
+from voxelwise_tutorials.io import get_data_home
+directory = os.path.join(get_data_home(), "vim-2")
+print(directory)
+
+# modify to use another subject
+subject = "subject1"
 
 ###############################################################################
 # Here the data is not loaded in memory, we only take a peak at the data shape.
 import h5py
 import os.path as op
 
-with h5py.File(op.join(directory, 'VoxelResponses_subject1.mat'), 'r') as f:
+with h5py.File(op.join(directory, f'VoxelResponses_{subject}.mat'), 'r') as f:
     print(f.keys())  # Show all variables
     for key in f.keys():
         print(f[key])
@@ -47,7 +53,7 @@ import numpy as np
 
 from voxelwise_tutorials.io import load_hdf5_array
 
-file_name = op.join(directory, 'VoxelResponses_subject1.mat')
+file_name = op.join(directory, f'VoxelResponses_{subject}.mat')
 Y_train = load_hdf5_array(file_name, key='rt')
 Y_test_repeats = load_hdf5_array(file_name, key='rva')
 

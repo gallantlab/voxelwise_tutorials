@@ -26,7 +26,10 @@ The motion-energy extraction is performed by the package
 ###############################################################################
 
 # path of the data directory
-directory = '/data1/tutorials/vim-4/'
+import os
+from voxelwise_tutorials.io import get_data_home
+directory = os.path.join(get_data_home(), "vim-4")
+print(directory)
 
 ###############################################################################
 # Load the stimuli images
@@ -35,7 +38,6 @@ directory = '/data1/tutorials/vim-4/'
 # Here the data is not loaded in memory, we only take a peak at the data shape.
 
 import h5py
-import os
 
 first_file_name = os.path.join(directory, 'stimuli', 'train_00.hdf')
 print(f"Content of {first_file_name}:")

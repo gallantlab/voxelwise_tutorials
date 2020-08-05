@@ -32,7 +32,10 @@ The ridge model is fitted with the package
 ###############################################################################
 
 # path of the data directory
-directory = '/data1/tutorials/vim-4/'
+import os
+from voxelwise_tutorials.io import get_data_home
+directory = os.path.join(get_data_home(), "vim-4")
+print(directory)
 
 # modify to use another subject
 subject = "S01"
@@ -42,7 +45,6 @@ subject = "S01"
 # -------------
 #
 # We first load the fMRI responses.
-import os
 import numpy as np
 
 from voxelwise_tutorials.io import load_hdf5_array

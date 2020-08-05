@@ -25,11 +25,13 @@ The motion-energy extraction is performed by the package
 ###############################################################################
 # Load the stimuli images
 # -----------------------
-#
-# We downloaded the files in the previous script, and here we update the path
-# variable to link to the directory containing the data.
+# (We downloaded the files in the previous script.)
 
-directory = '/data1/tutorials/vim-2/'
+# path of the data directory
+import os
+from voxelwise_tutorials.io import get_data_home
+directory = os.path.join(get_data_home(), "vim-2")
+print(directory)
 
 ###############################################################################
 # Here the data is not loaded in memory, we only take a peak at the data shape.

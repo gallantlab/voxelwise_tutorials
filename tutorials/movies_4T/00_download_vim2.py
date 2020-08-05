@@ -27,8 +27,11 @@ publication [1]_, and the data set [2]_.
 # Download
 # --------
 
-# Update the directory variable to link to the directory containing the data.
-directory = '/data1/tutorials/vim-2/'
+# path of the data directory
+import os
+from voxelwise_tutorials.io import get_data_home
+directory = os.path.join(get_data_home(), "vim-2")
+print(directory)
 
 ###############################################################################
 # We will only use the first subject in this tutorial, but you can run the same
@@ -50,11 +53,10 @@ DATAFILES = [
     'vim-2/docs/crcns-vim-2-data-description.pdf',
 ]
 
-if __name__ == "__main__":
+###############################################################################
+username = input("CRCNS username: ")
+password = getpass.getpass("CRCNS password: ")
 
-    username = input("CRCNS username: ")
-    password = getpass.getpass("CRCNS password: ")
-
-    for datafile in DATAFILES:
-        local_filename = download_crcns(datafile, username, password,
-                                        destination=directory, unpack=True)
+for datafile in DATAFILES:
+    local_filename = download_crcns(datafile, username, password,
+                                    destination=directory, unpack=True)

@@ -29,8 +29,11 @@ publication [1]_, and the data set [2]_.
 # Download
 # --------
 
-# Update the directory variable to link to the directory containing the data.
-directory = '/data1/tutorials/vim-4/'
+# path of the data directory
+import os
+from voxelwise_tutorials.io import get_data_home
+directory = os.path.join(get_data_home(), "vim-4")
+print(directory)
 
 ###############################################################################
 # We will only use the first subject in this tutorial, but you can run the same
@@ -73,11 +76,10 @@ DATAFILES = [
     # "TBD/stimuli/train_11.hdf",
 ]
 
-if __name__ == "__main__":
+###############################################################################
+username = input("CRCNS username: ")
+password = getpass.getpass("CRCNS password: ")
 
-    username = input("CRCNS username: ")
-    password = getpass.getpass("CRCNS password: ")
-
-    for datafile in DATAFILES:
-        local_filename = download_crcns(datafile, username, password,
-                                        destination=directory)
+for datafile in DATAFILES:
+    local_filename = download_crcns(datafile, username, password,
+                                    destination=directory)
