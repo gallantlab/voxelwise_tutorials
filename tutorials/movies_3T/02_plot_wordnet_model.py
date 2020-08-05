@@ -134,12 +134,19 @@ delayer = Delayer(delays=[1, 2, 3, 4])
 # target case, ``GridSearchCV`` can only optimize e.g. the mean score over
 # targets. Here, we want to find a different optimal hyperparameter per
 # target/voxel, so we use ``himalaya``'s ``KernelRidgeCV`` instead.
-# Moreover, ``himalaya`` implements different computational backends; we will
-# use the "torch_cuda" backend to use fast computations on GPU.
 from himalaya.kernel_ridge import KernelRidgeCV
 
+###############################################################################
+# Moreover, ``himalaya`` implements different computational backends, including
+# GPU backends. The available GPU backends are "torch_cuda" and "cupy". (These
+# backends are only available if you installed the corresponding package with
+# CUDA enabled. Check the pytorch/cupy documentation for install instructions.)
+#
+# Here we use the "torch_cuda" backend, but if the import fails we continue
+# with the default "numpy" backend. The "numpy" backend is expected to be
+# slower since it only uses the CPU.
 from himalaya.backend import set_backend
-backend = set_backend("torch_cuda")
+backend = set_backend("torch_cuda", on_error="warn")
 
 ###############################################################################
 # The scale of the regularization hyperparameter ``alpha`` is unknown, so we

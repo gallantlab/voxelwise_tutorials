@@ -106,7 +106,7 @@ from sklearn.preprocessing import StandardScaler
 from voxelwise_tutorials.delayer import Delayer
 from himalaya.kernel_ridge import KernelRidgeCV
 from himalaya.backend import set_backend
-backend = set_backend("torch_cuda")
+backend = set_backend("torch_cuda", on_error="warn")
 
 alphas = np.logspace(1, 20, 20)
 

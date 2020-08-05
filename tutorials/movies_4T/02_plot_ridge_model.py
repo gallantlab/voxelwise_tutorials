@@ -150,15 +150,17 @@ from himalaya.kernel_ridge import KernelRidgeCV
 from voxelwise_tutorials.delayer import Delayer
 
 ###############################################################################
-# We set himalaya's backend to "torch_cuda" to fit the model using GPU.
-# The available backends are:
+# The package``himalaya`` implements different computational backends,
+# including GPU backends. The available GPU backends are "torch_cuda" and
+# "cupy". (These backends are only available if you installed the corresponding
+# package with CUDA enabled. Check the pytorch/cupy documentation for install
+# instructions.)
 #
-# - "numpy" (CPU) (default)
-# - "torch" (CPU)
-# - "torch_cuda" (GPU)
-# - "cupy" (GPU)
+# Here we use the "torch_cuda" backend, but if the import fails we continue
+# with the default "numpy" backend. The "numpy" backend is expected to be
+# slower since it only uses the CPU.
 from himalaya.backend import set_backend
-backend = set_backend("torch_cuda")
+backend = set_backend("torch_cuda", on_error="warn")
 
 ###############################################################################
 # The scale of the regularization hyperparameter alpha is unknown, so we use
