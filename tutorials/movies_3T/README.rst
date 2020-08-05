@@ -23,15 +23,17 @@ This tutorial implements different voxelwise models:
 **Requirements:**
 This tutorial requires the following Python packages:
 
+- voxelwise_tutorials  (this repository)
 - numpy
 - scipy
 - h5py
 - scikit-learn
-- voxelwise_tutorials  (this repository)
+- jupyter
+- matplotlib
 - himalaya
+- pycortex  (optional, for using 3D brain viewers)
 - pymoten  (optional, for extracting motion energy)
-- cupy/pytorch (optional, to use GPU in himalaya)
-
+- cupy/pytorch (optional, to use a GPU backend in himalaya)
 
 **References:**
 

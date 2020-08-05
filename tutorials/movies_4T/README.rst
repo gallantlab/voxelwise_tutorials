@@ -26,14 +26,15 @@ publication [5]_, and the CRCNS data set [6]_.
 **Requirements:**
 This tutorial requires the following Python packages:
 
+- voxelwise_tutorials  (this repository)
 - numpy
 - scipy
 - h5py
 - scikit-learn
-- voxelwise_tutorials  (this repository)
+- matplotlib
 - himalaya
-- pymoten  (optional, for extracting motion energy)
-- cupy/pytorch (optional, to use GPU in himalaya)
+- pymoten
+- cupy/pytorch (optional, to use a GPU backend in himalaya)
 
 **References:**
 
