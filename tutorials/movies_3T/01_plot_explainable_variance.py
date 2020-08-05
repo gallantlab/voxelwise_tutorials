@@ -32,7 +32,7 @@ subject = "S01"
 import os
 import numpy as np
 
-from voxelwise.io import load_hdf5_array
+from voxelwise_tutorials.io import load_hdf5_array
 
 ###############################################################################
 # First, we load the fMRI responses on the test set, which contains 10 repeats.
@@ -48,7 +48,7 @@ Y_test = load_hdf5_array(file_name, key="Y_test")
 # Finally, a correction can be applied to account for small numbers of repeat
 # (parameter ``bias_correction``).
 
-from voxelwise.utils import explainable_variance
+from voxelwise_tutorials.utils import explainable_variance
 ev = explainable_variance(Y_test, bias_correction=False)
 
 ###############################################################################
@@ -91,7 +91,7 @@ plt.show()
 # in a flatmap. To ease its use, we provide here an example function
 # ``plot_flatmap_from_mapper``.
 
-from voxelwise.viz import plot_flatmap_from_mapper
+from voxelwise_tutorials.viz import plot_flatmap_from_mapper
 
 mapper_file = os.path.join(directory, 'mappers', f'{subject}_mappers.hdf')
 plot_flatmap_from_mapper(ev, mapper_file, vmin=0, vmax=0.7)
@@ -121,7 +121,7 @@ if not hasattr(cortex.db, surface):
 # Then, we load the fsaverage mapper. The mapper is a sparse CSR matrix, which
 # map each voxel to some vertices in the fsaverage surface.
 # The mapper is applied with a dot product ``@``.
-from voxelwise.io import load_hdf5_sparse_array
+from voxelwise_tutorials.io import load_hdf5_sparse_array
 voxel_to_fsaverage = load_hdf5_sparse_array(mapper_file,
                                             key='voxel_to_fsaverage')
 ev_projected = voxel_to_fsaverage @ ev

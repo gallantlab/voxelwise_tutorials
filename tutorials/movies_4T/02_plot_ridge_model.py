@@ -45,7 +45,7 @@ with h5py.File(op.join(directory, 'VoxelResponses_subject1.mat'), 'r') as f:
 
 import numpy as np
 
-from voxelwise.io import load_hdf5_array
+from voxelwise_tutorials.io import load_hdf5_array
 
 file_name = op.join(directory, 'VoxelResponses_subject1.mat')
 Y_train = load_hdf5_array(file_name, key='rt')
@@ -101,7 +101,7 @@ X_test = X_test.astype("float32")
 # cross-validation split, which preserves each recording run.
 
 from sklearn.model_selection import check_cv
-from voxelwise.utils import generate_leave_one_run_out
+from voxelwise_tutorials.utils import generate_leave_one_run_out
 
 n_samples_train = X_train.shape[0]
 
@@ -141,7 +141,7 @@ from himalaya.kernel_ridge import KernelRidgeCV
 #
 # With a sample every 1 second, we use 8 delays [1, 2, 3, 4, 5, 6, 7, 8] to
 # cover the most part of the hemodynamic response peak.
-from voxelwise.delayer import Delayer
+from voxelwise_tutorials.delayer import Delayer
 
 ###############################################################################
 # We set himalaya's backend to "torch_cuda" to fit the model using GPU.
@@ -232,7 +232,7 @@ scores_nodelay = backend.to_numpy(scores_nodelay)
 # from the diagonal means that one model has better predictive performances
 # than the other.
 
-from voxelwise.viz import plot_hist2d
+from voxelwise_tutorials.viz import plot_hist2d
 
 ax = plot_hist2d(scores_nodelay, scores)
 ax.set(title='Generalization R2 scores', xlabel='model without delays',

@@ -37,7 +37,7 @@ directory = '/data1/tutorials/vim-2/'
 
 import getpass
 
-from voxelwise.io import download_crcns
+from voxelwise_tutorials.io import download_crcns
 
 DATAFILES = [
     'vim-2/Stimuli.tar.gz',

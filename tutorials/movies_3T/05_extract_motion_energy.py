@@ -56,8 +56,8 @@ with h5py.File(first_file_name, 'r') as f:
 import numpy as np
 from moten.io import imagearray2luminance
 
-from voxelwise.progress_bar import bar
-from voxelwise.io import load_hdf5_array
+from voxelwise_tutorials.progress_bar import bar
+from voxelwise_tutorials.io import load_hdf5_array
 
 
 def compute_luminance(run_name, size=(96, 96)):
@@ -149,7 +149,7 @@ motion_energy_test = compute_motion_energy(luminance_test)
 # approximately equal to the "motion-energy" features already precomputed in
 # the public data set.
 
-from voxelwise.io import save_hdf5_dataset
+from voxelwise_tutorials.io import save_hdf5_dataset
 
 features_directory = os.path.join(directory, "features")
 if not os.path.exists(features_directory):

@@ -40,7 +40,7 @@ subject = "S01"
 # We first load the fMRI responses.
 import os
 import numpy as np
-from voxelwise.io import load_hdf5_array
+from voxelwise_tutorials.io import load_hdf5_array
 
 file_name = os.path.join(directory, "responses", f"{subject}_responses.hdf")
 Y_train = load_hdf5_array(file_name, key="Y_train")
@@ -82,7 +82,7 @@ X_test = X_test.astype("float32")
 # cross-validation split, which preserves each recording run.
 
 from sklearn.model_selection import check_cv
-from voxelwise.utils import generate_leave_one_run_out
+from voxelwise_tutorials.utils import generate_leave_one_run_out
 
 # indice of first sample of each run
 run_onsets = load_hdf5_array(file_name, key="run_onsets")
@@ -113,7 +113,7 @@ scaler = StandardScaler(with_mean=True, with_std=False)
 # delayed feature with a different weight, to maximize the predictions.
 # With a sample every 2 seconds, we typically use 4 delays [1, 2, 3, 4] to
 # cover the most part of the hemodynamic response peak.
-from voxelwise.delayer import Delayer
+from voxelwise_tutorials.delayer import Delayer
 delayer = Delayer(delays=[1, 2, 3, 4])
 
 ###############################################################################
@@ -197,7 +197,7 @@ scores = backend.to_numpy(scores)
 # (Check previous example to see how to use the mapper to Freesurfer average
 # surface.)
 import matplotlib.pyplot as plt
-from voxelwise.viz import plot_flatmap_from_mapper
+from voxelwise_tutorials.viz import plot_flatmap_from_mapper
 
 mapper_file = os.path.join(directory, "mappers", f"{subject}_mappers.hdf")
 ax = plot_flatmap_from_mapper(scores, mapper_file, vmin=0, vmax=0.4)
@@ -264,7 +264,7 @@ scores_nodelay = backend.to_numpy(scores_nodelay)
 # from the diagonal means that one model has better predictive performances
 # than the other.
 
-from voxelwise.viz import plot_hist2d
+from voxelwise_tutorials.viz import plot_hist2d
 
 ax = plot_hist2d(scores_nodelay, scores)
 ax.set(title='Generalization R2 scores', xlabel='model without delays',

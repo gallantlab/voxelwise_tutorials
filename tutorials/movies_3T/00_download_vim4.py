@@ -34,7 +34,7 @@ directory = '/data1/tutorials/vim-4/'
 
 ###############################################################################
 # We will only use the first subject in this tutorial, but you can run the same
-# analysis on the four other subjects. Uncomment the lines in `DATAFILES` to
+# analysis on the four other subjects. Uncomment the lines in ``DATAFILES``` to
 # download more subjects.
 #
 # We also skip the stimuli files, since the dataset provides two preprocessed
@@ -43,7 +43,7 @@ directory = '/data1/tutorials/vim-4/'
 
 import getpass
 
-from voxelwise.io import download_crcns
+from voxelwise_tutorials.io import download_crcns
 
 DATAFILES = [
     "TBD/features/motion_energy.hdf",

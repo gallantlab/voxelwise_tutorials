@@ -32,7 +32,7 @@ subject = "S01"
 import os
 import numpy as np
 
-from voxelwise.io import load_hdf5_array
+from voxelwise_tutorials.io import load_hdf5_array
 
 file_name = os.path.join(directory, "responses", f"{subject}_responses.hdf")
 Y_train = load_hdf5_array(file_name, key="Y_train")
@@ -81,7 +81,7 @@ X_test = np.concatenate(Xs_test, 1)
 # We define again a leave-one-run-out cross-validation split scheme.
 
 from sklearn.model_selection import check_cv
-from voxelwise.utils import generate_leave_one_run_out
+from voxelwise_tutorials.utils import generate_leave_one_run_out
 
 # define a cross-validation splitter, compatible with scikit-learn
 n_samples_train = X_train.shape[0]
@@ -97,7 +97,7 @@ cv = check_cv(cv)  # copy the splitter into a reusable list
 # and add delays with a ``Delayer``.
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
-from voxelwise.delayer import Delayer
+from voxelwise_tutorials.delayer import Delayer
 from himalaya.backend import set_backend
 backend = set_backend("torch_cuda")
 
@@ -268,7 +268,7 @@ scores_baseline = backend.to_numpy(scores_baseline)
 # from the diagonal means that one model has better predictive performances
 # than the other.
 import matplotlib.pyplot as plt
-from voxelwise.viz import plot_hist2d
+from voxelwise_tutorials.viz import plot_hist2d
 
 ax = plot_hist2d(scores_baseline, scores)
 ax.set(title='Generalization R2 scores', xlabel='KernelRidgeCV',
@@ -309,7 +309,7 @@ split_scores.shape
 ###############################################################################
 # We can then plot the split scores on a flatmap with a 2D colormap.
 
-from voxelwise.viz import plot_2d_flatmap_from_mapper
+from voxelwise_tutorials.viz import plot_2d_flatmap_from_mapper
 
 mapper_file = os.path.join(directory, "mappers", f"{subject}_mappers.hdf")
 ax = plot_2d_flatmap_from_mapper(split_scores[0], split_scores[1],

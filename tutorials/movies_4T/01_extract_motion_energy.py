@@ -56,7 +56,7 @@ with h5py.File(os.path.join(directory, 'Stimuli.mat'), 'r') as f:
 import numpy as np
 from moten.io import imagearray2luminance
 
-from voxelwise.progress_bar import bar
+from voxelwise_tutorials.progress_bar import bar
 
 
 def compute_luminance(train_or_test, batch_size=1024):
@@ -152,7 +152,7 @@ motion_energy_test = compute_motion_energy(luminance_test)
 # We end this script with saving the features, to use them in voxelwise
 # modeling in the following example.
 
-from voxelwise.io import save_hdf5_dataset
+from voxelwise_tutorials.io import save_hdf5_dataset
 
 features_directory = os.path.join(directory, "features")
 if not os.path.exists(features_directory):

@@ -1,8 +1,8 @@
 import re
 from setuptools import find_packages, setup
 
-# get version from voxelwise/__init__.py
-with open('voxelwise/__init__.py') as f:
+# get version from voxelwise_tutorials/__init__.py
+with open('voxelwise_tutorials/__init__.py') as f:
     infos = f.readlines()
 __version__ = ''
 for line in infos:
@@ -19,7 +19,7 @@ requirements = [
 
 if __name__ == "__main__":
     setup(
-        name='voxelwise',
+        name='voxelwise_tutorials',
         maintainer="Tom Dupre la Tour",
         maintainer_email="tom.dupre-la-tour@m4x.org",
         description="Tools and tutorials for voxelwise modeling",

@@ -8,9 +8,9 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-from voxelwise.io import load_hdf5_sparse_array
-from voxelwise.viz import plot_flatmap_from_mapper
-from voxelwise.viz import plot_2d_flatmap_from_mapper
+from voxelwise_tutorials.io import load_hdf5_sparse_array
+from voxelwise_tutorials.viz import plot_flatmap_from_mapper
+from voxelwise_tutorials.viz import plot_2d_flatmap_from_mapper
 
 dataset_directory = '/data1/tutorials/vim-4/'
 subject_id = "S01"

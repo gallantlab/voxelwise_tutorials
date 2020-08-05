@@ -45,7 +45,7 @@ subject = "S01"
 import os
 import numpy as np
 
-from voxelwise.io import load_hdf5_array
+from voxelwise_tutorials.io import load_hdf5_array
 
 file_name = os.path.join(directory, "responses", f"{subject}_responses.hdf")
 Y_train = load_hdf5_array(file_name, key="Y_train")
@@ -82,7 +82,7 @@ X_test = X_test.astype("float32")
 # previous example.
 
 from sklearn.model_selection import check_cv
-from voxelwise.utils import generate_leave_one_run_out
+from voxelwise_tutorials.utils import generate_leave_one_run_out
 
 # indice of first sample of each run
 run_onsets = load_hdf5_array(file_name, key="run_onsets")
@@ -101,7 +101,7 @@ cv = check_cv(cv)  # copy the cross-validation splitter into a reusable list
 
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
-from voxelwise.delayer import Delayer
+from voxelwise_tutorials.delayer import Delayer
 from himalaya.kernel_ridge import KernelRidgeCV
 from himalaya.backend import set_backend
 backend = set_backend("torch_cuda")
@@ -139,7 +139,7 @@ scores_motion_energy = backend.to_numpy(scores_motion_energy)
 # The performances are computed using the math:`R^2` scores.
 
 import matplotlib.pyplot as plt
-from voxelwise.viz import plot_flatmap_from_mapper
+from voxelwise_tutorials.viz import plot_flatmap_from_mapper
 
 mapper_file = os.path.join(directory, "mappers", f"{subject}_mappers.hdf")
 ax = plot_flatmap_from_mapper(scores_motion_energy, mapper_file, vmin=0,
@@ -189,7 +189,7 @@ plt.show()
 # from the diagonal means that one model has better predictive performances
 # than the other.
 
-from voxelwise.viz import plot_hist2d
+from voxelwise_tutorials.viz import plot_hist2d
 
 ax = plot_hist2d(scores_wordnet, scores_motion_energy)
 ax.set(title='Generalization R2 scores', xlabel='semantic wordnet model',
@@ -202,7 +202,7 @@ plt.show()
 # To further describe these differences, we can plot both performances on the
 # same flatmap.
 
-from voxelwise.viz import plot_2d_flatmap_from_mapper
+from voxelwise_tutorials.viz import plot_2d_flatmap_from_mapper
 
 mapper_file = os.path.join(directory, "mappers", f"{subject}_mappers.hdf")
 ax = plot_2d_flatmap_from_mapper(scores_wordnet, scores_motion_energy,
