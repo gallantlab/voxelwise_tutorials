@@ -3,39 +3,36 @@
 Fit a ridge model with motion energy features
 =============================================
 
-In this second example, we model the fMRI responses with motion-energy features
-extracted from the movie stimulus. The model is still a regularized linear
-regression model.
+In this example, we model the fMRI responses with motion-energy features
+extracted from the movie stimulus. The model is a regularized linear regression
+model.
 
 This tutorial reproduces part of the analysis described in Nishimoto et al
 (2011) [1]_. See this publication for more details about the experiment, the
 motion-energy features, along with more results and more discussions.
 
-Motion-energy features result from filtering a video stimulus with
-spatio-temporal Gabor filters. A pyramid of filters is used to compute the
-motion-energy features at multiple spatial and temporal scales.
+*Motion-energy features:* Motion-energy features result from filtering a video
+stimulus with spatio-temporal Gabor filters. A pyramid of filters is used to
+compute the motion-energy features at multiple spatial and temporal scales.
 
-As in the previous example, we first concatenate the features with multiple
-delays, to account for the hemodynamic response. A linear regression model
-then weights each delayed feature with a different weight, to build a
-predictive model of BOLD activity.
-Again, the linear regression is regularized to improve robustness to correlated
-features and to improve generalization. The optimal regularization
-hyperparameter is selected over a grid-search with cross-validation.
-Finally, the model generalization performance is evaluated on a held-out test
-set, comparing the model predictions with the corresponding ground-truth fMRI
-responses.
-
-The ridge model is fitted with the package
-`himalaya <https://github.com/gallantlab/himalaya>`_.
+*Summary:* As in the previous example, we first concatenate the features with
+multiple delays, to account for the slow hemodynamic response. A linear
+regression model then weights each delayed feature with a different weight, to
+build a predictive model of BOLD activity. Again, the linear regression is
+regularized to improve robustness to correlated features and to improve
+generalization. The optimal regularization hyperparameter is selected
+independently on each voxel over a grid-search with cross-validation. Finally,
+the model generalization performance is evaluated on a held-out test set,
+comparing the model predictions with the ground-truth fMRI responses.
 """
 ###############################################################################
-
-# path of the data directory
+# Path of the data directory
 import os
 from voxelwise_tutorials.io import get_data_home
 directory = os.path.join(get_data_home(), "vim-4")
 print(directory)
+
+###############################################################################
 
 # modify to use another subject
 subject = "S01"
@@ -52,29 +49,32 @@ from voxelwise_tutorials.io import load_hdf5_array
 file_name = os.path.join(directory, "responses", f"{subject}_responses.hdf")
 Y_train = load_hdf5_array(file_name, key="Y_train")
 Y_test = load_hdf5_array(file_name, key="Y_test")
-run_onsets = load_hdf5_array(file_name, key="run_onsets")
 
-# We average the test repeats, since we cannot model the non-repeatable part of
-# fMRI responses. It means that the prediction :math:`R^2` scores will be
-# relative to the explainable variance.
+print("(n_samples_train, n_voxels) =", Y_train.shape)
+print("(n_repeats, n_samples_test, n_voxels) =", Y_test.shape)
+
+###############################################################################
+# We average the test repeats, to remove the non-repeatable part of fMRI
+# responses.
 Y_test = Y_test.mean(0)
 
-# We remove NaN values present on non-cortical voxels.
+print("(n_samples_test, n_voxels) =", Y_test.shape)
+
+###############################################################################
+# We fill potential NaN (not-a-number) values with zeros.
 Y_train = np.nan_to_num(Y_train)
 Y_test = np.nan_to_num(Y_test)
 
 ###############################################################################
-# Then we load the "motion-energy" features, that we will
-# use for the linear regression model.
+# Then we load the precomputed "motion-energy" features.
 
 feature_space = "motion_energy"
 file_name = os.path.join(directory, "features", f"{feature_space}.hdf")
 X_train = load_hdf5_array(file_name, key="X_train")
 X_test = load_hdf5_array(file_name, key="X_test")
 
-# We use single precision float to speed up model fitting on GPU.
-X_train = X_train.astype("float32")
-X_test = X_test.astype("float32")
+print("(n_samples_train, n_features) =", X_train.shape)
+print("(n_samples_test, n_features) =", X_test.shape)
 
 ###############################################################################
 # Define the cross-validation scheme
@@ -88,8 +88,10 @@ from voxelwise_tutorials.utils import generate_leave_one_run_out
 
 # indice of first sample of each run
 run_onsets = load_hdf5_array(file_name, key="run_onsets")
+print(run_onsets)
 
-# define a cross-validation splitter, compatible with ``scikit-learn``` API
+###############################################################################
+# We define a cross-validation splitter, compatible with ``scikit-learn`` API.
 n_samples_train = X_train.shape[0]
 cv = generate_leave_one_run_out(n_samples_train, run_onsets)
 cv = check_cv(cv)  # copy the cross-validation splitter into a reusable list
@@ -107,6 +109,9 @@ from voxelwise_tutorials.delayer import Delayer
 from himalaya.kernel_ridge import KernelRidgeCV
 from himalaya.backend import set_backend
 backend = set_backend("torch_cuda", on_error="warn")
+
+X_train = X_train.astype("float32")
+X_test = X_test.astype("float32")
 
 alphas = np.logspace(1, 20, 20)
 
@@ -135,6 +140,8 @@ pipeline_motion_energy.fit(X_train, Y_train)
 scores_motion_energy = pipeline_motion_energy.score(X_test, Y_test)
 scores_motion_energy = backend.to_numpy(scores_motion_energy)
 
+print("(n_voxels,) =", scores_motion_energy.shape)
+
 ###############################################################################
 # Plot the model performances
 # ---------------------------
@@ -150,27 +157,27 @@ plt.show()
 
 ###############################################################################
 # The motion-energy features lead to large generalization scores in the
-# early visual cortex (V1, V2? V3, ...). For more discussions about these
+# early visual cortex (V1, V2, V3, ...). For more discussions about these
 # results, we refer the reader to the original publication [1]_.
 
 ###############################################################################
 # Compare with the wordnet model
 # ------------------------------
 #
-# It is interesting to compare the performances of this motion-energy model
-# to the performances of the wordnet model fitted in the previous example.
-# To compare them, we first need to fit again the semantic wordnet model.
+# Interestingly, the motion-energy model performs well in different brain
+# regions than the semantic "wordnet" model fitted in the previous example. To
+# compare the two models, we first need to fit again the wordnet model.
 
 feature_space = "wordnet"
 file_name = os.path.join(directory, "features", f"{feature_space}.hdf")
 X_train = load_hdf5_array(file_name, key="X_train")
 X_test = load_hdf5_array(file_name, key="X_test")
 
-# We use single precision float to speed up model fitting on GPU.
 X_train = X_train.astype("float32")
 X_test = X_test.astype("float32")
 
-# We can create an unfitted copy of the pipeline with the `clone` function.
+###############################################################################
+# We can create an unfitted copy of the pipeline with the ``clone`` function.
 from sklearn.base import clone
 pipeline_wordnet = clone(pipeline_motion_energy)
 pipeline_wordnet
@@ -202,7 +209,7 @@ plt.show()
 ###############################################################################
 # Interestingly, the well predicted voxels are different in the two models.
 # To further describe these differences, we can plot both performances on the
-# same flatmap.
+# same flatmap, using a 2D colormap.
 
 from voxelwise_tutorials.viz import plot_2d_flatmap_from_mapper
 
@@ -214,27 +221,27 @@ ax = plot_2d_flatmap_from_mapper(scores_wordnet, scores_motion_energy,
 plt.show()
 
 ###############################################################################
-# The blue regions are well predicted by the motion-energy features,
-# the orange regions are well predicted by the wordnet features,
-# and the white regions are well predicted by both feature spaces.
+# The blue regions are well predicted by the motion-energy features, the orange
+# regions are well predicted by the wordnet features, and the white regions are
+# well predicted by both feature spaces.
 #
 # Interestingly, a large part of the visual semantic areas are not only well
-# predicted by the wordnet features, but also by the motion-energy features,
-# as indicated by the white color. Since these two features spaces encode
-# quite different information, two interpretations are possible.
-# In the first one, the two feature spaces encode complementary information,
-# and could be used jointly to further increase the generalization
-# performances. In the second interpretation, both feature spaces encode the
-# same information, because of spurious correlation in the stimulus. For
-# example, all faces in the stimulus might be located in the same part of the
-# visual field, thus a motion-energy feature at this location might contain
-# all the necessary information to predict the presence of a face, without
-# specifically encoding for the semantic of faces.
+# predicted by the wordnet features, but also by the motion-energy features, as
+# indicated by the white color. Since these two features spaces encode quite
+# different information, two interpretations are possible. In the first
+# interpretation, the two feature spaces encode complementary information, and
+# could be used jointly to further increase the generalization performances. In
+# the second interpretation, both feature spaces encode the same information,
+# because of spurious correlation in the stimulus. For example, all faces in
+# the stimulus might be located in the same part of the visual field, thus a
+# motion-energy feature at this location might contain all the necessary
+# information to predict the presence of a face, without specifically encoding
+# for the semantic of faces.
 #
 # To better disentangle the two feature spaces, we developed a joint model
 # called `banded ridge regression` [2]_, which fits multiple feature spaces
-# simultaneously with optimal regularization for each feature space.
-# This model is described in the next example.
+# simultaneously with optimal regularization for each feature space. This model
+# is described in the next example.
 
 ###############################################################################
 # References

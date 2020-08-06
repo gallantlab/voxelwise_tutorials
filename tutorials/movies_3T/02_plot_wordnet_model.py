@@ -5,7 +5,7 @@ Fit a ridge model with wordnet features
 
 In this example, we model the fMRI responses with semantic "wordnet" features,
 manually annotated on each frame of the movie stimulus. The model is a
-regularized linear regression model, also known as ridge regression. Since this
+regularized linear regression model, known as ridge regression. Since this
 model is used to predict brain activity from the stimulus, it is called a
 (voxelwise) encoding model.
 
@@ -13,14 +13,22 @@ This example reproduces part of the analysis described in Huth et al (2012)
 [1]_. See this publication for more details about the experiment, the wordnet
 features, along with more results and more discussions.
 
+*Wordnet features:* The features used in this example are semantic labels
+manually annotated on each frame of the movie stimulus. The semantic labels
+include nouns (such as "woman", "car", or "building") and verbs (such as
+"talking", "touching", or "walking"), for a total of 1705 distinct category
+labels. To interpret our model, labels can be organized in a graph of semantic
+relashionship based on the `Wordnet <https://wordnet.princeton.edu/>`_ dataset.
+
 *Summary:* We first concatenate the features with multiple delays, to account
-for the hemodynamic response. We then fit a predictive model of BOLD activity,
-using a  linear regression that weights differently each delayed feature. The
-linear regression is regularized to improve robustness to correlated features
-and to improve generalization. The optimal regularization hyperparameter is
-selected over a grid-search with cross-validation. Finally, the model
-generalization performance is evaluated on a held-out test set, comparing the
-model predictions with the corresponding ground-truth fMRI responses.
+for the slow hemodynamic response. We then fit a predictive model of BOLD
+activity, using a  linear regression that weights differently each delayed
+feature. The linear regression is regularized to improve robustness to
+correlated features and to improve generalization. The optimal regularization
+hyperparameter is selected over a grid-search with cross-validation. Finally,
+the model generalization performance is evaluated on a held-out test set,
+comparing the model predictions with the corresponding ground-truth fMRI
+responses.
 """
 ###############################################################################
 # Path of the data directory
@@ -58,6 +66,8 @@ print("(n_repeats, n_samples_test, n_voxels) =", Y_test.shape)
 # :math:`R^2` scores will be relative to the explainable variance (cf. previous
 # example).
 Y_test = Y_test.mean(0)
+
+print("(n_samples_test, n_voxels) =", Y_test.shape)
 
 ###############################################################################
 # We fill potential NaN (not-a-number) values with zeros.
@@ -125,13 +135,22 @@ from voxelwise_tutorials.delayer import Delayer
 delayer = Delayer(delays=[1, 2, 3, 4])
 
 ###############################################################################
-# Finally, we use a ridge regression model. For computational reasons, when the
-# number of features is larger than the number of samples, it is more efficient
-# to solve a ridge regression using the (equivalent) dual formulation [2]_.
-# This dual formulation is equivalent to kernel ridge regression with a linear
-# kernel. Here, we have 3600 training samples, and 1705 * 4 = 6820 features (we
-# multiply by 4 since we use 4 time delays), therefore it is more efficient to
-# use kernel ridge regression.
+# Finally, we use a ridge regression model. Ridge regression is a linear
+# regression with a L2 regularization. The L2 regularizatin improves robustness
+# to correlated features and improves generalization. However, the L2
+# regularization is controled by a hyperparameter ``alpha`` that needs to be
+# tuned. This regularization hyperparameter is usually selected over a grid
+# search with cross-validation, selecting the hyperparameter that maximizes the
+# predictive performances on the validation set. More details about
+# cross-validation can be found in the `scikit-learn documentation
+# <https://scikit-learn.org/stable/modules/cross_validation.html>`_.
+#
+# For computational reasons, when the number of features is larger than the
+# number of samples, it is more efficient to solve a ridge regression using the
+# (equivalent) dual formulation [2]_. This dual formulation is equivalent to
+# kernel ridge regression with a linear kernel. Here, we have 3600 training
+# samples, and 1705 * 4 = 6820 features (we multiply by 4 since we use 4 time
+# delays), therefore it is more efficient to use kernel ridge regression.
 #
 # With one target, we could directly use the pipeline in ``scikit-learn``'s
 # ``GridSearchCV``, to select the optimal regularization hyperparameter
@@ -140,7 +159,8 @@ delayer = Delayer(delays=[1, 2, 3, 4])
 # only optimize (for example) the mean score over targets. Here, we want to
 # find a different optimal hyperparameter per target/voxel, so we use the
 # package `himalaya <https://github.com/gallantlab/himalaya>`_ which implements
-# a ``scikit-learn`` compatible estimator ``KernelRidgeCV``.
+# a ``scikit-learn`` compatible estimator ``KernelRidgeCV``, with
+# hyperparameter selection independently on each target.
 from himalaya.kernel_ridge import KernelRidgeCV
 
 ###############################################################################
@@ -156,6 +176,7 @@ from himalaya.kernel_ridge import KernelRidgeCV
 from himalaya.backend import set_backend
 backend = set_backend("torch_cuda", on_error="warn")
 print(backend)
+
 ###############################################################################
 # To speed up model fitting on GPU, we use single precision float numbers.
 # (This step probably does not change significantly the performances on non-GPU

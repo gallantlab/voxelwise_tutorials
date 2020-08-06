@@ -4,24 +4,24 @@ Fit a banded ridge model with both wordnet and motion energy features
 =====================================================================
 
 In this example, we model the fMRI responses with a `banded ridge regression`,
-with two different feature spaces: motion-energy, and wordnet categories.
+with two different feature spaces: motion energy, and wordnet categories.
 
-In banded ridge regression [1]_, since the relative scaling of both feature
-spaces is unknown, we use two regularization hyperparameters
-(one per feature space). Just like with ridge regression, we
-optimize the hyperparameters over cross-validation.
-
-The banded ridge regression model is fitted with the package
-`himalaya <https://github.com/gallantlab/himalaya>`_.
+Since the relative scaling of both feature spaces is unknown, we use two
+regularization hyperparameters (one per feature space) in a model called banded
+ridge regression [1]_. Just like with ridge regression, we optimize the
+hyperparameters over cross-validation. An efficient implementation of this
+model is available in the `himalaya <https://github.com/gallantlab/himalaya>`_
+package.
 """
 # sphinx_gallery_thumbnail_number = 2
 ###############################################################################
-
-# path of the data directory
+# Path of the data directory
 import os
 from voxelwise_tutorials.io import get_data_home
 directory = os.path.join(get_data_home(), "vim-4")
 print(directory)
+
+###############################################################################
 
 # modify to use another subject
 subject = "S01"
@@ -39,18 +39,24 @@ from voxelwise_tutorials.io import load_hdf5_array
 file_name = os.path.join(directory, "responses", f"{subject}_responses.hdf")
 Y_train = load_hdf5_array(file_name, key="Y_train")
 Y_test = load_hdf5_array(file_name, key="Y_test")
-run_onsets = load_hdf5_array(file_name, key="run_onsets")
 
-# We average the test repeats, since we cannot model the non-repeatable part of
-# fMRI responses. It means that the prediction :math:`R^2` scores will be
-# relative to the explainable variance.
+print("(n_samples_train, n_voxels) =", Y_train.shape)
+print("(n_repeats, n_samples_test, n_voxels) =", Y_test.shape)
+
+###############################################################################
+# We average the test repeats, to remove the non-repeatable part of fMRI
+# responses.
 Y_test = Y_test.mean(0)
 
-# We remove NaN values present on non-cortical voxels.
+print("(n_samples_test, n_voxels) =", Y_test.shape)
+
+###############################################################################
+# We fill potential NaN (not-a-number) values with zeros.
 Y_train = np.nan_to_num(Y_train)
 Y_test = np.nan_to_num(Y_test)
 
-# Make sure the targets are centered
+###############################################################################
+# And we make sure the targets are centered.
 Y_train -= Y_train.mean(0)
 Y_test -= Y_test.mean(0)
 
@@ -76,6 +82,10 @@ for feature_space in feature_names:
 X_train = np.concatenate(Xs_train, 1)
 X_test = np.concatenate(Xs_test, 1)
 
+print("(n_samples_train, n_features_total) =", X_train.shape)
+print("(n_samples_test, n_features_total) =", X_test.shape)
+print("[n_features_wordnet, n_features_motion_energy] =", n_features_list)
+
 ###############################################################################
 # Define the cross-validation scheme
 # ----------------------------------
@@ -85,10 +95,15 @@ X_test = np.concatenate(Xs_test, 1)
 from sklearn.model_selection import check_cv
 from voxelwise_tutorials.utils import generate_leave_one_run_out
 
-# define a cross-validation splitter, compatible with scikit-learn
+# indice of first sample of each run
+run_onsets = load_hdf5_array(file_name, key="run_onsets")
+print(run_onsets)
+
+###############################################################################
+# We define a cross-validation splitter, compatible with ``scikit-learn`` API.
 n_samples_train = X_train.shape[0]
 cv = generate_leave_one_run_out(n_samples_train, run_onsets)
-cv = check_cv(cv)  # copy the splitter into a reusable list
+cv = check_cv(cv)  # copy the cross-validation splitter into a reusable list
 
 ###############################################################################
 # Define the model
@@ -106,20 +121,20 @@ backend = set_backend("torch_cuda", on_error="warn")
 ###############################################################################
 # To fit the banded ridge model, we use ``himalaya``'s
 # ``MultipleKernelRidgeCV`` model, with a separate linear kernel per feature
-# space. Similarly to ``KernelRidgeCV``, the model
-# optimizes the hyperparameters over cross-validation. However, while
-# ``KernelRidgeCV`` has to optimize only one hyperparameter (alpha),
-# ``MultipleKernelRidgeCV`` has to optimize `m` hyperparameters, where `m` is
-# the number of feature spaces. To do so, the model implements two different
-# solver, one using hyperparameter random search, and one using
-# hyperparameter gradient descent. For large number of targets, we recommend
-# using the random search.
+# space. Similarly to ``KernelRidgeCV``, the model optimizes the
+# hyperparameters over cross-validation. However, while ``KernelRidgeCV`` has
+# to optimize only one hyperparameter (``alpha``), ``MultipleKernelRidgeCV``
+# has to optimize ``m`` hyperparameters, where ``m`` is the number of feature
+# spaces (here ``m = 2``). To do so, the model implements two different
+# solvers, one using hyperparameter random search, and one using hyperparameter
+# gradient descent. For large number of targets, we recommend using the
+# random-search solver.
 
 ###############################################################################
 # The class takes a number of common parameters during initialization, such as
-# ``kernels``, or ``solver``. Since the solver parameters might be different
-# depending on the solver, they can be passed in the ``solver_params``
-# dictionary parameter.
+# ``kernels``, or ``solver``. Since the solver parameters are rather different
+# depending on the solver, they are passed in a ``solver_params`` dictionary
+# parameter.
 
 from himalaya.kernel_ridge import MultipleKernelRidgeCV
 
@@ -132,15 +147,15 @@ print("Docstring of the function %s:" % solver_function.__name__)
 print(solver_function.__doc__)
 
 ###############################################################################
-# The hyperparameter random-search solver separates the hyperparameter into a
-# regularization ``alpha`` and a vector of kernel weights which sum to one.
-# This choice allows to explore a large grid of values for ``alpha`` for each
-# sampled kernel weights vector.
+# The hyperparameter random-search solver separates the hyperparameters into a
+# shared regularization ``alpha`` and a vector of positive kernel weights which
+# sum to one. This separation of hyperparameters allows to explore efficiently
+# a large grid of values for ``alpha`` for each sampled kernel weights vector.
 #
-# We use 20 random search iterations to have a reasonably fast example.
-# To have better results, especially for larger number of feature spaces,
-# one might need more iterations. (Note that there is currently no stopping
-# criterion in the random search method.)
+# We use *20* random-search iterations to have a reasonably fast example. To
+# have better results, especially for larger number of feature spaces, one
+# might need more iterations. (Note that there is currently no stopping
+# criterion in the random-search method.)
 n_iter = 20
 
 alphas = np.logspace(1, 20, 20)
@@ -227,23 +242,24 @@ pipeline
 # -------------
 #
 # We fit on the train set, and score on the test set.
+#
+# With a GPU backend, the fitting of this model takes around 6 minutes. With a
+# CPU backend, it can last 10 times more.
 
 pipeline.fit(X_train, Y_train)
 
 scores = pipeline.score(X_test, Y_test)
-
-###############################################################################
-# Since we performed the MultipleKernelRidgeCV on GPU, scores are returned as
-# torch.Tensor on GPU. Thus, we need to move them into numpy arrays on CPU, to
-# be able to use them e.g. in a matplotlib figure.
 scores = backend.to_numpy(scores)
+
+print("(n_voxels,) =", scores.shape)
 
 ###############################################################################
 # Compare with a ridge model
 # --------------------------
 #
 # We can compare with a baseline model, which does not use one hyperparameter
-# per feature space, but share the same hyperparameter for all feature spaces.
+# per feature space, but instead shares the same hyperparameter for all feature
+# spaces.
 
 from himalaya.kernel_ridge import KernelRidgeCV
 
@@ -290,8 +306,8 @@ plt.show()
 # ---------------------------
 #
 # On top of better performances, banded ridge regression also gives a way to
-# disantangle the two feature spaces. To do so, we take the kernel weights and
-# the ridge weights corresponding to each feature space, and use them to
+# disentangle the two feature spaces. To do so, we take the kernel weights and
+# the ridge (dual) weights corresponding to each feature space, and use them to
 # split the prediction on each feature space.
 #
 # .. math::
@@ -308,6 +324,9 @@ Y_test_pred_split = pipeline.predict(X_test, split=True)
 split_scores = r2_score_split(Y_test, Y_test_pred_split)
 split_scores.shape
 
+print("(n_kernels, n_samples_test, n_voxels) =", Y_test_pred_split.shape)
+print("(n_kernels, n_voxels) =", split_scores.shape)
+
 ###############################################################################
 # We can then plot the split scores on a flatmap with a 2D colormap.
 
@@ -321,10 +340,19 @@ ax = plot_2d_flatmap_from_mapper(split_scores[0], split_scores[1],
 plt.show()
 
 ###############################################################################
-# We see that the banded ridge regression disentangled the two feature spaces
-# in voxels where both feature spaces had good performances.
-# For more discussions about these results, we refer the reader to the
-# original publication [1]_.
+# The blue regions are predicted using the motion-energy features, the orange
+# regions are predicted using the wordnet features, and the white regions are
+# well predicted using both feature spaces.
+#
+# Compared to the last figure of the previous example, we see that most white
+# regions have been replaced by either blue or orange regions. Indeed, the
+# banded ridge regression disentangled the two feature spaces in voxels where
+# both feature spaces had good performances (see previous example). The
+# disentanglement is consistent with prior knowledge. For example, the
+# motion-energy features are selected in the early visual cortex, while the
+# wordnet features are selected in the semantic visual areas. For more
+# discussions about these results, we refer the reader to the original
+# publication [1]_.
 
 ###############################################################################
 # References
