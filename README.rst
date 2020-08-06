@@ -19,6 +19,7 @@ To explore these tutorials, one can:
 
 - read the rendered examples in the tutorials
   `website <https://gallantlab.github.io/voxelwise_tutorials/>`_ (recommended)
+  (not online yet, ask Tom the local link)
 - run the Python scripts located in the `tutorials <tutorials>`_ directory
 - run the ``jupyter`` notebooks located in the
   `tutorials/notebooks <tutorials/notebooks>`_ directory

@@ -122,7 +122,7 @@ delayer = Delayer(delays=[1, 2, 3, 4])
 # Finally, we use a ridge regression model. When the number of features is
 # larger than the number of samples, it is more efficient to solve a ridge
 # regression using the (equivalent) dual formulation, kernel ridge regression
-# with a linear kernel.
+# with a linear kernel [2]_.
 # Here, we have 3600 training samples, and 1705 * 4 = 6820 features (we
 # multiply by 4 since we use 4 time delays), therefore we use kernel ridge
 # regression.
@@ -137,10 +137,11 @@ delayer = Delayer(delays=[1, 2, 3, 4])
 from himalaya.kernel_ridge import KernelRidgeCV
 
 ###############################################################################
-# Moreover, ``himalaya`` implements different computational backends, including
-# GPU backends. The available GPU backends are "torch_cuda" and "cupy". (These
-# backends are only available if you installed the corresponding package with
-# CUDA enabled. Check the pytorch/cupy documentation for install instructions.)
+# Interestingly, ``himalaya`` implements different computational backends,
+# including two backends that use GPU for faster computations. The two
+# available GPU backends are "torch_cuda" and "cupy". (These backends are only
+# available if you installed the corresponding package with CUDA enabled. Check
+# the ``pytorch``/``cupy`` documentation for install instructions.)
 #
 # Here we use the "torch_cuda" backend, but if the import fails we continue
 # with the default "numpy" backend. The "numpy" backend is expected to be
@@ -162,10 +163,12 @@ kernel_ridge_cv = KernelRidgeCV(
 
 ###############################################################################
 # We use ``scikit-learn``'s ``Pipeline`` to link the different steps together.
-# A ``Pipeline`` can be used as a regular estimator, calling
-# ``pipeline.fit``, ``pipeline.predict``, etc.
-# Using a pipeline can be useful to clarify the different steps, avoid
-# cross-validation mistakes, or automatically cache intermediate results.
+# A ``Pipeline`` can be used as a regular estimator, calling ``pipeline.fit``,
+# ``pipeline.predict``, etc. Using a ``Pipeline`` can be useful to clarify the
+# different steps, avoid cross-validation mistakes, or automatically cache
+# intermediate results. See the ``scikit-learn`` `documentation
+# <https://scikit-learn.org/stable/modules/compose.html>`_` for more
+# information.
 from sklearn.pipeline import make_pipeline
 pipeline = make_pipeline(
     scaler,
@@ -174,7 +177,7 @@ pipeline = make_pipeline(
 )
 
 ###############################################################################
-# We can display the scikit-learn pipeline with an HTML diagram.
+# We can display the ``scikit-learn`` pipeline with an HTML diagram.
 from sklearn import set_config
 set_config(display='diagram')
 pipeline
@@ -359,3 +362,6 @@ plt.show()
 #    A continuous semantic space describes the representation of thousands of
 #    object and action categories across the human brain. Neuron, 76(6),
 #    1210-1224.
+#
+# .. [2] Saunders, C., Gammerman, A., & Vovk, V. (1998).
+#    Ridge regression learning algorithm in dual variables.
