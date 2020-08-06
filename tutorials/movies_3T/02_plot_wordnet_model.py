@@ -3,35 +3,33 @@
 Fit a ridge model with wordnet features
 =======================================
 
-In this first example, we model the fMRI responses with semantic labeling
-"wordnet" features manually annotated to the movie stimulus, using a
-regularized linear regression model.
-This is called a (voxelwise) encoding model.
+In this example, we model the fMRI responses with semantic "wordnet" features,
+manually annotated on each frame of the movie stimulus. The model is a
+regularized linear regression model, also known as ridge regression. Since this
+model is used to predict brain activity from the stimulus, it is called a
+(voxelwise) encoding model.
 
-This tutorial reproduces part of the analysis described in Huth et al (2012)
+This example reproduces part of the analysis described in Huth et al (2012)
 [1]_. See this publication for more details about the experiment, the wordnet
 features, along with more results and more discussions.
 
-We first concatenate the features with multiple delays, to account for the
-hemodynamic response. A linear regression model then weights each delayed
-feature with a different weight, to build a predictive model of BOLD activity.
-The linear regression is regularized to improve robustness to correlated
-features and to improve generalization. The optimal regularization
-hyperparameter is selected over a grid-search with cross-validation.
-Finally, the model generalization performance is evaluated on a held-out test
-set, comparing the model predictions with the corresponding ground-truth fMRI
-responses.
-
-The ridge model is fitted with the package
-`himalaya <https://github.com/gallantlab/himalaya>`_.
+*Summary:* We first concatenate the features with multiple delays, to account
+for the hemodynamic response. We then fit a predictive model of BOLD activity,
+using a  linear regression that weights differently each delayed feature. The
+linear regression is regularized to improve robustness to correlated features
+and to improve generalization. The optimal regularization hyperparameter is
+selected over a grid-search with cross-validation. Finally, the model
+generalization performance is evaluated on a held-out test set, comparing the
+model predictions with the corresponding ground-truth fMRI responses.
 """
 ###############################################################################
-
-# path of the data directory
+# Path of the data directory
 import os
 from voxelwise_tutorials.io import get_data_home
 directory = os.path.join(get_data_home(), "vim-4")
 print(directory)
+
+###############################################################################
 
 # modify to use another subject
 subject = "S01"
@@ -47,29 +45,35 @@ from voxelwise_tutorials.io import load_hdf5_array
 file_name = os.path.join(directory, "responses", f"{subject}_responses.hdf")
 Y_train = load_hdf5_array(file_name, key="Y_train")
 Y_test = load_hdf5_array(file_name, key="Y_test")
-run_onsets = load_hdf5_array(file_name, key="run_onsets")
 
-# We average the test repeats, since we cannot model the non-repeatable part of
-# fMRI responses. It means that the prediction :math:`R^2` scores will be
-# relative to the explainable variance.
+print("(n_samples_train, n_voxels) =", Y_train.shape)
+print("(n_repeats, n_samples_test, n_voxels) =", Y_test.shape)
+
+###############################################################################
+# If we repeat an experiment multiple times, part of the fMRI responses might
+# change. However the modeling features do not change over the repeats, so the
+# voxelwise encoding model predicts the same signal for each repeat. To have an
+# upper bound of the model performances, we keep only the repeatable part of
+# the signal by averaging the test repeats. It means that the prediction
+# :math:`R^2` scores will be relative to the explainable variance (cf. previous
+# example).
 Y_test = Y_test.mean(0)
 
-# We remove NaN values present on non-cortical voxels.
+###############################################################################
+# We fill potential NaN (not-a-number) values with zeros.
 Y_train = np.nan_to_num(Y_train)
 Y_test = np.nan_to_num(Y_test)
 
 ###############################################################################
-# Then, we load the semantic labeling "wordnet" features, that we will
-# use for the linear regression model.
-
+# Then, we load the semantic "wordnet" features.
 feature_space = "wordnet"
+
 file_name = os.path.join(directory, "features", f"{feature_space}.hdf")
 X_train = load_hdf5_array(file_name, key="X_train")
 X_test = load_hdf5_array(file_name, key="X_test")
 
-# We use single precision float to speed up model fitting on GPU.
-X_train = X_train.astype("float32")
-X_test = X_test.astype("float32")
+print("(n_samples_train, n_features) =", X_train.shape)
+print("(n_samples_test, n_features) =", X_test.shape)
 
 ###############################################################################
 # Define the cross-validation scheme
@@ -88,8 +92,10 @@ from voxelwise_tutorials.utils import generate_leave_one_run_out
 
 # indice of first sample of each run
 run_onsets = load_hdf5_array(file_name, key="run_onsets")
+print(run_onsets)
 
-# define a cross-validation splitter, compatible with ``scikit-learn`` API
+###############################################################################
+# We define a cross-validation splitter, compatible with ``scikit-learn`` API.
 n_samples_train = X_train.shape[0]
 cv = generate_leave_one_run_out(n_samples_train, run_onsets)
 cv = check_cv(cv)  # copy the cross-validation splitter into a reusable list
@@ -100,15 +106,15 @@ cv = check_cv(cv)  # copy the cross-validation splitter into a reusable list
 #
 # Now, let's define the model pipeline.
 #
-# We first center the features, since we will not use an intercept.
-# The mean value in fMRI recording is non-informative, so each run is detrended
-# and demeaned independently, and we do not need to predict an intercept value
-# in the linear model.
+# We first center the features, since we will not use an intercept. Indeed, the
+# mean value in fMRI recording is non-informative, so each run is detrended and
+# demeaned independently, and we do not need to predict an intercept value in
+# the linear model.
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler(with_mean=True, with_std=False)
 
 ###############################################################################
-# Then we concatenate the features with multiple delays, to account for the
+# Then we concatenate the features with multiple delays to account for the
 # hemodynamic response. Indeed, the BOLD signal recorded in fMRI experiments is
 # delayed in time with respect to the stimulus. With different delayed versions
 # of the features, the linear regression model will weight each
@@ -119,27 +125,28 @@ from voxelwise_tutorials.delayer import Delayer
 delayer = Delayer(delays=[1, 2, 3, 4])
 
 ###############################################################################
-# Finally, we use a ridge regression model. When the number of features is
-# larger than the number of samples, it is more efficient to solve a ridge
-# regression using the (equivalent) dual formulation, kernel ridge regression
-# with a linear kernel [2]_.
-# Here, we have 3600 training samples, and 1705 * 4 = 6820 features (we
-# multiply by 4 since we use 4 time delays), therefore we use kernel ridge
-# regression.
+# Finally, we use a ridge regression model. For computational reasons, when the
+# number of features is larger than the number of samples, it is more efficient
+# to solve a ridge regression using the (equivalent) dual formulation [2]_.
+# This dual formulation is equivalent to kernel ridge regression with a linear
+# kernel. Here, we have 3600 training samples, and 1705 * 4 = 6820 features (we
+# multiply by 4 since we use 4 time delays), therefore it is more efficient to
+# use kernel ridge regression.
 #
 # With one target, we could directly use the pipeline in ``scikit-learn``'s
-# ``GridSearchCV``, to select the optimal hyperparameters over
-# cross-validation.
-# However, ``GridSearchCV`` can only optimize one score. Thus, in the multiple
-# target case, ``GridSearchCV`` can only optimize e.g. the mean score over
-# targets. Here, we want to find a different optimal hyperparameter per
-# target/voxel, so we use ``himalaya``'s ``KernelRidgeCV`` instead.
+# ``GridSearchCV``, to select the optimal regularization hyperparameter
+# (``alpha``) over cross-validation. However, ``GridSearchCV`` can only
+# optimize one score. Thus, in the multiple-target case, ``GridSearchCV`` can
+# only optimize (for example) the mean score over targets. Here, we want to
+# find a different optimal hyperparameter per target/voxel, so we use the
+# package `himalaya <https://github.com/gallantlab/himalaya>`_ which implements
+# a ``scikit-learn`` compatible estimator ``KernelRidgeCV``.
 from himalaya.kernel_ridge import KernelRidgeCV
 
 ###############################################################################
 # Interestingly, ``himalaya`` implements different computational backends,
 # including two backends that use GPU for faster computations. The two
-# available GPU backends are "torch_cuda" and "cupy". (These backends are only
+# available GPU backends are "torch_cuda" and "cupy". (Each backend is only
 # available if you installed the corresponding package with CUDA enabled. Check
 # the ``pytorch``/``cupy`` documentation for install instructions.)
 #
@@ -148,13 +155,21 @@ from himalaya.kernel_ridge import KernelRidgeCV
 # slower since it only uses the CPU.
 from himalaya.backend import set_backend
 backend = set_backend("torch_cuda", on_error="warn")
+print(backend)
+###############################################################################
+# To speed up model fitting on GPU, we use single precision float numbers.
+# (This step probably does not change significantly the performances on non-GPU
+# backends.)
+X_train = X_train.astype("float32")
+X_test = X_test.astype("float32")
 
 ###############################################################################
-# The scale of the regularization hyperparameter ``alpha`` is unknown, so we
+# Since the scale of the regularization hyperparameter ``alpha`` is unknown, we
 # use a large logarithmic range, and we will check after the fit that best
 # hyperparameters are not all on one range edge.
 alphas = np.logspace(1, 20, 20)
 
+###############################################################################
 # We also indicate some batch sizes to limit the GPU memory.
 kernel_ridge_cv = KernelRidgeCV(
     alphas=alphas, cv=cv,
@@ -162,13 +177,13 @@ kernel_ridge_cv = KernelRidgeCV(
                        n_targets_batch_refit=100))
 
 ###############################################################################
-# We use ``scikit-learn``'s ``Pipeline`` to link the different steps together.
-# A ``Pipeline`` can be used as a regular estimator, calling ``pipeline.fit``,
-# ``pipeline.predict``, etc. Using a ``Pipeline`` can be useful to clarify the
-# different steps, avoid cross-validation mistakes, or automatically cache
-# intermediate results. See the ``scikit-learn`` `documentation
-# <https://scikit-learn.org/stable/modules/compose.html>`_` for more
-# information.
+# Finally, we use a ``scikit-learn`` ``Pipeline`` to link the different steps
+# together. A ``Pipeline`` can be used as a regular estimator, calling
+# ``pipeline.fit``, ``pipeline.predict``, etc. Using a ``Pipeline`` can be
+# useful to clarify the different steps, avoid cross-validation mistakes, or
+# automatically cache intermediate results. See the ``scikit-learn``
+# `documentation <https://scikit-learn.org/stable/modules/compose.html>`_ for
+# more information.
 from sklearn.pipeline import make_pipeline
 pipeline = make_pipeline(
     scaler,
@@ -186,18 +201,26 @@ pipeline
 # Fit the model
 # -------------
 #
-# We fit on the train set, and score on the test set.
-# Here the scores are the :math:`R^2` scores, with values in
-# :math:`]-\infty 1]`. A value of 1 means the predictions are perfect.
+# We fit on the train set..
 
-pipeline.fit(X_train, Y_train)
-
-scores = pipeline.score(X_test, Y_test)
+_ = pipeline.fit(X_train, Y_train)
 
 ###############################################################################
-# Since we fitted the model on GPU, scores are returned as ``torch.Tensor``` on
-# GPU. Thus, we need to move them into ``numpy`` arrays on CPU, to
-# be able to use them for example in a ``matplotlib`` figure.
+# ..and score on the test set. Here the scores are the :math:`R^2` scores, with
+# values in :math:`]-\infty, 1]`. A value of :math:`1` means the predictions
+# are perfect.
+#
+# Note that since ``himalaya`` is specifically implementinf multiple targets
+# models, the ``score`` method differs from ``scikit-learn`` API and returns
+# one score per target/voxel.
+scores = pipeline.score(X_test, Y_test)
+print("(n_voxels,) =", scores.shape)
+
+###############################################################################
+# If we fit the model on GPU, scores are returned on GPU using an array object
+# specfic to the backend we used (such as a ``torch.Tensor``). Thus, we need to
+# move them into ``numpy`` arrays on CPU, to be able to use them for example in
+# a ``matplotlib`` figure.
 scores = backend.to_numpy(scores)
 
 ###############################################################################
@@ -216,17 +239,17 @@ ax = plot_flatmap_from_mapper(scores, mapper_file, vmin=0, vmax=0.4)
 plt.show()
 
 ###############################################################################
-# We can see that the "wordnet" features successfully predict brain activity,
-# with :math:`R^2` scores as high as 0.4. Note that these scores are
-# generalization scores, since they awere computed on a test set not seen
-# during the mode fitting. Since we fitted a model independently on each voxel,
-# we can show the generalization performances at the maximal resolution,
+# We can see that the "wordnet" features successfully predict a part of the
+# brain activity, with :math:`R^2` scores as high as 0.4. Note that these
+# scores are generalization scores, since they aere computed on a test set not
+# seen during the mode fitting. Since we fitted a model independently on each
+# voxel, we can show the generalization performances at the maximal resolution,
 # the voxel.
 #
 # The best performances are located in visual semantic areas like EBA, or FFA.
-# This is expected since the wordnet features encode (categorical) semantic
-# information about the visual stimulus. For more discussions about these
-# results, we refer the reader to the original publication [1]_.
+# This is expected since the wordnet features encode semantic information about
+# the visual stimulus. For more discussions about these results, we refer the
+# reader to the original publication [1]_.
 
 ###############################################################################
 # Plot the selected hyperparameters
@@ -251,7 +274,7 @@ plt.show()
 # -----------------------------------
 #
 # To present an example of model comparison, we define here another model,
-# without feature delays (i.e. no ``Delayer```). This model is unlikely to
+# without feature delays (i.e. no ``Delayer``). This model is unlikely to
 # perform well, since fMRI responses are delayed in time with respect to
 # the stimulus.
 
@@ -265,12 +288,13 @@ pipeline_nodelay = make_pipeline(
 pipeline_nodelay
 
 ###############################################################################
+# We fit and score the model as the previous one.
 pipeline_nodelay.fit(X_train, Y_train)
 scores_nodelay = pipeline_nodelay.score(X_test, Y_test)
 scores_nodelay = backend.to_numpy(scores_nodelay)
-
+print("(n_voxels,) =", scores_nodelay.shape)
 ###############################################################################
-# Here we plot the comparison of model performances with a 2D histogram.
+# Then, we plot the comparison of model performances with a 2D histogram.
 # All ~70k voxels are represented in this histogram, where the diagonal
 # corresponds to identical performance for both models. A distibution deviating
 # from the diagonal means that one model has better predictive performances
@@ -279,8 +303,11 @@ scores_nodelay = backend.to_numpy(scores_nodelay)
 from voxelwise_tutorials.viz import plot_hist2d
 
 ax = plot_hist2d(scores_nodelay, scores)
-ax.set(title='Generalization R2 scores', xlabel='model without delays',
-       ylabel='model with delays')
+ax.set(
+    title='Generalization R2 scores',
+    xlabel='model without delays',
+    ylabel='model with delays',
+)
 plt.show()
 
 ###############################################################################
@@ -317,7 +344,7 @@ voxel_selection = np.argsort(scores)[-10:]
 # define a pipeline with more delays
 pipeline_many_delays = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
-    Delayer(delays=np.arange(7)),
+    Delayer(delays=[0, 1, 2, 3, 4, 5, 6]),
     KernelRidgeCV(
         alphas=alphas, cv=cv,
         solver_params=dict(n_targets_batch=500, n_alphas_batch=5,

@@ -12,9 +12,9 @@ This website contains tutorials describing how to use the
 `voxelwise modeling framework <voxelwise_modeling.html>`_.
 
 The tutorials consist of Python scripts, which are rendered in a `gallery of
-examples <auto_examples/index.html>`_. Each Python script is also available as a
-``Jupyter`` notebook (non-rendered). The tutorials are best explored in order,
-starting with the "Movies 3T tutorial".
+examples <auto_examples/index.html>`_. Each Python script is also available as
+a ``jupyter`` notebook (non-rendered). The tutorials are best explored in
+order, starting with the "Movies 3T tutorial".
 
 To run the tutorials yourself, we recommend to download the project on GitHub
 at `gallantlab/voxelwise_tutorials
