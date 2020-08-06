@@ -135,7 +135,10 @@ def plot_flatmap_from_mapper(voxels, mapper_file, ax=None, alpha=0.7,
                      vmin=vmin, vmax=vmax)
 
     if with_colorbar:
-        cbar = ax.inset_axes(colorbar_location)
+        try:
+            cbar = ax.inset_axes(colorbar_location)
+        except AttributeError:  # for matplotlib < 3.0
+            cbar = ax.figure.add_axes(colorbar_location)
         ax.figure.colorbar(cimg, cax=cbar, orientation='horizontal')
 
     # plot additional layers if present
@@ -293,7 +296,10 @@ def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
     ax.imshow(image, aspect='equal', zorder=1, alpha=alpha)
 
     if with_colorbar:
-        cbar = ax.inset_axes(colorbar_location)
+        try:
+            cbar = ax.inset_axes(colorbar_location)
+        except AttributeError:  # for matplotlib < 3.0
+            cbar = ax.figure.add_axes(colorbar_location)
         cbar.imshow(cmap_image, aspect='equal',
                     extent=(vmin, vmax, vmin2, vmax2))
         cbar.set(xlabel=label_1, ylabel=label_2)
