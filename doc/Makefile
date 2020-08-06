@@ -20,8 +20,8 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 clean:
-	rm -rf $(BUILDDIR)/*
-	rm -rf auto_examples/
+	rm -rf $(BUILDDIR)/
+	rm -rf _auto_examples/
 
 html-noplot:
 	$(SPHINXBUILD) -D plot_gallery=0 -b html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
