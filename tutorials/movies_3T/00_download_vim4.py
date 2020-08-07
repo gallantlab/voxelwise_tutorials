@@ -37,7 +37,7 @@ print(directory)
 
 ###############################################################################
 # We will only use the first subject in this tutorial, but you can run the same
-# analysis on the four other subjects. Uncomment the lines in ``DATAFILES``` to
+# analysis on the four other subjects. Uncomment the lines in ``DATAFILES`` to
 # download more subjects.
 #
 # We also skip the stimuli files, since the dataset provides two preprocessed

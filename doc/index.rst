@@ -12,7 +12,7 @@ This website contains tutorials describing how to use the
 `voxelwise modeling framework <voxelwise_modeling.html>`_.
 
 The tutorials consist of Python scripts, which are rendered in a `gallery of
-examples <auto_examples/index.html>`_. Each Python script is also available as
+examples <_auto_examples/index.html>`_. Each Python script is also available as
 a ``jupyter`` notebook (non-rendered). The tutorials are best explored in
 order, starting with the "Movies 3T tutorial".
 
@@ -32,7 +32,7 @@ Tutorials
    :maxdepth: 2
    
     
-   auto_examples/index
+   _auto_examples/index
 
 Documentation
 -------------

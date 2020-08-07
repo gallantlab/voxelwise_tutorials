@@ -35,8 +35,8 @@ print(directory)
 
 ###############################################################################
 # We will only use the first subject in this tutorial, but you can run the same
-# analysis on the twofour other subjects. Uncomment the lines in `DATAFILES` to
-# download more subjects, or to download the stimuli images.
+# analysis on the two other subjects. Uncomment the lines in ``DATAFILES`` to
+# download more subjects, or to download the anatomy files.
 
 import getpass
 
@@ -48,9 +48,9 @@ DATAFILES = [
     # 'vim-2/VoxelResponses_subject2.tar.gz',
     # 'vim-2/VoxelResponses_subject3.tar.gz',
     # 'vim-2/anatomy.zip',
-    'vim-2/checksums.md5',
-    'vim-2/filelist.txt',
-    'vim-2/docs/crcns-vim-2-data-description.pdf',
+    # 'vim-2/checksums.md5',
+    # 'vim-2/filelist.txt',
+    # 'vim-2/docs/crcns-vim-2-data-description.pdf',
 ]
 
 ###############################################################################
