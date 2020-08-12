@@ -14,7 +14,7 @@ requirements = [
     "matplotlib",
     "numpy",
     "scipy",
-    "scikit-learn",
+    "scikit-learn>=0.23",
 ]
 
 if __name__ == "__main__":
