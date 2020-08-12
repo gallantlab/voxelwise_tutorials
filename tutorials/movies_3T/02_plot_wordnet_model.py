@@ -231,7 +231,7 @@ _ = pipeline.fit(X_train, Y_train)
 # values in :math:`]-\infty, 1]`. A value of :math:`1` means the predictions
 # are perfect.
 #
-# Note that since ``himalaya`` is specifically implementinf multiple targets
+# Note that since ``himalaya`` is specifically implementing multiple targets
 # models, the ``score`` method differs from ``scikit-learn`` API and returns
 # one score per target/voxel.
 scores = pipeline.score(X_test, Y_test)
