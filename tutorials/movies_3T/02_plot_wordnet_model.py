@@ -248,7 +248,7 @@ scores = backend.to_numpy(scores)
 # Plot the model performances
 # ---------------------------
 #
-# To visualize the model performances, we can plot them on a flatten
+# To visualize the model performances, we can plot them on a flattened
 # surface of the brain, using a mapper that is specific to the subject brain.
 # (Check previous example to see how to use the mapper to Freesurfer average
 # surface.)
@@ -262,7 +262,7 @@ plt.show()
 ###############################################################################
 # We can see that the "wordnet" features successfully predict a part of the
 # brain activity, with :math:`R^2` scores as high as 0.4. Note that these
-# scores are generalization scores, since they aere computed on a test set not
+# scores are generalization scores, since they are computed on a test set not
 # seen during the mode fitting. Since we fitted a model independently on each
 # voxel, we can show the generalization performances at the maximal resolution,
 # the voxel.
@@ -280,10 +280,10 @@ plt.show()
 # the solver over cross-validation. This plot is helpful to refine the alpha
 # grid if the range is too small or too large.
 #
-# Note that some voxels are at the maximum regularization of the grid. These
-# are voxels where the model has no predictive power, and where the optimal
-# regularization is large to lead to a prediction equal to zero.
-# We do not need to extend the alpha range for these voxels.
+# Note that some voxels might be at the maximum regularization value in the grid
+# search. These are voxels where the model has no predictive power, thus 
+# the optimal regularization parameter is large to lead to a prediction equal 
+# to zero. We do not need to extend the alpha range for these voxels.
 
 from himalaya.viz import plot_alphas_diagnostic
 best_alphas = backend.to_numpy(pipeline[-1].best_alphas_)
@@ -295,9 +295,9 @@ plt.show()
 # -----------------------------------
 #
 # To present an example of model comparison, we define here another model,
-# without feature delays (i.e. no ``Delayer``). This model is unlikely to
-# perform well, since fMRI responses are delayed in time with respect to
-# the stimulus.
+# without feature delays (i.e. no ``Delayer``). Because the BOLD signal is
+# inherently slow due to the dynamics of neuro-vascular coupling, this model 
+# is unlikely to perform well.
 
 pipeline_nodelay = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
@@ -342,12 +342,12 @@ plt.show()
 # Visualize the HRF
 # -----------------
 #
-# We just saw that delays are necessary to model the BOLD response in such
-# fMRI recordings. Here we show how to visualize the hemodynamic response
-# function (HRF), as captured in the ridge regression weights.
+# We just saw that delays are necessary to model BOLD responses. 
+# Here we show how the fitted ridge regression weights follow the hemodynamic response
+# function (HRF).
 #
 # Fitting a kernel ridge regression results in a set of coefficients called the
-# "dual" coefficients :math:`w`. These coefficients are different from the
+# "dual" coefficients :math:`w`. These coefficients differ from the
 # "primal" coefficients :math:`\beta` obtained with a ridge regression,
 # but the primal coefficients can be computed from the dual coefficients
 # using the training features :math:`X`:
@@ -399,7 +399,7 @@ plt.show()
 
 ###############################################################################
 # We see that the hemodynamic response function (HRF) is captured in the model
-# weights. In practice, we can limit the number of features by using only
+# weights. In this dataset, we can limit the number of features by using only
 # the most informative delays, for example [1, 2, 3, 4].
 
 ###############################################################################
