@@ -65,6 +65,7 @@ The package ``voxelwise_tutorials`` has the following dependencies:
 - `h5py <https://github.com/h5py/h5py>`_
 - `scikit-learn <https://github.com/scikit-learn/scikit-learn>`_
 - `matplotlib <https://github.com/matplotlib/matplotlib>`_
+- `pycortex <https://github.com/gallantlab/pycortex>`_
 
 Each tutorial requires additional packages, as listed in their respective
 documentations, such as:
@@ -73,7 +74,6 @@ documentations, such as:
   (this repository)
 - `himalaya <https://github.com/gallantlab/himalaya>`_
 - `pymoten <https://github.com/gallantlab/pymoten>`_
-- `pycortex <https://github.com/gallantlab/pycortex>`_
 
 
 .. |Github| image:: https://img.shields.io/badge/github-voxelwise_tutorials-blue

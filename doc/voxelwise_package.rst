@@ -1,7 +1,7 @@
 Helper Python package
 =====================
 
-|Github| |Python|
+|Github| |Python| |License|
 
 To run the tutorials, the `gallantlab/voxelwise_tutorials
 <https://github.com/gallantlab/voxelwise_tutorials>`_ repository contains a
@@ -38,14 +38,14 @@ The package ``voxelwise_tutorials`` has the following dependencies:
 - `h5py <https://github.com/h5py/h5py>`_
 - `scikit-learn <https://github.com/scikit-learn/scikit-learn>`_
 - `matplotlib <https://github.com/matplotlib/matplotlib>`_
+- `pycortex <https://github.com/gallantlab/pycortex>`_
 
 Each tutorial requires additional packages, as listed in their respective
 documentations, such as:
 
-- `voxelwise_tutorials <https://github.com/gallantlab/voxelwise_tutorials>`_
+- `voxelwise_tutorials <https://github.com/gallantlab/voxelwise_tutorials>`_ (this helper package)
 - `himalaya <https://github.com/gallantlab/himalaya>`_
 - `pymoten <https://github.com/gallantlab/pymoten>`_
-- `pycortex <https://github.com/gallantlab/pycortex>`_
 
 
 .. |Github| image:: https://img.shields.io/badge/github-voxelwise_tutorials-blue
@@ -53,3 +53,6 @@ documentations, such as:
 
 .. |Python| image:: https://img.shields.io/badge/python-3.7%2B-blue
    :target: https://www.python.org/downloads/release/python-370
+
+.. |License| image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
+   :target: https://opensource.org/licenses/BSD-3-Clause

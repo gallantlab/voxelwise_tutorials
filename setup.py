@@ -11,8 +11,10 @@ for line in infos:
         __version__ = match.groups()[0]
 
 requirements = [
+    "h5py",
     "matplotlib",
     "numpy",
+    "pycortex",
     "scipy",
     "scikit-learn",
 ]
