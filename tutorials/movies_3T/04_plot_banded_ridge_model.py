@@ -6,12 +6,16 @@ Fit a banded ridge model with both wordnet and motion energy features
 In this example, we model the fMRI responses with a `banded ridge regression`,
 with two different feature spaces: motion energy, and wordnet categories.
 
-Since the relative scaling of both feature spaces is unknown, we use two
-regularization hyperparameters (one per feature space) in a model called banded
-ridge regression [1]_. Just like with ridge regression, we optimize the
-hyperparameters over cross-validation. An efficient implementation of this
-model is available in the `himalaya <https://github.com/gallantlab/himalaya>`_
-package.
+*Banded ridge regression:* Since the relative scaling of both feature spaces is
+unknown, we use two regularization hyperparameters (one per feature space) in a
+model called banded ridge regression [1]_. Just like with ridge regression, we
+optimize the hyperparameters over cross-validation. An efficient implementation
+of this model is available in the `himalaya
+<https://github.com/gallantlab/himalaya>`_ package.
+
+*Running time:* This example is more computationally intensive than previous
+examples. With a GPU backend, the fitting of this model takes around 6 minutes.
+With a CPU backend, it can last 10 times more.
 """
 # sphinx_gallery_thumbnail_number = 2
 ###############################################################################
