@@ -120,6 +120,15 @@ cv = check_cv(cv)  # copy the cross-validation splitter into a reusable list
 # mean value in fMRI recording is non-informative, so each run is detrended and
 # demeaned independently, and we do not need to predict an intercept value in
 # the linear model.
+#
+# However, we prefer not to normalize by the standard deviation of each
+# feature. Indeed, if the features are extracted in a consistent way from the
+# stimulus, there relative scale is meaningful. Normalizing them independently
+# from each other would remove this meaning. Moreover, the wordnet features are
+# one-hot-encoded, which means that each feature is either present (1) or not
+# present (0) in each sample. Normalizing one-hot-encoded features is not
+# recommended, since it would scale disproportionately the infrequent features.
+
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler(with_mean=True, with_std=False)
 
@@ -398,6 +407,8 @@ plt.axhline(0, color='k', linewidth=0.5)
 plt.show()
 
 ###############################################################################
+# In this dataset, the brain responses are recorded every two seconds.
+#
 # We see that the hemodynamic response function (HRF) is captured in the model
 # weights. In practice, we can limit the number of features by using only
 # the most informative delays, for example [1, 2, 3, 4].

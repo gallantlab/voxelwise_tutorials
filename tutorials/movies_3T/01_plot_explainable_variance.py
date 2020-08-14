@@ -14,7 +14,8 @@ for each repeat, it can only model the component that is common to all repeats.
 This shared component can be estimated by taking the mean over repeats of the
 same experiment. The variance of this shared component, that we call the
 explainable variance, is the upper bound of the voxelwise modeling
-performances.
+performances. The explainable variance is also sometimes called the *noise
+ceiling*.
 """
 # sphinx_gallery_thumbnail_number = 2
 ###############################################################################
