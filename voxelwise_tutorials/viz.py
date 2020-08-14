@@ -61,7 +61,8 @@ def plot_hist2d(scores_1, scores_2, bins=100, cmin=1, vmin=None, vmax=None,
     h = ax.hist2d(scores_1, scores_2, bins=bins, cmin=cmin, norm=norm,
                   **kwargs)
     if colorbar:
-        ax.figure.colorbar(h[3], ax=ax)
+        cbar = ax.figure.colorbar(h[3], ax=ax)
+        cbar.ax.set_ylabel('number of voxels')
 
     ax.plot([vmin, vmax], [vmin, vmax], color='k', linewidth=0.5)
     ax.set_xlim(vmin, vmax)
