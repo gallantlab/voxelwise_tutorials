@@ -109,11 +109,12 @@ plt.show()
 # This figure is a flatten map of the cortical surface. A number of regions of
 # interest (ROIs) have been labeled to ease the interpretation. If you have
 # never seen such a flatmap, we recommend taking a look at a `pycortex brain
-# viewer <https://gallantlab.org/huth2016/>`_, which displays the brain in 3D.
-# In this viewer, press "I" to inflate the brain, "F" to flatten the surface,
-# and "R" to reset the view (or use the ``surface/unfold`` cursor on the right
-# menu). This viewer should help you understand the correspondance between the
-# flatten and the folded cortical surface of the brain.
+# viewer <https://www.gallantlab.org/brainviewer/Deniz2019>`_, which displays
+# the brain in 3D. In this viewer, press "I" to inflate the brain, "F" to
+# flatten the surface, and "R" to reset the view (or use the ``surface/unfold``
+# cursor on the right menu). Press "H" for a list of all keyboard shortcuts.
+# This viewer should help you understand the correspondance between the flatten
+# and the folded cortical surface of the brain.
 
 ###############################################################################
 # On this flatmap, we can see that the explainable variance is mainly located
