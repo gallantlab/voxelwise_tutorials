@@ -19,6 +19,15 @@ This tutorial implements different voxelwise models:
 - a ridge model with motion-energy features as described in [2]_.
 - a banded-ridge model with both feature spaces as described in [3]_.
 
+**Scikit-learn API:**
+These tutorials use scikit-learn to define the preprocessing steps, the
+modeling pipeline, and the cross-validation scheme. If you are not familiar
+with scikit-learn API, we recommend the `getting started guide
+<https://scikit-learn.org/stable/getting_started.html>`_. We also use a lot of
+the scikit-learn terminology, which is explained in great details in the
+`glossary of common terms and API elements
+<https://scikit-learn.org/stable/glossary.html#glossary>`_.
+
 
 **Requirements:**
 This tutorial requires the following Python packages:
@@ -27,13 +36,13 @@ This tutorial requires the following Python packages:
 - numpy
 - scipy
 - h5py
+- pycortex
 - scikit-learn
-- jupyter
 - matplotlib
 - himalaya
-- pycortex  (optional, for using 3D brain viewers)
+- jupyter  (optional, to run examples as notebooks)
 - pymoten  (optional, for extracting motion energy)
-- cupy/pytorch (optional, to use a GPU backend in himalaya)
+- cupy/pytorch  (optional, to use a GPU backend in himalaya)
 
 **References:**
 

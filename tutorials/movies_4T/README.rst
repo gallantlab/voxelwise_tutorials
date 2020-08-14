@@ -30,11 +30,13 @@ This tutorial requires the following Python packages:
 - numpy
 - scipy
 - h5py
+- pycortex
 - scikit-learn
 - matplotlib
 - himalaya
 - pymoten
-- cupy/pytorch (optional, to use a GPU backend in himalaya)
+- jupyter  (optional, to run examples as notebooks)
+- cupy/pytorch  (optional, to use a GPU backend in himalaya)
 
 **References:**
 
