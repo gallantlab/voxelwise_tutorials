@@ -289,9 +289,9 @@ plt.show()
 # the solver over cross-validation. This plot is helpful to refine the alpha
 # grid if the range is too small or too large.
 #
-# Note that some voxels might be at the maximum regularization value in the grid
-# search. These are voxels where the model has no predictive power, thus 
-# the optimal regularization parameter is large to lead to a prediction equal 
+# Note that some voxels might be at the maximum regularization value in the
+# grid search. These are voxels where the model has no predictive power, thus
+# the optimal regularization parameter is large to lead to a prediction equal
 # to zero. We do not need to extend the alpha range for these voxels.
 
 from himalaya.viz import plot_alphas_diagnostic
@@ -305,8 +305,8 @@ plt.show()
 #
 # To present an example of model comparison, we define here another model,
 # without feature delays (i.e. no ``Delayer``). Because the BOLD signal is
-# inherently slow due to the dynamics of neuro-vascular coupling, this model 
-# is unlikely to perform well.
+# inherently slow due to the dynamics of neuro-vascular coupling, this model is
+# unlikely to perform well.
 
 pipeline_nodelay = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
@@ -351,15 +351,15 @@ plt.show()
 # Visualize the HRF
 # -----------------
 #
-# We just saw that delays are necessary to model BOLD responses. 
-# Here we show how the fitted ridge regression weights follow the hemodynamic response
+# We just saw that delays are necessary to model BOLD responses. Here we show
+# how the fitted ridge regression weights follow the hemodynamic response
 # function (HRF).
 #
 # Fitting a kernel ridge regression results in a set of coefficients called the
-# "dual" coefficients :math:`w`. These coefficients differ from the
-# "primal" coefficients :math:`\beta` obtained with a ridge regression,
-# but the primal coefficients can be computed from the dual coefficients
-# using the training features :math:`X`:
+# "dual" coefficients :math:`w`. These coefficients differ from the "primal"
+# coefficients :math:`\beta` obtained with a ridge regression, but the primal
+# coefficients can be computed from the dual coefficients using the training
+# features :math:`X`:
 #
 # .. math::
 #
@@ -412,6 +412,128 @@ plt.show()
 # We see that the hemodynamic response function (HRF) is captured in the model
 # weights. In this dataset, we can limit the number of features by using only
 # the most informative delays, for example [1, 2, 3, 4].
+
+###############################################################################
+# Visualize the regression coefficients
+# -------------------------------------
+#
+# Here, we go back to the main model on all voxels. Since our model is linear,
+# we can use the (primal) regression coefficients to interpret the model. The
+# basic intuition is that the model will use larger coefficients on features
+# that have more predictive power.
+#
+# Since we know the meaning of each feature, we can interpret the large
+# regression coefficients. In the case of wordnet features, we can even build
+# a graph that represents the features linked by a semantic relationship.
+
+###############################################################################
+# We first get the (primal) ridge regression coefficients from the fitted
+# model.
+primal_coef = pipeline[-1].get_primal_coef()
+primal_coef = backend.to_numpy(primal_coef)
+print("(n_delays * n_features, n_voxels) =", primal_coef.shape)
+
+###############################################################################
+# Here, we are only interested in the voxels with good generalization
+# performances. We select an arbitrary threshold of 0.05 (R^2 score).
+primal_coef = primal_coef[:, scores > 0.05]
+
+###############################################################################
+# Then, we aggregate the coefficients across the different delays.
+
+# get the delays
+delays = pipeline.named_steps['delayer'].delays
+print("delays =", delays)
+
+# split the ridge coefficients per delays
+primal_coef_per_delay = np.stack(np.split(primal_coef, len(delays), axis=0))
+print("(n_delays, n_features, n_voxels) =", primal_coef_per_delay.shape)
+
+# average over delays
+average_coef = np.mean(primal_coef_per_delay, axis=0)
+print("(n_features, n_voxels) =", average_coef.shape)
+
+###############################################################################
+# Even after averaging over delays, the coefficient matrix is still too large
+# to understand it. Therefore, we use principal component analysis (PCA) to
+# reduce the dimensionality of the matrix.
+from sklearn.decomposition import PCA
+
+pca = PCA(n_components=4)
+pca.fit(average_coef.T)
+components = pca.components_
+print("(n_components, n_features) =", components.shape)
+
+###############################################################################
+# We can check the ratio of explained variance by each principal component.
+# We see that the first four components already explain a large part of the
+# coefficients variance.
+print("PCA explained variance =", pca.explained_variance_ratio_)
+
+###############################################################################
+# Similarly to [1]_, we correct the coefficients of features linked by a
+# semantic relationship. Indeed, in the wordnet features, if a clip was labeled
+# with `wolf`, the authors automatically added the categories `canine`,
+# `carnivore`, `placental mammal`, `mamma`, `vertebrate`, `chordate`,
+# `organism`, and `whole`. The authors thus argue that the same correction
+# needs to be done on the coefficients.
+
+from voxelwise_tutorials.wordnet import load_wordnet
+from voxelwise_tutorials.wordnet import correct_coefficients
+_, wordnet_categories = load_wordnet()
+components = correct_coefficients(components.T, wordnet_categories).T
+components -= components.mean(axis=1)[:, None]
+components /= components.std(axis=1)[:, None]
+
+###############################################################################
+# Finally, we plot the first principal component on the wordnet graph. In such
+# graph, links indicate "is a" relationships (e.g. an `athlete` "is a"
+# `person`). Each marker represents a single noun (circle) or verb (square).
+# The area of each marker indicates the principal component magnitude, and the
+# color indicates the sign (red is positive, blue is negative).
+
+from voxelwise_tutorials.wordnet import plot_wordnet_graph
+from voxelwise_tutorials.wordnet import apply_cmap
+
+first_component = components[0]
+node_sizes = np.abs(first_component)
+node_colors = apply_cmap(first_component, vmin=-2, vmax=2, cmap='coolwarm',
+                         n_colors=2)
+
+plot_wordnet_graph(node_colors=node_colors, node_sizes=node_sizes)
+plt.show()
+
+###############################################################################
+#  According to the authors of [1]_, "this principal component distinguishes
+# between categories with high stimulus energy (e.g. moving objects like
+# `person` and `vehicle`) and those with low stimulus energy (e.g. stationary
+# objects like `sky` and `city`)".
+#
+# Our result is slightly different than in [1]_, since we only use one subject,
+# and the voxel selection is slightly different. We also use a different
+# regularization parameter in each voxels, while in [1]_ all voxels use the
+# same regularization parameter.
+
+###############################################################################
+# Following [1]_, we also plot the next three principal components on the
+# wordnet graph, mapping the three vectors to RGB colors.
+
+from voxelwise_tutorials.wordnet import scale_to_rgb_cube
+
+next_three_components = components[1:4].T
+node_sizes = np.linalg.norm(next_three_components, axis=1)
+node_colors = scale_to_rgb_cube(next_three_components)
+
+plot_wordnet_graph(node_colors=node_colors, node_sizes=node_sizes)
+plt.show()
+
+###############################################################################
+# According to the authors of [1]_, "this graph shows that categories thought
+# to be semantically related (e.g. athletes and walking) are represented
+# similarly in the brain".
+#
+# Again, our results are slightly different than in [1]_, for the same reasons
+# mentioned earlier.
 
 ###############################################################################
 # References

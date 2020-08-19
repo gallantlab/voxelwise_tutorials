@@ -74,6 +74,8 @@ DATAFILES = [
     # "TBD/stimuli/train_09.hdf",
     # "TBD/stimuli/train_10.hdf",
     # "TBD/stimuli/train_11.hdf",
+    "TBD/utils/wordnet_categories.txt",
+    "TBD/utils/wordnet_graph.dot",
 ]
 
 ###############################################################################

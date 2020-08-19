@@ -47,7 +47,7 @@ def plot_hist2d(scores_1, scores_2, bins=100, cmin=1, vmin=None, vmax=None,
     Returns
     -------
     ax : Axes
-        Motplotlib Axes where the histogram was plotted.
+        Matplotlib Axes where the histogram was plotted.
     """
     if vmin is None:
         vmin = min(scores_1.min(), scores_2.min())
