@@ -32,17 +32,8 @@ the scikit-learn terminology, which is explained in great details in the
 **Requirements:**
 This tutorial requires the following Python packages:
 
-- voxelwise_tutorials  (this repository)
-- numpy
-- scipy
-- h5py
-- pycortex
-- scikit-learn
-- matplotlib
-- himalaya
-- jupyter  (optional, to run examples as notebooks)
-- pymoten  (optional, for extracting motion energy)
-- cupy/pytorch  (optional, to use a GPU backend in himalaya)
+- voxelwise_tutorials  (this repository) and its dependencies
+- cupy or pytorch  (optional, to use a GPU backend in himalaya)
 
 **References:**
 

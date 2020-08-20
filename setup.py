@@ -11,12 +11,16 @@ for line in infos:
         __version__ = match.groups()[0]
 
 requirements = [
-    "h5py",
-    "matplotlib",
     "numpy",
-    "pycortex",
     "scipy",
+    "h5py",
     "scikit-learn>=0.23",
+    "matplotlib",
+    "networkx",
+    "nltk",
+    "pycortex",
+    "himalaya @ git+https://github.com/gallantlab/himalaya@master#egg=himalaya",  # noqa
+    "pymoten @ git+https://github.com/gallantlab/pymoten@master#egg=pymoten",
 ]
 
 if __name__ == "__main__":
