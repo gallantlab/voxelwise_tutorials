@@ -136,10 +136,11 @@ scaler = StandardScaler(with_mean=True, with_std=False)
 # Then we concatenate the features with multiple delays to account for the
 # hemodynamic response. Indeed, the BOLD signal recorded in fMRI experiments is
 # delayed in time with respect to the stimulus. With different delayed versions
-# of the features, the linear regression model will weight each
-# delayed feature with a different weight, to maximize the predictions.
-# With a sample every 2 seconds, we typically use 4 delays [1, 2, 3, 4] to
-# cover the most part of the hemodynamic response peak.
+# of the features, the linear regression model will weight each delayed feature
+# with a different weight, to maximize the predictions. With a sample every 2
+# seconds, we typically use 4 delays [1, 2, 3, 4] to cover the most part of the
+# hemodynamic response peak. In the next example, we further describe this
+# hemodynamic response estimation.
 from voxelwise_tutorials.delayer import Delayer
 delayer = Delayer(delays=[1, 2, 3, 4])
 
@@ -298,120 +299,6 @@ from himalaya.viz import plot_alphas_diagnostic
 best_alphas = backend.to_numpy(pipeline[-1].best_alphas_)
 plot_alphas_diagnostic(best_alphas=best_alphas, alphas=alphas)
 plt.show()
-
-###############################################################################
-# Compare with a model without delays
-# -----------------------------------
-#
-# To present an example of model comparison, we define here another model,
-# without feature delays (i.e. no ``Delayer``). Because the BOLD signal is
-# inherently slow due to the dynamics of neuro-vascular coupling, this model is
-# unlikely to perform well.
-
-pipeline_nodelay = make_pipeline(
-    StandardScaler(with_mean=True, with_std=False),
-    KernelRidgeCV(
-        alphas=alphas, cv=cv,
-        solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
-                           n_targets_batch_refit=100)),
-)
-pipeline_nodelay
-
-###############################################################################
-# We fit and score the model as the previous one.
-pipeline_nodelay.fit(X_train, Y_train)
-scores_nodelay = pipeline_nodelay.score(X_test, Y_test)
-scores_nodelay = backend.to_numpy(scores_nodelay)
-print("(n_voxels,) =", scores_nodelay.shape)
-###############################################################################
-# Then, we plot the comparison of model performances with a 2D histogram.
-# All ~70k voxels are represented in this histogram, where the diagonal
-# corresponds to identical performance for both models. A distibution deviating
-# from the diagonal means that one model has better predictive performances
-# than the other.
-
-from voxelwise_tutorials.viz import plot_hist2d
-
-ax = plot_hist2d(scores_nodelay, scores)
-ax.set(
-    title='Generalization R2 scores',
-    xlabel='model without delays',
-    ylabel='model with delays',
-)
-plt.show()
-
-###############################################################################
-# We see that the model with delays performs much better than the model without
-# delays. This can be seen in voxels with scores above 0. The distribution
-# of scores below zero is not very informative, since it corresponds to voxels
-# with poor predictive performances anyway, and it only shows which model is
-# overfitting the most.
-
-###############################################################################
-# Visualize the HRF
-# -----------------
-#
-# We just saw that delays are necessary to model BOLD responses. Here we show
-# how the fitted ridge regression weights follow the hemodynamic response
-# function (HRF).
-#
-# Fitting a kernel ridge regression results in a set of coefficients called the
-# "dual" coefficients :math:`w`. These coefficients differ from the "primal"
-# coefficients :math:`\beta` obtained with a ridge regression, but the primal
-# coefficients can be computed from the dual coefficients using the training
-# features :math:`X`:
-#
-# .. math::
-#
-#     \beta = X^\top w
-#
-# To better visualize the HRF, we will refit a model with more delays, but only
-# on a selection of voxels to speed up the computations.
-
-# pick the 10 best voxels
-voxel_selection = np.argsort(scores)[-10:]
-
-# define a pipeline with more delays
-pipeline_many_delays = make_pipeline(
-    StandardScaler(with_mean=True, with_std=False),
-    Delayer(delays=[0, 1, 2, 3, 4, 5, 6]),
-    KernelRidgeCV(
-        alphas=alphas, cv=cv,
-        solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
-                           n_targets_batch_refit=100)),
-)
-
-pipeline_many_delays.fit(X_train, Y_train[:, voxel_selection])
-
-# get the (primal) ridge regression coefficients
-primal_coef = pipeline_many_delays[-1].get_primal_coef()
-primal_coef = backend.to_numpy(primal_coef)
-
-# get the delays
-delays = pipeline_many_delays.named_steps['delayer'].delays
-# split the ridge coefficients per delays
-primal_coef_per_delay = np.stack(np.split(primal_coef, len(delays), axis=0))
-
-# select the feature with the largest coefficients for each voxel
-feature_selection = np.argmax(np.sum(np.abs(primal_coef_per_delay), axis=0),
-                              axis=0)
-primal_coef_selection = primal_coef_per_delay[:, feature_selection,
-                                              np.arange(len(voxel_selection))]
-
-plt.plot(delays, primal_coef_selection)
-plt.xlabel('Delays')
-plt.xticks(delays)
-plt.ylabel('Ridge coefficients')
-plt.title(f'Largest feature for the {len(voxel_selection)} best voxels')
-plt.axhline(0, color='k', linewidth=0.5)
-plt.show()
-
-###############################################################################
-# In this dataset, the brain responses are recorded every two seconds.
-#
-# We see that the hemodynamic response function (HRF) is captured in the model
-# weights. In this dataset, we can limit the number of features by using only
-# the most informative delays, for example [1, 2, 3, 4].
 
 ###############################################################################
 # Visualize the regression coefficients

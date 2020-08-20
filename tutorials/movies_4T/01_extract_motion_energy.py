@@ -5,23 +5,25 @@ Extract motion energy features from the stimuli
 
 This script describes how to extract motion-energy features from the stimuli.
 
-Motion-energy
--------------
-
+*Motion-energy features:*
 Motion-energy features result from filtering a video stimulus with
 spatio-temporal Gabor filters. A pyramid of filters is used to compute the
-motion-energy features at multiple spatial and temporal scales.
-Motion-energy features were introduced in [1]_.
+motion-energy features at multiple spatial and temporal scales. Motion-energy
+features were introduced in [1]_.
 
-The motion-energy extraction is performed by the package
-`pymoten <https://github.com/gallantlab/pymoten>`_.
+The motion-energy extraction is performed by the package `pymoten
+<https://github.com/gallantlab/pymoten>`_.
 
-.. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
-    B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
+Running time
+------------
+Extracting motion energy is a bit longer than the other examples. It typically
+takes a couple hours to run.
+
+.. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &
+    Gallant, J. L. (2011). Reconstructing visual experiences from brain
     activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
-
 """
-# sphinx_gallery_thumbnail_path = "_static/moten.png"
+# sphinx_gallery_thumbnail_path = "static/moten.png"
 ###############################################################################
 # Load the stimuli images
 # -----------------------

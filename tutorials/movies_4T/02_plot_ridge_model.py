@@ -3,24 +3,31 @@
 Fit a ridge model with motion energy features
 =============================================
 
-In this example, we model the fMRI responses with a regularized linear
-regression model, using the motion-energy features computed in the previous
-script.
+In this example, we model the fMRI responses with motion-energy features
+extracted from the movie stimulus. The model is a regularized linear regression
+model.
 
-We first concatenate the features with multiple delays, to account for the
-hemodynamic response. The linear regression model will then weight each delayed
-feature with a different weight, to build a predictive model.
+This tutorial reproduces part of the analysis described in Nishimoto et al
+(2011) [1]_. See this publication for more details about the experiment, the
+motion-energy features, along with more results and more discussions.
 
-The linear regression is regularized to improve robustness to correlated
-features and to improve generalization. The optimal regularization
-hyperparameter is selected over a grid-search with cross-validation.
+*Motion-energy features:* Motion-energy features result from filtering a video
+stimulus with spatio-temporal Gabor filters. A pyramid of filters is used to
+compute the motion-energy features at multiple spatial and temporal scales.
 
-Finally, the model generalization performance is evaluated on a held-out test
-set, comparing the model predictions with the corresponding ground-truth fMRI
+*Summary:* We first concatenate the features with multiple delays, to account
+for the slow hemodynamic response. A linear regression model then weights each
+delayed feature with a different weight, to build a predictive model of BOLD
+activity. Again, the linear regression is regularized to improve robustness to
+correlated features and to improve generalization. The optimal regularization
+hyperparameter is selected independently on each voxel over a grid-search with
+cross-validation. Finally, the model generalization performance is evaluated on
+a held-out test set, comparing the model predictions with the ground-truth fMRI
 responses.
 
-The ridge model is fitted with the package
-`himalaya <https://github.com/gallantlab/himalaya>`_.
+.. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &
+    Gallant, J. L. (2011). Reconstructing visual experiences from brain
+    activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
 """
 # sphinx_gallery_thumbnail_number = 2
 ###############################################################################

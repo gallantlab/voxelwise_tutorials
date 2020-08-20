@@ -23,7 +23,7 @@ publication [1]_, and the data set [2]_.
     Gallant Lab Natural Movie 3T fMRI Data. CRCNS.org.
     http://dx.doi.org/10.6080/TBD
 """
-# sphinx_gallery_thumbnail_path = "_static/crcns.png"
+# sphinx_gallery_thumbnail_path = "static/crcns.png"
 
 ###############################################################################
 # Download

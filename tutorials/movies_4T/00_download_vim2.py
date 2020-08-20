@@ -22,7 +22,7 @@ publication [1]_, and the data set [2]_.
     Gallant, J. L. (2014): Gallant Lab Natural Movie 4T fMRI Data. CRCNS.org.
     http://dx.doi.org/10.6080/K00Z715X
 """
-# sphinx_gallery_thumbnail_path = "_static/crcns.png"
+# sphinx_gallery_thumbnail_path = "static/crcns.png"
 ###############################################################################
 # Download
 # --------
