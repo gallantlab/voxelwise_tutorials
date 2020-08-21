@@ -328,12 +328,9 @@ primal_coef = primal_coef[:, scores > 0.05]
 ###############################################################################
 # Then, we aggregate the coefficients across the different delays.
 
-# get the delays
-delays = pipeline.named_steps['delayer'].delays
-print("delays =", delays)
-
 # split the ridge coefficients per delays
-primal_coef_per_delay = np.stack(np.split(primal_coef, len(delays), axis=0))
+delayer = pipeline.named_steps['delayer']
+primal_coef_per_delay = delayer.reshape_by_delays(primal_coef, axis=0)
 print("(n_delays, n_features, n_voxels) =", primal_coef_per_delay.shape)
 
 # average over delays

@@ -142,19 +142,19 @@ print("(n_voxels,) =", scores.shape)
 # Because the BOLD signal is inherently slow due to the dynamics of
 # neuro-vascular coupling, this model is unlikely to perform well.
 
-pipeline_nodelay = make_pipeline(
+pipeline_no_delay = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
     KernelRidgeCV(
         alphas=alphas, cv=cv,
         solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
                            n_targets_batch_refit=100)),
 )
-pipeline_nodelay
+pipeline_no_delay
 
 ###############################################################################
 # We fit and score the model as the previous one.
-pipeline_nodelay.fit(X_train, Y_train)
-scores_nodelay = pipeline_nodelay.score(X_test, Y_test)
+pipeline_no_delay.fit(X_train, Y_train)
+scores_nodelay = pipeline_no_delay.score(X_test, Y_test)
 scores_nodelay = backend.to_numpy(scores_nodelay)
 print("(n_voxels,) =", scores_nodelay.shape)
 
@@ -207,7 +207,7 @@ plt.show()
 voxel_selection = np.argsort(scores)[-10:]
 
 # define a pipeline with more delays
-pipeline_many_delays = make_pipeline(
+pipeline_more_delays = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
     Delayer(delays=[0, 1, 2, 3, 4, 5, 6]),
     KernelRidgeCV(
@@ -216,16 +216,16 @@ pipeline_many_delays = make_pipeline(
                            n_targets_batch_refit=100)),
 )
 
-pipeline_many_delays.fit(X_train, Y_train[:, voxel_selection])
+pipeline_more_delays.fit(X_train, Y_train[:, voxel_selection])
 
 # get the (primal) ridge regression coefficients
-primal_coef = pipeline_many_delays[-1].get_primal_coef()
+primal_coef = pipeline_more_delays[-1].get_primal_coef()
 primal_coef = backend.to_numpy(primal_coef)
 
-# get the delays
-delays = pipeline_many_delays.named_steps['delayer'].delays
 # split the ridge coefficients per delays
-primal_coef_per_delay = np.stack(np.split(primal_coef, len(delays), axis=0))
+delayer = pipeline_more_delays.named_steps['delayer']
+primal_coef_per_delay = delayer.reshape_by_delays(primal_coef, axis=0)
+print("(n_delays, n_features, n_voxels) =", primal_coef_per_delay.shape)
 
 # select the feature with the largest coefficients for each voxel
 feature_selection = np.argmax(np.sum(np.abs(primal_coef_per_delay), axis=0),
@@ -233,9 +233,9 @@ feature_selection = np.argmax(np.sum(np.abs(primal_coef_per_delay), axis=0),
 primal_coef_selection = primal_coef_per_delay[:, feature_selection,
                                               np.arange(len(voxel_selection))]
 
-plt.plot(delays, primal_coef_selection)
+plt.plot(delayer.delays, primal_coef_selection)
 plt.xlabel('Delays')
-plt.xticks(delays)
+plt.xticks(delayer.delays)
 plt.ylabel('Ridge coefficients')
 plt.title(f'Largest feature for the {len(voxel_selection)} best voxels')
 plt.axhline(0, color='k', linewidth=0.5)
