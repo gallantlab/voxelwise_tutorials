@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.utils.validation import check_is_fitted, check_array
 
 
 class Delayer(BaseEstimator, TransformerMixin):
@@ -26,19 +27,23 @@ class Delayer(BaseEstimator, TransformerMixin):
     Example
     -------
     >>> from sklearn.pipeline import make_pipeline
-    >>> from voxelwise.delayer import Delayer
+    >>> from voxelwise_tutorials.delayer import Delayer
     >>> from himalaya.kernel_ridge import KernelRidgeCV
-    >>> pipeline = make_pipeline(Delayer(delays=[1, 2, 3, 4), KernelRidgeCV())
-    >>> pipeline.fit(..., ...)
+    >>> pipeline = make_pipeline(Delayer(delays=[1, 2, 3, 4]), KernelRidgeCV())
     """
-    def __init__(self, delays=[1, 2, 3, 4]):
+
+    def __init__(self, delays=None):
         self.delays = delays
 
     def fit(self, X, y=None):
+        X = self._validate_data(X, dtype='numeric')
         self.n_features_in_ = X.shape[1]
         return self
 
     def transform(self, X):
+        check_is_fitted(self)
+        X = check_array(X, copy=True)
+
         n_samples, n_features = X.shape
         if n_features != self.n_features_in_:
             raise ValueError(
