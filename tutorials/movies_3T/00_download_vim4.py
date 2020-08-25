@@ -3,27 +3,31 @@
 Download the data set from CRCNS
 ================================
 
-In this script, we download the data set from CRCNS.
-A (free) account is required.
+In this script, we download the data set from CRCNS. A (free) account is
+required.
+
+.. Warning:: The data has not been publicly released yet, so this notebook will
+    not work !
 
 Cite this data set
 ------------------
 
-This tutorial is based on publicly available data
-`published on CRCNS <https://crcns.org/data-sets/vc/TBD>`_.
-If you publish any work using this data set, please cite the original
-publication [1]_, and the data set [2]_.
+This tutorial is based on publicly available data `published on CRCNS
+<https://crcns.org/data-sets/vc/TBD>`_. If you publish any work using this data
+set, please cite the original publication [1]_, and the data set [2]_.
 
 .. [1] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2012). A
     continuous semantic space describes the representation of thousands of
     object and action categories across the human brain. Neuron, 76(6),
     1210-1224.
 
-.. [2] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2020):
-    Gallant Lab Natural Movie 3T fMRI Data. CRCNS.org.
-    http://dx.doi.org/10.6080/TBD
+.. [2] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2020): Gallant
+    Lab Natural Movie 3T fMRI Data. CRCNS.org. http://dx.doi.org/10.6080/TBD
 """
 # sphinx_gallery_thumbnail_path = "static/crcns.png"
+
+raise RuntimeError("The data has not been publicly released yet, so "
+                   "this script/notebook will not work !")
 
 ###############################################################################
 # Download

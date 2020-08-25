@@ -69,6 +69,7 @@ def download_crcns(datafile, username, password, destination,
                     bar.update_with_increment_value(chunk_size)
                     if chunk:
                         f.write(chunk)
+            print('%s downloaded.' % local_filename)
 
     # uncompress archives
     if unpack and os.path.splitext(local_filename)[1] in [".zip", ".gz"]:
