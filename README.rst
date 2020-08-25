@@ -21,12 +21,12 @@ To explore these tutorials, one can:
   `website <https://gallantlab.github.io/voxelwise_tutorials/>`_ (recommended)
   (not online yet, ask Tom the local link)
 - run the Python scripts located in the `tutorials <tutorials>`_ directory
-- run the ``jupyter`` notebooks located in the
+- run the Jupyter notebooks located in the
   `tutorials/notebooks <tutorials/notebooks>`_ directory
 
 To run the tutorials yourself, first download this repository, and install the
 dependencies (see below). Then, run either the Python scripts or the
-``jupyter`` notebooks located in the "tutorials" directory. The tutorials are
+Jupyter notebooks located in the "tutorials" directory. The tutorials are
 best explored in order, starting with the "Movies 3T tutorial".
 
 Helper Python package

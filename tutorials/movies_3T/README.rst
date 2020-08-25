@@ -19,10 +19,10 @@ This tutorial implements different voxelwise models:
 - a ridge model with motion-energy features as described in [2]_.
 - a banded-ridge model with both feature spaces as described in [3]_.
 
-**Scikit-learn API:**
-These tutorials use ``scikit-learn`` to define the preprocessing steps, the
-modeling pipeline, and the cross-validation scheme. If you are not familiar
-with scikit-learn API, we recommend the `getting started guide
+**Scikit-learn API:** These tutorials use `scikit-learn
+<https://github.com/scikit-learn/scikit-learn>`_ to define the preprocessing
+steps, the modeling pipeline, and the cross-validation scheme. If you are not
+familiar with the scikit-learn API, we recommend the `getting started guide
 <https://scikit-learn.org/stable/getting_started.html>`_. We also use a lot of
 the scikit-learn terminology, which is explained in great details in the
 `glossary of common terms and API elements
