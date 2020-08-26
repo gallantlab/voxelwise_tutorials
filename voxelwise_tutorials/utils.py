@@ -38,6 +38,10 @@ def generate_leave_one_run_out(n_samples, run_onsets, random_state=None,
 
     all_samples = np.arange(n_samples)
     runs = np.split(all_samples, run_onsets[1:])
+    if any(len(run) == 0 for run in runs):
+        raise ValueError("Some runs have no samples. Check that run_onsets "
+                         "does not include any repeated index, nor the last "
+                         "index.")
 
     for val_runs in all_val_runs.T:
         train = np.hstack(
