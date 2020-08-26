@@ -14,6 +14,7 @@ motion-energy features, along with more results and more discussions.
 *Motion-energy features:* Motion-energy features result from filtering a video
 stimulus with spatio-temporal Gabor filters. A pyramid of filters is used to
 compute the motion-energy features at multiple spatial and temporal scales.
+Motion-energy features were introduced in [1]_.
 
 *Summary:* As in the previous example, we first concatenate the features with
 multiple delays, to account for the slow hemodynamic response. A linear

@@ -5,23 +5,20 @@ Extract motion energy features from the stimuli
 
 This script describes how to extract motion-energy features from the stimuli.
 
-*Motion-energy features:*
-Motion-energy features result from filtering a video stimulus with
-spatio-temporal Gabor filters. A pyramid of filters is used to compute the
-motion-energy features at multiple spatial and temporal scales. Motion-energy
-features were introduced in [1]_.
+*Motion-energy features:* Motion-energy features result from filtering a video
+stimulus with spatio-temporal Gabor filters. A pyramid of filters is used to
+compute the motion-energy features at multiple spatial and temporal scales.
+Motion-energy features were introduced in [1]_.
 
 The motion-energy extraction is performed by the package `pymoten
-<https://github.com/gallantlab/pymoten>`_.
+<https://github.com/gallantlab/pymoten>`_. Check the pymoten `gallery of
+examples <https://gallantlab.github.io/pymoten/auto_examples/index.html>`_ for
+visualizing motion-energy filters, and for pymoten API usage examples.
 
 Running time
 ------------
 Extracting motion energy is a bit longer than the other examples. It typically
 takes a couple hours to run.
-
-.. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &
-    Gallant, J. L. (2011). Reconstructing visual experiences from brain
-    activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
 """
 # sphinx_gallery_thumbnail_path = "static/moten.png"
 ###############################################################################
@@ -165,3 +162,11 @@ if not os.path.exists(features_directory):
 save_hdf5_dataset(
     os.path.join(features_directory, "motion_energy.hdf"),
     dataset=dict(X_train=motion_energy_train, X_test=motion_energy_test))
+
+###############################################################################
+# References
+# ----------
+#
+# .. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
+#     B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
+#     activity evoked by natural movies. Current Biology, 21(19), 1641-1646.

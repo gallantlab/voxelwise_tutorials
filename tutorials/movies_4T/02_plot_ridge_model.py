@@ -14,6 +14,7 @@ motion-energy features, along with more results and more discussions.
 *Motion-energy features:* Motion-energy features result from filtering a video
 stimulus with spatio-temporal Gabor filters. A pyramid of filters is used to
 compute the motion-energy features at multiple spatial and temporal scales.
+Motion-energy features were introduced in [1]_.
 
 *Summary:* We first concatenate the features with multiple delays, to account
 for the slow hemodynamic response. A linear regression model then weights each
@@ -24,10 +25,6 @@ hyperparameter is selected independently on each voxel over a grid-search with
 cross-validation. Finally, the model generalization performance is evaluated on
 a held-out test set, comparing the model predictions with the ground-truth fMRI
 responses.
-
-.. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &
-    Gallant, J. L. (2011). Reconstructing visual experiences from brain
-    activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
 """
 # sphinx_gallery_thumbnail_number = 2
 ###############################################################################
@@ -241,11 +238,11 @@ scores_nodelay = pipeline_nodelay.score(X_test, Y_test)
 scores_nodelay = backend.to_numpy(scores_nodelay)
 
 ###############################################################################
-# Here we plot the comparison of model performances with a 2D histogram.
-# All ~70k voxels are represented in this histogram, where the diagonal
-# corresponds to identical performance for both models. A distibution deviating
-# from the diagonal means that one model has better predictive performances
-# than the other.
+# Here we plot the comparison of model performances with a 2D histogram. All
+# ~70k voxels are represented in this histogram, where the diagonal corresponds
+# to identical performance for both models. A distibution deviating from the
+# diagonal means that one model has better predictive performances than the
+# other.
 
 from voxelwise_tutorials.viz import plot_hist2d
 
@@ -253,3 +250,11 @@ ax = plot_hist2d(scores_nodelay, scores)
 ax.set(title='Generalization R2 scores', xlabel='model without delays',
        ylabel='model with delays')
 plt.show()
+
+###############################################################################
+# References
+# ----------
+#
+# .. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
+#     B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
+#     activity evoked by natural movies. Current Biology, 21(19), 1641-1646.

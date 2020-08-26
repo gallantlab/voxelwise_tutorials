@@ -13,14 +13,6 @@ This tutorial is based on publicly available data
 `published on CRCNS <https://crcns.org/data-sets/vc/vim-2/about-vim-2>`_.
 If you publish any work using this data set, please cite the original
 publication [1]_, and the data set [2]_.
-
-.. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &
-    Gallant, J. L. (2011). Reconstructing visual experiences from brain
-    activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
-
-.. [2] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &
-    Gallant, J. L. (2014): Gallant Lab Natural Movie 4T fMRI Data. CRCNS.org.
-    http://dx.doi.org/10.6080/K00Z715X
 """
 # sphinx_gallery_thumbnail_path = "static/crcns.png"
 ###############################################################################
@@ -60,3 +52,14 @@ password = getpass.getpass("CRCNS password: ")
 for datafile in DATAFILES:
     local_filename = download_crcns(datafile, username, password,
                                     destination=directory, unpack=True)
+###############################################################################
+# References
+# ----------
+#
+# .. [1] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &
+#     Gallant, J. L. (2011). Reconstructing visual experiences from brain
+#     activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
+#
+# .. [2] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &
+#     Gallant, J. L. (2014): Gallant Lab Natural Movie 4T fMRI Data. CRCNS.org.
+#     http://dx.doi.org/10.6080/K00Z715X
