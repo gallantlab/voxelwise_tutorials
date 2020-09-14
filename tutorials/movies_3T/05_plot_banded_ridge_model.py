@@ -201,7 +201,7 @@ mkr_model = MultipleKernelRidgeCV(kernels="precomputed", solver=solver,
 # ``Kernelizer``.
 from himalaya.kernel_ridge import Kernelizer
 from sklearn import set_config
-set_config(display='diagram')
+set_config(display='diagram')  # requires scikit-learn 0.23
 
 preprocess_pipeline = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),

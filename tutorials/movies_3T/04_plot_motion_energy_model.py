@@ -127,7 +127,7 @@ pipeline_motion_energy = make_pipeline(
 
 ###############################################################################
 from sklearn import set_config
-set_config(display='diagram')
+set_config(display='diagram')  # requires scikit-learn 0.23
 pipeline_motion_energy
 
 ###############################################################################

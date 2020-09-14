@@ -20,10 +20,10 @@ include nouns (such as "woman", "car", or "building") and verbs (such as
 labels. To interpret our model, labels can be organized in a graph of semantic
 relashionship based on the `Wordnet <https://wordnet.princeton.edu/>`_ dataset.
 
-*Summary:* We first concatenate the features with multiple delays, to account
-for the slow hemodynamic response. We then fit a predictive model of BOLD
-activity, using a  linear regression that weights differently each delayed
-feature. The linear regression is regularized to improve robustness to
+*Summary:* We first concatenate the features with multiple temporal delays, to
+account for the slow hemodynamic response. We then fit a predictive model of
+BOLD activity, using a  linear regression that weighs each delayed feature
+differently. The linear regression is regularized to improve robustness to
 correlated features and to improve generalization. The optimal regularization
 hyperparameter is selected over a grid-search with cross-validation. Finally,
 the model generalization performance is evaluated on a held-out test set,
@@ -46,7 +46,13 @@ subject = "S01"
 # Load the data
 # -------------
 #
-# We first load the fMRI responses.
+# We first load the fMRI responses. These responses have been preprocessed as
+# decribed in [1]_. The data is separated into a training set ``Y_train`` and a
+# testing set ``Y_test``. The training set is used for fitting models, and
+# selecting the best models and hyperparameters. The testing set is later used
+# to estimate the generalization performances of the selected model. The
+# testing set contains multiple repetitions of the same experiment, to estimate
+# an upper bound of the model performances (cf. previous example).
 import numpy as np
 from voxelwise_tutorials.io import load_hdf5_array
 
@@ -75,7 +81,10 @@ Y_train = np.nan_to_num(Y_train)
 Y_test = np.nan_to_num(Y_test)
 
 ###############################################################################
-# Then, we load the semantic "wordnet" features.
+# Then, we load the semantic "wordnet" features, extracted from the stimulus at
+# each time point. The features corresponding to the training set are noted
+# ``X_train``, and the features corresponding to the testing set are noted
+# ``X_test``.
 feature_space = "wordnet"
 
 file_name = os.path.join(directory, "features", f"{feature_space}.hdf")
@@ -123,7 +132,7 @@ cv = check_cv(cv)  # copy the cross-validation splitter into a reusable list
 #
 # However, we prefer not to normalize by the standard deviation of each
 # feature. Indeed, if the features are extracted in a consistent way from the
-# stimulus, there relative scale is meaningful. Normalizing them independently
+# stimulus, their relative scale is meaningful. Normalizing them independently
 # from each other would remove this meaning. Moreover, the wordnet features are
 # one-hot-encoded, which means that each feature is either present (1) or not
 # present (0) in each sample. Normalizing one-hot-encoded features is not
@@ -225,7 +234,7 @@ pipeline = make_pipeline(
 ###############################################################################
 # We can display the ``scikit-learn`` pipeline with an HTML diagram.
 from sklearn import set_config
-set_config(display='diagram')
+set_config(display='diagram')  # requires scikit-learn 0.23
 pipeline
 
 ###############################################################################

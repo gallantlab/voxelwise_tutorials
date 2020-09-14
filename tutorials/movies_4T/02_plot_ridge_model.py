@@ -131,9 +131,9 @@ cv = check_cv(cv)  # copy the splitter into a reusable list
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-# display the scikit-learn pipeline with an HTML diagram
+# Display the scikit-learn pipeline with an HTML diagram.
 from sklearn import set_config
-set_config(display='diagram')
+set_config(display='diagram')  # requires scikit-learn 0.23
 
 ###############################################################################
 # With one target, we could directly use the pipeline in scikit-learn's

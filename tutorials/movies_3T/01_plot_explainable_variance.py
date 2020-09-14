@@ -75,7 +75,8 @@ plt.show()
 # repeats. We also see that some voxels reach an explainable variance of 0.7,
 # which is quite high. It means that these voxels consistently record the same
 # activity across a repeated stimulus, and thus are good targets for encoding
-# models.
+# models. Of course, this set of explainable voxels changes from task to
+# task, depending on what you are trying to model.
 
 ###############################################################################
 # Map to subject flatmap
@@ -85,7 +86,7 @@ plt.show()
 # values to the subject brain. This can be done with `pycortex
 # <https://gallantlab.github.io/pycortex/>`_, which can create interactive 3D
 # viewers to be displayed in any modern browser. ``pycortex`` can also display
-# flatten maps of the cortical surface, to visualize the entire cortical
+# flattened maps of the cortical surface, to visualize the entire cortical
 # surface at once.
 #
 # Here, we do not share the anatomical information of the subjects for privacy
@@ -96,9 +97,8 @@ plt.show()
 #
 # The first mapper is 2D matrix of shape (n_pixels, n_voxels), that map each
 # voxel to a set of pixel in a flatmap. The matrix is efficient stored using a
-# ``scipy`` sparse CSR matrix format. To ease the use of this mapper, we
-# provide an example function ``plot_flatmap_from_mapper``. This function mimic
-# the behavior of ``pycortex.quickshow``.
+# ``scipy`` sparse CSR matrix format. The function ``plot_flatmap_from_mapper``
+# provides an example of how to use the mapper and visualize the flatmap.
 
 from voxelwise_tutorials.viz import plot_flatmap_from_mapper
 
@@ -140,9 +140,9 @@ if not hasattr(cortex.db, surface):
 
 ###############################################################################
 # Then, we load the "fsaverage" mapper. The mapper is a matrix of shape
-# (n_vertices, n_voxels), which map each voxel to some vertices in the
-# fsaverage surface. It is also stored with a sparse CSR matrix format. The
-# mapper is applied with a dot product ``@`` (equivalent to ``np.dot``).
+# (n_vertices, n_voxels), which maps each voxel to some vertices in the
+# fsaverage surface. It is stored as a sparse CSR matrix. The mapper is applied
+# with a dot product ``@`` (equivalent to ``np.dot``).
 from voxelwise_tutorials.io import load_hdf5_sparse_array
 voxel_to_fsaverage = load_hdf5_sparse_array(mapper_file,
                                             key='voxel_to_fsaverage')
