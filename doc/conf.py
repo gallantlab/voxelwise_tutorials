@@ -65,8 +65,8 @@ templates_path = ['templates']
 # source_suffix = ['.rst', '.md']
 source_suffix = '.rst'
 
-# The master toctree document.
-master_doc = 'index'
+# The main toctree document.
+main_doc = 'index'
 
 # General information about the project.
 project = u'Voxelwise modeling tutorials'
@@ -170,7 +170,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'Tutorials.tex', u'Tutorials Documentation',
+    (main_doc, 'Tutorials.tex', u'Tutorials Documentation',
      u'Gallant lab', 'manual'),
 ]
 
@@ -178,7 +178,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, 'tutorials', u'Tutorials Documentation', [author], 1)
+man_pages = [(main_doc, 'tutorials', u'Tutorials Documentation', [author], 1)
              ]
 
 # -- Options for Texinfo output -------------------------------------------
@@ -187,7 +187,7 @@ man_pages = [(master_doc, 'tutorials', u'Tutorials Documentation', [author], 1)
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'Tutorials', u'Tutorials Documentation', author, 'Tutorials',
+    (main_doc, 'Tutorials', u'Tutorials Documentation', author, 'Tutorials',
      'One line description of project.', 'Miscellaneous'),
 ]
 

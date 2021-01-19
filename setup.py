@@ -19,7 +19,7 @@ requirements = [
     "networkx",
     "nltk",
     "pycortex",
-    "himalaya @ git+https://github.com/gallantlab/himalaya@master#egg=himalaya",  # noqa
+    "himalaya @ git+https://github.com/gallantlab/himalaya@main#egg=himalaya",
     "pymoten @ git+https://github.com/gallantlab/pymoten@master#egg=pymoten",
 ]
 

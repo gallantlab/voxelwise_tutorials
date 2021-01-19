@@ -7,7 +7,7 @@ class Delayer(BaseEstimator, TransformerMixin):
     """Scikit-learn Transformer to add delays to features.
 
     This assumes that the samples are ordered in time.
-    Adding a delay of 0 corresponds to leave the features unchanged.
+    Adding a delay of 0 corresponds to leaving the features unchanged.
     Adding a delay of 1 corresponds to using features from the previous sample.
 
     Adding multiple delays can be used to take into account the slow
