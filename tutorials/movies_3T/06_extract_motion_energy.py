@@ -64,29 +64,30 @@ from voxelwise_tutorials.progress_bar import bar
 from voxelwise_tutorials.io import load_hdf5_array
 
 
-def compute_luminance(run_name, size=(96, 96)):
+def compute_luminance(run_name, size=(96, 96), batch_size=100):
 
     stimuli_file = os.path.join(directory, 'stimuli', run_name)
 
-    # get the list of batches in the stimuli file
+    # get the number of images in the stimuli file
     with h5py.File(stimuli_file, 'r') as f:
-        keys = list(f.keys())
-        keys.sort()  # sort the batches
+        n_images = f['stimuli'].shape[0]
 
     # compute the luminance on each batch
-    luminance = []
-    for key in bar(keys, title=f'compute_luminance({run_name})'):
+    luminance = np.zeros((n_images, *size))
+    for start in bar(range(0, n_images, batch_size),
+                     title=f'compute_luminance({run_name})'):
         # load the batch of images
-        images = load_hdf5_array(stimuli_file, key=key)
+        batch = slice(start, start + batch_size)
+        images = load_hdf5_array(stimuli_file, key='stimuli', slice=batch)
 
         # ``imagearray2luminance`` uses uint8 arrays
         if images.dtype != 'uint8':
             images = np.int_(np.clip(images, 0, 1) * 255).astype(np.uint8)
 
         # convert RGB images to a single luminance channel
-        luminance.append(imagearray2luminance(images, size=size))
+        luminance[batch] = imagearray2luminance(images, size=size)
 
-    return np.concatenate(luminance)
+    return luminance
 
 
 luminance_train = np.concatenate(
@@ -161,7 +162,8 @@ if not os.path.exists(features_directory):
 
 save_hdf5_dataset(
     os.path.join(features_directory, "motion_energy_recomputed.hdf"),
-    dataset=dict(X_train=motion_energy_train, X_test=motion_energy_test))
+    dataset=dict(X_train=motion_energy_train, X_test=motion_energy_test,
+                 run_onsets=np.arange(0, 3600, 300)))
 
 ###############################################################################
 # References

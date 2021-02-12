@@ -91,15 +91,18 @@ def unpack_archive(archive_name):
     shutil.unpack_archive(archive_name, extract_dir=extract_dir)
 
 
-def load_hdf5_array(file_name, key=None):
+def load_hdf5_array(file_name, key=None, slice=slice(0, None)):
     """Function to load data from an hdf file.
 
     Parameters
     ----------
     file_name: string
-        hdf5 file name
+        hdf5 file name.
     key: string
         Key name to load. If not provided, all keys will be loaded.
+    slice: slice, or tuple of slices
+        Load only a slice of the hdf5 array. It will load `array[slice]`.
+        Use a tuple of slices to get a slice in multiple dimensions.
 
     Returns
     -------
@@ -110,10 +113,10 @@ def load_hdf5_array(file_name, key=None):
         if key is None:
             data = dict()
             for k in hf.keys():
-                data[k] = hf[k][()]
+                data[k] = hf[k][slice]
             return data
         else:
-            return hf[key][()]
+            return hf[key][slice]
 
 
 def load_hdf5_sparse_array(file_name, key):
