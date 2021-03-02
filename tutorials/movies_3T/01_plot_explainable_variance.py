@@ -57,9 +57,33 @@ ev = explainable_variance(Y_test, bias_correction=False)
 print("(n_voxels,) =", ev.shape)
 
 ###############################################################################
-# We can plot the distribution of explainable variance over voxels.
+# To better understand the explainable variance, we can plot the time-courses
+# of a voxel with large explainable variance...
 
 import matplotlib.pyplot as plt
+
+voxel_1 = np.argmax(ev)
+plt.figure(figsize=(10, 4))
+plt.plot(Y_test[:, :, voxel_1].T, color='C0', alpha=0.5)
+plt.plot(Y_test[:, :, voxel_1].mean(0), color='C1', label='average')
+plt.xlabel("Time points")
+plt.title("Voxel with large explainable variance (%.2f)" % ev[voxel_1])
+plt.legend()
+plt.show()
+
+###############################################################################
+# ... and of a voxel with low explainable variance.
+voxel_2 = np.argmin(ev)
+plt.figure(figsize=(10, 4))
+plt.plot(Y_test[:, :, voxel_2].T, color='C0', alpha=0.5)
+plt.plot(Y_test[:, :, voxel_2].mean(0), color='C1', label='average')
+plt.xlabel("Time points")
+plt.title("Voxel with low explainable variance (%.2f)" % ev[voxel_2])
+plt.legend()
+plt.show()
+
+###############################################################################
+# We can also plot the distribution of explainable variance over voxels.
 
 plt.hist(ev, bins=np.linspace(0, 1, 100), log=True, histtype='step')
 plt.xlabel("Explainable variance")
@@ -133,7 +157,7 @@ plt.show()
 
 import cortex
 
-surface = "fsaverage_pycortex"  # ("fsaverage" outside the Gallant lab)
+surface = "fsaverage"
 
 if not hasattr(cortex.db, surface):
     cortex.utils.download_subject(subject_id=surface)
