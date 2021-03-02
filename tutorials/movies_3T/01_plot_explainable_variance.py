@@ -17,7 +17,7 @@ explainable variance, is the upper bound of the voxelwise modeling
 performances. The explainable variance is also sometimes called the *noise
 ceiling*.
 """
-# sphinx_gallery_thumbnail_number = 2
+# sphinx_gallery_thumbnail_number = 1
 ###############################################################################
 # Path of the data directory
 import os
@@ -63,23 +63,27 @@ print("(n_voxels,) =", ev.shape)
 import matplotlib.pyplot as plt
 
 voxel_1 = np.argmax(ev)
-plt.figure(figsize=(10, 4))
+plt.figure(figsize=(10, 3))
 plt.plot(Y_test[:, :, voxel_1].T, color='C0', alpha=0.5)
 plt.plot(Y_test[:, :, voxel_1].mean(0), color='C1', label='average')
 plt.xlabel("Time points")
 plt.title("Voxel with large explainable variance (%.2f)" % ev[voxel_1])
+plt.yticks([])
 plt.legend()
+plt.tight_layout()
 plt.show()
 
 ###############################################################################
 # ... and of a voxel with low explainable variance.
 voxel_2 = np.argmin(ev)
-plt.figure(figsize=(10, 4))
+plt.figure(figsize=(10, 3))
 plt.plot(Y_test[:, :, voxel_2].T, color='C0', alpha=0.5)
 plt.plot(Y_test[:, :, voxel_2].mean(0), color='C1', label='average')
 plt.xlabel("Time points")
 plt.title("Voxel with low explainable variance (%.2f)" % ev[voxel_2])
+plt.yticks([])
 plt.legend()
+plt.tight_layout()
 plt.show()
 
 ###############################################################################
