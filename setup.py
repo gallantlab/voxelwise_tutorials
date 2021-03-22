@@ -20,7 +20,7 @@ requirements = [
     "nltk",
     "pycortex",
     "himalaya @ git+https://github.com/gallantlab/himalaya@main#egg=himalaya",
-    "pymoten @ git+https://github.com/gallantlab/pymoten@master#egg=pymoten",
+    "pymoten @ git+https://github.com/gallantlab/pymoten@main#egg=pymoten",
 ]
 
 if __name__ == "__main__":
