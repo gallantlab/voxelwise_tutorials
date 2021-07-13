@@ -384,10 +384,11 @@ def scale_to_rgb_cube(node_colors, clip=2.0):
     node_colors[node_colors > clip] = clip
     node_colors[node_colors < -clip] = -clip
 
-    # normalize each node by the L_inf norm of the L2-normalized node
-    scaled_colors = node_colors / np.linalg.norm(node_colors, axis=1)[:, None]
-    l_inf_norms = np.max(np.abs(scaled_colors), axis=1)
-    node_colors /= l_inf_norms[:, None]
+    # normalize each node by the L_inf norm and the L_2 norm
+    l2_norm = np.linalg.norm(node_colors, axis=1)
+    linf_norm = np.max(np.abs(node_colors), axis=1)
+    node_colors *= (l2_norm / linf_norm)[:, None]
+
     # clip again
     node_colors[node_colors > clip] = clip
     node_colors[node_colors < -clip] = -clip

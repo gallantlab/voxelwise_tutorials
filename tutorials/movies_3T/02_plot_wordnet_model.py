@@ -332,14 +332,15 @@ print("(n_delays * n_features, n_voxels) =", primal_coef.shape)
 ###############################################################################
 # Here, we are only interested in the voxels with good generalization
 # performances. We select an arbitrary threshold of 0.05 (R^2 score).
-primal_coef = primal_coef[:, scores > 0.05]
+primal_coef_selection = primal_coef[:, scores > 0.05]
 
 ###############################################################################
 # Then, we aggregate the coefficients across the different delays.
 
 # split the ridge coefficients per delays
 delayer = pipeline.named_steps['delayer']
-primal_coef_per_delay = delayer.reshape_by_delays(primal_coef, axis=0)
+primal_coef_per_delay = delayer.reshape_by_delays(primal_coef_selection,
+                                                  axis=0)
 print("(n_delays, n_features, n_voxels) =", primal_coef_per_delay.shape)
 
 # average over delays
@@ -397,7 +398,7 @@ plot_wordnet_graph(node_colors=node_colors, node_sizes=node_sizes)
 plt.show()
 
 ###############################################################################
-#  According to the authors of [1]_, "this principal component distinguishes
+# According to the authors of [1]_, "this principal component distinguishes
 # between categories with high stimulus energy (e.g. moving objects like
 # `person` and `vehicle`) and those with low stimulus energy (e.g. stationary
 # objects like `sky` and `city`)".
@@ -405,7 +406,38 @@ plt.show()
 # Our result is slightly different than in [1]_, since we only use one subject,
 # and the voxel selection is slightly different. We also use a different
 # regularization parameter in each voxels, while in [1]_ all voxels use the
-# same regularization parameter.
+# same regularization parameter. Here, we do not aim at reproducing exactly the
+# results in [1]_, but we rather describe the general approach.
+
+###############################################################################
+# To project the principal component on the cortical surface, we first need to
+# transform the primal weights of all voxels using the fitted PCA.
+
+# split the ridge coefficients per delays
+primal_coef_per_delay = delayer.reshape_by_delays(primal_coef, axis=0)
+print("(n_delays, n_features, n_voxels) =", primal_coef_per_delay.shape)
+
+# average over delays
+average_coef = np.mean(primal_coef_per_delay, axis=0)
+print("(n_features, n_voxels) =", average_coef.shape)
+
+# transform with the fitted PCA
+average_coef_transformed = pca.transform(average_coef.T).T
+print("(n_components, n_voxels) =", average_coef_transformed.shape)
+
+# We make sure vmin = -vmax, so that the colormap is centered on 0.
+vmax = np.percentile(np.abs(average_coef_transformed), 99.9)
+
+# plot the primal weights projected on the first principal component.
+ax = plot_flatmap_from_mapper(average_coef_transformed[0], mapper_file,
+                              vmin=-vmax, vmax=vmax, cmap='coolwarm')
+plt.show()
+
+###############################################################################
+# This flatmap shows in which brain regions the model has the largest
+# projection on the first component. Again, this result is different from the
+# one in [1]_, and should only be considered as reproducing the general
+# approach.
 
 ###############################################################################
 # Following [1]_, we also plot the next three principal components on the
@@ -416,6 +448,7 @@ from voxelwise_tutorials.wordnet import scale_to_rgb_cube
 next_three_components = components[1:4].T
 node_sizes = np.linalg.norm(next_three_components, axis=1)
 node_colors = scale_to_rgb_cube(next_three_components)
+print("(n_nodes, n_channels) =", node_colors.shape)
 
 plot_wordnet_graph(node_colors=node_colors, node_sizes=node_sizes)
 plt.show()
@@ -424,8 +457,23 @@ plt.show()
 # According to the authors of [1]_, "this graph shows that categories thought
 # to be semantically related (e.g. athletes and walking) are represented
 # similarly in the brain".
-#
-# Again, our results are slightly different than in [1]_, for the same reasons
+
+###############################################################################
+# Finally, we project these principal components on the cortical surface.
+
+from voxelwise_tutorials.viz import plot_3d_flatmap_from_mapper
+
+voxel_colors = scale_to_rgb_cube(average_coef_transformed[1:4].T, clip=3).T
+print("(n_channels, n_voxels) =", voxel_colors.shape)
+
+ax = plot_3d_flatmap_from_mapper(voxel_colors[0], voxel_colors[1],
+                                 voxel_colors[2], mapper_file=mapper_file,
+                                 vmin=0, vmax=1, vmin2=0, vmax2=1, vmin3=0,
+                                 vmax3=1)
+plt.show()
+
+###############################################################################
+# Again, our results are different from the ones in [1]_, for the same reasons
 # mentioned earlier.
 
 ###############################################################################

@@ -76,7 +76,7 @@ def plot_flatmap_from_mapper(voxels, mapper_file, ax=None, alpha=0.7,
                              with_curvature=True, with_rois=True,
                              with_colorbar=True,
                              colorbar_location=(.4, .9, .2, .05)):
-    """Plot a flatmap from a mapper file.
+    """Plot a flatmap from a mapper file, with 1D data.
 
     Note that this function does not have the full capability of pycortex,
     (like cortex.quickshow) since it is based on flatmap mappers and not on the
@@ -143,21 +143,9 @@ def plot_flatmap_from_mapper(voxels, mapper_file, ax=None, alpha=0.7,
         ax.figure.colorbar(cimg, cax=cbar, orientation='horizontal')
 
     # plot additional layers if present
-    with h5py.File(mapper_file, mode='r') as hf:
-        if with_curvature and "flatmap_curvature" in hf.keys():
-            curvature = load_hdf5_array(mapper_file, key='flatmap_curvature')
-            background = np.swapaxes(curvature, 0, 1)[::-1]
-        else:
-            background = map_voxels_to_flatmap(np.ones_like(voxels),
-                                               mapper_file)
-        ax.imshow(background, aspect='equal', cmap='gray', vmin=0, vmax=1,
-                  zorder=0)
-
-        if with_rois and "flatmap_rois" in hf.keys():
-            rois = load_hdf5_array(mapper_file, key='flatmap_rois')
-            ax.imshow(
-                np.swapaxes(rois, 0, 1)[::-1], aspect='equal',
-                interpolation='bicubic', zorder=2)
+    _plot_addition_layers(ax=ax, n_voxels=voxels.shape[0],
+                          mapper_file=mapper_file,
+                          with_curvature=with_curvature, with_rois=with_rois)
 
     return ax
 
@@ -210,13 +198,32 @@ def map_voxels_to_flatmap(voxels, mapper_file):
     return np.swapaxes(img, 0, 1)[::-1]
 
 
+def _plot_addition_layers(ax, n_voxels, mapper_file, with_curvature,
+                          with_rois):
+    """Helper function to plot additional layers if present."""
+    with h5py.File(mapper_file, mode='r') as hf:
+        if with_curvature and "flatmap_curvature" in hf.keys():
+            curvature = load_hdf5_array(mapper_file, key='flatmap_curvature')
+            background = np.swapaxes(curvature, 0, 1)[::-1]
+        else:
+            background = map_voxels_to_flatmap(np.ones(n_voxels), mapper_file)
+        ax.imshow(background, aspect='equal', cmap='gray', vmin=0, vmax=1,
+                  zorder=0)
+
+        if with_rois and "flatmap_rois" in hf.keys():
+            rois = load_hdf5_array(mapper_file, key='flatmap_rois')
+            ax.imshow(
+                np.swapaxes(rois, 0, 1)[::-1], aspect='equal',
+                interpolation='bicubic', zorder=2)
+
+
 def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
                                 alpha=0.7, cmap='BuOr_2D', vmin=None,
                                 vmax=None, vmin2=None, vmax2=None,
                                 with_curvature=True, with_rois=True,
                                 with_colorbar=True, label_1='', label_2='',
                                 colorbar_location=(.45, .85, .1, .1)):
-    """Plot a flatmap from a mapper file.
+    """Plot a flatmap from a mapper file, with 2D data.
 
     Note that this function does not have the full capability of pycortex,
     (like cortex.quickshow) since it is based on flatmap mappers and not on the
@@ -253,6 +260,8 @@ def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
         If True, show the curvature below the data layer.
     with_rois : bool
         If True, show the ROIs labels above the data layer.
+    with_colorbar : bool
+        If True, show the colorbar.
     label_1 : str
         Label of voxels_1 in the colormap (xlabel).
     label_2 : str
@@ -292,7 +301,6 @@ def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
                                               vmax2=vmax2, cmap=cmap)
 
     # plot the data
-
     image = map_voxels_to_flatmap(mapped_rgba, mapper_file)
     ax.imshow(image, aspect='equal', zorder=1, alpha=alpha)
 
@@ -307,21 +315,9 @@ def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
         cbar.set(xticks=[vmin, vmax], yticks=[vmin2, vmax2])
 
     # plot additional layers if present
-    with h5py.File(mapper_file, mode='r') as hf:
-        if with_curvature and "flatmap_curvature" in hf.keys():
-            curvature = load_hdf5_array(mapper_file, key='flatmap_curvature')
-            background = np.swapaxes(curvature, 0, 1)[::-1]
-        else:
-            background = map_voxels_to_flatmap(np.ones_like(voxels_1),
-                                               mapper_file)
-        ax.imshow(background, aspect='equal', cmap='gray', vmin=0, vmax=1,
-                  zorder=0)
-
-        if with_rois and "flatmap_rois" in hf.keys():
-            rois = load_hdf5_array(mapper_file, key='flatmap_rois')
-            ax.imshow(
-                np.swapaxes(rois, 0, 1)[::-1], aspect='equal',
-                interpolation='bicubic', zorder=2)
+    _plot_addition_layers(ax=ax, n_voxels=voxels_1.shape[0],
+                          mapper_file=mapper_file,
+                          with_curvature=with_curvature, with_rois=with_rois)
 
     return ax
 
@@ -376,3 +372,107 @@ def _map_to_2d_cmap(data1, data2, vmin, vmax, vmin2, vmax2, cmap):
     mapped_rgba[nans, 3] = 0
 
     return mapped_rgba, cmap_image
+
+
+def plot_3d_flatmap_from_mapper(voxels_1, voxels_2, voxels_3, mapper_file,
+                                ax=None, alpha=0.7, vmin=None, vmax=None,
+                                vmin2=None, vmax2=None, vmin3=None, vmax3=None,
+                                with_curvature=True, with_rois=True):
+    """Plot a flatmap from a mapper file, with 3D data.
+
+    Note that this function does not have the full capability of pycortex,
+    (like cortex.quickshow) since it is based on flatmap mappers and not on the
+    original brain surface of the subject.
+
+    Parameters
+    ----------
+    voxels_1 : array of shape (n_voxels, )
+        Data to be plotted.
+    voxels_2 : array of shape (n_voxels, )
+        Data to be plotted.
+    voxels_3 : array of shape (n_voxels, )
+        Data to be plotted.
+    mapper_file : str
+        File name of the mapper.
+    ax : matplotlib Axes or None.
+        Axes where the figure will be plotted.
+        If None, a new figure is created.
+    alpha : float in [0, 1], or array of shape (n_voxels, )
+        Transparency of the flatmap.
+    cmap : str
+        Name of the 2D pycortex colormap.
+    vmin : float or None
+        Minimum value of the colormap for voxels_1.
+        If None, use the 1st percentile of the `voxels_1` array.
+    vmax : float or None
+        Maximum value of the colormap for voxels_1.
+        If None, use the 99th percentile of the `voxels_1` array.
+    vmin2 : float or None
+        Minimum value of the colormap for voxels_2.
+        If None, use the 1st percentile of the `voxels_2` array.
+    vmax2 : float or None
+        Maximum value of the colormap for voxels_2.
+        If None, use the 99th percentile of the `voxels_2` array.
+    vmin3 : float or None
+        Minimum value of the colormap for voxels_3.
+        If None, use the 1st percentile of the `voxels_3` array.
+    vmax3 : float or None
+        Maximum value of the colormap for voxels_2.
+        If None, use the 99th percentile of the `voxels_3` array.
+    with_curvature : bool
+        If True, show the curvature below the data layer.
+    with_rois : bool
+        If True, show the ROIs labels above the data layer.
+
+    Returns
+    -------
+    ax : matplotlib Axes
+        Axes where the figure has been plotted.
+    """
+    # create a figure
+    if ax is None:
+        flatmap_mask = load_hdf5_array(mapper_file, key='flatmap_mask')
+        figsize = np.array(flatmap_mask.shape) / 100.
+        fig = plt.figure(figsize=figsize)
+        ax = fig.add_axes((0, 0, 1, 1))
+        ax.axis('off')
+
+    # process plotting parameters
+    if vmin is None:
+        vmin = np.percentile(voxels_1, 1)
+    if vmax is None:
+        vmax = np.percentile(voxels_1, 99)
+    if vmin2 is None:
+        vmin2 = np.percentile(voxels_2, 1)
+    if vmax2 is None:
+        vmax2 = np.percentile(voxels_2, 99)
+    if vmin3 is None:
+        vmin3 = np.percentile(voxels_3, 1)
+    if vmax3 is None:
+        vmax3 = np.percentile(voxels_3, 99)
+    if isinstance(alpha, np.ndarray):
+        alpha = map_voxels_to_flatmap(alpha, mapper_file)
+
+    # Normalize the data
+    norm1 = Normalize(vmin, vmax)
+    norm2 = Normalize(vmin2, vmax2)
+    norm3 = Normalize(vmin3, vmax3)
+    voxels_1 = np.clip(norm1(voxels_1), 0, 1)
+    voxels_2 = np.clip(norm2(voxels_2), 0, 1)
+    voxels_3 = np.clip(norm3(voxels_3), 0, 1)
+
+    # Preserve nan values with alpha = 0
+    nans = np.isnan(voxels_1) + np.isnan(voxels_2) + np.isnan(voxels_3)
+    alpha_ = nans == 0
+    mapped_rgba = np.stack([voxels_1, voxels_2, voxels_3, alpha_]).T
+
+    # plot the data
+    image = map_voxels_to_flatmap(mapped_rgba, mapper_file)
+    ax.imshow(image, aspect='equal', zorder=1, alpha=alpha)
+
+    # plot additional layers if present
+    _plot_addition_layers(ax=ax, n_voxels=voxels_1.shape[0],
+                          mapper_file=mapper_file,
+                          with_curvature=with_curvature, with_rois=with_rois)
+
+    return ax
