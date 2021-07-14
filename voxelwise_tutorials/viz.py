@@ -49,14 +49,10 @@ def plot_hist2d(scores_1, scores_2, bins=100, cmin=1, vmin=None, vmax=None,
     ax : Axes
         Matplotlib Axes where the histogram was plotted.
     """
-    if vmin is None:
-        vmin = min(scores_1.min(), scores_2.min())
-    if vmax is None:
-        vmax = max(scores_1.max(), scores_2.max())
-    if isinstance(bins, int):
-        bins = np.linspace(vmin, vmax, bins)
-    if ax is None:
-        ax = plt.gca()
+    vmin = min(scores_1.min(), scores_2.min()) if vmin is None else vmin
+    vmax = max(scores_1.max(), scores_2.max()) if vmax is None else vmax
+    bins = np.linspace(vmin, vmax, bins) if isinstance(bins, int) else bins
+    ax = plt.gca() if ax is None else ax
 
     h = ax.hist2d(scores_1, scores_2, bins=bins, cmin=cmin, norm=norm,
                   **kwargs)
@@ -123,10 +119,8 @@ def plot_flatmap_from_mapper(voxels, mapper_file, ax=None, alpha=0.7,
         ax.axis('off')
 
     # process plotting parameters
-    if vmin is None:
-        vmin = np.percentile(voxels, 1)
-    if vmax is None:
-        vmax = np.percentile(voxels, 99)
+    vmin = np.percentile(voxels, 1) if vmin is None else vmin
+    vmax = np.percentile(voxels, 99) if vmax is None else vmax
     if isinstance(alpha, np.ndarray):
         alpha = map_voxels_to_flatmap(alpha, mapper_file)
 
@@ -284,14 +278,10 @@ def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
         ax.axis('off')
 
     # process plotting parameters
-    if vmin is None:
-        vmin = np.percentile(voxels_1, 1)
-    if vmax is None:
-        vmax = np.percentile(voxels_1, 99)
-    if vmin2 is None:
-        vmin2 = np.percentile(voxels_2, 1)
-    if vmax2 is None:
-        vmax2 = np.percentile(voxels_2, 99)
+    vmin = np.percentile(voxels_1, 1) if vmin is None else vmin
+    vmax = np.percentile(voxels_1, 99) if vmax is None else vmax
+    vmin2 = np.percentile(voxels_2, 1) if vmin2 is None else vmin2
+    vmax2 = np.percentile(voxels_2, 99) if vmax2 is None else vmax2
     if isinstance(alpha, np.ndarray):
         alpha = map_voxels_to_flatmap(alpha, mapper_file)
 
@@ -354,10 +344,8 @@ def _map_to_2d_cmap(data1, data2, vmin, vmax, vmin2, vmax2, cmap):
     cmap_image = plt.imread(os.path.join(cmap_directory, "%s.png" % cmap))
 
     # Normalize the data
-    norm1 = Normalize(vmin, vmax)
-    norm2 = Normalize(vmin2, vmax2)
-    dim1 = np.clip(norm1(data1), 0, 1)
-    dim2 = np.clip(1 - norm2(data2), 0, 1)
+    dim1 = np.clip(Normalize(vmin, vmax)(data1), 0, 1)
+    dim2 = np.clip(1 - Normalize(vmin2, vmax2)(data2), 0, 1)
 
     # 2D indices of the data on the 2D cmap
     dim1 = np.round(dim1 * (cmap_image.shape[1] - 1))
@@ -438,28 +426,19 @@ def plot_3d_flatmap_from_mapper(voxels_1, voxels_2, voxels_3, mapper_file,
         ax.axis('off')
 
     # process plotting parameters
-    if vmin is None:
-        vmin = np.percentile(voxels_1, 1)
-    if vmax is None:
-        vmax = np.percentile(voxels_1, 99)
-    if vmin2 is None:
-        vmin2 = np.percentile(voxels_2, 1)
-    if vmax2 is None:
-        vmax2 = np.percentile(voxels_2, 99)
-    if vmin3 is None:
-        vmin3 = np.percentile(voxels_3, 1)
-    if vmax3 is None:
-        vmax3 = np.percentile(voxels_3, 99)
+    vmin = np.percentile(voxels_1, 1) if vmin is None else vmin
+    vmax = np.percentile(voxels_1, 99) if vmax is None else vmax
+    vmin2 = np.percentile(voxels_2, 1) if vmin2 is None else vmin2
+    vmax2 = np.percentile(voxels_2, 99) if vmax2 is None else vmax2
+    vmin3 = np.percentile(voxels_3, 1) if vmin3 is None else vmin3
+    vmax3 = np.percentile(voxels_3, 99) if vmax3 is None else vmax3
     if isinstance(alpha, np.ndarray):
         alpha = map_voxels_to_flatmap(alpha, mapper_file)
 
     # Normalize the data
-    norm1 = Normalize(vmin, vmax)
-    norm2 = Normalize(vmin2, vmax2)
-    norm3 = Normalize(vmin3, vmax3)
-    voxels_1 = np.clip(norm1(voxels_1), 0, 1)
-    voxels_2 = np.clip(norm2(voxels_2), 0, 1)
-    voxels_3 = np.clip(norm3(voxels_3), 0, 1)
+    voxels_1 = np.clip(Normalize(vmin, vmax)(voxels_1), 0, 1)
+    voxels_2 = np.clip(Normalize(vmin2, vmax2)(voxels_2), 0, 1)
+    voxels_3 = np.clip(Normalize(vmin3, vmax3)(voxels_3), 0, 1)
 
     # Preserve nan values with alpha = 0
     nans = np.isnan(voxels_1) + np.isnan(voxels_2) + np.isnan(voxels_3)
