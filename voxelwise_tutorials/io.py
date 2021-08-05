@@ -116,6 +116,10 @@ def load_hdf5_array(file_name, key=None, slice=slice(0, None)):
                 data[k] = hf[k][slice]
             return data
         else:
+            # Some keys have been renamed. Use old key on KeyError.
+            if key not in hf.keys() and key in OLD_KEYS:
+                key = OLD_KEYS[key]
+
             return hf[key][slice]
 
 
@@ -135,10 +139,37 @@ def load_hdf5_sparse_array(file_name, key):
     conventions, so cannot be used to load arbitrary sparse arrays.
     """
     with h5py.File(file_name, mode='r') as hf:
+
+        # Some keys have been renamed. Use old key on KeyError.
+        if '%s_data' % key not in hf.keys() and key in OLD_KEYS:
+            key = OLD_KEYS[key]
+
+        # The voxel_to_fsaverage mapper is sometimes split between left/right.
+        if (key == "voxel_to_fsaverage" and '%s_data' % key not in hf.keys()
+                and "vox_to_fsavg_left_data" in hf.keys()):
+            left = load_hdf5_sparse_array(file_name, "vox_to_fsavg_left")
+            right = load_hdf5_sparse_array(file_name, "vox_to_fsavg_right")
+            return scipy.sparse.vstack([left, right])
+
         data = (hf['%s_data' % key], hf['%s_indices' % key],
                 hf['%s_indptr' % key])
         sparsemat = scipy.sparse.csr_matrix(data, shape=hf['%s_shape' % key])
     return sparsemat
+
+
+# Correspondence between old keys and new keys. {new_key: old_key}
+OLD_KEYS = {
+    "flatmap_mask": "pixmask",
+    "voxel_to_flatmap": "pixmap",
+}
+
+
+def _concatenate_fsaverage_left_right(file_name):
+    """Load the"""
+    voxel_to_fsavg_L = load_hdf5_sparse_array(file_name, "vox_to_fsavg_left")
+    voxel_to_fsavg_R = load_hdf5_sparse_array(file_name, "vox_to_fsavg_right")
+    voxel_to_fsavg = scipy.sparse.vstack([voxel_to_fsavg_L, voxel_to_fsavg_R])
+    return voxel_to_fsavg
 
 
 def save_hdf5_dataset(file_name, dataset, mode='w'):
