@@ -135,8 +135,7 @@ def compute_motion_energy(luminance,
         # add some noise to deal with constant black areas
         luminance_batch = luminance[batch].copy()
         luminance_batch += np.random.randn(*luminance_batch.shape) * noise
-        luminance_batch[luminance_batch < 0] = 0
-        luminance_batch[luminance_batch > 100] = 100
+        luminance_batch = np.clip(luminance_batch, 0, 100)
 
         motion_energy[batch] = pyramid.project_stimulus(luminance_batch)
 
