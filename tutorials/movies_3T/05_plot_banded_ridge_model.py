@@ -338,7 +338,7 @@ from voxelwise_tutorials.viz import plot_2d_flatmap_from_mapper
 
 mapper_file = os.path.join(directory, "mappers", f"{subject}_mappers.hdf")
 ax = plot_2d_flatmap_from_mapper(split_scores[0], split_scores[1],
-                                 mapper_file, vmin=0, vmax=0.5, vmin2=0,
+                                 mapper_file, vmin=0, vmax=0.25, vmin2=0,
                                  vmax2=0.5, label_1=feature_names[0],
                                  label_2=feature_names[1])
 plt.show()
