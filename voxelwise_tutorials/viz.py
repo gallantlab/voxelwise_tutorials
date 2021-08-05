@@ -171,8 +171,11 @@ def map_voxels_to_flatmap(voxels, mapper_file):
 
     # dimensions
     width, height = flatmap_mask.shape
-    n_voxels, n_channels = voxels.shape
-    n_pixels_used, n_voxels = voxel_to_flatmap.shape
+    n_voxels_0, n_channels = voxels.shape
+    n_pixels_used, n_voxels_1 = voxel_to_flatmap.shape
+    if n_voxels_0 != n_voxels_1:
+        raise ValueError(f"Dimension mismatch, {n_voxels_0} voxels given "
+                         f"while the mapper expects {n_voxels_1} voxels.")
 
     # create image with nans, and array with used pixels
     img = np.full(shape=(width, height, n_channels), fill_value=np.nan)
