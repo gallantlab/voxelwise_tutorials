@@ -6,6 +6,8 @@
 .pytest_cache
 __pycache__
 .vscode/
+build/
+dist/
 
 # Documentation build
 doc/_build/

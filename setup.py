@@ -1,4 +1,5 @@
 import re
+from pathlib import Path
 from setuptools import find_packages, setup
 
 # get version from voxelwise_tutorials/__init__.py
@@ -10,6 +11,10 @@ for line in infos:
         match = re.search(r"__version__ = '([^']*)'", line)
         __version__ = match.groups()[0]
 
+# read the contents of the README file
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.rst").read_text()
+
 requirements = [
     "numpy",
     "scipy",
@@ -19,8 +24,8 @@ requirements = [
     "networkx",
     "nltk",
     "pycortex",
-    "himalaya @ git+https://github.com/gallantlab/himalaya@main#egg=himalaya",
-    "pymoten @ git+https://github.com/gallantlab/pymoten@main#egg=pymoten",
+    "himalaya",
+    "pymoten",
 ]
 
 if __name__ == "__main__":
@@ -33,4 +38,6 @@ if __name__ == "__main__":
         version=__version__,
         packages=find_packages(),
         install_requires=requirements,
+        long_description=long_description,
+        long_description_content_type='text/x-rst',
     )
