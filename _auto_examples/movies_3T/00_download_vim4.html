@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Download the data set from CRCNS &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Compute the explainable variance" href="01_plot_explainable_variance.html" />
+    <link rel="prev" title="Movies 3T tutorial" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/flatmap.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Voxelwise modeling tutorials</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=gallantlab&repo=tutorials&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Movies 3T tutorial</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Movies 3T tutorial</a></li>
+      <li>Next: <a href="01_plot_explainable_variance.html" title="next chapter">Compute the explainable variance</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Movies 3T tutorial</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Download the data set from CRCNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_plot_explainable_variance.html">Compute the explainable variance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_plot_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_plot_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_plot_motion_energy_model.html">Fit a ridge model with motion energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_plot_banded_ridge_model.html">Fit a banded ridge model with both wordnet and motion energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_extract_motion_energy.html">Extract motion energy features from the stimuli</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#movies-4t-tutorial">Movies 4T tutorial</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">The voxelwise modeling framework</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html">Helper Python package</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-3t-00-download-vim4-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="download-the-data-set-from-crcns">
+<span id="sphx-glr-auto-examples-movies-3t-00-download-vim4-py"></span><h1>Download the data set from CRCNS<a class="headerlink" href="#download-the-data-set-from-crcns" title="Permalink to this headline">¶</a></h1>
+<p>In this script, we download the data set from CRCNS. A (free) account is
+required.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The data has not been publicly released yet, so this notebook will
+not work !</p>
+</div>
+<section id="cite-this-data-set">
+<h2>Cite this data set<a class="headerlink" href="#cite-this-data-set" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial is based on publicly available data <a class="reference external" href="https://crcns.org/data-sets/vc/TBD">published on CRCNS</a>. If you publish any work using this data
+set, please cite the original publication <a class="footnote-reference brackets" href="#id3" id="id1">1</a>, and the data set <a class="footnote-reference brackets" href="#id4" id="id2">2</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;The data has not been publicly released yet, so &quot;</span>
+                   <span class="s2">&quot;this script/notebook will not work !&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="download">
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># path of the data directory</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_data_home</span><span class="p">(),</span> <span class="s2">&quot;vim-4&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We will only use the first subject in this tutorial, but you can run the same
+analysis on the four other subjects. Uncomment the lines in <code class="docutils literal notranslate"><span class="pre">DATAFILES</span></code> to
+download more subjects.</p>
+<p>We also skip the stimuli files, since the dataset provides two preprocessed
+feature spaces to perform voxelwise modeling without requiring the original
+stimuli.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">getpass</span>
+
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">download_crcns</span>
+
+<span class="n">DATAFILES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;TBD/features/motion_energy.hdf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TBD/features/wordnet.hdf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TBD/mappers/S01_mappers.hdf&quot;</span><span class="p">,</span>
+    <span class="c1"># &quot;TBD/mappers/S02_mappers.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/mappers/S03_mappers.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/mappers/S04_mappers.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/mappers/S05_mappers.hdf&quot;,</span>
+    <span class="s2">&quot;TBD/responses/S01_responses.hdf&quot;</span><span class="p">,</span>
+    <span class="c1"># &quot;TBD/responses/S02_responses.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/responses/S03_responses.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/responses/S04_responses.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/responses/S05_responses.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/test.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_00.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_01.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_02.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_03.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_04.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_05.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_06.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_07.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_08.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_09.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_10.hdf&quot;,</span>
+    <span class="c1"># &quot;TBD/stimuli/train_11.hdf&quot;,</span>
+    <span class="s2">&quot;TBD/utils/wordnet_categories.txt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TBD/utils/wordnet_graph.dot&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">username</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;CRCNS username: &quot;</span><span class="p">)</span>
+<span class="n">password</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s2">&quot;CRCNS password: &quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">datafile</span> <span class="ow">in</span> <span class="n">DATAFILES</span><span class="p">:</span>
+    <span class="n">local_filename</span> <span class="o">=</span> <span class="n">download_crcns</span><span class="p">(</span><span class="n">datafile</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span>
+                                    <span class="n">destination</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Huth, A. G., Nishimoto, S., Vu, A. T., &amp; Gallant, J. L. (2012). A
+continuous semantic space describes the representation of thousands of
+object and action categories across the human brain. Neuron, 76(6),
+1210-1224.</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Huth, A. G., Nishimoto, S., Vu, A. T., &amp; Gallant, J. L. (2020):
+Gallant Lab Natural Movie 3T fMRI Data. CRCNS.org.
+<a class="reference external" href="http://dx.doi.org/10.6080/TBD">http://dx.doi.org/10.6080/TBD</a></p>
+</dd>
+</dl>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-movies-3t-00-download-vim4-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/0b5a2f97dab1440bb660e20c6ef8c816/00_download_vim4.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">00_download_vim4.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/4c9abd47b1f1923a9f859bb88eeafc32/00_download_vim4.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">00_download_vim4.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Gallant lab.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/_auto_examples/movies_3T/00_download_vim4.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

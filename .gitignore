@@ -1,0 +1,14 @@
+*.pyc
+*.egg-info/
+*.so
+*.png
+
+.pytest_cache
+__pycache__
+.vscode/
+build/
+dist/
+
+# Documentation build
+doc/_build/
+doc/_auto_examples/

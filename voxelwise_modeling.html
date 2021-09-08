@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>The voxelwise modeling framework &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Helper Python package" href="voxelwise_package.html" />
+    <link rel="prev" title="Fit a ridge model with motion energy features" href="_auto_examples/movies_4T/02_plot_ridge_model.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/flatmap.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Voxelwise modeling tutorials</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=gallantlab&repo=tutorials&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="_auto_examples/movies_4T/02_plot_ridge_model.html" title="previous chapter">Fit a ridge model with motion energy features</a></li>
+      <li>Next: <a href="voxelwise_package.html" title="next chapter">Helper Python package</a></li>
+  </ul></li>
+</ul>
+</div><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_auto_examples/index.html">Movies 3T tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_auto_examples/index.html#movies-4t-tutorial">Movies 4T tutorial</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The voxelwise modeling framework</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vm-framework">VM Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#critical-improvements">Critical improvements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="voxelwise_package.html">Helper Python package</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="the-voxelwise-modeling-framework">
+<h1>The voxelwise modeling framework<a class="headerlink" href="#the-voxelwise-modeling-framework" title="Permalink to this headline">¶</a></h1>
+<section id="vm-framework">
+<h2>VM Framework<a class="headerlink" href="#vm-framework" title="Permalink to this headline">¶</a></h2>
+<p>Voxelwise modeling (VM) is a framework to perform functional magnetic resonance
+imaging (fMRI) data analysis.
+Over the years, VM has led to many high profile publications
+<a class="footnote-reference brackets" href="#id17" id="id1">1</a> <a class="footnote-reference brackets" href="#id18" id="id2">2</a> <a class="footnote-reference brackets" href="#id19" id="id3">3</a> <a class="footnote-reference brackets" href="#id20" id="id4">4</a>  <a class="footnote-reference brackets" href="#id21" id="id5">5</a> <a class="footnote-reference brackets" href="#id22" id="id6">6</a> <a class="footnote-reference brackets" href="#id23" id="id7">7</a> <a class="footnote-reference brackets" href="#id24" id="id8">8</a> <a class="footnote-reference brackets" href="#id25" id="id9">9</a> <a class="footnote-reference brackets" href="#id26" id="id10">10</a> <a class="footnote-reference brackets" href="#id27" id="id11">11</a>.</p>
+<p>[…]</p>
+</section>
+<section id="critical-improvements">
+<h2>Critical improvements<a class="headerlink" href="#critical-improvements" title="Permalink to this headline">¶</a></h2>
+<p>VM provides multiple critical improvements over other approaches to fMRI data
+analysis:</p>
+<ol class="arabic simple">
+<li><p>Most methods for analyzing fMRI data rely on simple contrasts
+between a small number of conditions. In contrast, VM can efficiently analyze
+many different stimulus and task features simultaneously. This framework
+enables the analysis of complex naturalistic stimuli and tasks which contain
+a large number of features; for example, VM has been used with naturalistic images
+<a class="footnote-reference brackets" href="#id17" id="id12">1</a> <a class="footnote-reference brackets" href="#id18" id="id13">2</a>, movies <a class="footnote-reference brackets" href="#id19" id="id14">3</a>, and stories <a class="footnote-reference brackets" href="#id24" id="id15">8</a>.</p></li>
+<li><p>Unlike the traditional null hypothesis testing framework, VM is not prone
+to overfitting and type I error and generalizes to new subjects and stimuli .
+VM is a predictive modeling framework that
+evaluates model performance on a separate test data set not used during fitting.</p></li>
+<li><p>VM performs an analysis in each subject’s native brain space instead of lossily
+transforming subjects into a common group space. This allows VM to produce
+results with maximal spatial resolution. Each subject provides their own fit
+and test data, so every subject provides a complete replication of all
+hypothesis tests.</p></li>
+<li><p>VM produces high-dimensional functional maps rather than simple contrast
+maps or correlation matrices. These maps reflect the
+selectivity of each voxel to thousands of stimulus and task features spread
+across dozens of feature spaces. These functional maps are much more
+detailed than those produced using statistical parametric mapping (SPM),
+multivariate pattern analysis (MVPA), or representational similarity
+analysis (RSA).</p></li>
+<li><p>VM recovers stable and interpretable functional parcellations, which
+respect individual variability in anatomy <a class="footnote-reference brackets" href="#id24" id="id16">8</a>.</p></li>
+</ol>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id17"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id12">2</a>)</span></dt>
+<dd><p>Kay, K. N., Naselaris, T., Prenger, R. J., &amp; Gallant, J. L. (2008).
+Identifying natural images from human brain activity.
+Nature, 452(7185), 352-355.</p>
+</dd>
+<dt class="label" id="id18"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id13">2</a>)</span></dt>
+<dd><p>Naselaris, T., Prenger, R. J., Kay, K. N., Oliver, M., &amp; Gallant, J. L. (2009).
+Bayesian reconstruction of natural images from human brain activity.
+Neuron, 63(6), 902-915.</p>
+</dd>
+<dt class="label" id="id19"><span class="brackets">3</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id14">2</a>)</span></dt>
+<dd><p>Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &amp; Gallant, J. L. (2011).
+Reconstructing visual experiences from brain activity evoked by natural movies.
+Current Biology, 21(19), 1641-1646.</p>
+</dd>
+<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>Huth, A. G., Nishimoto, S., Vu, A. T., &amp; Gallant, J. L. (2012).
+A continuous semantic space describes the representation of thousands of
+object and action categories across the human brain.
+Neuron, 76(6), 1210-1224.</p>
+</dd>
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Çukur, T., Nishimoto, S., Huth, A. G., &amp; Gallant, J. L. (2013).
+Attention during natural vision warps semantic representation across the human brain.
+Nature neuroscience, 16(6), 763-770.</p>
+</dd>
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>Çukur, T., Huth, A. G., Nishimoto, S., &amp; Gallant, J. L. (2013).
+Functional subdomains within human FFA.
+Journal of Neuroscience, 33(42), 16748-16766.</p>
+</dd>
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>Stansbury, D. E., Naselaris, T., &amp; Gallant, J. L. (2013).
+Natural scene statistics account for the representation of scene categories
+in human visual cortex.
+Neuron, 79(5), 1025-1034</p>
+</dd>
+<dt class="label" id="id24"><span class="brackets">8</span><span class="fn-backref">(<a href="#id8">1</a>,<a href="#id15">2</a>,<a href="#id16">3</a>)</span></dt>
+<dd><p>Huth, A. G., De Heer, W. A., Griffiths, T. L., Theunissen, F. E., &amp; Gallant, J. L. (2016).
+Natural speech reveals the semantic maps that tile human cerebral cortex.
+Nature, 532(7600), 453-458.</p>
+</dd>
+<dt class="label" id="id25"><span class="brackets"><a class="fn-backref" href="#id9">9</a></span></dt>
+<dd><p>de Heer, W. A., Huth, A. G., Griffiths, T. L., Gallant, J. L., &amp; Theunissen, F. E. (2017).
+The hierarchical cortical organization of human speech processing.
+Journal of Neuroscience, 37(27), 6539-6557.</p>
+</dd>
+<dt class="label" id="id26"><span class="brackets"><a class="fn-backref" href="#id10">10</a></span></dt>
+<dd><p>Lescroart, M. D., &amp; Gallant, J. L. (2019).
+Human scene-selective areas represent 3D configurations of surfaces.
+Neuron, 101(1), 178-192.</p>
+</dd>
+<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id11">11</a></span></dt>
+<dd><p>Deniz, F., Nunez-Elizalde, A. O., Huth, A. G., &amp; Gallant, J. L. (2019).
+The representation of semantic information across human cerebral cortex
+during listening versus reading is invariant to stimulus modality.
+Journal of Neuroscience, 39(39), 7722-7736.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Gallant lab.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/voxelwise_modeling.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
