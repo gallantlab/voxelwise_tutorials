@@ -28,6 +28,11 @@ requirements = [
     "pymoten",
 ]
 
+extras_require = {
+    "docs": ["sphinx", "sphinx_gallery"]
+}
+
+
 if __name__ == "__main__":
     setup(
         name='voxelwise_tutorials',
@@ -38,6 +43,7 @@ if __name__ == "__main__":
         version=__version__,
         packages=find_packages(),
         install_requires=requirements,
+        extras_require=extras_require,
         long_description=long_description,
         long_description_content_type='text/x-rst',
     )
