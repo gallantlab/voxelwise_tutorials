@@ -182,8 +182,9 @@ pipeline = make_pipeline(
     Delayer(delays=[1, 2, 3, 4, 5, 6, 7, 8]),
     KernelRidgeCV(
         alphas=alphas, cv=cv,
-        solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
-                           n_targets_batch_refit=100)),
+        solver_params=dict(n_targets_batch=100, n_alphas_batch=2,
+                           n_targets_batch_refit=50),
+        Y_in_cpu=True),
 )
 pipeline
 
@@ -224,17 +225,18 @@ plt.show()
 # without feature delays (i.e. no Delayer). This model is unlikely to perform
 # well, since fMRI responses are delayed in time with respect to the stimulus.
 
-pipeline_nodelay = make_pipeline(
+pipeline = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
     KernelRidgeCV(
         alphas=alphas, cv=cv,
-        solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
-                           n_targets_batch_refit=100)),
+        solver_params=dict(n_targets_batch=100, n_alphas_batch=2,
+                           n_targets_batch_refit=50),
+        Y_in_cpu=True),
 )
 pipeline
 
-pipeline_nodelay.fit(X_train, Y_train)
-scores_nodelay = pipeline_nodelay.score(X_test, Y_test)
+pipeline.fit(X_train, Y_train)
+scores_nodelay = pipeline.score(X_test, Y_test)
 scores_nodelay = backend.to_numpy(scores_nodelay)
 
 ###############################################################################
