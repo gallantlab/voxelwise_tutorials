@@ -112,7 +112,7 @@ html_theme = 'alabaster'
 # documentation.
 html_theme_options = {
     'github_user': 'gallantlab',
-    'github_repo': 'tutorials',
+    'github_repo': 'voxelwise_tutorials',
     'github_type': 'star',
     'page_width': '1200px',
     'logo': 'flatmap.png',
