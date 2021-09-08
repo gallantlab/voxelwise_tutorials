@@ -22,11 +22,12 @@ To explore these tutorials, one can:
 - run the Python scripts located in the `tutorials <tutorials>`_ directory
 - run the Jupyter notebooks located in the
   `tutorials/notebooks <tutorials/notebooks>`_ directory
+- run the merged notebook in
+  `Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/movies_3T/merged_for_colab.ipynb>`_.
 
 To run the tutorials yourself, first download this repository, and install the
-dependencies (see below). Then, run either the Python scripts or the
-Jupyter notebooks located in the "tutorials" directory. The tutorials are
-best explored in order, starting with the "Movies 3T tutorial".
+dependencies (see below). The tutorials are best explored in order, starting
+with the "Movies 3T" tutorial.
 
 Helper Python package
 =====================
