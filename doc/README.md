@@ -32,3 +32,9 @@ firefox _build/html/index.html
 make html-noplot
 make notebooks
 ```
+
+## Push the website
+
+```bash
+make push-pages
+```
