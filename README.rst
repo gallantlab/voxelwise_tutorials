@@ -39,7 +39,14 @@ data sets, load the files, process the data, and visualize the results.
 Installation
 ------------
 
-To install the ``voxelwise_tutorials`` package, run
+To install the ``voxelwise_tutorials`` package, run:
+
+.. code-block:: bash
+
+   pip install voxelwise_tutorials
+
+
+To also download the tutorial scripts and notebooks, clone the repository via:
 
 .. code-block:: bash
 
