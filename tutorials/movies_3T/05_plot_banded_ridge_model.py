@@ -365,3 +365,5 @@ plt.show()
 # .. [1] Nunez-Elizalde, A. O., Huth, A. G., & Gallant, J. L. (2019).
 #     Voxelwise encoding models with non-spherical multivariate normal priors.
 #     Neuroimage, 197, 482-492.
+
+del pipeline, pipeline_baseline

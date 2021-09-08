@@ -4,7 +4,8 @@ Setup Google Colab
 ==================
 
 In this script, we setup a Google Colab environment. This script will only work
-when run from `Google Colab <https://colab.research.google.com/>`_).
+when run from `Google Colab <https://colab.research.google.com/>`_). You can
+skip it if you run the tutorials on your machine.
 """
 # sphinx_gallery_thumbnail_path = "static/colab.png"
 
@@ -13,6 +14,7 @@ when run from `Google Colab <https://colab.research.google.com/>`_).
 # ---------------------------
 #
 # This tutorial is much faster when a GPU is available to run the computations:
+#
 # (Menu) "Runtime" -> "Change runtime type" -> "Hardware accelerator" -> "GPU".
 
 ###############################################################################
