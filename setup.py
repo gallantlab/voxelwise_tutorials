@@ -29,7 +29,7 @@ requirements = [
 ]
 
 extras_require = {
-    "docs": ["sphinx", "sphinx_gallery"]
+    "docs": ["sphinx", "sphinx_gallery", "numpydoc"]
 }
 
 
