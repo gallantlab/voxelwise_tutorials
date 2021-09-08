@@ -45,3 +45,21 @@ merge-notebooks:
 		$(NBDIR)/05_plot_banded_ridge_model.ipynb \
 		> $(NBDIR)/merged_for_colab.ipynb
 	echo "Saved in $(NBDIR)/merged_for_colab.ipynb"
+
+# -b gh_pages --single-branch (to clone only one branch)
+# --no-checkout (just fetches the root folder without content)
+# --depth 1 (since we don't need the history prior to the last commit)
+push-pages:
+	rm -rf _build/gh_pages
+	git clone -b gh-pages --single-branch --no-checkout --depth 1 \
+		https://github.com/gallantlab/voxelwise_tutorials _build/gh_pages
+
+	cd _build/ && \
+		cp -r html/* gh_pages && \
+		cd gh_pages && \
+		touch .nojekyll && \
+		echo "*.ipynb -diff" > .gitattributes && \
+		git add * && \
+		git add .nojekyll .gitattributes && \
+		git commit -a -m 'Make push-pages' && \
+		git push
