@@ -12,7 +12,7 @@ def load_wordnet(directory=None, recache=False):
     ----------
     directory : str or None
         Directory where the dataset has been downloaded.
-        If None, use "vim-4" in ``voxelwise_tutorials.io.get_data_home()``.
+        If None, use "vim-5" in ``voxelwise_tutorials.io.get_data_home()``.
 
     Returns
     -------
@@ -37,7 +37,7 @@ def load_wordnet(directory=None, recache=False):
 
     if directory is None:
         from voxelwise_tutorials.io import get_data_home
-        directory = os.path.join(get_data_home(), "vim-4")
+        directory = os.path.join(get_data_home(), "vim-5")
 
     dot_file = os.path.join(directory, 'utils', 'wordnet_graph.dot')
     txt_file = os.path.join(directory, 'utils', 'wordnet_categories.txt')
@@ -176,7 +176,7 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
         See the function ``load_wordnet`` to have the list of names.
     directory : str or None
         Directory where the dataset has been downloaded.
-        If None, use "vim-4" in ``voxelwise_tutorials.io.get_data_home()``.
+        If None, use "vim-5" in ``voxelwise_tutorials.io.get_data_home()``.
 
     Returns
     -------

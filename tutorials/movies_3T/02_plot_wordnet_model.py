@@ -34,7 +34,7 @@ responses.
 # Path of the data directory
 import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-4")
+directory = os.path.join(get_data_home(), "vim-5")
 print(directory)
 
 ###############################################################################
@@ -374,7 +374,7 @@ print("PCA explained variance =", pca.explained_variance_ratio_)
 
 from voxelwise_tutorials.wordnet import load_wordnet
 from voxelwise_tutorials.wordnet import correct_coefficients
-_, wordnet_categories = load_wordnet()
+_, wordnet_categories = load_wordnet(directory=directory)
 components = correct_coefficients(components.T, wordnet_categories).T
 components -= components.mean(axis=1)[:, None]
 components /= components.std(axis=1)[:, None]
