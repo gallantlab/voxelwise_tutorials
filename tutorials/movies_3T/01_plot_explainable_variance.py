@@ -192,7 +192,11 @@ if False:
 
 ###############################################################################
 # Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
-# following function:
+# `quickshow` function. (This function requires Inkscape to be installed.
+# The rest of the tutorial does not use this function, feel free to ignore.)
 
-fig = cortex.quickshow(vertex, colorbar_location='right')
-plt.show()
+from cortex.testing_utils import has_installed
+
+if has_installed("inkscape"):
+    fig = cortex.quickshow(vertex, colorbar_location='right')
+    plt.show()

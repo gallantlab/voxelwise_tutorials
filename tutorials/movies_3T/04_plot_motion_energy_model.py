@@ -116,7 +116,7 @@ X_test = X_test.astype("float32")
 
 alphas = np.logspace(1, 20, 20)
 
-pipeline_motion_energy = make_pipeline(
+pipeline = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
     Delayer(delays=[1, 2, 3, 4]),
     KernelRidgeCV(
@@ -128,7 +128,7 @@ pipeline_motion_energy = make_pipeline(
 ###############################################################################
 from sklearn import set_config
 set_config(display='diagram')  # requires scikit-learn 0.23
-pipeline_motion_energy
+pipeline
 
 ###############################################################################
 # Fit the model
@@ -136,9 +136,9 @@ pipeline_motion_energy
 #
 # We fit on the train set, and score on the test set.
 
-pipeline_motion_energy.fit(X_train, Y_train)
+pipeline.fit(X_train, Y_train)
 
-scores_motion_energy = pipeline_motion_energy.score(X_test, Y_test)
+scores_motion_energy = pipeline.score(X_test, Y_test)
 scores_motion_energy = backend.to_numpy(scores_motion_energy)
 
 print("(n_voxels,) =", scores_motion_energy.shape)
@@ -178,14 +178,17 @@ X_train = X_train.astype("float32")
 X_test = X_test.astype("float32")
 
 ###############################################################################
-# We can create an unfitted copy of the pipeline with the ``clone`` function.
-from sklearn.base import clone
-pipeline_wordnet = clone(pipeline_motion_energy)
-pipeline_wordnet
+# We can create an unfitted copy of the pipeline with the ``clone`` function,
+# or simply call fit again if we do not need to reuse the previous model.
+
+if False:
+    from sklearn.base import clone
+    pipeline_wordnet = clone(pipeline)
+    pipeline_wordnet
 
 ###############################################################################
-pipeline_wordnet.fit(X_train, Y_train)
-scores_wordnet = pipeline_wordnet.score(X_test, Y_test)
+pipeline.fit(X_train, Y_train)
+scores_wordnet = pipeline.score(X_test, Y_test)
 scores_wordnet = backend.to_numpy(scores_wordnet)
 
 ax = plot_flatmap_from_mapper(scores_wordnet, mapper_file, vmin=0,
@@ -254,3 +257,5 @@ plt.show()
 # .. [2] Nunez-Elizalde, A. O., Huth, A. G., & Gallant, J. L. (2019).
 #     Voxelwise encoding models with non-spherical multivariate normal priors.
 #     Neuroimage, 197, 482-492.
+
+del pipeline

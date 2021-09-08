@@ -245,3 +245,5 @@ plt.show()
 # We see that the hemodynamic response function (HRF) is captured in the model
 # weights. Note that in this dataset, the brain responses are recorded every
 # two seconds.
+
+del pipeline
