@@ -6,8 +6,12 @@ Download the data set from CRCNS
 In this script, we download the data set from CRCNS. A (free) account is
 required.
 
-.. Warning:: The data has not been publicly released yet, so this notebook will
-    not work !
+.. Warning:: The data has not been publicly released yet on CRCNS, so this
+    notebook will not work ! You can download the data manually from `Google
+    Drive
+    <https://drive.google.com/drive/folders/1NuxO5_GHgDvjrL2FX5ohzAsvWpZuepIA?usp=sharing>`_,
+    or run the tutorials from `Colab
+    <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/movies_3T/merged_for_colab.ipynb>`_
 
 Cite this data set
 ------------------
@@ -28,7 +32,7 @@ raise RuntimeError("The data has not been publicly released yet, so "
 # path of the data directory
 import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-4")
+directory = os.path.join(get_data_home(), "vim-5")
 print(directory)
 
 ###############################################################################

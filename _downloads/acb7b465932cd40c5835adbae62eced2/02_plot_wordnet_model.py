@@ -34,7 +34,7 @@ responses.
 # Path of the data directory
 import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-4")
+directory = os.path.join(get_data_home(), "vim-5")
 print(directory)
 
 ###############################################################################
@@ -374,7 +374,7 @@ print("PCA explained variance =", pca.explained_variance_ratio_)
 
 from voxelwise_tutorials.wordnet import load_wordnet
 from voxelwise_tutorials.wordnet import correct_coefficients
-_, wordnet_categories = load_wordnet()
+_, wordnet_categories = load_wordnet(directory=directory)
 components = correct_coefficients(components.T, wordnet_categories).T
 components -= components.mean(axis=1)[:, None]
 components /= components.std(axis=1)[:, None]
@@ -416,14 +416,17 @@ plt.show()
 # split the ridge coefficients per delays
 primal_coef_per_delay = delayer.reshape_by_delays(primal_coef, axis=0)
 print("(n_delays, n_features, n_voxels) =", primal_coef_per_delay.shape)
+del primal_coef
 
 # average over delays
 average_coef = np.mean(primal_coef_per_delay, axis=0)
 print("(n_features, n_voxels) =", average_coef.shape)
+del primal_coef_per_delay
 
 # transform with the fitted PCA
 average_coef_transformed = pca.transform(average_coef.T).T
 print("(n_components, n_voxels) =", average_coef_transformed.shape)
+del average_coef
 
 # We make sure vmin = -vmax, so that the colormap is centered on 0.
 vmax = np.percentile(np.abs(average_coef_transformed), 99.9)
@@ -487,3 +490,5 @@ plt.show()
 #
 # .. [2] Saunders, C., Gammerman, A., & Vovk, V. (1998).
 #    Ridge regression learning algorithm in dual variables.
+
+del pipeline

@@ -22,7 +22,7 @@ ceiling*.
 # Path of the data directory
 import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-4")
+directory = os.path.join(get_data_home(), "vim-5")
 print(directory)
 
 ###############################################################################
@@ -168,6 +168,24 @@ if not hasattr(cortex.db, surface):
     cortex.utils.download_subject(subject_id=surface)
 
 ###############################################################################
+# If you are running the notebook on Colab, you might need to update the
+# pycortex filestore as following:
+
+try:
+    import google.colab  # noqa
+    in_colab = True
+except ImportError:
+    in_colab = False
+print(in_colab)
+
+if in_colab:
+    filestore = cortex.options.config['basic']['filestore']
+    cortex.database.db = cortex.database.Database(filestore)
+    cortex.db = cortex.database.db
+    cortex.utils.db = cortex.database.db
+    cortex.dataset.braindata.db = cortex.database.db
+
+###############################################################################
 # Then, we load the "fsaverage" mapper. The mapper is a matrix of shape
 # (n_vertices, n_voxels), which maps each voxel to some vertices in the
 # fsaverage surface. It is stored as a sparse CSR matrix. The mapper is applied
@@ -192,7 +210,13 @@ if False:
 
 ###############################################################################
 # Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
-# following function:
+# `quickshow` function.
+#
+# (This function requires Inkscape to be installed. The rest of the tutorial
+# does not use this function, so feel free to ignore.)
 
-fig = cortex.quickshow(vertex, colorbar_location='right')
-plt.show()
+from cortex.testing_utils import has_installed
+
+if has_installed("inkscape"):
+    fig = cortex.quickshow(vertex, colorbar_location='right')
+    plt.show()

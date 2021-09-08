@@ -86,10 +86,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_00_download_vim4_thumb.png
+ .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_00_download_vim5_thumb.png
      :alt: Download the data set from CRCNS
 
-     :ref:`sphx_glr__auto_examples_movies_3T_00_download_vim4.py`
+     :ref:`sphx_glr__auto_examples_movies_3T_00_download_vim5.py`
 
 .. raw:: html
 
@@ -99,7 +99,28 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_3T/00_download_vim4
+   /_auto_examples/movies_3T/00_download_vim5
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this script, we setup a Google Colab environment. This script will only work when run from `...">
+
+.. only:: html
+
+ .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_00_load_colab_thumb.png
+     :alt: Setup Google Colab
+
+     :ref:`sphx_glr__auto_examples_movies_3T_00_load_colab.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /_auto_examples/movies_3T/00_load_colab
 
 .. raw:: html
 
@@ -352,13 +373,13 @@ This tutorial requires the following Python packages:
 
   .. container:: sphx-glr-download sphx-glr-download-python
 
-    :download:`Download all examples in Python source code: _auto_examples_python.zip </_auto_examples/_auto_examples_python.zip>`
+    :download:`Download all examples in Python source code: _auto_examples_python.zip <//home/jlg/tomdlt/gbox/work/github/voxelwise_tutorials/doc/_auto_examples/_auto_examples_python.zip>`
 
 
 
   .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-    :download:`Download all examples in Jupyter notebooks: _auto_examples_jupyter.zip </_auto_examples/_auto_examples_jupyter.zip>`
+    :download:`Download all examples in Jupyter notebooks: _auto_examples_jupyter.zip <//home/jlg/tomdlt/gbox/work/github/voxelwise_tutorials/doc/_auto_examples/_auto_examples_jupyter.zip>`
 
 
 .. only:: html

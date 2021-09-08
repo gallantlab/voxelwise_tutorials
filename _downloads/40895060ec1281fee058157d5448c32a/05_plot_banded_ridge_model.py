@@ -22,7 +22,7 @@ With a CPU backend, it can last 10 times more.
 # Path of the data directory
 import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-4")
+directory = os.path.join(get_data_home(), "vim-5")
 print(directory)
 
 ###############################################################################
@@ -365,3 +365,5 @@ plt.show()
 # .. [1] Nunez-Elizalde, A. O., Huth, A. G., & Gallant, J. L. (2019).
 #     Voxelwise encoding models with non-spherical multivariate normal priors.
 #     Neuroimage, 197, 482-492.
+
+del pipeline, pipeline_baseline

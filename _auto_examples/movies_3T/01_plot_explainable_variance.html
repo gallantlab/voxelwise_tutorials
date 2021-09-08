@@ -4,23 +4,23 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compute the explainable variance &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Fit a ridge model with wordnet features" href="02_plot_wordnet_model.html" />
-    <link rel="prev" title="Download the data set from CRCNS" href="00_download_vim4.html" />
+    <link rel="prev" title="Setup Google Colab" href="00_load_colab.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
@@ -47,7 +47,7 @@
 
 
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=gallantlab&repo=tutorials&type=star&count=true&size=large&v=2"
+<iframe src="https://ghbtns.com/github-btn.html?user=gallantlab&repo=voxelwise_tutorials&type=star&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
@@ -60,7 +60,7 @@
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Movies 3T tutorial</a><ul>
-      <li>Previous: <a href="00_download_vim4.html" title="previous chapter">Download the data set from CRCNS</a></li>
+      <li>Previous: <a href="00_load_colab.html" title="previous chapter">Setup Google Colab</a></li>
       <li>Next: <a href="02_plot_wordnet_model.html" title="next chapter">Fit a ridge model with wordnet features</a></li>
   </ul></li>
   </ul></li>
@@ -68,7 +68,8 @@
 </div><h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Movies 3T tutorial</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="00_download_vim4.html">Download the data set from CRCNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="00_download_vim5.html">Download the data set from CRCNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="00_load_colab.html">Setup Google Colab</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Compute the explainable variance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02_plot_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03_plot_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
@@ -91,7 +92,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -107,10 +108,9 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-3t-01-plot-explainable-variance-py"><span class="std std-ref">here</span></a>
-to download the full example code</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-3t-01-plot-explainable-variance-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="compute-the-explainable-variance">
+<div class="sphx-glr-example-title section" id="compute-the-explainable-variance">
 <span id="sphx-glr-auto-examples-movies-3t-01-plot-explainable-variance-py"></span><h1>Compute the explainable variance<a class="headerlink" href="#compute-the-explainable-variance" title="Permalink to this headline">¶</a></h1>
 <p>Before fitting voxelwise models to the fMRI responses, we can estimate the
 <em>explainable variance</em>. The explainable variance is the part of the fMRI
@@ -130,19 +130,19 @@ ceiling</em>.</p>
 <p>Path of the data directory</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
-<span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_data_home</span><span class="p">(),</span> <span class="s2">&quot;vim-4&quot;</span><span class="p">)</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_data_home</span><span class="p">(),</span> <span class="s2">&quot;vim-5&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/mvdoc/voxelwise_tutorials_data/vim-4
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/tomdlt/voxelwise_tutorials_data/vim-5
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># modify to use another subject</span>
 <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;S01&quot;</span>
 </pre></div>
 </div>
-<section id="id1">
+<div class="section" id="id1">
 <h2>Compute the explainable variance<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">load_hdf5_array</span>
@@ -225,8 +225,8 @@ which is quite high. It means that these voxels consistently record the same
 activity across a repeated stimulus, and thus are good targets for encoding
 models. Of course, this set of explainable voxels changes from task to
 task, depending on what you are trying to model.</p>
-</section>
-<section id="map-to-subject-flatmap">
+</div>
+<div class="section" id="map-to-subject-flatmap">
 <h2>Map to subject flatmap<a class="headerlink" href="#map-to-subject-flatmap" title="Permalink to this headline">¶</a></h2>
 <p>To better understand the distribution of explainable variance, we map the
 values to the subject brain. This can be done with <a class="reference external" href="https://gallantlab.github.io/pycortex/">pycortex</a>, which can create interactive 3D
@@ -264,8 +264,8 @@ and the folded cortical surface of the brain.</p>
 in the visual cortex, in early visual regions like V1, V2, V3, or in
 higher-level regions like EBA, FFA or IPS. This was expected since this is a
 purely visual experiment.</p>
-</section>
-<section id="map-to-fsaverage">
+</div>
+<div class="section" id="map-to-fsaverage">
 <h2>Map to “fsaverage”<a class="headerlink" href="#map-to-fsaverage" title="Permalink to this headline">¶</a></h2>
 <p>The second mapper we provide maps the voxel data to a Freesurfer
 average surface (“fsaverage”), that can be used in <code class="docutils literal notranslate"><span class="pre">pycortex</span></code>.
@@ -276,6 +276,27 @@ First, let’s download the “fsaverage” surface.</p>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cortex</span><span class="o">.</span><span class="n">db</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
     <span class="n">cortex</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">download_subject</span><span class="p">(</span><span class="n">subject_id</span><span class="o">=</span><span class="n">surface</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you are running the notebook on Colab, you might need to update the
+pycortex filestore as following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">google.colab</span>  <span class="c1"># noqa</span>
+    <span class="n">in_colab</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">in_colab</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">in_colab</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">in_colab</span><span class="p">:</span>
+    <span class="n">filestore</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;basic&#39;</span><span class="p">][</span><span class="s1">&#39;filestore&#39;</span><span class="p">]</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">Database</span><span class="p">(</span><span class="n">filestore</span><span class="p">)</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">braindata</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>False
 </pre></div>
 </div>
 <p>Then, we load the “fsaverage” mapper. The mapper is a matrix of shape
@@ -305,13 +326,18 @@ projected data. This object can be used either in a <code class="docutils litera
 </pre></div>
 </div>
 <p>Alternatively, to plot a flatmap in a <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figure, use the
-following function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">quickshow</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">colorbar_location</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<cite>quickshow</cite> function.</p>
+<p>(This function requires Inkscape to be installed. The rest of the tutorial
+does not use this function, so feel free to ignore.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cortex.testing_utils</span> <span class="kn">import</span> <span class="n">has_installed</span>
+
+<span class="k">if</span> <span class="n">has_installed</span><span class="p">(</span><span class="s2">&quot;inkscape&quot;</span><span class="p">):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">quickshow</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">colorbar_location</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <img alt="01 plot explainable variance" class="sphx-glr-single-img" src="../../_images/sphx_glr_01_plot_explainable_variance_005.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  11.940 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.726 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-movies-3t-01-plot-explainable-variance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ef00a3e7d383dcf197845c0855ceb9b7/01_plot_explainable_variance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_plot_explainable_variance.py</span></code></a></p>
@@ -321,8 +347,8 @@ following function:</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</section>
-</section>
+</div>
+</div>
 
 
           </div>
@@ -335,7 +361,7 @@ following function:</p>
       &copy;2020, Gallant lab.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

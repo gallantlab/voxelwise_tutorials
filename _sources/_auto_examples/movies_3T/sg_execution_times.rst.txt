@@ -5,20 +5,22 @@
 
 Computation times
 =================
-**15:43.173** total execution time for **_auto_examples_movies_3T** files:
+**07:08.100** total execution time for **_auto_examples_movies_3T** files:
 
 +----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_movies_3T_05_plot_banded_ridge_model.py` (``05_plot_banded_ridge_model.py``)     | 10:58.194 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_movies_3T_05_plot_banded_ridge_model.py` (``05_plot_banded_ridge_model.py``)     | 07:08.100 | 0.0 MB |
 +----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_movies_3T_03_plot_hemodynamic_response.py` (``03_plot_hemodynamic_response.py``) | 01:36.569 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_movies_3T_00_download_vim5.py` (``00_download_vim5.py``)                         | 00:00.000 | 0.0 MB |
 +----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_movies_3T_04_plot_motion_energy_model.py` (``04_plot_motion_energy_model.py``)   | 01:34.365 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_movies_3T_00_load_colab.py` (``00_load_colab.py``)                               | 00:00.000 | 0.0 MB |
 +----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_movies_3T_02_plot_wordnet_model.py` (``02_plot_wordnet_model.py``)               | 01:22.106 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_movies_3T_01_plot_explainable_variance.py` (``01_plot_explainable_variance.py``) | 00:00.000 | 0.0 MB |
 +----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_movies_3T_01_plot_explainable_variance.py` (``01_plot_explainable_variance.py``) | 00:11.940 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_movies_3T_02_plot_wordnet_model.py` (``02_plot_wordnet_model.py``)               | 00:00.000 | 0.0 MB |
 +----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_movies_3T_00_download_vim4.py` (``00_download_vim4.py``)                         | 00:00.000 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_movies_3T_03_plot_hemodynamic_response.py` (``03_plot_hemodynamic_response.py``) | 00:00.000 | 0.0 MB |
++----------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr__auto_examples_movies_3T_04_plot_motion_energy_model.py` (``04_plot_motion_energy_model.py``)   | 00:00.000 | 0.0 MB |
 +----------------------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_movies_3T_06_extract_motion_energy.py` (``06_extract_motion_energy.py``)         | 00:00.000 | 0.0 MB |
 +----------------------------------------------------------------------------------------------------------------+-----------+--------+

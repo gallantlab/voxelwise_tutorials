@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Google Colab &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Compute the explainable variance" href="01_plot_explainable_variance.html" />
+    <link rel="prev" title="Download the data set from CRCNS" href="00_download_vim5.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/flatmap.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Voxelwise modeling tutorials</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=gallantlab&repo=voxelwise_tutorials&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Movies 3T tutorial</a><ul>
+      <li>Previous: <a href="00_download_vim5.html" title="previous chapter">Download the data set from CRCNS</a></li>
+      <li>Next: <a href="01_plot_explainable_variance.html" title="next chapter">Compute the explainable variance</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Movies 3T tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="00_download_vim5.html">Download the data set from CRCNS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Setup Google Colab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_plot_explainable_variance.html">Compute the explainable variance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_plot_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_plot_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_plot_motion_energy_model.html">Fit a ridge model with motion energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_plot_banded_ridge_model.html">Fit a banded ridge model with both wordnet and motion energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_extract_motion_energy.html">Extract motion energy features from the stimuli</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#movies-4t-tutorial">Movies 4T tutorial</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">The voxelwise modeling framework</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html">Helper Python package</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-3t-00-load-colab-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="setup-google-colab">
+<span id="sphx-glr-auto-examples-movies-3t-00-load-colab-py"></span><h1>Setup Google Colab<a class="headerlink" href="#setup-google-colab" title="Permalink to this headline">¶</a></h1>
+<p>In this script, we setup a Google Colab environment. This script will only work
+when run from <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>). You can
+skip it if you run the tutorials on your machine.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="section" id="change-runtime-to-use-a-gpu">
+<h2>Change runtime to use a GPU<a class="headerlink" href="#change-runtime-to-use-a-gpu" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial is much faster when a GPU is available to run the computations:</p>
+<p>(Menu) “Runtime” -&gt; “Change runtime type” -&gt; “Hardware accelerator” -&gt; “GPU”.</p>
+</div>
+<div class="section" id="mount-data-with-google-drive">
+<h2>Mount data with Google Drive<a class="headerlink" href="#mount-data-with-google-drive" title="Permalink to this headline">¶</a></h2>
+<p>First, open the following Google Drive link:
+<a class="reference external" href="https://drive.google.com/drive/folders/1NuxO5_GHgDvjrL2FX5ohzAsvWpZuepIA">https://drive.google.com/drive/folders/1NuxO5_GHgDvjrL2FX5ohzAsvWpZuepIA</a></p>
+<p>Then, clic on the directory name (“vim-5”), and add a shortcut to your Drive
+(“Add shortcut to Drive”).</p>
+<p>Then, mount Google Drive in Google Colab. To do so, run the following cell,
+and follow the instructions from Google to copy/paste the authorization code.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;/content/drive&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Uncomment and run the following command to check that Google Drive was
+correctly mounted.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !ls &#39;drive&#39; &amp;&amp; echo SUCCESS || echo FAILURE</span>
+</pre></div>
+</div>
+<p>Then, tell the voxelwise_tutorials package where the data is.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;VOXELWISE_TUTORIALS_DATA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;drive/MyDrive/&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-package-helper">
+<h2>Install package helper<a class="headerlink" href="#install-package-helper" title="Permalink to this headline">¶</a></h2>
+<p>Finally, install the tutorial helper package, by uncommenting and running
+the install command.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install voxelwise_tutorials</span>
+</pre></div>
+</div>
+<p>When using Colab, the install of pycortex might fail to locate the default
+pycortex filestore. You can fix it by uncommenting and running the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !git clone https://github.com/gallantlab/pycortex</span>
+</pre></div>
+</div>
+<p>and changing the filestore path.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cortex</span>
+<span class="n">filestore</span> <span class="o">=</span> <span class="s2">&quot;/content/pycortex/filestore/&quot;</span>
+<span class="n">cortex</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;basic&#39;</span><span class="p">][</span><span class="s1">&#39;filestore&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filestore</span>
+<span class="n">cortex</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;webgl&#39;</span><span class="p">][</span><span class="s1">&#39;colormaps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/content/pycortex/filestore/colormaps&quot;</span>
+<span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">Database</span><span class="p">(</span><span class="n">filestore</span><span class="p">)</span>
+<span class="n">cortex</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+<span class="n">cortex</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+<span class="n">cortex</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">braindata</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-movies-3t-00-load-colab-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/d242e79272522aaf6151c38799ed90ab/00_load_colab.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">00_load_colab.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/7f7fa356af10ba945c5c1db4bf5e7b30/00_load_colab.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">00_load_colab.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Gallant lab.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/_auto_examples/movies_3T/00_load_colab.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
