@@ -20,7 +20,7 @@ To run the tutorials yourself, we recommend to download the project on GitHub
 at `gallantlab/voxelwise_tutorials
 <https://github.com/gallantlab/voxelwise_tutorials>`_. On top of the tutorials,
 the GitHub repository contains a Python package called ``voxelwise_tutorials``,
-which contains useful fonctions to download the data sets, load the files,
+which contains useful functions to download the data sets, load the files,
 process the data, and visualize the results. Install instructions are available
 `here <voxelwise_package.html>`_. Then, run either the Python scripts or the
 Jupyter notebooks located in the "tutorials" directory.

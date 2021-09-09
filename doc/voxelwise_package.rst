@@ -5,7 +5,7 @@ Helper Python package
 
 To run the tutorials, the `gallantlab/voxelwise_tutorials
 <https://github.com/gallantlab/voxelwise_tutorials>`_ repository contains a
-Python package called ``voxelwise_tutorials``, with useful fonctions to
+Python package called ``voxelwise_tutorials``, with useful functions to
 download the data sets, load the files, process the data, and visualize the
 results.
 

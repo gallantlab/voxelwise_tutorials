@@ -33,7 +33,7 @@ Helper Python package
 =====================
 
 To run the tutorials, this repository contains a small Python package
-called ``voxelwise_tutorials``, with useful fonctions to download the
+called ``voxelwise_tutorials``, with useful functions to download the
 data sets, load the files, process the data, and visualize the results.
 
 Installation
