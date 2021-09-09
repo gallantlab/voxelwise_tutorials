@@ -20,18 +20,18 @@ include nouns (such as "woman", "car", or "building") and verbs (such as
 labels. To interpret our model, labels can be organized in a graph of semantic
 relashionship based on the `Wordnet <https://wordnet.princeton.edu/>`_ dataset.
 
-*Summary:* We first concatenate the features with multiple temporal delays, to
-account for the slow hemodynamic response. We then fit a predictive model of
-BOLD activity, using a  linear regression that weighs each delayed feature
-differently. The linear regression is regularized to improve robustness to
-correlated features and to improve generalization. The optimal regularization
-hyperparameter is selected over a grid-search with cross-validation. Finally,
-the model generalization performance is evaluated on a held-out test set,
-comparing the model predictions with the corresponding ground-truth fMRI
-responses.
+*Summary:* We first concatenate the features with multiple temporal delays to
+account for the slow hemodynamic response. We then use linear regression to fit 
+a predictive model of brain activity. The linear regression is regularized to 
+improve robustness to correlated features and to improve generalization 
+performance. The optimal regularization hyperparameter is selected over a
+grid-search with cross-validation. Finally, the model generalization
+performance is evaluated on a held-out test set, comparing the model
+predictions to the corresponding ground-truth fMRI responses.
 """
 ###############################################################################
 # Path of the data directory
+# --------------------------
 import os
 from voxelwise_tutorials.io import get_data_home
 directory = os.path.join(get_data_home(), "vim-5")
@@ -49,10 +49,10 @@ subject = "S01"
 # We first load the fMRI responses. These responses have been preprocessed as
 # decribed in [1]_. The data is separated into a training set ``Y_train`` and a
 # testing set ``Y_test``. The training set is used for fitting models, and
-# selecting the best models and hyperparameters. The testing set is later used
-# to estimate the generalization performances of the selected model. The
-# testing set contains multiple repetitions of the same experiment, to estimate
-# an upper bound of the model performances (cf. previous example).
+# selecting the best models and hyperparameters. The test set is later used
+# to estimate the generalization performance of the selected model. The
+# test set contains multiple repetitions of the same experiment to estimate
+# an upper bound of the model prediction accuracy (cf. previous example).
 import numpy as np
 from voxelwise_tutorials.io import load_hdf5_array
 
@@ -66,11 +66,9 @@ print("(n_repeats, n_samples_test, n_voxels) =", Y_test.shape)
 ###############################################################################
 # If we repeat an experiment multiple times, part of the fMRI responses might
 # change. However the modeling features do not change over the repeats, so the
-# voxelwise encoding model predicts the same signal for each repeat. To have an
-# upper bound of the model performances, we keep only the repeatable part of
-# the signal by averaging the test repeats. It means that the prediction
-# :math:`R^2` scores will be relative to the explainable variance (cf. previous
-# example).
+# voxelwise encoding model will predict the same signal for each repeat. To have an
+# upper bound of the model prediction accuracy, we keep only the repeatable part of
+# the signal by averaging the test repeats.
 Y_test = Y_test.mean(0)
 
 print("(n_samples_test, n_voxels) =", Y_test.shape)
@@ -83,7 +81,7 @@ Y_test = np.nan_to_num(Y_test)
 ###############################################################################
 # Then, we load the semantic "wordnet" features, extracted from the stimulus at
 # each time point. The features corresponding to the training set are noted
-# ``X_train``, and the features corresponding to the testing set are noted
+# ``X_train``, and the features corresponding to the test set are noted
 # ``X_test``.
 feature_space = "wordnet"
 
@@ -99,12 +97,12 @@ print("(n_samples_test, n_features) =", X_test.shape)
 # ----------------------------------
 #
 # To select the best hyperparameter through cross-validation, we must define a
-# train-validation splitting scheme. Since fMRI time-series are autocorrelated
-# in time, we should preserve as much as possible the time blocks.
+# cross-validation splitting scheme. Since fMRI time-series are autocorrelated
+# in time, we should preserve as much as possible the temporal correlation.
 # In other words, since consecutive time samples are correlated, we should not
 # put one time sample in the training set and the immediately following time
 # sample in the validation set. Thus, we define here a leave-one-run-out
-# cross-validation split, which preserves each recording run.
+# cross-validation split that keeps each recording run intact.
 
 from sklearn.model_selection import check_cv
 from voxelwise_tutorials.utils import generate_leave_one_run_out
@@ -125,15 +123,15 @@ cv = check_cv(cv)  # copy the cross-validation splitter into a reusable list
 #
 # Now, let's define the model pipeline.
 #
-# We first center the features, since we will not use an intercept. Indeed, the
+# We first center the features, since we will not use an intercept. The
 # mean value in fMRI recording is non-informative, so each run is detrended and
 # demeaned independently, and we do not need to predict an intercept value in
 # the linear model.
 #
-# However, we prefer not to normalize by the standard deviation of each
-# feature. Indeed, if the features are extracted in a consistent way from the
+# However, we prefer to avoid normalizing by the standard deviation of each
+# feature. If the features are extracted in a consistent way from the
 # stimulus, their relative scale is meaningful. Normalizing them independently
-# from each other would remove this meaning. Moreover, the wordnet features are
+# from each other would remove this information. Moreover, the wordnet features are
 # one-hot-encoded, which means that each feature is either present (1) or not
 # present (0) in each sample. Normalizing one-hot-encoded features is not
 # recommended, since it would scale disproportionately the infrequent features.
@@ -143,11 +141,11 @@ scaler = StandardScaler(with_mean=True, with_std=False)
 
 ###############################################################################
 # Then we concatenate the features with multiple delays to account for the
-# hemodynamic response. Indeed, the BOLD signal recorded in fMRI experiments is
-# delayed in time with respect to the stimulus. With different delayed versions
-# of the features, the linear regression model will weight each delayed feature
-# with a different weight, to maximize the predictions. With a sample every 2
-# seconds, we typically use 4 delays [1, 2, 3, 4] to cover the most part of the
+# hemodynamic response. Due to neurovascular coupling, the recorded BOLD signal is
+# delayed in time with respect to the stimulus onset. With different delayed versions
+# of the features, the linear regression model will weigh each delayed feature
+# with a different weight to maximize the predictions. With a sample every 2
+# seconds, we typically use 4 delays [1, 2, 3, 4] to cover the
 # hemodynamic response peak. In the next example, we further describe this
 # hemodynamic response estimation.
 from voxelwise_tutorials.delayer import Delayer
@@ -155,17 +153,17 @@ delayer = Delayer(delays=[1, 2, 3, 4])
 
 ###############################################################################
 # Finally, we use a ridge regression model. Ridge regression is a linear
-# regression with a L2 regularization. The L2 regularizatin improves robustness
-# to correlated features and improves generalization. However, the L2
-# regularization is controled by a hyperparameter ``alpha`` that needs to be
-# tuned. This regularization hyperparameter is usually selected over a grid
+# regression with L2 regularization. The L2 regularization improves robustness
+# to correlated features and improves generalization performance. However, the L2
+# regularization is controlled by a hyperparameter ``alpha`` that needs to be
+# tuned for each dataset. This regularization hyperparameter is usually selected over a grid
 # search with cross-validation, selecting the hyperparameter that maximizes the
 # predictive performances on the validation set. More details about
 # cross-validation can be found in the `scikit-learn documentation
 # <https://scikit-learn.org/stable/modules/cross_validation.html>`_.
 #
 # For computational reasons, when the number of features is larger than the
-# number of samples, it is more efficient to solve a ridge regression using the
+# number of samples, it is more efficient to solve ridge regression using the
 # (equivalent) dual formulation [2]_. This dual formulation is equivalent to
 # kernel ridge regression with a linear kernel. Here, we have 3600 training
 # samples, and 1705 * 4 = 6820 features (we multiply by 4 since we use 4 time
@@ -174,16 +172,17 @@ delayer = Delayer(delays=[1, 2, 3, 4])
 # With one target, we could directly use the pipeline in ``scikit-learn``'s
 # ``GridSearchCV``, to select the optimal regularization hyperparameter
 # (``alpha``) over cross-validation. However, ``GridSearchCV`` can only
-# optimize one score. Thus, in the multiple-target case, ``GridSearchCV`` can
-# only optimize (for example) the mean score over targets. Here, we want to
-# find a different optimal hyperparameter per target/voxel, so we use the
-# package `himalaya <https://github.com/gallantlab/himalaya>`_ which implements
-# a ``scikit-learn`` compatible estimator ``KernelRidgeCV``, with
+# optimize a single score across all voxels (targets). Thus, in the
+# multiple-target case, ``GridSearchCV`` can only optimize (for example) the
+# mean score over targets. Here, we want to find a different optimal
+# hyperparameter per target/voxel, so we use the package `himalaya
+# <https://github.com/gallantlab/himalaya>`_ which implements a
+# ``scikit-learn`` compatible estimator ``KernelRidgeCV``, with
 # hyperparameter selection independently on each target.
 from himalaya.kernel_ridge import KernelRidgeCV
 
 ###############################################################################
-# Interestingly, ``himalaya`` implements different computational backends,
+# ``himalaya`` implements different computational backends,
 # including two backends that use GPU for faster computations. The two
 # available GPU backends are "torch_cuda" and "cupy". (Each backend is only
 # available if you installed the corresponding package with CUDA enabled. Check
@@ -241,7 +240,7 @@ pipeline
 # Fit the model
 # -------------
 #
-# We fit on the train set..
+# We fit on the training set..
 
 _ = pipeline.fit(X_train, Y_train)
 
@@ -250,7 +249,7 @@ _ = pipeline.fit(X_train, Y_train)
 # values in :math:`]-\infty, 1]`. A value of :math:`1` means the predictions
 # are perfect.
 #
-# Note that since ``himalaya`` is specifically implementing multiple targets
+# Note that since ``himalaya`` is implementing multiple-targets
 # models, the ``score`` method differs from ``scikit-learn`` API and returns
 # one score per target/voxel.
 scores = pipeline.score(X_test, Y_test)
@@ -264,11 +263,12 @@ print("(n_voxels,) =", scores.shape)
 scores = backend.to_numpy(scores)
 
 ###############################################################################
-# Plot the model performances
-# ---------------------------
+# Plot the model prediction accuracy
+# ----------------------------------
 #
-# To visualize the model performances, we can plot them on a flattened
-# surface of the brain, using a mapper that is specific to the subject brain.
+# To visualize the model prediction accuracy, we can plot it for each voxel on 
+# a flattened surface of the brain. To do so, we use a mapper that is specific 
+# to the each subject's brain.
 # (Check previous example to see how to use the mapper to Freesurfer average
 # surface.)
 import matplotlib.pyplot as plt
@@ -279,14 +279,15 @@ ax = plot_flatmap_from_mapper(scores, mapper_file, vmin=0, vmax=0.4)
 plt.show()
 
 ###############################################################################
-# We can see that the "wordnet" features successfully predict a part of the
-# brain activity, with :math:`R^2` scores as high as 0.4. Note that these
-# scores are generalization scores, since they are computed on a test set not
-# seen during the mode fitting. Since we fitted a model independently on each
-# voxel, we can show the generalization performances at the maximal resolution,
-# the voxel.
+# We can see that the "wordnet" features successfully predict part of the
+# measured brain activity, with :math:`R^2` scores as high as 0.4. Note that these
+# scores are generalization scores, since they are computed on a test set that
+# was not used during model fitting. 
+# Since we fitted a model independently in each voxel, we can inspect the 
+# generalization performances at the best available spatial resolution: 
+# individual voxels.
 #
-# The best performances are located in visual semantic areas like EBA, or FFA.
+# The best-predicted voxels are located in visual semantic areas like EBA, or FFA.
 # This is expected since the wordnet features encode semantic information about
 # the visual stimulus. For more discussions about these results, we refer the
 # reader to the original publication [1]_.
@@ -320,7 +321,7 @@ plt.show()
 #
 # Since we know the meaning of each feature, we can interpret the large
 # regression coefficients. In the case of wordnet features, we can even build
-# a graph that represents the features linked by a semantic relationship.
+# a graph that represents the features that are linked by a semantic relationship.
 
 ###############################################################################
 # We first get the (primal) ridge regression coefficients from the fitted
@@ -349,7 +350,7 @@ print("(n_features, n_voxels) =", average_coef.shape)
 
 ###############################################################################
 # Even after averaging over delays, the coefficient matrix is still too large
-# to understand it. Therefore, we use principal component analysis (PCA) to
+# to interpret it. Therefore, we use principal component analysis (PCA) to
 # reduce the dimensionality of the matrix.
 from sklearn.decomposition import PCA
 
@@ -366,9 +367,9 @@ print("PCA explained variance =", pca.explained_variance_ratio_)
 
 ###############################################################################
 # Similarly to [1]_, we correct the coefficients of features linked by a
-# semantic relationship. Indeed, in the wordnet features, if a clip was labeled
-# with `wolf`, the authors automatically added the categories `canine`,
-# `carnivore`, `placental mammal`, `mamma`, `vertebrate`, `chordate`,
+# semantic relationship. When building the wordnet features, if a frame was labeled
+# with `wolf`, the authors automatically added the semantically linked categories 
+# `canine`, `carnivore`, `placental mammal`, `mamma`, `vertebrate`, `chordate`,
 # `organism`, and `whole`. The authors thus argue that the same correction
 # needs to be done on the coefficients.
 
@@ -381,7 +382,7 @@ components /= components.std(axis=1)[:, None]
 
 ###############################################################################
 # Finally, we plot the first principal component on the wordnet graph. In such
-# graph, links indicate "is a" relationships (e.g. an `athlete` "is a"
+# graph, edges indicate "is a" relationships (e.g. an `athlete` "is a"
 # `person`). Each marker represents a single noun (circle) or verb (square).
 # The area of each marker indicates the principal component magnitude, and the
 # color indicates the sign (red is positive, blue is negative).
@@ -403,15 +404,16 @@ plt.show()
 # `person` and `vehicle`) and those with low stimulus energy (e.g. stationary
 # objects like `sky` and `city`)".
 #
-# Our result is slightly different than in [1]_, since we only use one subject,
-# and the voxel selection is slightly different. We also use a different
-# regularization parameter in each voxels, while in [1]_ all voxels use the
-# same regularization parameter. Here, we do not aim at reproducing exactly the
-# results in [1]_, but we rather describe the general approach.
+# In this example, because we use only a single subject and we perform a
+# different voxel selection, our result is slightly different than in [1]_. We
+# also use a different regularization parameter in each voxel, while in [1]_ 
+# all voxels had the same regularization parameter. 
+# We do not aim at reproducing exactly the results in [1]_, 
+# but we rather describe the general approach.
 
 ###############################################################################
 # To project the principal component on the cortical surface, we first need to
-# transform the primal weights of all voxels using the fitted PCA.
+# use the fitted PCA to transform the primal weights of all voxels.
 
 # split the ridge coefficients per delays
 primal_coef_per_delay = delayer.reshape_by_delays(primal_coef, axis=0)

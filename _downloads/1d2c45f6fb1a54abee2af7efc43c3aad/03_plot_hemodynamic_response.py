@@ -3,24 +3,30 @@
 Visualize the hemodynamic response
 ==================================
 
-In this example, we describe how the hemodynamic response is estimated in the
-previous model. We fit the same ridge model as in the previous example, and
-further describe the need to delay the features in time.
+In this example, we describe how the hemodynamic response function was
+estimated in the previous model. We fit the same ridge model as in the previous
+example, and further describe the need to delay the features in time to account
+for the delayed BOLD response.
 
-As explained in previous example, the BOLD signal recorded in fMRI experiments
-is delayed in time with respect to the stimulus. With different delayed
-versions of the features, the linear regression model weight each delayed
-feature with a different weight, to maximize the predictions. With a sample
-every 2 seconds, we typically use 4 delays [1, 2, 3, 4] to cover the most part
-of the hemodynamic response peak.
+Because of the temporal dynamics of neurovascular coupling, the recorded BOLD signal is delayed in
+time with respect to the stimulus. To account for this lag, we fit encoding
+models on delayed features. In this way, the linear regression model weighs
+each delayed feature separately and recovers the shape of the hemodynamic
+response function in each voxel separately. In turn, this method (also known as
+a Finite Impulse Response model, or FIR) maximizes the model prediction
+accuracy. With a repetition time of 2 seconds, we typically use 4 delays [1, 2,
+3, 4] to cover the peak of the the hemodynamic response function. However, the
+optimal number of delays can vary depending on the experiment and the brain
+area of interest, so you should experiment with different delays.
 
-In this example, we show the descrease in prediction performances when using no
-delays. We also show how to visualize the estimated hemodynamic response
-function (HRF) using more delays.
+In this example, we show that a model without delays performs far worse than a
+model with delays. We also show how to visualize the estimated hemodynamic
+response function (HRF) from a model with delays.
 """
 # sphinx_gallery_thumbnail_number = 2
 ###############################################################################
 # Path of the data directory
+# --------------------------
 import os
 from voxelwise_tutorials.io import get_data_home
 directory = os.path.join(get_data_home(), "vim-5")
@@ -159,10 +165,10 @@ scores_nodelay = backend.to_numpy(scores_nodelay)
 print("(n_voxels,) =", scores_nodelay.shape)
 
 ###############################################################################
-# Then, we plot the comparison of model performances with a 2D histogram.
+# Then, we plot the comparison of model prediction accuracies with a 2D histogram.
 # All ~70k voxels are represented in this histogram, where the diagonal
-# corresponds to identical performance for both models. A distibution deviating
-# from the diagonal means that one model has better predictive performances
+# corresponds to identical prediction accuracy for both models. A distibution deviating
+# from the diagonal means that one model has better prediction accuracy
 # than the other.
 import matplotlib.pyplot as plt
 from voxelwise_tutorials.viz import plot_hist2d
@@ -179,7 +185,7 @@ plt.show()
 # We see that the model with delays performs much better than the model without
 # delays. This can be seen in voxels with scores above 0. The distribution
 # of scores below zero is not very informative, since it corresponds to voxels
-# with poor predictive performances anyway, and it only shows which model is
+# with poor predictive performance anyway, and it only shows which model is
 # overfitting the most.
 
 ###############################################################################

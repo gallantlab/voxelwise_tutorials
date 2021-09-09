@@ -124,7 +124,7 @@ This tutorial requires the following Python packages:
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Before fitting voxelwise models to the fMRI responses, we can estimate the *explainable varianc...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Before fitting any voxelwise model to fMRI responses, it is good practice to quantify the amoun...">
 
 .. only:: html
 
@@ -166,7 +166,7 @@ This tutorial requires the following Python packages:
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we describe how the hemodynamic response is estimated in the previous model. W...">
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we describe how the hemodynamic response function was estimated in the previou...">
 
 .. only:: html
 
@@ -373,13 +373,13 @@ This tutorial requires the following Python packages:
 
   .. container:: sphx-glr-download sphx-glr-download-python
 
-    :download:`Download all examples in Python source code: _auto_examples_python.zip <//home/jlg/tomdlt/gbox/work/github/voxelwise_tutorials/doc/_auto_examples/_auto_examples_python.zip>`
+    :download:`Download all examples in Python source code: _auto_examples_python.zip </_auto_examples/_auto_examples_python.zip>`
 
 
 
   .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-    :download:`Download all examples in Jupyter notebooks: _auto_examples_jupyter.zip <//home/jlg/tomdlt/gbox/work/github/voxelwise_tutorials/doc/_auto_examples/_auto_examples_jupyter.zip>`
+    :download:`Download all examples in Jupyter notebooks: _auto_examples_jupyter.zip </_auto_examples/_auto_examples_jupyter.zip>`
 
 
 .. only:: html
