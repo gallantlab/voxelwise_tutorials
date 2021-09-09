@@ -28,6 +28,7 @@ comparing the model predictions with the ground-truth fMRI responses.
 """
 ###############################################################################
 # Path of the data directory
+# --------------------------
 import os
 from voxelwise_tutorials.io import get_data_home
 directory = os.path.join(get_data_home(), "vim-5")
@@ -196,10 +197,10 @@ ax = plot_flatmap_from_mapper(scores_wordnet, mapper_file, vmin=0,
 plt.show()
 
 ###############################################################################
-# We can also plot the comparison of model performances with a 2D histogram.
+# We can also plot the comparison of model prediction accuracies with a 2D histogram.
 # All ~70k voxels are represented in this histogram, where the diagonal
-# corresponds to identical performance for both models. A distibution deviating
-# from the diagonal means that one model has better predictive performances
+# corresponds to identical prediction accuracy for both models. A distibution deviating
+# from the diagonal means that one model has better predictive performance
 # than the other.
 
 from voxelwise_tutorials.viz import plot_hist2d
@@ -228,18 +229,19 @@ plt.show()
 # regions are well predicted by the wordnet features, and the white regions are
 # well predicted by both feature spaces.
 #
-# Interestingly, a large part of the visual semantic areas are not only well
+# A large part of the visual semantic areas are not only well
 # predicted by the wordnet features, but also by the motion-energy features, as
 # indicated by the white color. Since these two features spaces encode quite
 # different information, two interpretations are possible. In the first
 # interpretation, the two feature spaces encode complementary information, and
-# could be used jointly to further increase the generalization performances. In
+# could be used jointly to further increase the generalization performance. In
 # the second interpretation, both feature spaces encode the same information,
-# because of spurious correlation in the stimulus. For example, all faces in
-# the stimulus might be located in the same part of the visual field, thus a
-# motion-energy feature at this location might contain all the necessary
-# information to predict the presence of a face, without specifically encoding
-# for the semantic of faces.
+# because of spurious stimulus correlations. For example, imagine that
+# the visual stimulus contained faces that appeared consistetly in the same portion of the
+# visual field. In this case, position in the visual field would be perfectly
+# correlated with the "face" semantic category. Thus, motion-energy features
+# could predict responses in face-responsive areas without encoding any
+# semantic information.
 #
 # To better disentangle the two feature spaces, we developed a joint model
 # called `banded ridge regression` [2]_, which fits multiple feature spaces
