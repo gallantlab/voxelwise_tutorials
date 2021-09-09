@@ -407,7 +407,7 @@ plt.show()
 # In this example, because we use only a single subject and we perform a
 # different voxel selection, our result is slightly different than in [1]_. We
 # also use a different regularization parameter in each voxel, while in [1]_ 
-# all voxels had the # same regularization parameter. 
+# all voxels had the same regularization parameter. 
 # We do not aim at reproducing exactly the results in [1]_, 
 # but we rather describe the general approach.
 
