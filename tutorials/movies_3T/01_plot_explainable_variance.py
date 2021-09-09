@@ -3,23 +3,45 @@
 Compute the explainable variance
 ================================
 
-Before fitting voxelwise models to the fMRI responses, we can estimate the
-*explainable variance*. The explainable variance is the part of the fMRI
-responses that can be explained by the voxelwise modeling framework.
+Before fitting any voxelwise model to fMRI responses, it is good practice to
+quantify the amount of signal in the test set that can be predicted by an
+encoding model. This quantity is called the *explainable variance*.
 
-Indeed, we can decompose the signal into a sum of two components, one component
-that is repeated if we repeat the same experiment, and one component that
-changes for each repeat. Because voxelwise modeling would use the same features
-for each repeat, it can only model the component that is common to all repeats.
-This shared component can be estimated by taking the mean over repeats of the
-same experiment. The variance of this shared component, that we call the
-explainable variance, is the upper bound of the voxelwise modeling
-performances. The explainable variance is also sometimes called the *noise
-ceiling*.
+The measured signal can be decomposed into a sum of two components: the
+stimulus-dependent signal and noise. If we present the same stimulus multiple
+times and we record brain activity for each repetition, the stimulus-dependent
+signal will be the same across repetitions while the noise will vary across
+repetitions. In voxelwise modeling, the features used to model brain activity
+are the same for each repetition of the stimulus. Thus, encoding models will
+predict only the repeatable stimulus-dependent signal.
+
+The stimulus-dependent signal can be estimated by taking the mean of 
+brain responses over repeats of the same stimulus or experiment. The variance
+of the estimated stimulus-dependent signal, which we call the explainable
+variance, is proportional to the maximum prediction accuracy that can be
+obtained by a voxelwise encoding model in the test set. 
+
+Mathematically, let :math:`y_i, i = 1 \\dots N` be the measured signal in
+a voxel for each of the :math:`N` repetitions of the same stimulus and 
+:math:`\\bar{y} = \\frac{1}{N}\\sum_{i=1}^Ny_i` the average brain response
+across repetitions. For each repeat, we define the residual timeseries
+between brain response and average brain response as :math:`r_i = y_i - \\bar{y}`.
+The explainable variance (EV) is estimated as
+
+.. math::
+   \\text{EV} = \\frac{1}{N}\sum_{i=1}^N\\text{Var}(y_i) - \\frac{N}{N-1}\sum_{i=1}^N\\text{Var}(r_i)
+
+
+In the literature, the explainable
+variance is also known as the *signal power*. For more information, see these
+references [1]_ [2]_ [3]_.
 """
 # sphinx_gallery_thumbnail_number = 1
+
+
 ###############################################################################
 # Path of the data directory
+# --------------------------
 import os
 from voxelwise_tutorials.io import get_data_home
 directory = os.path.join(get_data_home(), "vim-5")
@@ -37,28 +59,22 @@ import numpy as np
 from voxelwise_tutorials.io import load_hdf5_array
 
 ###############################################################################
-# First, we load the fMRI responses on the test set, which contains ten (10)
-# repeats.
+# First, we load the fMRI responses on the test set, which contains brain
+# responses to ten (10) repeats of the same stimulus.
 file_name = os.path.join(directory, 'responses', f'{subject}_responses.hdf')
 Y_test = load_hdf5_array(file_name, key="Y_test")
 print("(n_repeats, n_samples_test, n_voxels) =", Y_test.shape)
 
 ###############################################################################
-# Then, we compute the explainable variance per voxel.
-# The variance of the signal is estimated by taking the average variance over
-# repeats. The variance of the component shared across repeats is estimated by
-# taking the variance of the average response. Then, we compute the
-# explainable variance by dividing these two quantities.
-# Finally, a correction can be applied to account for small numbers of repeat
-# (through the parameter ``bias_correction``).
+# Then, we compute the explainable variance for each voxel.
 
 from voxelwise_tutorials.utils import explainable_variance
-ev = explainable_variance(Y_test, bias_correction=False)
+ev = explainable_variance(Y_test)
 print("(n_voxels,) =", ev.shape)
 
 ###############################################################################
-# To better understand the explainable variance, we can plot the time-courses
-# of a voxel with large explainable variance...
+# To better understand the concept of explainable variance, we can plot the
+# measured signal in a voxel with high explainable variance...
 
 import matplotlib.pyplot as plt
 
@@ -75,7 +91,7 @@ plt.tight_layout()
 plt.show()
 
 ###############################################################################
-# ... and of a voxel with low explainable variance.
+# ... and in a voxel with low explainable variance.
 voxel_2 = np.argmin(ev)
 plt.figure(figsize=(10, 3))
 plt.plot(time, Y_test[:, :, voxel_2].T, color='C0', alpha=0.5)
@@ -98,14 +114,12 @@ plt.grid('on')
 plt.show()
 
 ###############################################################################
-# We see that most voxels have a rather low explainable variance, around 0.1
-# (when not using the bias correction). This is expected, since most voxels are
-# not directly driven by a visual stimulus, and their activity change over
-# repeats. We also see that some voxels reach an explainable variance of 0.7,
-# which is quite high. It means that these voxels consistently record the same
-# activity across a repeated stimulus, and thus are good targets for encoding
-# models. Of course, this set of explainable voxels changes from task to
-# task, depending on what you are trying to model.
+# We see that many voxels have low explainable variance. This is 
+# expected, since many voxels are not driven by a visual stimulus, and their
+# response changes over repeats of the same stimulus.
+# We also see that some voxels have high explainable variance (around 0.7). The
+# responses in these voxels are highly consistent across repetitions of the
+# same stimulus. Thus, they are good targets for encoding models.
 
 ###############################################################################
 # Map to subject flatmap
@@ -115,7 +129,7 @@ plt.show()
 # values to the subject brain. This can be done with `pycortex
 # <https://gallantlab.github.io/pycortex/>`_, which can create interactive 3D
 # viewers to be displayed in any modern browser. ``pycortex`` can also display
-# flattened maps of the cortical surface, to visualize the entire cortical
+# flattened maps of the cortical surface to visualize the entire cortical
 # surface at once.
 #
 # Here, we do not share the anatomical information of the subjects for privacy
@@ -124,9 +138,9 @@ plt.show()
 # - to map the voxels to a (subject-specific) flatmap
 # - to map the voxels to the Freesurfer average cortical surface ("fsaverage")
 #
-# The first mapper is 2D matrix of shape (n_pixels, n_voxels), that map each
-# voxel to a set of pixel in a flatmap. The matrix is efficient stored using a
-# ``scipy`` sparse CSR matrix format. The function ``plot_flatmap_from_mapper``
+# The first mapper is 2D matrix of shape (n_pixels, n_voxels) that maps each
+# voxel to a set of pixel in a flatmap. The matrix is efficiently stored in a
+# ``scipy`` sparse CSR matrix. The function ``plot_flatmap_from_mapper``
 # provides an example of how to use the mapper and visualize the flatmap.
 
 from voxelwise_tutorials.viz import plot_flatmap_from_mapper
@@ -136,8 +150,8 @@ plot_flatmap_from_mapper(ev, mapper_file, vmin=0, vmax=0.7)
 plt.show()
 
 ###############################################################################
-# This figure is a flatten map of the cortical surface. A number of regions of
-# interest (ROIs) have been labeled to ease the interpretation. If you have
+# This figure is a flattened map of the cortical surface. A number of regions of
+# interest (ROIs) have been labeled to ease interpretation. If you have
 # never seen such a flatmap, we recommend taking a look at a `pycortex brain
 # viewer <https://www.gallantlab.org/brainviewer/Deniz2019>`_, which displays
 # the brain in 3D. In this viewer, press "I" to inflate the brain, "F" to
@@ -149,8 +163,8 @@ plt.show()
 ###############################################################################
 # On this flatmap, we can see that the explainable variance is mainly located
 # in the visual cortex, in early visual regions like V1, V2, V3, or in
-# higher-level regions like EBA, FFA or IPS. This was expected since this is a
-# purely visual experiment.
+# higher-level regions like EBA, FFA or IPS. This is expected since this
+# dataset contains responses to a visual stimulus.
 
 ###############################################################################
 # Map to "fsaverage"
@@ -220,3 +234,20 @@ from cortex.testing_utils import has_installed
 if has_installed("inkscape"):
     fig = cortex.quickshow(vertex, colorbar_location='right')
     plt.show()
+
+
+###############################################################################
+# References
+# ----------
+#
+# .. [1] Sahani, M., & Linden, J. F. (2003). How linear are auditory cortical
+#    responses?. Advances in neural information processing systems, 125-132.
+#
+# .. [2] Hsu, A., Borst, A., & Theunissen, F. E. (2004). Quantifying
+#    variability in neural responses and its application for the validation of
+#    model predictions. Network: Computation in Neural Systems, 15(2), 91-109.
+#
+# .. [3] Schoppe, O., Harper, N. S., Willmore, B. D., King, A. J., & Schnupp,
+#        J. W. (2016). Measuring the performance of neural models. Frontiers in
+#        computational neuroscience, 10, 10.
+#
