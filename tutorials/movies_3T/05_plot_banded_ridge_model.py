@@ -4,7 +4,7 @@ Fit a banded ridge model with both wordnet and motion energy features
 =====================================================================
 
 In this example, we model the fMRI responses with a `banded ridge regression`,
-with two different feature spaces: motion energy, and wordnet categories.
+with two different feature spaces: motion energy and wordnet categories.
 
 *Banded ridge regression:* Since the relative scaling of both feature spaces is
 unknown, we use two regularization hyperparameters (one per feature space) in a
@@ -13,13 +13,14 @@ optimize the hyperparameters over cross-validation. An efficient implementation
 of this model is available in the `himalaya
 <https://github.com/gallantlab/himalaya>`_ package.
 
-*Running time:* This example is more computationally intensive than previous
-examples. With a GPU backend, the fitting of this model takes around 6 minutes.
+*Running time:* This example is more computationally intensive than the previous
+examples. With a GPU backend, model fitting takes around 6 minutes.
 With a CPU backend, it can last 10 times more.
 """
 # sphinx_gallery_thumbnail_number = 2
 ###############################################################################
 # Path of the data directory
+# --------------------------
 import os
 from voxelwise_tutorials.io import get_data_home
 directory = os.path.join(get_data_home(), "vim-5")
@@ -136,9 +137,8 @@ backend = set_backend("torch_cuda", on_error="warn")
 
 ###############################################################################
 # The class takes a number of common parameters during initialization, such as
-# ``kernels``, or ``solver``. Since the solver parameters are rather different
-# depending on the solver, they are passed in a ``solver_params`` dictionary
-# parameter.
+# ``kernels``, or ``solver``. Since the solver parameters vary depending on the
+# solver used, they are passed as a ``solver_params`` dictionary.
 
 from himalaya.kernel_ridge import MultipleKernelRidgeCV
 
@@ -284,10 +284,10 @@ scores_baseline = pipeline_baseline.score(X_test, Y_test)
 scores_baseline = backend.to_numpy(scores_baseline)
 
 ###############################################################################
-# Here we plot the comparison of model performances with a 2D histogram.
+# Here we plot the comparison of model prediction accuracies with a 2D histogram.
 # All 70k voxels are represented in this histogram, where the diagonal
-# corresponds to identical performance for both models. A distibution deviating
-# from the diagonal means that one model has better predictive performances
+# corresponds to identical model prediction accuracy for both models. A distibution deviating
+# from the diagonal means that one model has better predictive performance
 # than the other.
 import matplotlib.pyplot as plt
 from voxelwise_tutorials.viz import plot_hist2d
@@ -309,18 +309,19 @@ plt.show()
 # Plot the banded ridge split
 # ---------------------------
 #
-# On top of better performances, banded ridge regression also gives a way to
-# disentangle the two feature spaces. To do so, we take the kernel weights and
-# the ridge (dual) weights corresponding to each feature space, and use them to
-# split the prediction on each feature space.
+# On top of better prediction accuracy, banded ridge regression also gives a
+# way to disentangle the contribution of the two feature spaces. To do so, we
+# take the kernel weights and the ridge (dual) weights corresponding to each
+# feature space, and use them to compute the prediction from each feature space
+# separately.
 #
 # .. math::
 #
 #       \hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}
 #
-# Then, we use these split predictions to compute split math:`\tilde{R}^2_i`
-# scores, corrected so that there sum is equal to the math:`R^2` score of the
-# full prediction math:`\hat{y}`.
+# Then, we use these split predictions to compute split :math:`\tilde{R}^2_i`
+# scores. These scores are corrected so that their sum is equal to the
+# :math:`R^2` score of the full prediction :math:`\hat{y}`.
 
 from himalaya.scoring import r2_score_split
 
@@ -344,17 +345,16 @@ ax = plot_2d_flatmap_from_mapper(split_scores[0], split_scores[1],
 plt.show()
 
 ###############################################################################
-# The blue regions are predicted using the motion-energy features, the orange
-# regions are predicted using the wordnet features, and the white regions are
-# well predicted using both feature spaces.
+# The blue regions are better predicted by the motion-energy features, the orange
+# regions are better predicted by the wordnet features, and the white regions are
+# well predicted by both feature spaces.
 #
 # Compared to the last figure of the previous example, we see that most white
-# regions have been replaced by either blue or orange regions. Indeed, the
+# regions have been replaced by either blue or orange regions. The
 # banded ridge regression disentangled the two feature spaces in voxels where
-# both feature spaces had good performances (see previous example). The
-# disentanglement is consistent with prior knowledge. For example, the
-# motion-energy features are selected in the early visual cortex, while the
-# wordnet features are selected in the semantic visual areas. For more
+# both feature spaces had good prediction accuracy (see previous example). For
+# example, motion-energy features predict brain activity in early visual
+# cortex, while wordnet features predict in semantic visual areas. For more
 # discussions about these results, we refer the reader to the original
 # publication [1]_.
 
