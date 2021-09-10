@@ -221,7 +221,7 @@ plt.show()
 # Compare with a model without delays
 # -----------------------------------
 #
-# # To present an example of model comparison, we define here another model,
+# To present an example of model comparison, we define here another model,
 # without feature delays (i.e. no Delayer). This model is unlikely to perform
 # well, since fMRI responses are delayed in time with respect to the stimulus.
 
@@ -234,6 +234,8 @@ pipeline = make_pipeline(
         Y_in_cpu=True),
 )
 pipeline
+
+###############################################################################
 
 pipeline.fit(X_train, Y_train)
 scores_nodelay = pipeline.score(X_test, Y_test)

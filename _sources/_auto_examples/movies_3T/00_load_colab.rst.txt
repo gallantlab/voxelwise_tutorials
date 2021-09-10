@@ -78,7 +78,7 @@ correctly mounted.
 .. code-block:: default
 
 
-    # !ls 'drive' && echo SUCCESS || echo FAILURE
+    # !ls drive/MyDrive/vim-5
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 47-50

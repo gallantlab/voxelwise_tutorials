@@ -493,4 +493,4 @@ plt.show()
 # .. [2] Saunders, C., Gammerman, A., & Vovk, V. (1998).
 #    Ridge regression learning algorithm in dual variables.
 
-del pipeline
+del pipeline, kernel_ridge_cv
