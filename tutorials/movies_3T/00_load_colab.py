@@ -14,8 +14,8 @@ skip it if you run the tutorials on your machine.
 # ---------------------------
 #
 # This tutorial is much faster when a GPU is available to run the computations.
-# In Google Colab you can request access to a GPU by changing the runtime type. 
-# To do so, click the following menu options in Google Colab: 
+# In Google Colab you can request access to a GPU by changing the runtime type.
+# To do so, click the following menu options in Google Colab:
 #
 # (Menu) "Runtime" -> "Change runtime type" -> "Hardware accelerator" -> "GPU".
 
@@ -24,17 +24,18 @@ skip it if you run the tutorials on your machine.
 # -------------------------------------------------------
 #
 # Uncomment and run the following cell to download the tutorial data and
-# install the required dependencies
+# install the required dependencies.
 
-# !gdown --id 1b0I0Ytj06m6GCmfxfNrZuyF97fDo3NZb && \
-# tar xzf vim-5-for-ccn.tar.gz && \
-# pip install -q voxelwise_tutorials && \
-# git clone https://github.com/gallantlab/pycortex
+# ![ -f "vim-5-for-ccn.tar.gz" ] || gdown --id 1b0I0Ytj06m6GCmfxfNrZuyF97fDo3NZb
+# ![ -d "vim-5" ] || tar xzf vim-5-for-ccn.tar.gz
+# ![ -d "pycortex" ] || git clone https://github.com/gallantlab/pycortex
+# !pip install -q voxelwise_tutorials
+
 
 ###############################################################################
-# Now run the following cell to set up the environment variables for the tutorials
-# and pycortex.
- 
+# Now run the following cell to set up the environment variables for the
+# tutorials and pycortex.
+
 import os
 os.environ['VOXELWISE_TUTORIALS_DATA'] = "/content"
 
