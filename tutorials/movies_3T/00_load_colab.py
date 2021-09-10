@@ -41,7 +41,7 @@ drive.mount("/content/drive")
 # Uncomment and run the following command to check that Google Drive was
 # correctly mounted.
 
-# !ls 'drive' && echo SUCCESS || echo FAILURE
+# !ls drive/MyDrive/vim-5
 
 ###############################################################################
 # Tell the voxelwise_tutorials package where the data is. (If you placed the
