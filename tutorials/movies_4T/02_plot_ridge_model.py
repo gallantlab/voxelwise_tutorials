@@ -41,7 +41,7 @@ print(directory)
 subject = "subject1"
 
 ###############################################################################
-# Here the data is not loaded in memory, we only take a peak at the data shape.
+# Here the data is not loaded in memory, we only take a peek at the data shape.
 import h5py
 import os.path as op
 
