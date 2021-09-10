@@ -197,11 +197,11 @@ ax = plot_flatmap_from_mapper(scores_wordnet, mapper_file, vmin=0,
 plt.show()
 
 ###############################################################################
-# We can also plot the comparison of model prediction accuracies with a 2D histogram.
-# All ~70k voxels are represented in this histogram, where the diagonal
-# corresponds to identical prediction accuracy for both models. A distibution deviating
-# from the diagonal means that one model has better predictive performance
-# than the other.
+# We can also plot the comparison of model prediction accuracies with a 2D
+# histogram. All ~70k voxels are represented in this histogram, where the
+# diagonal corresponds to identical prediction accuracy for both models. A
+# distibution deviating from the diagonal means that one model has better
+# predictive performance than the other.
 
 from voxelwise_tutorials.viz import plot_hist2d
 
@@ -229,16 +229,16 @@ plt.show()
 # regions are well predicted by the wordnet features, and the white regions are
 # well predicted by both feature spaces.
 #
-# A large part of the visual semantic areas are not only well
-# predicted by the wordnet features, but also by the motion-energy features, as
-# indicated by the white color. Since these two features spaces encode quite
-# different information, two interpretations are possible. In the first
-# interpretation, the two feature spaces encode complementary information, and
-# could be used jointly to further increase the generalization performance. In
-# the second interpretation, both feature spaces encode the same information,
-# because of spurious stimulus correlations. For example, imagine that
-# the visual stimulus contained faces that appeared consistetly in the same portion of the
-# visual field. In this case, position in the visual field would be perfectly
+# A large part of the visual semantic areas are not only well predicted by the
+# wordnet features, but also by the motion-energy features, as indicated by the
+# white color. Since these two features spaces encode quite different
+# information, two interpretations are possible. In the first interpretation,
+# the two feature spaces encode complementary information, and could be used
+# jointly to further increase the generalization performance. In the second
+# interpretation, both feature spaces encode the same information, because of
+# spurious stimulus correlations. For example, imagine that the visual stimulus
+# contained faces that appeared consistetly in the same portion of the visual
+# field. In this case, position in the visual field would be perfectly
 # correlated with the "face" semantic category. Thus, motion-energy features
 # could predict responses in face-responsive areas without encoding any
 # semantic information.
@@ -259,5 +259,3 @@ plt.show()
 # .. [2] Nunez-Elizalde, A. O., Huth, A. G., & Gallant, J. L. (2019).
 #     Voxelwise encoding models with non-spherical multivariate normal priors.
 #     Neuroimage, 197, 482-492.
-
-del pipeline

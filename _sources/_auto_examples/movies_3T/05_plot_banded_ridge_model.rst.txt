@@ -32,8 +32,8 @@ optimize the hyperparameters over cross-validation. An efficient implementation
 of this model is available in the `himalaya
 <https://github.com/gallantlab/himalaya>`_ package.
 
-*Running time:* This example is more computationally intensive than the previous
-examples. With a GPU backend, model fitting takes around 6 minutes.
+*Running time:* This example is more computationally intensive than the
+previous examples. With a GPU backend, model fitting takes around 6 minutes.
 With a CPU backend, it can last 10 times more.
 
 .. GENERATED FROM PYTHON SOURCE LINES 20-20
@@ -71,7 +71,7 @@ Path of the data directory
 
  .. code-block:: none
 
-    /home/jlg/mvdoc/voxelwise_tutorials_data/vim-5
+    /home/jlg/tomdlt/voxelwise_tutorials_data/vim-5
 
 
 
@@ -132,10 +132,43 @@ regression targets.
 
 .. GENERATED FROM PYTHON SOURCE LINES 52-54
 
+We also compute the explainable variance, to exclude voxels with low
+explainable variance from the fit, and speed up the model fitting.
+
+.. GENERATED FROM PYTHON SOURCE LINES 54-62
+
+.. code-block:: default
+
+
+    from voxelwise_tutorials.utils import explainable_variance
+    ev = explainable_variance(Y_test)
+    print("(n_voxels,) =", ev.shape)
+
+    mask = ev > 0.1
+    print("(n_voxels_mask,) =", ev[mask].shape)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    (n_voxels,) = (84038,)
+    (n_voxels_mask,) = (6849,)
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 63-65
+
 We average the test repeats, to remove the non-repeatable part of fMRI
 responses.
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-58
+.. GENERATED FROM PYTHON SOURCE LINES 65-69
 
 .. code-block:: default
 
@@ -158,11 +191,11 @@ responses.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-60
+.. GENERATED FROM PYTHON SOURCE LINES 70-71
 
 We fill potential NaN (not-a-number) values with zeros.
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-63
+.. GENERATED FROM PYTHON SOURCE LINES 71-74
 
 .. code-block:: default
 
@@ -176,11 +209,11 @@ We fill potential NaN (not-a-number) values with zeros.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-65
+.. GENERATED FROM PYTHON SOURCE LINES 75-76
 
 And we make sure the targets are centered.
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-68
+.. GENERATED FROM PYTHON SOURCE LINES 76-79
 
 .. code-block:: default
 
@@ -194,12 +227,12 @@ And we make sure the targets are centered.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-71
+.. GENERATED FROM PYTHON SOURCE LINES 80-82
 
 Then we load both feature spaces, that are going to be used for the
 linear regression model.
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-94
+.. GENERATED FROM PYTHON SOURCE LINES 82-105
 
 .. code-block:: default
 
@@ -243,14 +276,14 @@ linear regression model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-99
+.. GENERATED FROM PYTHON SOURCE LINES 106-110
 
 Define the cross-validation scheme
 ----------------------------------
 
 We define again a leave-one-run-out cross-validation split scheme.
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-107
+.. GENERATED FROM PYTHON SOURCE LINES 110-118
 
 .. code-block:: default
 
@@ -277,11 +310,11 @@ We define again a leave-one-run-out cross-validation split scheme.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 108-109
+.. GENERATED FROM PYTHON SOURCE LINES 119-120
 
 We define a cross-validation splitter, compatible with ``scikit-learn`` API.
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-113
+.. GENERATED FROM PYTHON SOURCE LINES 120-124
 
 .. code-block:: default
 
@@ -296,7 +329,7 @@ We define a cross-validation splitter, compatible with ``scikit-learn`` API.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 114-120
+.. GENERATED FROM PYTHON SOURCE LINES 125-131
 
 Define the model
 ----------------
@@ -305,7 +338,7 @@ The model pipeline contains similar steps than the pipeline from previous
 examples. We remove the mean of each feature with a ``StandardScaler``,
 and add delays with a ``Delayer``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-126
+.. GENERATED FROM PYTHON SOURCE LINES 131-137
 
 .. code-block:: default
 
@@ -322,7 +355,7 @@ and add delays with a ``Delayer``.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 127-137
+.. GENERATED FROM PYTHON SOURCE LINES 138-148
 
 To fit the banded ridge model, we use ``himalaya``'s
 ``MultipleKernelRidgeCV`` model, with a separate linear kernel per feature
@@ -335,13 +368,13 @@ solvers, one using hyperparameter random search, and one using hyperparameter
 gradient descent. For large number of targets, we recommend using the
 random-search solver.
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-142
+.. GENERATED FROM PYTHON SOURCE LINES 150-153
 
 The class takes a number of common parameters during initialization, such as
 ``kernels``, or ``solver``. Since the solver parameters vary depending on the
 solver used, they are passed as a ``solver_params`` dictionary.
 
-.. GENERATED FROM PYTHON SOURCE LINES 142-153
+.. GENERATED FROM PYTHON SOURCE LINES 153-164
 
 .. code-block:: default
 
@@ -450,7 +483,7 @@ solver used, they are passed as a ``solver_params`` dictionary.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 154-163
+.. GENERATED FROM PYTHON SOURCE LINES 165-174
 
 The hyperparameter random-search solver separates the hyperparameters into a
 shared regularization ``alpha`` and a vector of positive kernel weights which
@@ -462,7 +495,7 @@ have better results, especially for larger number of feature spaces, one
 might need more iterations. (Note that there is currently no stopping
 criterion in the random-search method.)
 
-.. GENERATED FROM PYTHON SOURCE LINES 163-167
+.. GENERATED FROM PYTHON SOURCE LINES 174-178
 
 .. code-block:: default
 
@@ -477,13 +510,13 @@ criterion in the random-search method.)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-171
+.. GENERATED FROM PYTHON SOURCE LINES 179-182
 
 Batch parameters, used to reduce the necessary GPU memory. A larger value
 will be a bit faster, but the solver might crash if it is out of memory.
 Optimal values depend on the size of your dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-175
+.. GENERATED FROM PYTHON SOURCE LINES 182-186
 
 .. code-block:: default
 
@@ -498,12 +531,12 @@ Optimal values depend on the size of your dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 176-178
+.. GENERATED FROM PYTHON SOURCE LINES 187-189
 
 We put all these parameters in a dictionary ``solver_params``, and define
 the main estimator ``MultipleKernelRidgeCV``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 178-187
+.. GENERATED FROM PYTHON SOURCE LINES 189-198
 
 .. code-block:: default
 
@@ -523,7 +556,7 @@ the main estimator ``MultipleKernelRidgeCV``.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-196
+.. GENERATED FROM PYTHON SOURCE LINES 199-207
 
 We need a bit more work than in previous examples before defining the full
 pipeline, since the banded ridge model requires `multiple` precomputed
@@ -534,14 +567,14 @@ column of your features array. ``ColumnKernelizer`` works similarly to
 concatenation of transformed features, it returns a stack of kernels,
 as required in ``MultipleKernelRidgeCV(kernels="precomputed")``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 198-202
+.. GENERATED FROM PYTHON SOURCE LINES 209-213
 
 First, we create a different ``Kernelizer`` for each feature space.
 Here we use a linear kernel for all feature spaces, but ``ColumnKernelizer``
 accepts any ``Kernelizer``, or ``scikit-learn`` ``Pipeline`` ending with a
 ``Kernelizer``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 202-213
+.. GENERATED FROM PYTHON SOURCE LINES 213-224
 
 .. code-block:: default
 
@@ -564,19 +597,19 @@ accepts any ``Kernelizer``, or ``scikit-learn`` ``Pipeline`` ending with a
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 {color: black;background-color: white;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 pre{padding: 0;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-toggleable {background-color: white;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.2em 0.3em;box-sizing: border-box;text-align: center;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;margin: 0.25em 0.25em;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-estimator:hover {background-color: #d4ebff;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-item {z-index: 1;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-parallel-item:only-child::after {width: 0;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0.2em;box-sizing: border-box;padding-bottom: 0.1em;background-color: white;position: relative;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9 div.sk-container {display: inline-block;position: relative;}</style><div id="sk-2b6d94c0-65fa-48f0-938d-0563f6aa19b9" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="90bf6e4f-7bf8-4583-98a4-5c2801041971" type="checkbox" ><label class="sk-toggleable__label" for="90bf6e4f-7bf8-4583-98a4-5c2801041971">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('standardscaler', StandardScaler(with_std=False)),
+    <style>#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b {color: black;background-color: white;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b pre{padding: 0;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-toggleable {background-color: white;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-estimator:hover {background-color: #d4ebff;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-item {z-index: 1;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-parallel-item:only-child::after {width: 0;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b div.sk-container {display: inline-block;position: relative;}</style><div id="sk-3de2668f-d360-4f4a-b04f-a46bcfa3342b" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="a3232d1d-cc36-42fb-a374-fb49d8edb8b8" type="checkbox" ><label class="sk-toggleable__label" for="a3232d1d-cc36-42fb-a374-fb49d8edb8b8">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('standardscaler', StandardScaler(with_std=False)),
                     ('delayer', Delayer(delays=[1, 2, 3, 4])),
-                    ('kernelizer', Kernelizer())])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="0bb25e49-ef43-4609-8f87-99c7105a75c2" type="checkbox" ><label class="sk-toggleable__label" for="0bb25e49-ef43-4609-8f87-99c7105a75c2">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="e69b966f-b428-46cc-9928-79d525572195" type="checkbox" ><label class="sk-toggleable__label" for="e69b966f-b428-46cc-9928-79d525572195">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="8bf3f2ff-c1ac-429d-a76a-31fd2e3d7e5e" type="checkbox" ><label class="sk-toggleable__label" for="8bf3f2ff-c1ac-429d-a76a-31fd2e3d7e5e">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div>
+                    ('kernelizer', Kernelizer())])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="d9afa039-5f5e-47a9-bc09-b70aa7788795" type="checkbox" ><label class="sk-toggleable__label" for="d9afa039-5f5e-47a9-bc09-b70aa7788795">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="bce55d52-cdff-4c0e-80c8-760e98634b89" type="checkbox" ><label class="sk-toggleable__label" for="bce55d52-cdff-4c0e-80c8-760e98634b89">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="c34c4ce8-7547-4fee-9e94-b26abce6ea5b" type="checkbox" ><label class="sk-toggleable__label" for="c34c4ce8-7547-4fee-9e94-b26abce6ea5b">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 214-216
+.. GENERATED FROM PYTHON SOURCE LINES 225-227
 
 The column kernelizer applies a different pipeline on each selection of
 features, here defined with ``slices``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 216-226
+.. GENERATED FROM PYTHON SOURCE LINES 227-237
 
 .. code-block:: default
 
@@ -605,7 +638,7 @@ features, here defined with ``slices``.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 227-235
+.. GENERATED FROM PYTHON SOURCE LINES 238-246
 
 .. code-block:: default
 
@@ -625,7 +658,7 @@ features, here defined with ``slices``.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-287f57bf-9a67-4cd9-9170-96973c4f738b {color: black;background-color: white;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b pre{padding: 0;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-toggleable {background-color: white;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.2em 0.3em;box-sizing: border-box;text-align: center;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-estimator {font-family: monospace;background-color: #f0f8ff;margin: 0.25em 0.25em;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-estimator:hover {background-color: #d4ebff;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-item {z-index: 1;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-parallel-item:only-child::after {width: 0;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0.2em;box-sizing: border-box;padding-bottom: 0.1em;background-color: white;position: relative;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-287f57bf-9a67-4cd9-9170-96973c4f738b div.sk-container {display: inline-block;position: relative;}</style><div id="sk-287f57bf-9a67-4cd9-9170-96973c4f738b" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="f7d3c500-02a5-4288-9ed0-d9d340bf782a" type="checkbox" ><label class="sk-toggleable__label" for="f7d3c500-02a5-4288-9ed0-d9d340bf782a">ColumnKernelizer</label><div class="sk-toggleable__content"><pre>ColumnKernelizer(transformers=[('wordnet',
+    <style>#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 {color: black;background-color: white;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 pre{padding: 0;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-toggleable {background-color: white;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-item {z-index: 1;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-parallel-item:only-child::after {width: 0;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2 div.sk-container {display: inline-block;position: relative;}</style><div id="sk-1fc4d833-e446-49cc-bc0d-6a4fd1105fd2" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="7799b6d4-e8ad-40c7-8336-11dae795b796" type="checkbox" ><label class="sk-toggleable__label" for="7799b6d4-e8ad-40c7-8336-11dae795b796">ColumnKernelizer</label><div class="sk-toggleable__content"><pre>ColumnKernelizer(transformers=[('wordnet',
                                     Pipeline(steps=[('standardscaler',
                                                      StandardScaler(with_std=False)),
                                                     ('delayer',
@@ -638,16 +671,16 @@ features, here defined with ``slices``.
                                                     ('delayer',
                                                      Delayer(delays=[1, 2, 3, 4])),
                                                     ('kernelizer', Kernelizer())]),
-                                    slice(1705, 8260, None))])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="3d5d652d-15e5-4144-86be-e03cbfd76de7" type="checkbox" ><label class="sk-toggleable__label" for="3d5d652d-15e5-4144-86be-e03cbfd76de7">wordnet</label><div class="sk-toggleable__content"><pre>slice(0, 1705, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="d11d3123-aea8-4a6e-9a67-6cdf3a6983f1" type="checkbox" ><label class="sk-toggleable__label" for="d11d3123-aea8-4a6e-9a67-6cdf3a6983f1">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="e1db5280-568b-4a77-ae71-efd2ccc58584" type="checkbox" ><label class="sk-toggleable__label" for="e1db5280-568b-4a77-ae71-efd2ccc58584">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="177d181b-5b6b-41d9-b651-185b9622e550" type="checkbox" ><label class="sk-toggleable__label" for="177d181b-5b6b-41d9-b651-185b9622e550">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="a2941f8c-3388-4fd0-bcf4-945c43688fda" type="checkbox" ><label class="sk-toggleable__label" for="a2941f8c-3388-4fd0-bcf4-945c43688fda">motion_energy</label><div class="sk-toggleable__content"><pre>slice(1705, 8260, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="f26947de-92cd-4cbd-88c9-b0cb6264974d" type="checkbox" ><label class="sk-toggleable__label" for="f26947de-92cd-4cbd-88c9-b0cb6264974d">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="9fb6e892-2ad1-48f1-9168-5a2746bad445" type="checkbox" ><label class="sk-toggleable__label" for="9fb6e892-2ad1-48f1-9168-5a2746bad445">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="20853003-4fb0-4a1f-b974-fa04cd1890de" type="checkbox" ><label class="sk-toggleable__label" for="20853003-4fb0-4a1f-b974-fa04cd1890de">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div></div></div></div></div>
+                                    slice(1705, 8260, None))])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="bb68305d-82d7-4e9a-a7b3-78bac42e155c" type="checkbox" ><label class="sk-toggleable__label" for="bb68305d-82d7-4e9a-a7b3-78bac42e155c">wordnet</label><div class="sk-toggleable__content"><pre>slice(0, 1705, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="1cefb573-adba-49d9-9c92-541c82352c07" type="checkbox" ><label class="sk-toggleable__label" for="1cefb573-adba-49d9-9c92-541c82352c07">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="d396be54-fbf5-4ceb-8452-b4520a856204" type="checkbox" ><label class="sk-toggleable__label" for="d396be54-fbf5-4ceb-8452-b4520a856204">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="fdc7ee37-ca98-4b25-b28c-aa373844f8cb" type="checkbox" ><label class="sk-toggleable__label" for="fdc7ee37-ca98-4b25-b28c-aa373844f8cb">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="6ef35dfb-f4c3-4963-9204-c98a1057ae9a" type="checkbox" ><label class="sk-toggleable__label" for="6ef35dfb-f4c3-4963-9204-c98a1057ae9a">motion_energy</label><div class="sk-toggleable__content"><pre>slice(1705, 8260, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="c87cd5dd-b3e6-4d20-9fe9-e89879029621" type="checkbox" ><label class="sk-toggleable__label" for="c87cd5dd-b3e6-4d20-9fe9-e89879029621">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="6013dd94-c276-4e99-aad0-d6396e678eea" type="checkbox" ><label class="sk-toggleable__label" for="6013dd94-c276-4e99-aad0-d6396e678eea">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="1d53a33f-8895-4b83-8539-9b21fd249c22" type="checkbox" ><label class="sk-toggleable__label" for="1d53a33f-8895-4b83-8539-9b21fd249c22">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 236-237
+.. GENERATED FROM PYTHON SOURCE LINES 247-248
 
 Then we can define the model pipeline.
 
-.. GENERATED FROM PYTHON SOURCE LINES 237-244
+.. GENERATED FROM PYTHON SOURCE LINES 248-255
 
 .. code-block:: default
 
@@ -666,7 +699,7 @@ Then we can define the model pipeline.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c {color: black;background-color: white;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c pre{padding: 0;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-toggleable {background-color: white;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.2em 0.3em;box-sizing: border-box;text-align: center;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-estimator {font-family: monospace;background-color: #f0f8ff;margin: 0.25em 0.25em;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-estimator:hover {background-color: #d4ebff;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-item {z-index: 1;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-parallel-item:only-child::after {width: 0;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0.2em;box-sizing: border-box;padding-bottom: 0.1em;background-color: white;position: relative;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c div.sk-container {display: inline-block;position: relative;}</style><div id="sk-d0db0b8d-6a3f-4064-8225-b0fff46eb83c" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="e94a3d71-50b6-43a6-b571-a73e91a14cf1" type="checkbox" ><label class="sk-toggleable__label" for="e94a3d71-50b6-43a6-b571-a73e91a14cf1">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('columnkernelizer',
+    <style>#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 {color: black;background-color: white;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 pre{padding: 0;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-toggleable {background-color: white;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-estimator:hover {background-color: #d4ebff;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-item {z-index: 1;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-parallel-item:only-child::after {width: 0;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-07cda83d-ab6d-47a2-9eec-05296dfaad38 div.sk-container {display: inline-block;position: relative;}</style><div id="sk-07cda83d-ab6d-47a2-9eec-05296dfaad38" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="e98ac7e3-018c-4bd3-b23b-372495bbf67b" type="checkbox" ><label class="sk-toggleable__label" for="e98ac7e3-018c-4bd3-b23b-372495bbf67b">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('columnkernelizer',
                      ColumnKernelizer(transformers=[('wordnet',
                                                      Pipeline(steps=[('standardscaler',
                                                                       StandardScaler(with_std=False)),
@@ -686,7 +719,7 @@ Then we can define the model pipeline.
                                                                                       2,
                                                                                       3,
                                                                                       4]...
-                     MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 149... 2401, ..., 2698, 2699])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299]))]),
+                     MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1... 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599]))]),
                                            kernels='precomputed',
                                            solver_params={'alphas': array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
@@ -694,7 +727,7 @@ Then we can define the model pipeline.
                                                           'n_alphas_batch': 5,
                                                           'n_iter': 20,
                                                           'n_targets_batch': 200,
-                                                          'n_targets_batch_refit': 200}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="7e154012-7160-42e1-870e-bdf0e65b30f4" type="checkbox" ><label class="sk-toggleable__label" for="7e154012-7160-42e1-870e-bdf0e65b30f4">columnkernelizer: ColumnKernelizer</label><div class="sk-toggleable__content"><pre>ColumnKernelizer(transformers=[('wordnet',
+                                                          'n_targets_batch_refit': 200}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="cd4a44aa-d9c6-4b2c-b822-5216034ba417" type="checkbox" ><label class="sk-toggleable__label" for="cd4a44aa-d9c6-4b2c-b822-5216034ba417">columnkernelizer: ColumnKernelizer</label><div class="sk-toggleable__content"><pre>ColumnKernelizer(transformers=[('wordnet',
                                     Pipeline(steps=[('standardscaler',
                                                      StandardScaler(with_std=False)),
                                                     ('delayer',
@@ -707,7 +740,7 @@ Then we can define the model pipeline.
                                                     ('delayer',
                                                      Delayer(delays=[1, 2, 3, 4])),
                                                     ('kernelizer', Kernelizer())]),
-                                    slice(1705, 8260, None))])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="2b17ccf3-ff9f-487d-b82b-fcc0b066a2bb" type="checkbox" ><label class="sk-toggleable__label" for="2b17ccf3-ff9f-487d-b82b-fcc0b066a2bb">wordnet</label><div class="sk-toggleable__content"><pre>slice(0, 1705, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="1d1970f4-ea82-4628-b521-703b376608b9" type="checkbox" ><label class="sk-toggleable__label" for="1d1970f4-ea82-4628-b521-703b376608b9">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="be6ad5cf-f943-4e7c-a315-fe4d6fc8fd75" type="checkbox" ><label class="sk-toggleable__label" for="be6ad5cf-f943-4e7c-a315-fe4d6fc8fd75">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="a70c1a76-91f0-46fc-b02c-8cf77ebcf941" type="checkbox" ><label class="sk-toggleable__label" for="a70c1a76-91f0-46fc-b02c-8cf77ebcf941">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="7e80db48-1498-4a6b-81d5-d88241126b09" type="checkbox" ><label class="sk-toggleable__label" for="7e80db48-1498-4a6b-81d5-d88241126b09">motion_energy</label><div class="sk-toggleable__content"><pre>slice(1705, 8260, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="feddfe07-6e66-4df4-8b3f-4dd78bde69f0" type="checkbox" ><label class="sk-toggleable__label" for="feddfe07-6e66-4df4-8b3f-4dd78bde69f0">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="421addf9-1568-4b60-b900-021eef43fd8b" type="checkbox" ><label class="sk-toggleable__label" for="421addf9-1568-4b60-b900-021eef43fd8b">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="5c5cb332-330a-4f28-9860-ec3d04821f29" type="checkbox" ><label class="sk-toggleable__label" for="5c5cb332-330a-4f28-9860-ec3d04821f29">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="2bf9c3f5-c546-4dfc-937c-795949bf28e6" type="checkbox" ><label class="sk-toggleable__label" for="2bf9c3f5-c546-4dfc-937c-795949bf28e6">MultipleKernelRidgeCV</label><div class="sk-toggleable__content"><pre>MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 149... 2401, ..., 2698, 2699])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299]))]),
+                                    slice(1705, 8260, None))])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="21cdaf6d-0cb2-4ca7-bec5-bf291b7875d2" type="checkbox" ><label class="sk-toggleable__label" for="21cdaf6d-0cb2-4ca7-bec5-bf291b7875d2">wordnet</label><div class="sk-toggleable__content"><pre>slice(0, 1705, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="f226bb85-6bb3-4fbd-a468-f945ec2cfca9" type="checkbox" ><label class="sk-toggleable__label" for="f226bb85-6bb3-4fbd-a468-f945ec2cfca9">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="8c7b2a9b-ddb3-4e0d-8447-ffb63983ab9b" type="checkbox" ><label class="sk-toggleable__label" for="8c7b2a9b-ddb3-4e0d-8447-ffb63983ab9b">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="ff945f26-2808-4bc3-9e97-d1cbfe2b446c" type="checkbox" ><label class="sk-toggleable__label" for="ff945f26-2808-4bc3-9e97-d1cbfe2b446c">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="5f4a6fdb-9440-4b2c-9272-de658524ad47" type="checkbox" ><label class="sk-toggleable__label" for="5f4a6fdb-9440-4b2c-9272-de658524ad47">motion_energy</label><div class="sk-toggleable__content"><pre>slice(1705, 8260, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="ce82ba80-c282-47a3-bea4-9e3a3697b5b1" type="checkbox" ><label class="sk-toggleable__label" for="ce82ba80-c282-47a3-bea4-9e3a3697b5b1">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="e82fdae5-eafa-46c1-a248-32aa6202c308" type="checkbox" ><label class="sk-toggleable__label" for="e82fdae5-eafa-46c1-a248-32aa6202c308">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="dc87d0ab-b728-4cf2-b9ac-bb01dc1207f0" type="checkbox" ><label class="sk-toggleable__label" for="dc87d0ab-b728-4cf2-b9ac-bb01dc1207f0">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="46dc98e0-443c-43d5-befc-6f40abc3a901" type="checkbox" ><label class="sk-toggleable__label" for="46dc98e0-443c-43d5-befc-6f40abc3a901">MultipleKernelRidgeCV</label><div class="sk-toggleable__content"><pre>MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1... 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599]))]),
                           kernels='precomputed',
                           solver_params={'alphas': array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
@@ -719,26 +752,35 @@ Then we can define the model pipeline.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 245-252
+.. GENERATED FROM PYTHON SOURCE LINES 256-266
 
 Fit the model
 -------------
 
 We fit on the train set, and score on the test set.
 
+To speed up the fit and to limit the memory peak in Colab, we only fit on
+voxels with explainable variance above 0.1.
+
 With a GPU backend, the fitting of this model takes around 6 minutes. With a
 CPU backend, it can last 10 times more.
 
-.. GENERATED FROM PYTHON SOURCE LINES 252-260
+.. GENERATED FROM PYTHON SOURCE LINES 266-280
 
 .. code-block:: default
 
 
-    pipeline.fit(X_train, Y_train)
+    pipeline.fit(X_train, Y_train[:, mask])
 
-    scores = pipeline.score(X_test, Y_test)
-    scores = backend.to_numpy(scores)
+    scores_mask = pipeline.score(X_test, Y_test[:, mask])
+    scores_mask = backend.to_numpy(scores_mask)
+    print("(n_voxels_mask,) =", scores_mask.shape)
 
+    # Then we extend the scores to all voxels, giving a score of zero to unfitted
+    # voxels.
+    n_voxels = Y_train.shape[1]
+    scores = np.zeros(n_voxels)
+    scores[mask] = scores_mask
     print("(n_voxels,) =", scores.shape)
 
 
@@ -751,13 +793,14 @@ CPU backend, it can last 10 times more.
 
  .. code-block:: none
 
-    [                                        ] 0% | 0.00 sec | 20 random sampling with cv |     [..                                      ] 5% | 40.58 sec | 20 random sampling with cv |     [....                                    ] 10% | 70.87 sec | 20 random sampling with cv |     [......                                  ] 15% | 101.59 sec | 20 random sampling with cv |     [........                                ] 20% | 131.51 sec | 20 random sampling with cv |     [..........                              ] 25% | 161.34 sec | 20 random sampling with cv |     [............                            ] 30% | 190.97 sec | 20 random sampling with cv |     [..............                          ] 35% | 220.09 sec | 20 random sampling with cv |     [................                        ] 40% | 249.26 sec | 20 random sampling with cv |     [..................                      ] 45% | 278.31 sec | 20 random sampling with cv |     [....................                    ] 50% | 307.19 sec | 20 random sampling with cv |     [......................                  ] 55% | 335.89 sec | 20 random sampling with cv |     [........................                ] 60% | 364.85 sec | 20 random sampling with cv |     [..........................              ] 65% | 393.88 sec | 20 random sampling with cv |     [............................            ] 70% | 422.97 sec | 20 random sampling with cv |     [..............................          ] 75% | 451.88 sec | 20 random sampling with cv |     [................................        ] 80% | 480.85 sec | 20 random sampling with cv |     [..................................      ] 85% | 509.59 sec | 20 random sampling with cv |     [....................................    ] 90% | 538.53 sec | 20 random sampling with cv |     [......................................  ] 95% | 568.04 sec | 20 random sampling with cv |     [........................................] 100% | 597.01 sec | 20 random sampling with cv | 
+    [                                        ] 0% | 0.00 sec | 20 random sampling with cv |     [..                                      ] 5% | 9.17 sec | 20 random sampling with cv |     [....                                    ] 10% | 18.15 sec | 20 random sampling with cv |     [......                                  ] 15% | 26.91 sec | 20 random sampling with cv |     [........                                ] 20% | 35.76 sec | 20 random sampling with cv |     [..........                              ] 25% | 44.78 sec | 20 random sampling with cv |     [............                            ] 30% | 53.74 sec | 20 random sampling with cv |     [..............                          ] 35% | 63.02 sec | 20 random sampling with cv |     [................                        ] 40% | 71.79 sec | 20 random sampling with cv |     [..................                      ] 45% | 80.55 sec | 20 random sampling with cv |     [....................                    ] 50% | 89.31 sec | 20 random sampling with cv |     [......................                  ] 55% | 98.02 sec | 20 random sampling with cv |     [........................                ] 60% | 106.78 sec | 20 random sampling with cv |     [..........................              ] 65% | 115.03 sec | 20 random sampling with cv |     [............................            ] 70% | 123.80 sec | 20 random sampling with cv |     [..............................          ] 75% | 132.72 sec | 20 random sampling with cv |     [................................        ] 80% | 141.53 sec | 20 random sampling with cv |     [..................................      ] 85% | 150.26 sec | 20 random sampling with cv |     [....................................    ] 90% | 159.00 sec | 20 random sampling with cv |     [......................................  ] 95% | 167.72 sec | 20 random sampling with cv |     [........................................] 100% | 176.43 sec | 20 random sampling with cv | 
+    (n_voxels_mask,) = (6849,)
     (n_voxels,) = (84038,)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 261-267
+.. GENERATED FROM PYTHON SOURCE LINES 281-287
 
 Compare with a ridge model
 --------------------------
@@ -766,7 +809,7 @@ We can compare with a baseline model, which does not use one hyperparameter
 per feature space, but instead shares the same hyperparameter for all feature
 spaces.
 
-.. GENERATED FROM PYTHON SOURCE LINES 267-281
+.. GENERATED FROM PYTHON SOURCE LINES 287-301
 
 .. code-block:: default
 
@@ -792,32 +835,37 @@ spaces.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-2980a362-2f62-4bf2-8544-54e6047bec69 {color: black;background-color: white;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 pre{padding: 0;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-toggleable {background-color: white;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.2em 0.3em;box-sizing: border-box;text-align: center;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;margin: 0.25em 0.25em;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-estimator:hover {background-color: #d4ebff;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-item {z-index: 1;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-parallel-item:only-child::after {width: 0;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0.2em;box-sizing: border-box;padding-bottom: 0.1em;background-color: white;position: relative;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-2980a362-2f62-4bf2-8544-54e6047bec69 div.sk-container {display: inline-block;position: relative;}</style><div id="sk-2980a362-2f62-4bf2-8544-54e6047bec69" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="9e3af5cb-bd7e-40f3-a896-eb456e3f21a4" type="checkbox" ><label class="sk-toggleable__label" for="9e3af5cb-bd7e-40f3-a896-eb456e3f21a4">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('standardscaler', StandardScaler(with_std=False)),
+    <style>#sk-4a93e72a-d9df-4f71-b132-323fbe063091 {color: black;background-color: white;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 pre{padding: 0;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-toggleable {background-color: white;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-estimator:hover {background-color: #d4ebff;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-item {z-index: 1;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-parallel-item:only-child::after {width: 0;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-4a93e72a-d9df-4f71-b132-323fbe063091 div.sk-container {display: inline-block;position: relative;}</style><div id="sk-4a93e72a-d9df-4f71-b132-323fbe063091" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="f0970b2d-49b0-48eb-9ebe-0b54a840ed24" type="checkbox" ><label class="sk-toggleable__label" for="f0970b2d-49b0-48eb-9ebe-0b54a840ed24">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('standardscaler', StandardScaler(with_std=False)),
                     ('delayer', Delayer(delays=[1, 2, 3, 4])),
                     ('kernelridgecv',
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 149... 2401, ..., 2698, 2699])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1... 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599]))]),
                                    solver_params={'n_alphas_batch': 5,
                                                   'n_targets_batch': 200,
-                                                  'n_targets_batch_refit': 200}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="decd66a8-8da5-4a19-a2c2-f24aba3c387a" type="checkbox" ><label class="sk-toggleable__label" for="decd66a8-8da5-4a19-a2c2-f24aba3c387a">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="87e92ed5-ef8a-4c05-bdbb-b7465f492ee6" type="checkbox" ><label class="sk-toggleable__label" for="87e92ed5-ef8a-4c05-bdbb-b7465f492ee6">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="46ce86bf-027a-4ae5-b7a0-6e1f4edbed9c" type="checkbox" ><label class="sk-toggleable__label" for="46ce86bf-027a-4ae5-b7a0-6e1f4edbed9c">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+                                                  'n_targets_batch_refit': 200}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="fd8bc187-a00f-4d08-8194-3d527d49c41d" type="checkbox" ><label class="sk-toggleable__label" for="fd8bc187-a00f-4d08-8194-3d527d49c41d">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="aa0327e7-e6aa-4095-9b8c-5b82f12bc8c0" type="checkbox" ><label class="sk-toggleable__label" for="aa0327e7-e6aa-4095-9b8c-5b82f12bc8c0">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="6d24b7cf-8616-4926-9f36-61d5d5696a47" type="checkbox" ><label class="sk-toggleable__label" for="6d24b7cf-8616-4926-9f36-61d5d5696a47">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 149... 2401, ..., 2698, 2699])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299]))]),
+                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1... 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599]))]),
                   solver_params={'n_alphas_batch': 5, 'n_targets_batch': 200,
                                  'n_targets_batch_refit': 200})</pre></div></div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 282-286
+.. GENERATED FROM PYTHON SOURCE LINES 302-311
 
 .. code-block:: default
 
-    pipeline_baseline.fit(X_train, Y_train)
-    scores_baseline = pipeline_baseline.score(X_test, Y_test)
-    scores_baseline = backend.to_numpy(scores_baseline)
+    pipeline_baseline.fit(X_train, Y_train[:, mask])
+    scores_baseline_mask = pipeline_baseline.score(X_test, Y_test[:, mask])
+    scores_baseline_mask = backend.to_numpy(scores_baseline_mask)
+
+    # extend to unfitted voxels
+    n_voxels = Y_train.shape[1]
+    scores_baseline = np.zeros(n_voxels)
+    scores_baseline[mask] = scores_baseline_mask
 
 
 
@@ -826,15 +874,15 @@ spaces.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 287-292
+.. GENERATED FROM PYTHON SOURCE LINES 312-317
 
-Here we plot the comparison of model prediction accuracies with a 2D histogram.
-All 70k voxels are represented in this histogram, where the diagonal
-corresponds to identical model prediction accuracy for both models. A distibution deviating
-from the diagonal means that one model has better predictive performance
-than the other.
+Here we plot the comparison of model prediction accuracies with a 2D
+histogram. All 70k voxels are represented in this histogram, where the
+diagonal corresponds to identical model prediction accuracy for both models.
+A distibution deviating from the diagonal means that one model has better
+predictive performance than the other.
 
-.. GENERATED FROM PYTHON SOURCE LINES 292-300
+.. GENERATED FROM PYTHON SOURCE LINES 317-325
 
 .. code-block:: default
 
@@ -857,7 +905,7 @@ than the other.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 301-307
+.. GENERATED FROM PYTHON SOURCE LINES 326-332
 
 We see that the banded ridge model (``MultipleKernelRidgeCV``) outperforms
 the ridge model (``KernelRidegeCV``). Indeed, banded ridge regression is able
@@ -866,7 +914,7 @@ voxel. Banded ridge regression is thus able to perform a soft selection
 between the available feature spaces, based on the cross-validation
 performances.
 
-.. GENERATED FROM PYTHON SOURCE LINES 309-325
+.. GENERATED FROM PYTHON SOURCE LINES 334-350
 
 Plot the banded ridge split
 ---------------------------
@@ -885,7 +933,7 @@ Then, we use these split predictions to compute split :math:`\tilde{R}^2_i`
 scores. These scores are corrected so that their sum is equal to the
 :math:`R^2` score of the full prediction :math:`\hat{y}`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 325-335
+.. GENERATED FROM PYTHON SOURCE LINES 350-366
 
 .. code-block:: default
 
@@ -893,10 +941,16 @@ scores. These scores are corrected so that their sum is equal to the
     from himalaya.scoring import r2_score_split
 
     Y_test_pred_split = pipeline.predict(X_test, split=True)
-    split_scores = r2_score_split(Y_test, Y_test_pred_split)
-    split_scores.shape
+    split_scores_mask = r2_score_split(Y_test[:, mask], Y_test_pred_split)
 
-    print("(n_kernels, n_samples_test, n_voxels) =", Y_test_pred_split.shape)
+    print("(n_kernels, n_samples_test, n_voxels_mask) =", Y_test_pred_split.shape)
+    print("(n_kernels, n_voxels_mask) =", split_scores_mask.shape)
+
+    # extend to unfitted voxels
+    n_kernels = split_scores_mask.shape[0]
+    n_voxels = Y_train.shape[1]
+    split_scores = np.zeros((n_kernels, n_voxels))
+    split_scores[:, mask] = split_scores_mask
     print("(n_kernels, n_voxels) =", split_scores.shape)
 
 
@@ -909,17 +963,18 @@ scores. These scores are corrected so that their sum is equal to the
 
  .. code-block:: none
 
-    (n_kernels, n_samples_test, n_voxels) = torch.Size([2, 270, 84038])
-    (n_kernels, n_voxels) = torch.Size([2, 84038])
+    (n_kernels, n_samples_test, n_voxels_mask) = torch.Size([2, 270, 6849])
+    (n_kernels, n_voxels_mask) = torch.Size([2, 6849])
+    (n_kernels, n_voxels) = (2, 84038)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 336-337
+.. GENERATED FROM PYTHON SOURCE LINES 367-368
 
 We can then plot the split scores on a flatmap with a 2D colormap.
 
-.. GENERATED FROM PYTHON SOURCE LINES 337-347
+.. GENERATED FROM PYTHON SOURCE LINES 368-378
 
 .. code-block:: default
 
@@ -944,22 +999,21 @@ We can then plot the split scores on a flatmap with a 2D colormap.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 348-360
+.. GENERATED FROM PYTHON SOURCE LINES 379-390
 
-The blue regions are better predicted by the motion-energy features, the orange
-regions are better predicted by the wordnet features, and the white regions are
-well predicted by both feature spaces.
+The blue regions are better predicted by the motion-energy features, the
+orange regions are better predicted by the wordnet features, and the white
+regions are well predicted by both feature spaces.
 
 Compared to the last figure of the previous example, we see that most white
-regions have been replaced by either blue or orange regions. The
-banded ridge regression disentangled the two feature spaces in voxels where
-both feature spaces had good prediction accuracy (see previous example). For
-example, motion-energy features predict brain activity in early visual
-cortex, while wordnet features predict in semantic visual areas. For more
-discussions about these results, we refer the reader to the original
-publication [1]_.
+regions have been replaced by either blue or orange regions. The banded ridge
+regression disentangled the two feature spaces in voxels where both feature
+spaces had good prediction accuracy (see previous example). For example,
+motion-energy features predict brain activity in early visual cortex, while
+wordnet features predict in semantic visual areas. For more discussions about
+these results, we refer the reader to the original publication [1]_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 362-368
+.. GENERATED FROM PYTHON SOURCE LINES 392-398
 
 References
 ----------
@@ -968,23 +1022,10 @@ References
     Voxelwise encoding models with non-spherical multivariate normal priors.
     Neuroimage, 197, 482-492.
 
-.. GENERATED FROM PYTHON SOURCE LINES 368-370
-
-.. code-block:: default
-
-
-    del pipeline, pipeline_baseline
-
-
-
-
-
-
-
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 10 minutes  55.179 seconds)
+   **Total running time of the script:** ( 3 minutes  19.092 seconds)
 
 
 .. _sphx_glr_download__auto_examples_movies_3T_05_plot_banded_ridge_model.py:

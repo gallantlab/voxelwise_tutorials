@@ -27,22 +27,23 @@ estimated in the previous model. We fit the same ridge model as in the previous
 example, and further describe the need to delay the features in time to account
 for the delayed BOLD response.
 
-Because of the temporal dynamics of neurovascular coupling, the recorded BOLD signal is delayed in
-time with respect to the stimulus. To account for this lag, we fit encoding
-models on delayed features. In this way, the linear regression model weighs
-each delayed feature separately and recovers the shape of the hemodynamic
-response function in each voxel separately. In turn, this method (also known as
-a Finite Impulse Response model, or FIR) maximizes the model prediction
-accuracy. With a repetition time of 2 seconds, we typically use 4 delays [1, 2,
-3, 4] to cover the peak of the the hemodynamic response function. However, the
-optimal number of delays can vary depending on the experiment and the brain
-area of interest, so you should experiment with different delays.
+Because of the temporal dynamics of neurovascular coupling, the recorded BOLD
+signal is delayed in time with respect to the stimulus. To account for this
+lag, we fit encoding models on delayed features. In this way, the linear
+regression model weighs each delayed feature separately and recovers the shape
+of the hemodynamic response function in each voxel separately. In turn, this
+method (also known as a Finite Impulse Response model, or FIR) maximizes the
+model prediction accuracy. With a repetition time of 2 seconds, we typically
+use 4 delays [1, 2, 3, 4] to cover the peak of the the hemodynamic response
+function. However, the optimal number of delays can vary depending on the
+experiment and the brain area of interest, so you should experiment with
+different delays.
 
 In this example, we show that a model without delays performs far worse than a
 model with delays. We also show how to visualize the estimated hemodynamic
 response function (HRF) from a model with delays.
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-26
+.. GENERATED FROM PYTHON SOURCE LINES 27-27
 
 .. code-block:: default
 
@@ -53,12 +54,12 @@ response function (HRF) from a model with delays.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-30
+.. GENERATED FROM PYTHON SOURCE LINES 29-31
 
 Path of the data directory
 --------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-35
+.. GENERATED FROM PYTHON SOURCE LINES 31-36
 
 .. code-block:: default
 
@@ -77,12 +78,12 @@ Path of the data directory
 
  .. code-block:: none
 
-    /home/jlg/mvdoc/voxelwise_tutorials_data/vim-5
+    /home/jlg/tomdlt/voxelwise_tutorials_data/vim-5
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-40
+.. GENERATED FROM PYTHON SOURCE LINES 37-41
 
 .. code-block:: default
 
@@ -97,14 +98,14 @@ Path of the data directory
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-45
+.. GENERATED FROM PYTHON SOURCE LINES 42-46
 
 Load the data
 -------------
 
 We first load the fMRI responses.
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-55
+.. GENERATED FROM PYTHON SOURCE LINES 46-56
 
 .. code-block:: default
 
@@ -134,12 +135,12 @@ We first load the fMRI responses.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-58
+.. GENERATED FROM PYTHON SOURCE LINES 57-59
 
 We average the test repeats, to remove the non-repeatable part of fMRI
 responses.
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-62
+.. GENERATED FROM PYTHON SOURCE LINES 59-63
 
 .. code-block:: default
 
@@ -162,11 +163,11 @@ responses.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-64
+.. GENERATED FROM PYTHON SOURCE LINES 64-65
 
 We fill potential NaN (not-a-number) values with zeros.
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-67
+.. GENERATED FROM PYTHON SOURCE LINES 65-68
 
 .. code-block:: default
 
@@ -180,11 +181,11 @@ We fill potential NaN (not-a-number) values with zeros.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-69
+.. GENERATED FROM PYTHON SOURCE LINES 69-70
 
 Then, we load the semantic "wordnet" features.
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-78
+.. GENERATED FROM PYTHON SOURCE LINES 70-79
 
 .. code-block:: default
 
@@ -213,7 +214,7 @@ Then, we load the semantic "wordnet" features.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-84
+.. GENERATED FROM PYTHON SOURCE LINES 80-85
 
 Define the cross-validation scheme
 ----------------------------------
@@ -221,7 +222,7 @@ Define the cross-validation scheme
 We define the same leave-one-run-out cross-validation split as in the
 previous example.
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-92
+.. GENERATED FROM PYTHON SOURCE LINES 85-93
 
 .. code-block:: default
 
@@ -248,11 +249,11 @@ previous example.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-94
+.. GENERATED FROM PYTHON SOURCE LINES 94-95
 
 We define a cross-validation splitter, compatible with ``scikit-learn`` API.
 
-.. GENERATED FROM PYTHON SOURCE LINES 94-98
+.. GENERATED FROM PYTHON SOURCE LINES 95-99
 
 .. code-block:: default
 
@@ -267,7 +268,7 @@ We define a cross-validation splitter, compatible with ``scikit-learn`` API.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-104
+.. GENERATED FROM PYTHON SOURCE LINES 100-105
 
 Define the model
 ----------------
@@ -275,7 +276,7 @@ Define the model
 We define the same model as in the previous example. See the previous
 example for more details about the model definition.
 
-.. GENERATED FROM PYTHON SOURCE LINES 104-126
+.. GENERATED FROM PYTHON SOURCE LINES 105-127
 
 .. code-block:: default
 
@@ -308,7 +309,7 @@ example for more details about the model definition.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 127-131
+.. GENERATED FROM PYTHON SOURCE LINES 128-132
 
 .. code-block:: default
 
@@ -324,33 +325,33 @@ example for more details about the model definition.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-f4614751-385b-4210-97ad-6aecc93f0116 {color: black;background-color: white;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 pre{padding: 0;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-toggleable {background-color: white;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.2em 0.3em;box-sizing: border-box;text-align: center;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;margin: 0.25em 0.25em;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-estimator:hover {background-color: #d4ebff;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-item {z-index: 1;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-parallel-item:only-child::after {width: 0;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0.2em;box-sizing: border-box;padding-bottom: 0.1em;background-color: white;position: relative;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-f4614751-385b-4210-97ad-6aecc93f0116 div.sk-container {display: inline-block;position: relative;}</style><div id="sk-f4614751-385b-4210-97ad-6aecc93f0116" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="d1f83b96-7d88-42f5-b51d-43d49c792279" type="checkbox" ><label class="sk-toggleable__label" for="d1f83b96-7d88-42f5-b51d-43d49c792279">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('standardscaler', StandardScaler(with_std=False)),
+    <style>#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb {color: black;background-color: white;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb pre{padding: 0;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-toggleable {background-color: white;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-estimator:hover {background-color: #d4ebff;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-item {z-index: 1;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-parallel-item:only-child::after {width: 0;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb div.sk-container {display: inline-block;position: relative;}</style><div id="sk-49fbd0fa-8cb2-4300-bb24-f03afe85b3bb" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="23b7303e-9654-46b2-9322-955c18cb6c9c" type="checkbox" ><label class="sk-toggleable__label" for="23b7303e-9654-46b2-9322-955c18cb6c9c">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('standardscaler', StandardScaler(with_std=False)),
                     ('delayer', Delayer(delays=[1, 2, 3, 4])),
                     ('kernelridgecv',
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array...])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array...)), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ...,...1, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999]))]),
                                    solver_params={'n_alphas_batch': 5,
                                                   'n_targets_batch': 500,
-                                                  'n_targets_batch_refit': 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="30c93827-00f1-49ac-9cc6-29c503a57316" type="checkbox" ><label class="sk-toggleable__label" for="30c93827-00f1-49ac-9cc6-29c503a57316">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="725c9df9-2607-438c-ac85-6afeae32cccc" type="checkbox" ><label class="sk-toggleable__label" for="725c9df9-2607-438c-ac85-6afeae32cccc">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="2a6b281f-b65d-4b56-b4a3-fba2d5b73e63" type="checkbox" ><label class="sk-toggleable__label" for="2a6b281f-b65d-4b56-b4a3-fba2d5b73e63">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+                                                  'n_targets_batch_refit': 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="f783aa67-647c-40ae-8192-bf3ee7e6a7c7" type="checkbox" ><label class="sk-toggleable__label" for="f783aa67-647c-40ae-8192-bf3ee7e6a7c7">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="a0bead60-7210-4b15-864d-b03bbe900ce3" type="checkbox" ><label class="sk-toggleable__label" for="a0bead60-7210-4b15-864d-b03bbe900ce3">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="a7ef3d95-cb0e-4f44-88fb-617dc9343a95" type="checkbox" ><label class="sk-toggleable__label" for="a7ef3d95-cb0e-4f44-88fb-617dc9343a95">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
+                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ...,...1, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999]))]),
                   solver_params={'n_alphas_batch': 5, 'n_targets_batch': 500,
                                  'n_targets_batch_refit': 100})</pre></div></div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 132-136
+.. GENERATED FROM PYTHON SOURCE LINES 133-137
 
 Fit the model
 -------------
 
 We fit on the train set, and score on the test set.
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-143
+.. GENERATED FROM PYTHON SOURCE LINES 137-144
 
 .. code-block:: default
 
@@ -376,7 +377,7 @@ We fit on the train set, and score on the test set.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-150
+.. GENERATED FROM PYTHON SOURCE LINES 145-151
 
 Compare with a model without delays
 -----------------------------------
@@ -385,7 +386,7 @@ We define here another model without feature delays (i.e. no ``Delayer``).
 Because the BOLD signal is inherently slow due to the dynamics of
 neuro-vascular coupling, this model is unlikely to perform well.
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-160
+.. GENERATED FROM PYTHON SOURCE LINES 151-161
 
 .. code-block:: default
 
@@ -407,36 +408,36 @@ neuro-vascular coupling, this model is unlikely to perform well.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab {color: black;background-color: white;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab pre{padding: 0;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-toggleable {background-color: white;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.2em 0.3em;box-sizing: border-box;text-align: center;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-estimator {font-family: monospace;background-color: #f0f8ff;margin: 0.25em 0.25em;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-estimator:hover {background-color: #d4ebff;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-item {z-index: 1;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-parallel-item:only-child::after {width: 0;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0.2em;box-sizing: border-box;padding-bottom: 0.1em;background-color: white;position: relative;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab div.sk-container {display: inline-block;position: relative;}</style><div id="sk-8cb7bcda-4c30-4c11-99e0-09c9100191ab" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="5164659a-a966-4fd1-a5cc-115e448bdc08" type="checkbox" ><label class="sk-toggleable__label" for="5164659a-a966-4fd1-a5cc-115e448bdc08">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('standardscaler', StandardScaler(with_std=False)),
+    <style>#sk-b8960911-2736-47dd-989d-d8e6252a5d73 {color: black;background-color: white;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 pre{padding: 0;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-toggleable {background-color: white;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-estimator:hover {background-color: #d4ebff;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-item {z-index: 1;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-parallel-item:only-child::after {width: 0;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-b8960911-2736-47dd-989d-d8e6252a5d73 div.sk-container {display: inline-block;position: relative;}</style><div id="sk-b8960911-2736-47dd-989d-d8e6252a5d73" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="13c1cb4f-3718-42e7-8ef6-67074fda97ec" type="checkbox" ><label class="sk-toggleable__label" for="13c1cb4f-3718-42e7-8ef6-67074fda97ec">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('standardscaler', StandardScaler(with_std=False)),
                     ('kernelridgecv',
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ...,...1, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999]))]),
                                    solver_params={'n_alphas_batch': 5,
                                                   'n_targets_batch': 500,
-                                                  'n_targets_batch_refit': 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="1be096bd-9aac-4384-a4f7-1afb28e5e25e" type="checkbox" ><label class="sk-toggleable__label" for="1be096bd-9aac-4384-a4f7-1afb28e5e25e">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="97f9d54d-0ef0-42ab-aab3-c6a7ca30355e" type="checkbox" ><label class="sk-toggleable__label" for="97f9d54d-0ef0-42ab-aab3-c6a7ca30355e">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+                                                  'n_targets_batch_refit': 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="4e8a0a7d-16f6-423d-8dd7-55906c09b070" type="checkbox" ><label class="sk-toggleable__label" for="4e8a0a7d-16f6-423d-8dd7-55906c09b070">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="5700b45e-55d6-4680-9441-ebcb560ebaca" type="checkbox" ><label class="sk-toggleable__label" for="5700b45e-55d6-4680-9441-ebcb560ebaca">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
+                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ...,...1, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999]))]),
                   solver_params={'n_alphas_batch': 5, 'n_targets_batch': 500,
                                  'n_targets_batch_refit': 100})</pre></div></div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-162
+.. GENERATED FROM PYTHON SOURCE LINES 162-163
 
 We fit and score the model as the previous one.
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-167
+.. GENERATED FROM PYTHON SOURCE LINES 163-168
 
 .. code-block:: default
 
     pipeline_no_delay.fit(X_train, Y_train)
-    scores_nodelay = pipeline_no_delay.score(X_test, Y_test)
-    scores_nodelay = backend.to_numpy(scores_nodelay)
-    print("(n_voxels,) =", scores_nodelay.shape)
+    scores_no_delay = pipeline_no_delay.score(X_test, Y_test)
+    scores_no_delay = backend.to_numpy(scores_no_delay)
+    print("(n_voxels,) =", scores_no_delay.shape)
 
 
 
@@ -453,22 +454,22 @@ We fit and score the model as the previous one.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-173
+.. GENERATED FROM PYTHON SOURCE LINES 169-174
 
-Then, we plot the comparison of model prediction accuracies with a 2D histogram.
-All ~70k voxels are represented in this histogram, where the diagonal
-corresponds to identical prediction accuracy for both models. A distibution deviating
-from the diagonal means that one model has better prediction accuracy
-than the other.
+Then, we plot the comparison of model prediction accuracies with a 2D
+histogram. All ~70k voxels are represented in this histogram, where the
+diagonal corresponds to identical prediction accuracy for both models. A
+distibution deviating from the diagonal means that one model has better
+prediction accuracy than the other.
 
-.. GENERATED FROM PYTHON SOURCE LINES 173-184
+.. GENERATED FROM PYTHON SOURCE LINES 174-185
 
 .. code-block:: default
 
     import matplotlib.pyplot as plt
     from voxelwise_tutorials.viz import plot_hist2d
 
-    ax = plot_hist2d(scores_nodelay, scores)
+    ax = plot_hist2d(scores_no_delay, scores)
     ax.set(
         title='Generalization R2 scores',
         xlabel='model without delays',
@@ -487,7 +488,7 @@ than the other.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 185-190
+.. GENERATED FROM PYTHON SOURCE LINES 186-191
 
 We see that the model with delays performs much better than the model without
 delays. This can be seen in voxels with scores above 0. The distribution
@@ -495,7 +496,7 @@ of scores below zero is not very informative, since it corresponds to voxels
 with poor predictive performance anyway, and it only shows which model is
 overfitting the most.
 
-.. GENERATED FROM PYTHON SOURCE LINES 192-211
+.. GENERATED FROM PYTHON SOURCE LINES 193-212
 
 Visualize the HRF
 -----------------
@@ -517,7 +518,7 @@ features :math:`X`:
 To better visualize the HRF, we will refit a model with more delays, but only
 on a selection of voxels to speed up the computations.
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-250
+.. GENERATED FROM PYTHON SOURCE LINES 212-251
 
 .. code-block:: default
 
@@ -579,29 +580,16 @@ on a selection of voxels to speed up the computations.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 251-254
+.. GENERATED FROM PYTHON SOURCE LINES 252-255
 
 We see that the hemodynamic response function (HRF) is captured in the model
 weights. Note that in this dataset, the brain responses are recorded every
 two seconds.
 
-.. GENERATED FROM PYTHON SOURCE LINES 254-256
-
-.. code-block:: default
-
-
-    del pipeline, pipeline_no_delay
-
-
-
-
-
-
-
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  36.578 seconds)
+   **Total running time of the script:** ( 0 minutes  59.992 seconds)
 
 
 .. _sphx_glr_download__auto_examples_movies_3T_03_plot_hemodynamic_response.py:

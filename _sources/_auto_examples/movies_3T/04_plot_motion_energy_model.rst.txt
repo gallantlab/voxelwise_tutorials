@@ -69,7 +69,7 @@ Path of the data directory
 
  .. code-block:: none
 
-    /home/jlg/mvdoc/voxelwise_tutorials_data/vim-5
+    /home/jlg/tomdlt/voxelwise_tutorials_data/vim-5
 
 
 
@@ -317,19 +317,19 @@ example for more details about the model definition.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 {color: black;background-color: white;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 pre{padding: 0;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-toggleable {background-color: white;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.2em 0.3em;box-sizing: border-box;text-align: center;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;margin: 0.25em 0.25em;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-estimator:hover {background-color: #d4ebff;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-item {z-index: 1;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-parallel-item:only-child::after {width: 0;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0.2em;box-sizing: border-box;padding-bottom: 0.1em;background-color: white;position: relative;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-c6055e55-8b37-4bd4-be07-5303ca5b2025 div.sk-container {display: inline-block;position: relative;}</style><div id="sk-c6055e55-8b37-4bd4-be07-5303ca5b2025" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="64c2b1f2-6788-4956-90b6-4dd3046c33b7" type="checkbox" ><label class="sk-toggleable__label" for="64c2b1f2-6788-4956-90b6-4dd3046c33b7">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('standardscaler', StandardScaler(with_std=False)),
+    <style>#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 {color: black;background-color: white;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 pre{padding: 0;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-toggleable {background-color: white;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-estimator:hover {background-color: #d4ebff;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-item {z-index: 1;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-parallel-item:only-child::after {width: 0;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-eefd9cbe-ac54-470b-9855-61c1579f97e3 div.sk-container {display: inline-block;position: relative;}</style><div id="sk-eefd9cbe-ac54-470b-9855-61c1579f97e3" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="89902438-72ac-4c76-b792-a53d1cd84e17" type="checkbox" ><label class="sk-toggleable__label" for="89902438-72ac-4c76-b792-a53d1cd84e17">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('standardscaler', StandardScaler(with_std=False)),
                     ('delayer', Delayer(delays=[1, 2, 3, 4])),
                     ('kernelridgecv',
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...99])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 179...1, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...99])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 299...1, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199]))]),
                                    solver_params={'n_alphas_batch': 5,
                                                   'n_targets_batch': 500,
-                                                  'n_targets_batch_refit': 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="f854b79d-af68-4de4-b44d-81886d50beaf" type="checkbox" ><label class="sk-toggleable__label" for="f854b79d-af68-4de4-b44d-81886d50beaf">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="22be1fae-496c-42fa-aeee-163817ac13b8" type="checkbox" ><label class="sk-toggleable__label" for="22be1fae-496c-42fa-aeee-163817ac13b8">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="8c1f53d9-8c90-4f6f-a2c5-93910bc8c8ac" type="checkbox" ><label class="sk-toggleable__label" for="8c1f53d9-8c90-4f6f-a2c5-93910bc8c8ac">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+                                                  'n_targets_batch_refit': 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="f14ec0f4-89f5-4559-a5dc-99afeaca6e74" type="checkbox" ><label class="sk-toggleable__label" for="f14ec0f4-89f5-4559-a5dc-99afeaca6e74">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="bd734b4c-2091-4b7e-b2da-1761e791cc94" type="checkbox" ><label class="sk-toggleable__label" for="bd734b4c-2091-4b7e-b2da-1761e791cc94">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="a3b1b6ad-4a2e-478e-933e-fee5fe07eb83" type="checkbox" ><label class="sk-toggleable__label" for="a3b1b6ad-4a2e-478e-933e-fee5fe07eb83">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 179...1, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999]))]),
+                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 299...1, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199]))]),
                   solver_params={'n_alphas_batch': 5, 'n_targets_batch': 500,
                                  'n_targets_batch_refit': 100})</pre></div></div></div></div></div></div></div>
     </div>
@@ -482,11 +482,11 @@ or simply call fit again if we do not need to reuse the previous model.
 
 .. GENERATED FROM PYTHON SOURCE LINES 200-205
 
-We can also plot the comparison of model prediction accuracies with a 2D histogram.
-All ~70k voxels are represented in this histogram, where the diagonal
-corresponds to identical prediction accuracy for both models. A distibution deviating
-from the diagonal means that one model has better predictive performance
-than the other.
+We can also plot the comparison of model prediction accuracies with a 2D
+histogram. All ~70k voxels are represented in this histogram, where the
+diagonal corresponds to identical prediction accuracy for both models. A
+distibution deviating from the diagonal means that one model has better
+predictive performance than the other.
 
 .. GENERATED FROM PYTHON SOURCE LINES 205-213
 
@@ -548,16 +548,16 @@ The blue regions are well predicted by the motion-energy features, the orange
 regions are well predicted by the wordnet features, and the white regions are
 well predicted by both feature spaces.
 
-A large part of the visual semantic areas are not only well
-predicted by the wordnet features, but also by the motion-energy features, as
-indicated by the white color. Since these two features spaces encode quite
-different information, two interpretations are possible. In the first
-interpretation, the two feature spaces encode complementary information, and
-could be used jointly to further increase the generalization performance. In
-the second interpretation, both feature spaces encode the same information,
-because of spurious stimulus correlations. For example, imagine that
-the visual stimulus contained faces that appeared consistetly in the same portion of the
-visual field. In this case, position in the visual field would be perfectly
+A large part of the visual semantic areas are not only well predicted by the
+wordnet features, but also by the motion-energy features, as indicated by the
+white color. Since these two features spaces encode quite different
+information, two interpretations are possible. In the first interpretation,
+the two feature spaces encode complementary information, and could be used
+jointly to further increase the generalization performance. In the second
+interpretation, both feature spaces encode the same information, because of
+spurious stimulus correlations. For example, imagine that the visual stimulus
+contained faces that appeared consistetly in the same portion of the visual
+field. In this case, position in the visual field would be perfectly
 correlated with the "face" semantic category. Thus, motion-energy features
 could predict responses in face-responsive areas without encoding any
 semantic information.
@@ -580,23 +580,10 @@ References
     Voxelwise encoding models with non-spherical multivariate normal priors.
     Neuroimage, 197, 482-492.
 
-.. GENERATED FROM PYTHON SOURCE LINES 262-264
-
-.. code-block:: default
-
-
-    del pipeline
-
-
-
-
-
-
-
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  34.540 seconds)
+   **Total running time of the script:** ( 0 minutes  56.540 seconds)
 
 
 .. _sphx_glr_download__auto_examples_movies_3T_04_plot_motion_energy_model.py:

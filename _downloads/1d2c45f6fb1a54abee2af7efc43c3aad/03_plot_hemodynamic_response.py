@@ -8,16 +8,17 @@ estimated in the previous model. We fit the same ridge model as in the previous
 example, and further describe the need to delay the features in time to account
 for the delayed BOLD response.
 
-Because of the temporal dynamics of neurovascular coupling, the recorded BOLD signal is delayed in
-time with respect to the stimulus. To account for this lag, we fit encoding
-models on delayed features. In this way, the linear regression model weighs
-each delayed feature separately and recovers the shape of the hemodynamic
-response function in each voxel separately. In turn, this method (also known as
-a Finite Impulse Response model, or FIR) maximizes the model prediction
-accuracy. With a repetition time of 2 seconds, we typically use 4 delays [1, 2,
-3, 4] to cover the peak of the the hemodynamic response function. However, the
-optimal number of delays can vary depending on the experiment and the brain
-area of interest, so you should experiment with different delays.
+Because of the temporal dynamics of neurovascular coupling, the recorded BOLD
+signal is delayed in time with respect to the stimulus. To account for this
+lag, we fit encoding models on delayed features. In this way, the linear
+regression model weighs each delayed feature separately and recovers the shape
+of the hemodynamic response function in each voxel separately. In turn, this
+method (also known as a Finite Impulse Response model, or FIR) maximizes the
+model prediction accuracy. With a repetition time of 2 seconds, we typically
+use 4 delays [1, 2, 3, 4] to cover the peak of the the hemodynamic response
+function. However, the optimal number of delays can vary depending on the
+experiment and the brain area of interest, so you should experiment with
+different delays.
 
 In this example, we show that a model without delays performs far worse than a
 model with delays. We also show how to visualize the estimated hemodynamic
@@ -160,20 +161,20 @@ pipeline_no_delay
 ###############################################################################
 # We fit and score the model as the previous one.
 pipeline_no_delay.fit(X_train, Y_train)
-scores_nodelay = pipeline_no_delay.score(X_test, Y_test)
-scores_nodelay = backend.to_numpy(scores_nodelay)
-print("(n_voxels,) =", scores_nodelay.shape)
+scores_no_delay = pipeline_no_delay.score(X_test, Y_test)
+scores_no_delay = backend.to_numpy(scores_no_delay)
+print("(n_voxels,) =", scores_no_delay.shape)
 
 ###############################################################################
-# Then, we plot the comparison of model prediction accuracies with a 2D histogram.
-# All ~70k voxels are represented in this histogram, where the diagonal
-# corresponds to identical prediction accuracy for both models. A distibution deviating
-# from the diagonal means that one model has better prediction accuracy
-# than the other.
+# Then, we plot the comparison of model prediction accuracies with a 2D
+# histogram. All ~70k voxels are represented in this histogram, where the
+# diagonal corresponds to identical prediction accuracy for both models. A
+# distibution deviating from the diagonal means that one model has better
+# prediction accuracy than the other.
 import matplotlib.pyplot as plt
 from voxelwise_tutorials.viz import plot_hist2d
 
-ax = plot_hist2d(scores_nodelay, scores)
+ax = plot_hist2d(scores_no_delay, scores)
 ax.set(
     title='Generalization R2 scores',
     xlabel='model without delays',
@@ -251,5 +252,3 @@ plt.show()
 # We see that the hemodynamic response function (HRF) is captured in the model
 # weights. Note that in this dataset, the brain responses are recorded every
 # two seconds.
-
-del pipeline, pipeline_no_delay
