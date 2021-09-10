@@ -49,6 +49,17 @@ print("(n_samples_train, n_voxels) =", Y_train.shape)
 print("(n_repeats, n_samples_test, n_voxels) =", Y_test.shape)
 
 ###############################################################################
+# We also compute the explainable variance, to exclude voxels with low
+# explainable variance from the fit, and speed up the model fitting.
+
+from voxelwise_tutorials.utils import explainable_variance
+ev = explainable_variance(Y_test)
+print("(n_voxels,) =", ev.shape)
+
+mask = ev > 0.1
+print("(n_voxels_mask,) =", ev[mask].shape)
+
+###############################################################################
 # We average the test repeats, to remove the non-repeatable part of fMRI
 # responses.
 Y_test = Y_test.mean(0)
@@ -247,15 +258,23 @@ pipeline
 #
 # We fit on the train set, and score on the test set.
 #
+# To speed up the fit and to limit the memory peak in Colab, we only fit on
+# voxels with explainable variance above 0.1.
+#
 # With a GPU backend, the fitting of this model takes around 6 minutes. With a
 # CPU backend, it can last 10 times more.
 
-pipeline.fit(X_train, Y_train)
+pipeline.fit(X_train, Y_train[:, mask])
 
-scores = pipeline.score(X_test, Y_test)
-scores = backend.to_numpy(scores)
+scores_mask = pipeline.score(X_test, Y_test[:, mask])
+scores_mask = backend.to_numpy(scores_mask)
+print("(n_voxels_mask,) =", scores_mask.shape)
 
-print("(n_voxels,) =", scores.shape)
+# Then we extend the scores to all voxels, giving a score of zero to unfitted
+# voxels.
+n_voxels = Y_train.shape[1]
+scores = np.zeros(n_voxels)
+scores[mask] = scores_mask
 
 ###############################################################################
 # Compare with a ridge model
@@ -279,16 +298,21 @@ pipeline_baseline = make_pipeline(
 pipeline_baseline
 
 ###############################################################################
-pipeline_baseline.fit(X_train, Y_train)
-scores_baseline = pipeline_baseline.score(X_test, Y_test)
-scores_baseline = backend.to_numpy(scores_baseline)
+pipeline_baseline.fit(X_train, Y_train[:, mask])
+scores_baseline_mask = pipeline_baseline.score(X_test, Y_test[:, mask])
+scores_baseline_mask = backend.to_numpy(scores_baseline_mask)
+
+# extend to unfitted voxels
+n_voxels = Y_train.shape[1]
+scores_baseline = np.zeros(n_voxels)
+scores_baseline[mask] = scores_baseline_mask
 
 ###############################################################################
-# Here we plot the comparison of model prediction accuracies with a 2D histogram.
-# All 70k voxels are represented in this histogram, where the diagonal
-# corresponds to identical model prediction accuracy for both models. A distibution deviating
-# from the diagonal means that one model has better predictive performance
-# than the other.
+# Here we plot the comparison of model prediction accuracies with a 2D
+# histogram. All 70k voxels are represented in this histogram, where the
+# diagonal corresponds to identical model prediction accuracy for both models.
+# A distibution deviating from the diagonal means that one model has better
+# predictive performance than the other.
 import matplotlib.pyplot as plt
 from voxelwise_tutorials.viz import plot_hist2d
 
@@ -326,10 +350,16 @@ plt.show()
 from himalaya.scoring import r2_score_split
 
 Y_test_pred_split = pipeline.predict(X_test, split=True)
-split_scores = r2_score_split(Y_test, Y_test_pred_split)
-split_scores.shape
+split_scores_mask = r2_score_split(Y_test[:, mask], Y_test_pred_split)
 
-print("(n_kernels, n_samples_test, n_voxels) =", Y_test_pred_split.shape)
+print("(n_kernels, n_samples_test, n_voxels_mask) =", Y_test_pred_split.shape)
+print("(n_kernels, n_voxels_mask) =", split_scores_mask.shape)
+
+# extend to unfitted voxels
+n_kernels = split_scores_mask.shape[0]
+n_voxels = Y_train.shape[1]
+split_scores = np.zeros((n_kernels, n_voxels))
+split_scores[:, mask] = split_scores_mask
 print("(n_kernels, n_voxels) =", split_scores.shape)
 
 ###############################################################################
@@ -345,18 +375,17 @@ ax = plot_2d_flatmap_from_mapper(split_scores[0], split_scores[1],
 plt.show()
 
 ###############################################################################
-# The blue regions are better predicted by the motion-energy features, the orange
-# regions are better predicted by the wordnet features, and the white regions are
-# well predicted by both feature spaces.
+# The blue regions are better predicted by the motion-energy features, the
+# orange regions are better predicted by the wordnet features, and the white
+# regions are well predicted by both feature spaces.
 #
 # Compared to the last figure of the previous example, we see that most white
-# regions have been replaced by either blue or orange regions. The
-# banded ridge regression disentangled the two feature spaces in voxels where
-# both feature spaces had good prediction accuracy (see previous example). For
-# example, motion-energy features predict brain activity in early visual
-# cortex, while wordnet features predict in semantic visual areas. For more
-# discussions about these results, we refer the reader to the original
-# publication [1]_.
+# regions have been replaced by either blue or orange regions. The banded ridge
+# regression disentangled the two feature spaces in voxels where both feature
+# spaces had good prediction accuracy (see previous example). For example,
+# motion-energy features predict brain activity in early visual cortex, while
+# wordnet features predict in semantic visual areas. For more discussions about
+# these results, we refer the reader to the original publication [1]_.
 
 ###############################################################################
 # References
