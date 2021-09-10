@@ -11,13 +11,22 @@ Getting started
 This website contains tutorials describing how to use the
 `voxelwise modeling framework <voxelwise_modeling.html>`_.
 
-The tutorials consist of Python scripts, which are rendered in a `gallery of
-examples <_auto_examples/index.html>`_. Each Python script is also available as
-a Jupyter notebook (non-rendered). The tutorials are best explored in
-order, starting with the "Movies 3T tutorial".
+To explore these tutorials, one can:
 
-To run the tutorials yourself, we recommend to download the project on GitHub
-at `gallantlab/voxelwise_tutorials
+- read the rendered examples in the tutorials
+  `gallery of examples <_auto_examples/index.html>`_ (recommended)
+- run the Python scripts located in the GitHub repository (`tutorials <https://github.com/gallantlab/voxelwise_tutorials/tree/main/tutorials>`_ directory)
+- run the Jupyter notebooks located in the GitHub repository 
+  (`tutorials/notebooks
+  <https://github.com/gallantlab/voxelwise_tutorials/tree/main/tutorials/notebooks>`_
+  directory)
+- run the merged notebook in
+  `Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/movies_3T/merged_for_colab.ipynb>`_.
+
+The tutorials are best explored in order, starting with the "Movies 3T"
+tutorial.
+
+The project is available on GitHub at `gallantlab/voxelwise_tutorials
 <https://github.com/gallantlab/voxelwise_tutorials>`_. On top of the tutorials,
 the GitHub repository contains a Python package called ``voxelwise_tutorials``,
 which contains useful functions to download the data sets, load the files,

@@ -252,4 +252,4 @@ plt.show()
 # weights. Note that in this dataset, the brain responses are recorded every
 # two seconds.
 
-del pipeline
+del pipeline, pipeline_no_delay
