@@ -22,9 +22,12 @@ def merge_notebooks(filenames):
             merged.cells = [cell_with_title(title=os.path.basename(fname))
                             ] + nb.cells
         else:
-            # add a Markdown cell with the file name, then all cells
-            merged.cells.extend(
-                [cell_with_title(title=os.path.basename(fname))] + nb.cells)
+            # add a code cell resetting all variables
+            merged.cells.append(cell_with_reset())
+            # add a Markdown cell with the file name
+            merged.cells.append(cell_with_title(title=os.path.basename(fname)))
+            # add all cells from current notebook
+            merged.cells.extend(nb.cells)
 
     if not hasattr(merged.metadata, 'name'):
         merged.metadata.name = ''
@@ -38,6 +41,17 @@ def cell_with_title(title):
         'cell_type': 'markdown',
         'metadata': {},
         'source': f'\n# {title}\n',
+    })
+
+
+def cell_with_reset():
+    """Returns a code cell with magic command to reset all variables."""
+    return nbformat.from_dict({
+        'cell_type': 'code',
+        'execution_count': None,
+        'metadata': {'collapsed': False},
+        'outputs': [],
+        'source': '%reset -f',
     })
 
 

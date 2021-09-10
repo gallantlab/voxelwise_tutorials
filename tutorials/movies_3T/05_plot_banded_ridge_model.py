@@ -13,8 +13,8 @@ optimize the hyperparameters over cross-validation. An efficient implementation
 of this model is available in the `himalaya
 <https://github.com/gallantlab/himalaya>`_ package.
 
-*Running time:* This example is more computationally intensive than the previous
-examples. With a GPU backend, model fitting takes around 6 minutes.
+*Running time:* This example is more computationally intensive than the
+previous examples. With a GPU backend, model fitting takes around 6 minutes.
 With a CPU backend, it can last 10 times more.
 """
 # sphinx_gallery_thumbnail_number = 2
@@ -275,6 +275,7 @@ print("(n_voxels_mask,) =", scores_mask.shape)
 n_voxels = Y_train.shape[1]
 scores = np.zeros(n_voxels)
 scores[mask] = scores_mask
+print("(n_voxels,) =", scores.shape)
 
 ###############################################################################
 # Compare with a ridge model
@@ -394,5 +395,3 @@ plt.show()
 # .. [1] Nunez-Elizalde, A. O., Huth, A. G., & Gallant, J. L. (2019).
 #     Voxelwise encoding models with non-spherical multivariate normal priors.
 #     Neuroimage, 197, 482-492.
-
-del pipeline, pipeline_baseline

@@ -48,5 +48,8 @@ cortex.db = cortex.database.db
 cortex.utils.db = cortex.database.db
 cortex.dataset.braindata.db = cortex.database.db
 
+import sklearn
+sklearn.set_config(assume_finite=True)
+
 ###############################################################################
 # Your Google Colab environment is now set up for the voxelwise tutorials.
