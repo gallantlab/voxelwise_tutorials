@@ -147,7 +147,7 @@ print("(n_voxels,) =", scores_motion_energy.shape)
 ###############################################################################
 # Plot the model performances
 # ---------------------------
-# The performances are computed using the math:`R^2` scores.
+# The performances are computed using the :math:`R^2` scores.
 
 import matplotlib.pyplot as plt
 from voxelwise_tutorials.viz import plot_flatmap_from_mapper
