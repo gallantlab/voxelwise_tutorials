@@ -37,7 +37,7 @@ NBDIR = ../tutorials/notebooks/movies_3T
 
 merge-notebooks:
 	python merge_notebooks.py \
-		$(NBDIR)/00_load_colab.ipynb \
+		$(NBDIR)/00_setup_colab.ipynb \
 		$(NBDIR)/01_plot_explainable_variance.ipynb \
 		$(NBDIR)/02_plot_wordnet_model.ipynb \
 		$(NBDIR)/03_plot_hemodynamic_response.ipynb \

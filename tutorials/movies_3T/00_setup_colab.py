@@ -28,9 +28,22 @@ skip it if you run the tutorials on your machine.
 
 # ![ -f "vim-5-for-ccn.tar.gz" ] || gdown --id 1b0I0Ytj06m6GCmfxfNrZuyF97fDo3NZb
 # ![ -d "vim-5" ] || tar xzf vim-5-for-ccn.tar.gz
-# ![ -d "pycortex" ] || git clone https://github.com/gallantlab/pycortex
+# ![ -d "pycortex" ] || git clone --quiet https://github.com/gallantlab/pycortex
+# !apt-get install -qq inkscape > /dev/null
 # !pip install -q voxelwise_tutorials
+# ![ -f "ngrok-stable-linux-amd64.zip" ] || wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+# ![ -f "ngrok" ] || unzip ngrok-stable-linux-amd64.zip
 
+###############################################################################
+# For the record, here is what each command does:
+#
+# - Download the dataset archive
+# - Extract the dataset archive
+# - Clone Pycortex to fix some filestore issues with Colab
+# - Install Inkscape, to use more features from Pycortex
+# - Install the tutorial helper package, and all the required dependencies
+# - Download ngrok to create a tunnel for pycortex 3D brain viewer
+# - Extract the ngrok archive
 
 ###############################################################################
 # Now run the following cell to set up the environment variables for the
