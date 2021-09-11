@@ -142,6 +142,62 @@ scores = backend.to_numpy(scores)
 print("(n_voxels,) =", scores.shape)
 
 ###############################################################################
+# Intermission: understanding delays
+# ----------------------------------
+#
+# To have an intuitive understanding of what we accomplish by delaying the
+# features before model fitting, we will simulate one voxel and a single
+# feature. We will then create a ``Delayer`` object (which was used in the
+# previous pipeline) and visualize its effect on our single feature. Let's
+# start by simulating the data.
+
+# number of total trs
+n_trs = 50
+# repetition time for the simulated data
+TR = 2.0
+rng = np.random.RandomState(42)
+y = rng.randn(n_trs)
+x = np.zeros(n_trs)
+# add some arbitrary value to our feature
+x[15:20] = .5
+x += rng.randn(n_trs) * 0.1  # add some noise
+
+# create a delayer object and delay the features
+delayer = Delayer(delays=[0, 1, 2, 3, 4])
+x_delayed = delayer.fit_transform(x[:, None])
+
+###############################################################################
+# In the next cell we are plotting six lines. The subplot at the top shows the
+# simulated BOLD response, while the other subplots show the simulated feature
+# at different delays. The effect of the delayer is clear: it creates multiple
+# copies of the original feature shifted forward in time by how many samples we
+# requested (in this case, from 0 to 4 samples, which correspond to 0, 2, 4, 6,
+# and 8 s in time with a 2 s TR).
+#
+# When these delayed features are used to fit a voxelwise encoding model, the
+# brain response :math:`y` at time :math:`t` is simultaneously modeled by the
+# feature :math:`x` at times :math:`t-0, t-2, t-4, t-6, t-8`. In the remaining
+# of this example we will see that this method improves model prediction accuracy
+# and it allows to account for the underlying shape of the hemodynamic response
+# function.
+
+import matplotlib.pyplot as plt
+axs = plt.subplots(6, 1, figsize=(8, 6.5), constrained_layout=True, sharex=True)
+times = np.arange(n_trs)*TR
+
+axs[0].plot(times, y, color="r")
+axs[0].set_title("BOLD response")
+for i, (ax, xx) in enumerate(zip(axs.flat[1:], x_delayed.T)):
+  ax.plot(times, xx, color='k')
+  ax.set_title("$x(t - {0})$ (feature delayed by {0})".format(i))
+for ax in axs.flat:
+  ax.axvline(40, color='gray')
+  ax.set_yticks([])
+_ = axs[-1].set_xlabel("Time [s]")
+plt.show()
+
+
+###############################################################################
 # Compare with a model without delays
 # -----------------------------------
 #
@@ -171,7 +227,6 @@ print("(n_voxels,) =", scores_no_delay.shape)
 # diagonal corresponds to identical prediction accuracy for both models. A
 # distibution deviating from the diagonal means that one model has better
 # prediction accuracy than the other.
-import matplotlib.pyplot as plt
 from voxelwise_tutorials.viz import plot_hist2d
 
 ax = plot_hist2d(scores_no_delay, scores)
