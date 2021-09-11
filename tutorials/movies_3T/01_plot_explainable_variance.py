@@ -223,7 +223,7 @@ vertex = cortex.Vertex(ev_projected, surface, vmin=0, vmax=0.7, cmap='viridis')
 # To start an interactive 3D viewer in the browser, use the ``webshow``
 # function.
 
-if True:
+if False:
     cortex.webshow(vertex, open_browser=False, port=8050)
 
 ###############################################################################
@@ -235,6 +235,7 @@ if True:
 if in_colab:
     from IPython import get_ipython
     get_ipython().system_raw('./ngrok http 8050 &')
+    plt.pause(1)
 
     command = """
         curl -s http://localhost:4040/api/tunnels | python3 -c \
