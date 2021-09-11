@@ -37,8 +37,6 @@ variance is also known as the *signal power*. For more information, see these
 references [1]_ [2]_ [3]_.
 """
 # sphinx_gallery_thumbnail_number = 1
-
-
 ###############################################################################
 # Path of the data directory
 # --------------------------
@@ -172,19 +170,11 @@ plt.show()
 #
 # The second mapper we provide maps the voxel data to a Freesurfer
 # average surface ("fsaverage"), that can be used in ``pycortex``.
-# First, let's download the "fsaverage" surface.
-
-import cortex
-
-surface = "fsaverage"
-
-if not hasattr(cortex.db, surface):
-    cortex.utils.download_subject(subject_id=surface)
-
-###############################################################################
+#
 # If you are running the notebook on Colab, you might need to update the
 # pycortex filestore as following:
 
+import cortex
 try:
     import google.colab  # noqa
     in_colab = True
@@ -202,10 +192,19 @@ if in_colab:
     cortex.quickflat.composite.db = cortex.database.db
 
 ###############################################################################
+# Now, let's download the "fsaverage" surface.
+
+surface = "fsaverage"
+
+if not hasattr(cortex.db, surface):
+    cortex.utils.download_subject(subject_id=surface)
+
+###############################################################################
 # Then, we load the "fsaverage" mapper. The mapper is a matrix of shape
 # (n_vertices, n_voxels), which maps each voxel to some vertices in the
 # fsaverage surface. It is stored as a sparse CSR matrix. The mapper is applied
 # with a dot product ``@`` (equivalent to ``np.dot``).
+
 from voxelwise_tutorials.io import load_hdf5_sparse_array
 voxel_to_fsaverage = load_hdf5_sparse_array(mapper_file,
                                             key='voxel_to_fsaverage')
@@ -220,14 +219,9 @@ print("(n_vertices,) =", ev_projected.shape)
 vertex = cortex.Vertex(ev_projected, surface, vmin=0, vmax=0.7, cmap='viridis')
 
 ###############################################################################
-# To start an interactive 3D viewer in the browser, use the ``webshow``
-# function.
-
-if False:
-    cortex.webshow(vertex, open_browser=False, port=8050)
-
-###############################################################################
-# If you are running the notebook on Colab, you need to tunnel the pycortex
+# To start an interactive 3D viewer in the browser, we can use the ``webshow``
+# function in pycortex.
+# If you are running the notebook on Colab, you first need to tunnel the pycortex
 # application out of Colab. To do so, use the following cell to start a tunnel
 # with ``ngrok`` and to get an address where the pycortex viewer will be made
 # accessible.
@@ -246,6 +240,17 @@ if in_colab:
           f"{result}\n"
           "and not the one proposed by pycortex ('Open viewer: ...')\n")
 
+
+###############################################################################
+# Now you can start an interactive 3D viewer by changing ``run_webshow`` to
+# ``True`` and running the following cell.  If you are using Colab, remember to
+# use the address returned by ngrok in the cell above rather than the address
+# returned by this cell.
+
+run_webshow = False
+if run_webshow:
+    cortex.webshow(vertex, open_browser=False, port=8050)
+
 ###############################################################################
 # Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
 # `quickshow` function.
@@ -254,7 +259,6 @@ if in_colab:
 # does not use this function, so feel free to ignore.)
 
 from cortex.testing_utils import has_installed
-
 
 fig = cortex.quickshow(vertex, colorbar_location='right',
                        with_rois=has_installed("inkscape"))
