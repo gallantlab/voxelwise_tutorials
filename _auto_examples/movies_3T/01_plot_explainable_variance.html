@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Fit a ridge model with wordnet features" href="02_plot_wordnet_model.html" />
-    <link rel="prev" title="Setup Google Colab" href="00_load_colab.html" />
+    <link rel="prev" title="Setup Google Colab" href="00_setup_colab.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
@@ -60,7 +60,7 @@
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Movies 3T tutorial</a><ul>
-      <li>Previous: <a href="00_load_colab.html" title="previous chapter">Setup Google Colab</a></li>
+      <li>Previous: <a href="00_setup_colab.html" title="previous chapter">Setup Google Colab</a></li>
       <li>Next: <a href="02_plot_wordnet_model.html" title="next chapter">Fit a ridge model with wordnet features</a></li>
   </ul></li>
   </ul></li>
@@ -69,7 +69,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Movies 3T tutorial</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="00_download_vim5.html">Download the data set from CRCNS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="00_load_colab.html">Setup Google Colab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="00_setup_colab.html">Setup Google Colab</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Compute the explainable variance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02_plot_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03_plot_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
@@ -260,8 +260,8 @@ provides an example of how to use the mapper and visualize the flatmap.</p>
 </pre></div>
 </div>
 <img alt="01 plot explainable variance" class="sphx-glr-single-img" src="../../_images/sphx_glr_01_plot_explainable_variance_004.png" />
-<p>This figure is a flattened map of the cortical surface. A number of regions
-of interest (ROIs) have been labeled to ease interpretation. If you have
+<p>This figure is a flattened map of the cortical surface. A number of regions of
+interest (ROIs) have been labeled to ease interpretation. If you have
 never seen such a flatmap, we recommend taking a look at a <a class="reference external" href="https://www.gallantlab.org/brainviewer/Deniz2019">pycortex brain
 viewer</a>, which displays
 the brain in 3D. In this viewer, press “I” to inflate the brain, “F” to
@@ -302,6 +302,8 @@ pycortex filestore as following:</p>
     <span class="n">cortex</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
     <span class="n">cortex</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
     <span class="n">cortex</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">braindata</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">quickflat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">quickflat</span><span class="o">.</span><span class="n">composite</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
@@ -326,12 +328,32 @@ with a dot product <code class="docutils literal notranslate"><span class="pre">
 <p>We can then create a <code class="docutils literal notranslate"><span class="pre">Vertex</span></code> object in <code class="docutils literal notranslate"><span class="pre">pycortex</span></code>, containing the
 projected data. This object can be used either in a <code class="docutils literal notranslate"><span class="pre">pycortex</span></code> interactive
 3D viewer, or in a <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figure showing only the flatmap.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vertex</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">Vertex</span><span class="p">(</span><span class="n">ev_projected</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vertex</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">Vertex</span><span class="p">(</span><span class="n">ev_projected</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>To start an interactive 3D viewer in the browser, use the following function:</p>
+<p>To start an interactive 3D viewer in the browser, use the <code class="docutils literal notranslate"><span class="pre">webshow</span></code>
+function.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
-    <span class="n">cortex</span><span class="o">.</span><span class="n">webshow</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">open_browser</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">webshow</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">open_browser</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8050</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you are running the notebook on Colab, you need to tunnel the pycortex
+application out of Colab. To do so, use the following cell to start a tunnel
+with <code class="docutils literal notranslate"><span class="pre">ngrok</span></code> and to get an address where the pycortex viewer will be made
+accessible.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">in_colab</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
+    <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">system_raw</span><span class="p">(</span><span class="s1">&#39;./ngrok http 8050 &amp;&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        curl -s http://localhost:4040/api/tunnels | python3 -c </span><span class="se">\</span>
+<span class="s2">        &quot;import sys, json; print(json.load(sys.stdin)[&#39;tunnels&#39;][0][&#39;public_url&#39;])&quot;</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">getoutput</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Use the following address to connect to the brain viewer:</span><span class="se">\n</span><span class="s2">&quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+          <span class="s2">&quot;and not the one proposed by pycortex (&#39;Open viewer: ...&#39;)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Alternatively, to plot a flatmap in a <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figure, use the
@@ -340,9 +362,10 @@ projected data. This object can be used either in a <code class="docutils litera
 does not use this function, so feel free to ignore.)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cortex.testing_utils</span> <span class="kn">import</span> <span class="n">has_installed</span>
 
-<span class="k">if</span> <span class="n">has_installed</span><span class="p">(</span><span class="s2">&quot;inkscape&quot;</span><span class="p">):</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">quickshow</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">colorbar_location</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">quickshow</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">colorbar_location</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
+                       <span class="n">with_rois</span><span class="o">=</span><span class="n">has_installed</span><span class="p">(</span><span class="s2">&quot;inkscape&quot;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <img alt="01 plot explainable variance" class="sphx-glr-single-img" src="../../_images/sphx_glr_01_plot_explainable_variance_005.png" />
@@ -365,7 +388,7 @@ J. W. (2016). Measuring the performance of neural models. Frontiers in
 computational neuroscience, 10, 10.</p>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.612 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.635 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-movies-3t-01-plot-explainable-variance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ef00a3e7d383dcf197845c0855ceb9b7/01_plot_explainable_variance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_plot_explainable_variance.py</span></code></a></p>

@@ -107,10 +107,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_00_load_colab_thumb.png
+ .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_00_setup_colab_thumb.png
      :alt: Setup Google Colab
 
-     :ref:`sphx_glr__auto_examples_movies_3T_00_load_colab.py`
+     :ref:`sphx_glr__auto_examples_movies_3T_00_setup_colab.py`
 
 .. raw:: html
 
@@ -120,7 +120,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_3T/00_load_colab
+   /_auto_examples/movies_3T/00_setup_colab
 
 .. raw:: html
 

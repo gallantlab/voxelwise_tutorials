@@ -15,14 +15,14 @@ repetitions. In voxelwise modeling, the features used to model brain activity
 are the same for each repetition of the stimulus. Thus, encoding models will
 predict only the repeatable stimulus-dependent signal.
 
-The stimulus-dependent signal can be estimated by taking the mean of
+The stimulus-dependent signal can be estimated by taking the mean of 
 brain responses over repeats of the same stimulus or experiment. The variance
 of the estimated stimulus-dependent signal, which we call the explainable
 variance, is proportional to the maximum prediction accuracy that can be
-obtained by a voxelwise encoding model in the test set.
+obtained by a voxelwise encoding model in the test set. 
 
 Mathematically, let :math:`y_i, i = 1 \\dots N` be the measured signal in
-a voxel for each of the :math:`N` repetitions of the same stimulus and
+a voxel for each of the :math:`N` repetitions of the same stimulus and 
 :math:`\\bar{y} = \\frac{1}{N}\\sum_{i=1}^Ny_i` the average brain response
 across repetitions. For each repeat, we define the residual timeseries
 between brain response and average brain response as :math:`r_i = y_i - \\bar{y}`.
@@ -114,7 +114,7 @@ plt.grid('on')
 plt.show()
 
 ###############################################################################
-# We see that many voxels have low explainable variance. This is
+# We see that many voxels have low explainable variance. This is 
 # expected, since many voxels are not driven by a visual stimulus, and their
 # response changes over repeats of the same stimulus.
 # We also see that some voxels have high explainable variance (around 0.7). The
@@ -150,8 +150,8 @@ plot_flatmap_from_mapper(ev, mapper_file, vmin=0, vmax=0.7)
 plt.show()
 
 ###############################################################################
-# This figure is a flattened map of the cortical surface. A number of regions
-# of interest (ROIs) have been labeled to ease interpretation. If you have
+# This figure is a flattened map of the cortical surface. A number of regions of
+# interest (ROIs) have been labeled to ease interpretation. If you have
 # never seen such a flatmap, we recommend taking a look at a `pycortex brain
 # viewer <https://www.gallantlab.org/brainviewer/Deniz2019>`_, which displays
 # the brain in 3D. In this viewer, press "I" to inflate the brain, "F" to
@@ -198,6 +198,8 @@ if in_colab:
     cortex.db = cortex.database.db
     cortex.utils.db = cortex.database.db
     cortex.dataset.braindata.db = cortex.database.db
+    cortex.quickflat.utils.db = cortex.database.db
+    cortex.quickflat.composite.db = cortex.database.db
 
 ###############################################################################
 # Then, we load the "fsaverage" mapper. The mapper is a matrix of shape
@@ -215,12 +217,34 @@ print("(n_vertices,) =", ev_projected.shape)
 # projected data. This object can be used either in a ``pycortex`` interactive
 # 3D viewer, or in a ``matplotlib`` figure showing only the flatmap.
 
-vertex = cortex.Vertex(ev_projected, surface, vmin=0, vmax=0.7, cmap='inferno')
+vertex = cortex.Vertex(ev_projected, surface, vmin=0, vmax=0.7, cmap='viridis')
 
 ###############################################################################
-# To start an interactive 3D viewer in the browser, use the following function:
+# To start an interactive 3D viewer in the browser, use the ``webshow``
+# function.
+
 if False:
-    cortex.webshow(vertex, open_browser=True)
+    cortex.webshow(vertex, open_browser=False, port=8050)
+
+###############################################################################
+# If you are running the notebook on Colab, you need to tunnel the pycortex
+# application out of Colab. To do so, use the following cell to start a tunnel
+# with ``ngrok`` and to get an address where the pycortex viewer will be made
+# accessible.
+
+if in_colab:
+    from IPython import get_ipython
+    get_ipython().system_raw('./ngrok http 8050 &')
+    plt.pause(1)
+
+    command = """
+        curl -s http://localhost:4040/api/tunnels | python3 -c \
+        "import sys, json; print(json.load(sys.stdin)['tunnels'][0]['public_url'])"
+        """
+    result = get_ipython().getoutput(command, split=True)
+    print("Use the following address to connect to the brain viewer:\n"
+          f"{result}\n"
+          "and not the one proposed by pycortex ('Open viewer: ...')\n")
 
 ###############################################################################
 # Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
@@ -231,9 +255,10 @@ if False:
 
 from cortex.testing_utils import has_installed
 
-if has_installed("inkscape"):
-    fig = cortex.quickshow(vertex, colorbar_location='right')
-    plt.show()
+
+fig = cortex.quickshow(vertex, colorbar_location='right',
+                       with_rois=has_installed("inkscape"))
+plt.show()
 
 
 ###############################################################################

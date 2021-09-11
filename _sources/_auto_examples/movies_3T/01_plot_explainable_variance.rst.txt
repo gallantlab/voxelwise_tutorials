@@ -34,14 +34,14 @@ repetitions. In voxelwise modeling, the features used to model brain activity
 are the same for each repetition of the stimulus. Thus, encoding models will
 predict only the repeatable stimulus-dependent signal.
 
-The stimulus-dependent signal can be estimated by taking the mean of
+The stimulus-dependent signal can be estimated by taking the mean of 
 brain responses over repeats of the same stimulus or experiment. The variance
 of the estimated stimulus-dependent signal, which we call the explainable
 variance, is proportional to the maximum prediction accuracy that can be
-obtained by a voxelwise encoding model in the test set.
+obtained by a voxelwise encoding model in the test set. 
 
 Mathematically, let :math:`y_i, i = 1 \dots N` be the measured signal in
-a voxel for each of the :math:`N` repetitions of the same stimulus and
+a voxel for each of the :math:`N` repetitions of the same stimulus and 
 :math:`\bar{y} = \frac{1}{N}\sum_{i=1}^Ny_i` the average brain response
 across repetitions. For each repeat, we define the residual timeseries
 between brain response and average brain response as :math:`r_i = y_i - \bar{y}`.
@@ -281,7 +281,7 @@ We can also plot the distribution of explainable variance over voxels.
 
 .. GENERATED FROM PYTHON SOURCE LINES 117-123
 
-We see that many voxels have low explainable variance. This is
+We see that many voxels have low explainable variance. This is 
 expected, since many voxels are not driven by a visual stimulus, and their
 response changes over repeats of the same stimulus.
 We also see that some voxels have high explainable variance (around 0.7). The
@@ -335,8 +335,8 @@ provides an example of how to use the mapper and visualize the flatmap.
 
 .. GENERATED FROM PYTHON SOURCE LINES 153-162
 
-This figure is a flattened map of the cortical surface. A number of regions
-of interest (ROIs) have been labeled to ease interpretation. If you have
+This figure is a flattened map of the cortical surface. A number of regions of
+interest (ROIs) have been labeled to ease interpretation. If you have
 never seen such a flatmap, we recommend taking a look at a `pycortex brain
 viewer <https://www.gallantlab.org/brainviewer/Deniz2019>`_, which displays
 the brain in 3D. In this viewer, press "I" to inflate the brain, "F" to
@@ -385,7 +385,7 @@ First, let's download the "fsaverage" surface.
 If you are running the notebook on Colab, you might need to update the
 pycortex filestore as following:
 
-.. GENERATED FROM PYTHON SOURCE LINES 187-202
+.. GENERATED FROM PYTHON SOURCE LINES 187-204
 
 .. code-block:: default
 
@@ -403,6 +403,8 @@ pycortex filestore as following:
         cortex.db = cortex.database.db
         cortex.utils.db = cortex.database.db
         cortex.dataset.braindata.db = cortex.database.db
+        cortex.quickflat.utils.db = cortex.database.db
+        cortex.quickflat.composite.db = cortex.database.db
 
 
 
@@ -419,14 +421,14 @@ pycortex filestore as following:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 203-207
+.. GENERATED FROM PYTHON SOURCE LINES 205-209
 
 Then, we load the "fsaverage" mapper. The mapper is a matrix of shape
 (n_vertices, n_voxels), which maps each voxel to some vertices in the
 fsaverage surface. It is stored as a sparse CSR matrix. The mapper is applied
 with a dot product ``@`` (equivalent to ``np.dot``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 207-213
+.. GENERATED FROM PYTHON SOURCE LINES 209-215
 
 .. code-block:: default
 
@@ -451,18 +453,18 @@ with a dot product ``@`` (equivalent to ``np.dot``).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 214-217
+.. GENERATED FROM PYTHON SOURCE LINES 216-219
 
 We can then create a ``Vertex`` object in ``pycortex``, containing the
 projected data. This object can be used either in a ``pycortex`` interactive
 3D viewer, or in a ``matplotlib`` figure showing only the flatmap.
 
-.. GENERATED FROM PYTHON SOURCE LINES 217-220
+.. GENERATED FROM PYTHON SOURCE LINES 219-222
 
 .. code-block:: default
 
 
-    vertex = cortex.Vertex(ev_projected, surface, vmin=0, vmax=0.7, cmap='inferno')
+    vertex = cortex.Vertex(ev_projected, surface, vmin=0, vmax=0.7, cmap='viridis')
 
 
 
@@ -471,16 +473,18 @@ projected data. This object can be used either in a ``pycortex`` interactive
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 221-222
+.. GENERATED FROM PYTHON SOURCE LINES 223-225
 
-To start an interactive 3D viewer in the browser, use the following function:
+To start an interactive 3D viewer in the browser, use the ``webshow``
+function.
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-225
+.. GENERATED FROM PYTHON SOURCE LINES 225-229
 
 .. code-block:: default
+
 
     if False:
-        cortex.webshow(vertex, open_browser=True)
+        cortex.webshow(vertex, open_browser=False, port=8050)
 
 
 
@@ -489,7 +493,40 @@ To start an interactive 3D viewer in the browser, use the following function:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 226-231
+.. GENERATED FROM PYTHON SOURCE LINES 230-234
+
+If you are running the notebook on Colab, you need to tunnel the pycortex
+application out of Colab. To do so, use the following cell to start a tunnel
+with ``ngrok`` and to get an address where the pycortex viewer will be made
+accessible.
+
+.. GENERATED FROM PYTHON SOURCE LINES 234-249
+
+.. code-block:: default
+
+
+    if in_colab:
+        from IPython import get_ipython
+        get_ipython().system_raw('./ngrok http 8050 &')
+        plt.pause(1)
+
+        command = """
+            curl -s http://localhost:4040/api/tunnels | python3 -c \
+            "import sys, json; print(json.load(sys.stdin)['tunnels'][0]['public_url'])"
+            """
+        result = get_ipython().getoutput(command, split=True)
+        print("Use the following address to connect to the brain viewer:\n"
+              f"{result}\n"
+              "and not the one proposed by pycortex ('Open viewer: ...')\n")
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 250-255
 
 Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
 `quickshow` function.
@@ -497,16 +534,17 @@ Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
 (This function requires Inkscape to be installed. The rest of the tutorial
 does not use this function, so feel free to ignore.)
 
-.. GENERATED FROM PYTHON SOURCE LINES 231-239
+.. GENERATED FROM PYTHON SOURCE LINES 255-264
 
 .. code-block:: default
 
 
     from cortex.testing_utils import has_installed
 
-    if has_installed("inkscape"):
-        fig = cortex.quickshow(vertex, colorbar_location='right')
-        plt.show()
+
+    fig = cortex.quickshow(vertex, colorbar_location='right',
+                           with_rois=has_installed("inkscape"))
+    plt.show()
 
 
 
@@ -520,7 +558,7 @@ does not use this function, so feel free to ignore.)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 240-254
+.. GENERATED FROM PYTHON SOURCE LINES 265-279
 
 References
 ----------
@@ -540,7 +578,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.612 seconds)
+   **Total running time of the script:** ( 0 minutes  7.635 seconds)
 
 
 .. _sphx_glr_download__auto_examples_movies_3T_01_plot_explainable_variance.py:
