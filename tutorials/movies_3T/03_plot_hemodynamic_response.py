@@ -182,14 +182,16 @@ x_delayed = delayer.fit_transform(x[:, None])
 # function.
 
 import matplotlib.pyplot as plt
-axs = plt.subplots(6, 1, figsize=(8, 6.5), constrained_layout=True, sharex=True)
+fig, axs = plt.subplots(6, 1, figsize=(8, 6.5), constrained_layout=True, 
+        sharex=True)
 times = np.arange(n_trs)*TR
 
 axs[0].plot(times, y, color="r")
 axs[0].set_title("BOLD response")
 for i, (ax, xx) in enumerate(zip(axs.flat[1:], x_delayed.T)):
   ax.plot(times, xx, color='k')
-  ax.set_title("$x(t - {0})$ (feature delayed by {0})".format(i))
+  ax.set_title("$x(t - {0:.0f})$ (feature delayed by {1} sample{2})".format(
+      i*TR, i, "" if i == 1 else "s"))
 for ax in axs.flat:
   ax.axvline(40, color='gray')
   ax.set_yticks([])
