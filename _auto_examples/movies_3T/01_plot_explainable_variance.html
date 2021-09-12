@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Compute the explainable variance &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
@@ -111,7 +112,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-3t-01-plot-explainable-variance-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="compute-the-explainable-variance">
+<section class="sphx-glr-example-title" id="compute-the-explainable-variance">
 <span id="sphx-glr-auto-examples-movies-3t-01-plot-explainable-variance-py"></span><h1>Compute the explainable variance<a class="headerlink" href="#compute-the-explainable-variance" title="Permalink to this headline">¶</a></h1>
 <p>Before fitting any voxelwise model to fMRI responses, it is good practice to
 quantify the amount of signal in the test set that can be predicted by an
@@ -142,7 +143,7 @@ references <a class="footnote-reference brackets" href="#id5" id="id1">1</a> <a 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<div class="section" id="path-of-the-data-directory">
+<section id="path-of-the-data-directory">
 <h2>Path of the data directory<a class="headerlink" href="#path-of-the-data-directory" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
@@ -151,15 +152,15 @@ references <a class="footnote-reference brackets" href="#id5" id="id1">1</a> <a 
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/tomdlt/voxelwise_tutorials_data/vim-5
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/mvdoc/voxelwise_tutorials_data/vim-5
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># modify to use another subject</span>
 <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;S01&quot;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h2>Compute the explainable variance<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">load_hdf5_array</span>
@@ -234,8 +235,8 @@ response changes over repeats of the same stimulus.
 We also see that some voxels have high explainable variance (around 0.7). The
 responses in these voxels are highly consistent across repetitions of the
 same stimulus. Thus, they are good targets for encoding models.</p>
-</div>
-<div class="section" id="map-to-subject-flatmap">
+</section>
+<section id="map-to-subject-flatmap">
 <h2>Map to subject flatmap<a class="headerlink" href="#map-to-subject-flatmap" title="Permalink to this headline">¶</a></h2>
 <p>To better understand the distribution of explainable variance, we map the
 values to the subject brain. This can be done with <a class="reference external" href="https://gallantlab.github.io/pycortex/">pycortex</a>, which can create interactive 3D
@@ -273,23 +274,15 @@ and the folded cortical surface of the brain.</p>
 in the visual cortex, in early visual regions like V1, V2, V3, or in
 higher-level regions like EBA, FFA or IPS. This is expected since this
 dataset contains responses to a visual stimulus.</p>
-</div>
-<div class="section" id="map-to-fsaverage">
+</section>
+<section id="map-to-fsaverage">
 <h2>Map to “fsaverage”<a class="headerlink" href="#map-to-fsaverage" title="Permalink to this headline">¶</a></h2>
 <p>The second mapper we provide maps the voxel data to a Freesurfer
-average surface (“fsaverage”), that can be used in <code class="docutils literal notranslate"><span class="pre">pycortex</span></code>.
-First, let’s download the “fsaverage” surface.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cortex</span>
-
-<span class="n">surface</span> <span class="o">=</span> <span class="s2">&quot;fsaverage&quot;</span>
-
-<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cortex</span><span class="o">.</span><span class="n">db</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
-    <span class="n">cortex</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">download_subject</span><span class="p">(</span><span class="n">subject_id</span><span class="o">=</span><span class="n">surface</span><span class="p">)</span>
-</pre></div>
-</div>
+average surface (“fsaverage”), that can be used in <code class="docutils literal notranslate"><span class="pre">pycortex</span></code>.</p>
 <p>If you are running the notebook on Colab, you might need to update the
 pycortex filestore as following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cortex</span>
+<span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">google.colab</span>  <span class="c1"># noqa</span>
     <span class="n">in_colab</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
@@ -308,6 +301,13 @@ pycortex filestore as following:</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+<p>Now, let’s download the “fsaverage” surface.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">surface</span> <span class="o">=</span> <span class="s2">&quot;fsaverage&quot;</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cortex</span><span class="o">.</span><span class="n">db</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">download_subject</span><span class="p">(</span><span class="n">subject_id</span><span class="o">=</span><span class="n">surface</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Then, we load the “fsaverage” mapper. The mapper is a matrix of shape
@@ -331,13 +331,9 @@ projected data. This object can be used either in a <code class="docutils litera
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vertex</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">Vertex</span><span class="p">(</span><span class="n">ev_projected</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>To start an interactive 3D viewer in the browser, use the <code class="docutils literal notranslate"><span class="pre">webshow</span></code>
-function.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
-    <span class="n">cortex</span><span class="o">.</span><span class="n">webshow</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">open_browser</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8050</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>If you are running the notebook on Colab, you need to tunnel the pycortex
+<p>To start an interactive 3D viewer in the browser, we can use the <code class="docutils literal notranslate"><span class="pre">webshow</span></code>
+function in pycortex.
+If you are running the notebook on Colab, you first need to tunnel the pycortex
 application out of Colab. To do so, use the following cell to start a tunnel
 with <code class="docutils literal notranslate"><span class="pre">ngrok</span></code> and to get an address where the pycortex viewer will be made
 accessible.</p>
@@ -356,12 +352,20 @@ accessible.</p>
           <span class="s2">&quot;and not the one proposed by pycortex (&#39;Open viewer: ...&#39;)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Now you can start an interactive 3D viewer by changing <code class="docutils literal notranslate"><span class="pre">run_webshow</span></code> to
+<code class="docutils literal notranslate"><span class="pre">True</span></code> and running the following cell.  If you are using Colab, remember to
+use the address returned by ngrok in the cell above rather than the address
+returned by this cell.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run_webshow</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">if</span> <span class="n">run_webshow</span><span class="p">:</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">webshow</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">open_browser</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8050</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>Alternatively, to plot a flatmap in a <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> figure, use the
 <cite>quickshow</cite> function.</p>
 <p>(This function requires Inkscape to be installed. The rest of the tutorial
 does not use this function, so feel free to ignore.)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cortex.testing_utils</span> <span class="kn">import</span> <span class="n">has_installed</span>
-
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">quickshow</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">colorbar_location</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
                        <span class="n">with_rois</span><span class="o">=</span><span class="n">has_installed</span><span class="p">(</span><span class="s2">&quot;inkscape&quot;</span><span class="p">))</span>
@@ -369,8 +373,8 @@ does not use this function, so feel free to ignore.)</p>
 </pre></div>
 </div>
 <img alt="01 plot explainable variance" class="sphx-glr-single-img" src="../../_images/sphx_glr_01_plot_explainable_variance_005.png" />
-</div>
-<div class="section" id="references">
+</section>
+<section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -388,7 +392,7 @@ J. W. (2016). Measuring the performance of neural models. Frontiers in
 computational neuroscience, 10, 10.</p>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.635 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.496 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-movies-3t-01-plot-explainable-variance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ef00a3e7d383dcf197845c0855ceb9b7/01_plot_explainable_variance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_plot_explainable_variance.py</span></code></a></p>
@@ -398,8 +402,8 @@ computational neuroscience, 10, 10.</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>

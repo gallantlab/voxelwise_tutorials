@@ -108,11 +108,11 @@
             
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-3t-00-setup-colab-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-3t-00-load-colab-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="setup-google-colab">
-<span id="sphx-glr-auto-examples-movies-3t-00-setup-colab-py"></span><h1>Setup Google Colab<a class="headerlink" href="#setup-google-colab" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-movies-3t-00-load-colab-py"></span><h1>Setup Google Colab<a class="headerlink" href="#setup-google-colab" title="Permalink to this headline">¶</a></h1>
 <p>In this script, we setup a Google Colab environment. This script will only work
 when run from <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>). You can
 skip it if you run the tutorials on your machine.</p>
@@ -129,28 +129,15 @@ To do so, click the following menu options in Google Colab:</p>
 <section id="download-the-data-and-install-all-required-dependencies">
 <h2>Download the data and install all required dependencies<a class="headerlink" href="#download-the-data-and-install-all-required-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>Uncomment and run the following cell to download the tutorial data and
-install the required dependencies.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ![ -f &quot;vim-5-for-ccn.tar.gz&quot; ] || gdown --id 1b0I0Ytj06m6GCmfxfNrZuyF97fDo3NZb</span>
-<span class="c1"># ![ -d &quot;vim-5&quot; ] || tar xzf vim-5-for-ccn.tar.gz</span>
-<span class="c1"># ![ -d &quot;pycortex&quot; ] || git clone --quiet https://github.com/gallantlab/pycortex</span>
-<span class="c1"># !apt-get install -qq inkscape &gt; /dev/null</span>
-<span class="c1"># !pip install -q voxelwise_tutorials</span>
-<span class="c1"># ![ -f &quot;ngrok-stable-linux-amd64.zip&quot; ] || wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip</span>
-<span class="c1"># ![ -f &quot;ngrok&quot; ] || unzip ngrok-stable-linux-amd64.zip</span>
+install the required dependencies</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !gdown --id 1b0I0Ytj06m6GCmfxfNrZuyF97fDo3NZb &amp;&amp; \</span>
+<span class="c1"># tar xzf vim-5-for-ccn.tar.gz &amp;&amp; \</span>
+<span class="c1"># pip install -q voxelwise_tutorials &amp;&amp; \</span>
+<span class="c1"># git clone https://github.com/gallantlab/pycortex</span>
 </pre></div>
 </div>
-<p>For the record, here is what each command does:</p>
-<ul class="simple">
-<li><p>Download the dataset archive</p></li>
-<li><p>Extract the dataset archive</p></li>
-<li><p>Clone Pycortex to fix some filestore issues with Colab</p></li>
-<li><p>Install Inkscape, to use more features from Pycortex</p></li>
-<li><p>Install the tutorial helper package, and all the required dependencies</p></li>
-<li><p>Download ngrok to create a tunnel for pycortex 3D brain viewer</p></li>
-<li><p>Extract the ngrok archive</p></li>
-</ul>
-<p>Now run the following cell to set up the environment variables for the
-tutorials and pycortex.</p>
+<p>Now run the following cell to set up the environment variables for the tutorials
+and pycortex.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;VOXELWISE_TUTORIALS_DATA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/content&quot;</span>
 
@@ -162,19 +149,16 @@ tutorials and pycortex.</p>
 <span class="n">cortex</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
 <span class="n">cortex</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
 <span class="n">cortex</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">braindata</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
-
-<span class="kn">import</span> <span class="nn">sklearn</span>
-<span class="n">sklearn</span><span class="o">.</span><span class="n">set_config</span><span class="p">(</span><span class="n">assume_finite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Your Google Colab environment is now set up for the voxelwise tutorials.</p>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-movies-3t-00-setup-colab-py">
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-movies-3t-00-load-colab-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/3c934f4d7a18971774e63af2cb7fda95/00_setup_colab.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">00_setup_colab.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/d242e79272522aaf6151c38799ed90ab/00_load_colab.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">00_load_colab.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/cb6823ad558454d02a6123f020e8356f/00_setup_colab.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">00_setup_colab.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/7f7fa356af10ba945c5c1db4bf5e7b30/00_load_colab.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">00_load_colab.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -196,7 +180,7 @@ tutorials and pycortex.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="../../_sources/_auto_examples/movies_3T/00_setup_colab.rst.txt"
+      <a href="../../_sources/_auto_examples/movies_3T/00_load_colab.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

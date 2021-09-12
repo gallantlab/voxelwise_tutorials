@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Extract motion energy features from the stimuli &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
@@ -110,7 +111,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-3t-06-extract-motion-energy-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="extract-motion-energy-features-from-the-stimuli">
+<section class="sphx-glr-example-title" id="extract-motion-energy-features-from-the-stimuli">
 <span id="sphx-glr-auto-examples-movies-3t-06-extract-motion-energy-py"></span><h1>Extract motion energy features from the stimuli<a class="headerlink" href="#extract-motion-energy-features-from-the-stimuli" title="Permalink to this headline">¶</a></h1>
 <p>This script describes how to extract motion-energy features from the stimuli.</p>
 <div class="admonition note">
@@ -126,7 +127,7 @@ Motion-energy features were introduced in <a class="footnote-reference brackets"
 <p>The motion-energy extraction is performed by the package <a class="reference external" href="https://github.com/gallantlab/pymoten">pymoten</a>. Check the pymoten <a class="reference external" href="https://gallantlab.github.io/pymoten/auto_examples/index.html">gallery of
 examples</a> for
 visualizing motion-energy filters, and for pymoten API usage examples.</p>
-<div class="section" id="running-time">
+<section id="running-time">
 <h2>Running time<a class="headerlink" href="#running-time" title="Permalink to this headline">¶</a></h2>
 <p>Extracting motion energy is a bit longer than the other examples. It typically
 takes a couple hours to run.</p>
@@ -140,10 +141,10 @@ takes a couple hours to run.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="load-the-stimuli-images">
+</section>
+<section id="load-the-stimuli-images">
 <h2>Load the stimuli images<a class="headerlink" href="#load-the-stimuli-images" title="Permalink to this headline">¶</a></h2>
-<p>Here the data is not loaded in memory, we only take a peak at the data shape.</p>
+<p>Here the data is not loaded in memory, we only take a peek at the data shape.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span>
 
 <span class="n">first_file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;stimuli&#39;</span><span class="p">,</span> <span class="s1">&#39;train_00.hdf&#39;</span><span class="p">)</span>
@@ -153,8 +154,8 @@ takes a couple hours to run.</p>
         <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compute-the-luminance">
+</section>
+<section id="compute-the-luminance">
 <h2>Compute the luminance<a class="headerlink" href="#compute-the-luminance" title="Permalink to this headline">¶</a></h2>
 <p>The motion energy is typically not computed on RGB (color) images,
 but on the luminance channel of the LAB color space.
@@ -199,8 +200,8 @@ on each image.</p>
 <span class="n">luminance_test</span> <span class="o">=</span> <span class="n">compute_luminance</span><span class="p">(</span><span class="s2">&quot;test.hdf&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="compute-the-motion-energy">
+</section>
+<section id="compute-the-motion-energy">
 <h2>Compute the motion energy<a class="headerlink" href="#compute-the-motion-energy" title="Permalink to this headline">¶</a></h2>
 <p>This is done with a <code class="docutils literal notranslate"><span class="pre">MotionEnergyPyramid</span></code> object of the <code class="docutils literal notranslate"><span class="pre">pymoten</span></code>
 package. The parameters used are the one described in <a class="footnote-reference brackets" href="#id3" id="id2">1</a>.</p>
@@ -266,8 +267,8 @@ the public data set.</p>
                  <span class="n">run_onsets</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3600</span><span class="p">,</span> <span class="mi">300</span><span class="p">)))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="references">
+</section>
+<section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id3"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
@@ -286,8 +287,8 @@ activity evoked by natural movies. Current Biology, 21(19), 1641-1646.</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>

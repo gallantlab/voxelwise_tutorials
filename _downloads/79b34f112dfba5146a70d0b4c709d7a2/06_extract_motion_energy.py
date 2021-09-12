@@ -37,7 +37,7 @@ print(directory)
 # Load the stimuli images
 # -----------------------
 #
-# Here the data is not loaded in memory, we only take a peak at the data shape.
+# Here the data is not loaded in memory, we only take a peek at the data shape.
 
 import h5py
 
