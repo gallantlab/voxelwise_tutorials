@@ -8,7 +8,6 @@ when run from `Google Colab <https://colab.research.google.com/>`_). You can
 skip it if you run the tutorials on your machine.
 """
 # sphinx_gallery_thumbnail_path = "static/colab.png"
-#
 ###############################################################################
 # Change runtime to use a GPU
 # ---------------------------
