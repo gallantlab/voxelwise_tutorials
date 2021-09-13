@@ -308,6 +308,14 @@ pycortex filestore as following:</p>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cortex</span><span class="o">.</span><span class="n">db</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
     <span class="n">cortex</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">download_subject</span><span class="p">(</span><span class="n">subject_id</span><span class="o">=</span><span class="n">surface</span><span class="p">)</span>
+    <span class="c1"># reinitialize pycortex&#39;s database to update available subjects</span>
+    <span class="n">filestore</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;basic&#39;</span><span class="p">][</span><span class="s1">&#39;filestore&#39;</span><span class="p">]</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">Database</span><span class="p">(</span><span class="n">filestore</span><span class="p">)</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">braindata</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">quickflat</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
+    <span class="n">cortex</span><span class="o">.</span><span class="n">quickflat</span><span class="o">.</span><span class="n">composite</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
 </pre></div>
 </div>
 <p>Then, we load the “fsaverage” mapper. The mapper is a matrix of shape
@@ -392,7 +400,7 @@ J. W. (2016). Measuring the performance of neural models. Frontiers in
 computational neuroscience, 10, 10.</p>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.496 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.534 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-movies-3t-01-plot-explainable-variance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ef00a3e7d383dcf197845c0855ceb9b7/01_plot_explainable_variance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_plot_explainable_variance.py</span></code></a></p>
