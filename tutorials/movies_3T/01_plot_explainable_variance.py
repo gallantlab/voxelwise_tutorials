@@ -198,6 +198,14 @@ surface = "fsaverage"
 
 if not hasattr(cortex.db, surface):
     cortex.utils.download_subject(subject_id=surface)
+    # reinitialize pycortex's database to update available subjects
+    filestore = cortex.options.config['basic']['filestore']
+    cortex.database.db = cortex.database.Database(filestore)
+    cortex.db = cortex.database.db
+    cortex.utils.db = cortex.database.db
+    cortex.dataset.braindata.db = cortex.database.db
+    cortex.quickflat.utils.db = cortex.database.db
+    cortex.quickflat.composite.db = cortex.database.db
 
 ###############################################################################
 # Then, we load the "fsaverage" mapper. The mapper is a matrix of shape
