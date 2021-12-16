@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fit a ridge model with wordnet features &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
@@ -112,7 +111,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-3t-02-plot-wordnet-model-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="fit-a-ridge-model-with-wordnet-features">
+<div class="sphx-glr-example-title section" id="fit-a-ridge-model-with-wordnet-features">
 <span id="sphx-glr-auto-examples-movies-3t-02-plot-wordnet-model-py"></span><h1>Fit a ridge model with wordnet features<a class="headerlink" href="#fit-a-ridge-model-with-wordnet-features" title="Permalink to this headline">¶</a></h1>
 <p>In this example, we model the fMRI responses with semantic “wordnet” features,
 manually annotated on each frame of the movie stimulus. The model is a
@@ -136,7 +135,7 @@ performance. The optimal regularization hyperparameter is selected over a
 grid-search with cross-validation. Finally, the model generalization
 performance is evaluated on a held-out test set, comparing the model
 predictions to the corresponding ground-truth fMRI responses.</p>
-<section id="path-of-the-data-directory">
+<div class="section" id="path-of-the-data-directory">
 <h2>Path of the data directory<a class="headerlink" href="#path-of-the-data-directory" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
@@ -145,15 +144,15 @@ predictions to the corresponding ground-truth fMRI responses.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/mvdoc/voxelwise_tutorials_data/vim-5
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/tomdlt/voxelwise_tutorials_data/vim-5
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># modify to use another subject</span>
 <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;S01&quot;</span>
 </pre></div>
 </div>
-</section>
-<section id="load-the-data">
+</div>
+<div class="section" id="load-the-data">
 <h2>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this headline">¶</a></h2>
 <p>We first load the fMRI responses. These responses have been preprocessed as
 decribed in <a class="footnote-reference brackets" href="#id14" id="id2">1</a>. The data is separated into a training set <code class="docutils literal notranslate"><span class="pre">Y_train</span></code> and a
@@ -216,8 +215,8 @@ each time point. The features corresponding to the training set are noted
 (n_samples_test, n_features) = (270, 1705)
 </pre></div>
 </div>
-</section>
-<section id="define-the-cross-validation-scheme">
+</div>
+<div class="section" id="define-the-cross-validation-scheme">
 <h2>Define the cross-validation scheme<a class="headerlink" href="#define-the-cross-validation-scheme" title="Permalink to this headline">¶</a></h2>
 <p>To select the best hyperparameter through cross-validation, we must define a
 cross-validation splitting scheme. Since fMRI time-series are autocorrelated
@@ -244,8 +243,8 @@ cross-validation split that keeps each recording run intact.</p>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">check_cv</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span>  <span class="c1"># copy the cross-validation splitter into a reusable list</span>
 </pre></div>
 </div>
-</section>
-<section id="define-the-model">
+</div>
+<div class="section" id="define-the-model">
 <h2>Define the model<a class="headerlink" href="#define-the-model" title="Permalink to this headline">¶</a></h2>
 <p>Now, let’s define the model pipeline.</p>
 <p>We first center the features, since we will not use an intercept. The mean
@@ -316,7 +315,7 @@ slower since it only uses the CPU.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;himalaya.backend.torch_cuda&#39; from &#39;/home/jlg/mvdoc/repos/himalaya/himalaya/backend/torch_cuda.py&#39;&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;himalaya.backend.torch_cuda&#39; from &#39;/home/jlg/tomdlt/gbox/work/github/himalaya/himalaya/backend/torch_cuda.py&#39;&gt;
 </pre></div>
 </div>
 <p>To speed up model fitting on GPU, we use single precision float numbers.
@@ -361,25 +360,34 @@ more information.</p>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
-<style>#sk-869b626c-3709-4366-9aa2-7718d2c710fa {color: black;background-color: white;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa pre{padding: 0;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-toggleable {background-color: white;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.2em 0.3em;box-sizing: border-box;text-align: center;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-estimator {font-family: monospace;background-color: #f0f8ff;margin: 0.25em 0.25em;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-estimator:hover {background-color: #d4ebff;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-item {z-index: 1;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-parallel-item:only-child::after {width: 0;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0.2em;box-sizing: border-box;padding-bottom: 0.1em;background-color: white;position: relative;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-869b626c-3709-4366-9aa2-7718d2c710fa div.sk-container {display: inline-block;position: relative;}</style><div id="sk-869b626c-3709-4366-9aa2-7718d2c710fa" class"sk-top-container"><div class="sk-container"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="218cae2a-344a-41eb-8e2c-58d7ce6a8d0d" type="checkbox" ><label class="sk-toggleable__label" for="218cae2a-344a-41eb-8e2c-58d7ce6a8d0d">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('standardscaler', StandardScaler(with_std=False)),
-                ('delayer', Delayer(delays=[1, 2, 3, 4])),
-                ('kernelridgecv',
+<style>#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 {color: black;background-color: white;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 pre{padding: 0;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-toggleable {background-color: white;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-estimator:hover {background-color: #d4ebff;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-item {z-index: 1;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-parallel-item:only-child::after {width: 0;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058 div.sk-text-repr-fallback {display: none;}</style><div id="sk-3126e60e-5d83-4b72-bfcf-ba5c042c0058" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+                (&#x27;delayer&#x27;, Delayer(delays=[1, 2, 3, 4])),
+                (&#x27;kernelridgecv&#x27;,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array...])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299]))]),
-                               solver_params={'n_alphas_batch': 5,
-                                              'n_targets_batch': 500,
-                                              'n_targets_batch_refit': 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="b244df83-6e8f-4b4f-88c3-328b9c7f15cf" type="checkbox" ><label class="sk-toggleable__label" for="b244df83-6e8f-4b4f-88c3-328b9c7f15cf">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="5b482311-a238-4552-9ef7-c69148aadd48" type="checkbox" ><label class="sk-toggleable__label" for="5b482311-a238-4552-9ef7-c69148aadd48">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="ba74db7e-6228-4ad4-a1d4-6f6b0db5904e" type="checkbox" ><label class="sk-toggleable__label" for="ba74db7e-6228-4ad4-a1d4-6f6b0db5904e">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 239...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                               solver_params={&#x27;n_alphas_batch&#x27;: 5,
+                                              &#x27;n_targets_batch&#x27;: 500,
+                                              &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>Please rerun this cell to show the HTML repr or trust the notebook.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="98f5fe4d-3fcd-4cce-bf8c-e79e55932a33" type="checkbox" ><label for="98f5fe4d-3fcd-4cce-bf8c-e79e55932a33" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+                (&#x27;delayer&#x27;, Delayer(delays=[1, 2, 3, 4])),
+                (&#x27;kernelridgecv&#x27;,
+                 KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299]))]),
-              solver_params={'n_alphas_batch': 5, 'n_targets_batch': 500,
-                             'n_targets_batch_refit': 100})</pre></div></div></div></div></div></div></div>
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 239...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                               solver_params={&#x27;n_alphas_batch&#x27;: 5,
+                                              &#x27;n_targets_batch&#x27;: 500,
+                                              &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="ac940ed1-59e0-4a1f-9956-681bfbf82035" type="checkbox" ><label for="ac940ed1-59e0-4a1f-9956-681bfbf82035" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="1581d938-9967-4764-941e-7c878334a4a7" type="checkbox" ><label for="1581d938-9967-4764-941e-7c878334a4a7" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="c071878a-744a-4107-ab68-54106ca39461" type="checkbox" ><label for="c071878a-744a-4107-ab68-54106ca39461" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+       1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
+       1.e+17, 1.e+18, 1.e+19, 1.e+20]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 239...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+              solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
+                             &#x27;n_targets_batch_refit&#x27;: 100})</pre></div></div></div></div></div></div></div>
 </div>
 <br />
-<br /></section>
-<section id="fit-the-model">
+<br /></div>
+<div class="section" id="fit-the-model">
 <h2>Fit the model<a class="headerlink" href="#fit-the-model" title="Permalink to this headline">¶</a></h2>
 <p>We fit on the training set..</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">)</span>
@@ -406,8 +414,8 @@ a <code class="docutils literal notranslate"><span class="pre">matplotlib</span>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="plot-the-model-prediction-accuracy">
+</div>
+<div class="section" id="plot-the-model-prediction-accuracy">
 <h2>Plot the model prediction accuracy<a class="headerlink" href="#plot-the-model-prediction-accuracy" title="Permalink to this headline">¶</a></h2>
 <p>To visualize the model prediction accuracy, we can plot it for each voxel on
 a flattened surface of the brain. To do so, we use a mapper that is specific
@@ -432,8 +440,8 @@ available spatial resolution: individual voxels.</p>
 FFA. This is expected since the wordnet features encode semantic information
 about the visual stimulus. For more discussions about these results, we refer
 the reader to the original publication <a class="footnote-reference brackets" href="#id14" id="id4">1</a>.</p>
-</section>
-<section id="plot-the-selected-hyperparameters">
+</div>
+<div class="section" id="plot-the-selected-hyperparameters">
 <h2>Plot the selected hyperparameters<a class="headerlink" href="#plot-the-selected-hyperparameters" title="Permalink to this headline">¶</a></h2>
 <p>Since the scale of alphas is unknown, we plot the optimal alphas selected by
 the solver over cross-validation. This plot is helpful to refine the alpha
@@ -449,8 +457,8 @@ to zero. We do not need to extend the alpha range for these voxels.</p>
 </pre></div>
 </div>
 <img alt="02 plot wordnet model" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_wordnet_model_002.png" />
-</section>
-<section id="visualize-the-regression-coefficients">
+</div>
+<div class="section" id="visualize-the-regression-coefficients">
 <h2>Visualize the regression coefficients<a class="headerlink" href="#visualize-the-regression-coefficients" title="Permalink to this headline">¶</a></h2>
 <p>Here, we go back to the main model on all voxels. Since our model is linear,
 we can use the (primal) regression coefficients to interpret the model. The
@@ -515,7 +523,7 @@ coefficients variance.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>PCA explained variance = [0.2011717  0.11835103 0.07573542 0.04402835]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>PCA explained variance = [0.20117174 0.118351   0.07573546 0.04402836]
 </pre></div>
 </div>
 <p>Similarly to <a class="footnote-reference brackets" href="#id14" id="id5">1</a>, we correct the coefficients of features linked by a
@@ -638,8 +646,8 @@ similarly in the brain”.</p>
 </div>
 <p>Again, our results are different from the ones in <a class="footnote-reference brackets" href="#id14" id="id13">1</a>, for the same reasons
 mentioned earlier.</p>
-</section>
-<section id="references">
+</div>
+<div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id14"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id4">3</a>,<a href="#id5">4</a>,<a href="#id6">5</a>,<a href="#id7">6</a>,<a href="#id8">7</a>,<a href="#id9">8</a>,<a href="#id10">9</a>,<a href="#id11">10</a>,<a href="#id12">11</a>,<a href="#id13">12</a>)</span></dt>
@@ -653,7 +661,7 @@ object and action categories across the human brain. Neuron, 76(6),
 Ridge regression learning algorithm in dual variables.</p>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  20.807 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  59.803 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-movies-3t-02-plot-wordnet-model-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/acb7b465932cd40c5835adbae62eced2/02_plot_wordnet_model.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02_plot_wordnet_model.py</span></code></a></p>
@@ -663,8 +671,8 @@ Ridge regression learning algorithm in dual variables.</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</section>
-</section>
+</div>
+</div>
 
 
           </div>

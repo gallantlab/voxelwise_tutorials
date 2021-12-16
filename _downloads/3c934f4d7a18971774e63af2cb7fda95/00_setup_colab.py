@@ -52,13 +52,8 @@ import os
 os.environ['VOXELWISE_TUTORIALS_DATA'] = "/content"
 
 import cortex
-filestore = "/content/pycortex/filestore/"
-cortex.options.config['basic']['filestore'] = filestore
+cortex.db.__init__("/content/pycortex/filestore/")  # change filestore inplace
 cortex.options.config['webgl']['colormaps'] = "/content/pycortex/filestore/colormaps"
-cortex.database.db = cortex.database.Database(filestore)
-cortex.db = cortex.database.db
-cortex.utils.db = cortex.database.db
-cortex.dataset.braindata.db = cortex.database.db
 
 import sklearn
 sklearn.set_config(assume_finite=True)

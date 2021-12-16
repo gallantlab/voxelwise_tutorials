@@ -112,7 +112,7 @@ plt.grid('on')
 plt.show()
 
 ###############################################################################
-# We see that many voxels have low explainable variance. This is 
+# We see that many voxels have low explainable variance. This is
 # expected, since many voxels are not driven by a visual stimulus, and their
 # response changes over repeats of the same stimulus.
 # We also see that some voxels have high explainable variance (around 0.7). The
@@ -171,41 +171,17 @@ plt.show()
 # The second mapper we provide maps the voxel data to a Freesurfer
 # average surface ("fsaverage"), that can be used in ``pycortex``.
 #
-# If you are running the notebook on Colab, you might need to update the
-# pycortex filestore as following:
+# First, let's download the "fsaverage" surface.
 
 import cortex
-try:
-    import google.colab  # noqa
-    in_colab = True
-except ImportError:
-    in_colab = False
-print(in_colab)
-
-if in_colab:
-    filestore = cortex.options.config['basic']['filestore']
-    cortex.database.db = cortex.database.Database(filestore)
-    cortex.db = cortex.database.db
-    cortex.utils.db = cortex.database.db
-    cortex.dataset.braindata.db = cortex.database.db
-    cortex.quickflat.utils.db = cortex.database.db
-    cortex.quickflat.composite.db = cortex.database.db
-
-###############################################################################
-# Now, let's download the "fsaverage" surface.
 
 surface = "fsaverage"
 
 if not hasattr(cortex.db, surface):
-    cortex.utils.download_subject(subject_id=surface)
-    # reinitialize pycortex's database to update available subjects
-    filestore = cortex.options.config['basic']['filestore']
-    cortex.database.db = cortex.database.Database(filestore)
-    cortex.db = cortex.database.db
-    cortex.utils.db = cortex.database.db
-    cortex.dataset.braindata.db = cortex.database.db
-    cortex.quickflat.utils.db = cortex.database.db
-    cortex.quickflat.composite.db = cortex.database.db
+    cortex.utils.download_subject(subject_id=surface,
+                                  pycortex_store=cortex.db.filestore)
+    cortex.db._subjects = None  # force filestore reload
+    assert hasattr(cortex.db, surface)
 
 ###############################################################################
 # Then, we load the "fsaverage" mapper. The mapper is a matrix of shape
@@ -228,11 +204,17 @@ vertex = cortex.Vertex(ev_projected, surface, vmin=0, vmax=0.7, cmap='viridis')
 
 ###############################################################################
 # To start an interactive 3D viewer in the browser, we can use the ``webshow``
-# function in pycortex.
-# If you are running the notebook on Colab, you first need to tunnel the pycortex
-# application out of Colab. To do so, use the following cell to start a tunnel
-# with ``ngrok`` and to get an address where the pycortex viewer will be made
-# accessible.
+# function in pycortex. If you are running the notebook on Colab, you first
+# need to tunnel the pycortex application out of Colab. To do so, use the
+# following cell to start a tunnel with ``ngrok`` and to get an address where
+# the pycortex viewer will be made accessible.
+
+try:
+    import google.colab  # noqa
+    in_colab = True
+except ImportError:
+    in_colab = False
+print(in_colab)
 
 if in_colab:
     from IPython import get_ipython
@@ -247,7 +229,6 @@ if in_colab:
     print("Use the following address to connect to the brain viewer:\n"
           f"{result}\n"
           "and not the one proposed by pycortex ('Open viewer: ...')\n")
-
 
 ###############################################################################
 # Now you can start an interactive 3D viewer by changing ``run_webshow`` to
@@ -271,7 +252,6 @@ from cortex.testing_utils import has_installed
 fig = cortex.quickshow(vertex, colorbar_location='right',
                        with_rois=has_installed("inkscape"))
 plt.show()
-
 
 ###############################################################################
 # References

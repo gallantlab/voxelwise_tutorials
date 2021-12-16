@@ -5,10 +5,10 @@
 
 Computation times
 =================
-**09:35.983** total execution time for **_auto_examples_movies_4T** files:
+**05:54.028** total execution time for **_auto_examples_movies_4T** files:
 
 +--------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_movies_4T_02_plot_ridge_model.py` (``02_plot_ridge_model.py``)           | 09:35.983 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_movies_4T_02_plot_ridge_model.py` (``02_plot_ridge_model.py``)           | 05:54.028 | 0.0 MB |
 +--------------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_movies_4T_00_download_vim2.py` (``00_download_vim2.py``)                 | 00:00.000 | 0.0 MB |
 +--------------------------------------------------------------------------------------------------------+-----------+--------+

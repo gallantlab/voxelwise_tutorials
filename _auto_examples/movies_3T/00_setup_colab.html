@@ -4,8 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Setup Google Colab &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
@@ -111,7 +110,7 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-3t-00-setup-colab-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="setup-google-colab">
+<div class="sphx-glr-example-title section" id="setup-google-colab">
 <span id="sphx-glr-auto-examples-movies-3t-00-setup-colab-py"></span><h1>Setup Google Colab<a class="headerlink" href="#setup-google-colab" title="Permalink to this headline">¶</a></h1>
 <p>In this script, we setup a Google Colab environment. This script will only work
 when run from <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>). You can
@@ -119,14 +118,14 @@ skip it if you run the tutorials on your machine.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<section id="change-runtime-to-use-a-gpu">
+<div class="section" id="change-runtime-to-use-a-gpu">
 <h2>Change runtime to use a GPU<a class="headerlink" href="#change-runtime-to-use-a-gpu" title="Permalink to this headline">¶</a></h2>
 <p>This tutorial is much faster when a GPU is available to run the computations.
 In Google Colab you can request access to a GPU by changing the runtime type.
 To do so, click the following menu options in Google Colab:</p>
 <p>(Menu) “Runtime” -&gt; “Change runtime type” -&gt; “Hardware accelerator” -&gt; “GPU”.</p>
-</section>
-<section id="download-the-data-and-install-all-required-dependencies">
+</div>
+<div class="section" id="download-the-data-and-install-all-required-dependencies">
 <h2>Download the data and install all required dependencies<a class="headerlink" href="#download-the-data-and-install-all-required-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>Uncomment and run the following cell to download the tutorial data and
 install the required dependencies.</p>
@@ -155,13 +154,8 @@ tutorials and pycortex.</p>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;VOXELWISE_TUTORIALS_DATA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/content&quot;</span>
 
 <span class="kn">import</span> <span class="nn">cortex</span>
-<span class="n">filestore</span> <span class="o">=</span> <span class="s2">&quot;/content/pycortex/filestore/&quot;</span>
-<span class="n">cortex</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;basic&#39;</span><span class="p">][</span><span class="s1">&#39;filestore&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filestore</span>
+<span class="n">cortex</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;/content/pycortex/filestore/&quot;</span><span class="p">)</span>  <span class="c1"># change filestore inplace</span>
 <span class="n">cortex</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;webgl&#39;</span><span class="p">][</span><span class="s1">&#39;colormaps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/content/pycortex/filestore/colormaps&quot;</span>
-<span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">Database</span><span class="p">(</span><span class="n">filestore</span><span class="p">)</span>
-<span class="n">cortex</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
-<span class="n">cortex</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
-<span class="n">cortex</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">braindata</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">cortex</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db</span>
 
 <span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="n">sklearn</span><span class="o">.</span><span class="n">set_config</span><span class="p">(</span><span class="n">assume_finite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -178,8 +172,8 @@ tutorials and pycortex.</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</section>
-</section>
+</div>
+</div>
 
 
           </div>

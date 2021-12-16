@@ -90,7 +90,7 @@ Path of the data directory
 
  .. code-block:: none
 
-    /home/jlg/mvdoc/voxelwise_tutorials_data/vim-5
+    /home/jlg/tomdlt/voxelwise_tutorials_data/vim-5
 
 
 
@@ -279,7 +279,7 @@ We can also plot the distribution of explainable variance over voxels.
 
 .. GENERATED FROM PYTHON SOURCE LINES 115-121
 
-We see that many voxels have low explainable variance. This is 
+We see that many voxels have low explainable variance. This is
 expected, since many voxels are not driven by a visual stimulus, and their
 response changes over repeats of the same stimulus.
 We also see that some voxels have high explainable variance (around 0.7). The
@@ -350,7 +350,7 @@ in the visual cortex, in early visual regions like V1, V2, V3, or in
 higher-level regions like EBA, FFA or IPS. This is expected since this
 dataset contains responses to a visual stimulus.
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-176
+.. GENERATED FROM PYTHON SOURCE LINES 168-175
 
 Map to "fsaverage"
 ------------------
@@ -358,67 +358,22 @@ Map to "fsaverage"
 The second mapper we provide maps the voxel data to a Freesurfer
 average surface ("fsaverage"), that can be used in ``pycortex``.
 
-If you are running the notebook on Colab, you might need to update the
-pycortex filestore as following:
+First, let's download the "fsaverage" surface.
 
-.. GENERATED FROM PYTHON SOURCE LINES 176-194
+.. GENERATED FROM PYTHON SOURCE LINES 175-186
 
 .. code-block:: default
 
 
     import cortex
-    try:
-        import google.colab  # noqa
-        in_colab = True
-    except ImportError:
-        in_colab = False
-    print(in_colab)
-
-    if in_colab:
-        filestore = cortex.options.config['basic']['filestore']
-        cortex.database.db = cortex.database.Database(filestore)
-        cortex.db = cortex.database.db
-        cortex.utils.db = cortex.database.db
-        cortex.dataset.braindata.db = cortex.database.db
-        cortex.quickflat.utils.db = cortex.database.db
-        cortex.quickflat.composite.db = cortex.database.db
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    False
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 195-196
-
-Now, let's download the "fsaverage" surface.
-
-.. GENERATED FROM PYTHON SOURCE LINES 196-210
-
-.. code-block:: default
-
 
     surface = "fsaverage"
 
     if not hasattr(cortex.db, surface):
-        cortex.utils.download_subject(subject_id=surface)
-        # reinitialize pycortex's database to update available subjects
-        filestore = cortex.options.config['basic']['filestore']
-        cortex.database.db = cortex.database.Database(filestore)
-        cortex.db = cortex.database.db
-        cortex.utils.db = cortex.database.db
-        cortex.dataset.braindata.db = cortex.database.db
-        cortex.quickflat.utils.db = cortex.database.db
-        cortex.quickflat.composite.db = cortex.database.db
+        cortex.utils.download_subject(subject_id=surface,
+                                      pycortex_store=cortex.db.filestore)
+        cortex.db._subjects = None  # force filestore reload
+        assert hasattr(cortex.db, surface)
 
 
 
@@ -427,14 +382,14 @@ Now, let's download the "fsaverage" surface.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-215
+.. GENERATED FROM PYTHON SOURCE LINES 187-191
 
 Then, we load the "fsaverage" mapper. The mapper is a matrix of shape
 (n_vertices, n_voxels), which maps each voxel to some vertices in the
 fsaverage surface. It is stored as a sparse CSR matrix. The mapper is applied
 with a dot product ``@`` (equivalent to ``np.dot``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 215-222
+.. GENERATED FROM PYTHON SOURCE LINES 191-198
 
 .. code-block:: default
 
@@ -460,13 +415,13 @@ with a dot product ``@`` (equivalent to ``np.dot``).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 223-226
+.. GENERATED FROM PYTHON SOURCE LINES 199-202
 
 We can then create a ``Vertex`` object in ``pycortex``, containing the
 projected data. This object can be used either in a ``pycortex`` interactive
 3D viewer, or in a ``matplotlib`` figure showing only the flatmap.
 
-.. GENERATED FROM PYTHON SOURCE LINES 226-229
+.. GENERATED FROM PYTHON SOURCE LINES 202-205
 
 .. code-block:: default
 
@@ -480,19 +435,25 @@ projected data. This object can be used either in a ``pycortex`` interactive
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 230-236
+.. GENERATED FROM PYTHON SOURCE LINES 206-211
 
 To start an interactive 3D viewer in the browser, we can use the ``webshow``
-function in pycortex.
-If you are running the notebook on Colab, you first need to tunnel the pycortex
-application out of Colab. To do so, use the following cell to start a tunnel
-with ``ngrok`` and to get an address where the pycortex viewer will be made
-accessible.
+function in pycortex. If you are running the notebook on Colab, you first
+need to tunnel the pycortex application out of Colab. To do so, use the
+following cell to start a tunnel with ``ngrok`` and to get an address where
+the pycortex viewer will be made accessible.
 
-.. GENERATED FROM PYTHON SOURCE LINES 236-252
+.. GENERATED FROM PYTHON SOURCE LINES 211-233
 
 .. code-block:: default
 
+
+    try:
+        import google.colab  # noqa
+        in_colab = True
+    except ImportError:
+        in_colab = False
+    print(in_colab)
 
     if in_colab:
         from IPython import get_ipython
@@ -512,18 +473,25 @@ accessible.
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    False
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 253-257
+.. GENERATED FROM PYTHON SOURCE LINES 234-238
 
 Now you can start an interactive 3D viewer by changing ``run_webshow`` to
 ``True`` and running the following cell.  If you are using Colab, remember to
 use the address returned by ngrok in the cell above rather than the address
 returned by this cell.
 
-.. GENERATED FROM PYTHON SOURCE LINES 257-262
+.. GENERATED FROM PYTHON SOURCE LINES 238-243
 
 .. code-block:: default
 
@@ -539,7 +507,7 @@ returned by this cell.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 263-268
+.. GENERATED FROM PYTHON SOURCE LINES 244-249
 
 Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
 `quickshow` function.
@@ -547,7 +515,7 @@ Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
 (This function requires Inkscape to be installed. The rest of the tutorial
 does not use this function, so feel free to ignore.)
 
-.. GENERATED FROM PYTHON SOURCE LINES 268-276
+.. GENERATED FROM PYTHON SOURCE LINES 249-256
 
 .. code-block:: default
 
@@ -561,7 +529,6 @@ does not use this function, so feel free to ignore.)
 
 
 
-
 .. image:: /_auto_examples/movies_3T/images/sphx_glr_01_plot_explainable_variance_005.png
     :alt: 01 plot explainable variance
     :class: sphx-glr-single-img
@@ -570,7 +537,7 @@ does not use this function, so feel free to ignore.)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 277-291
+.. GENERATED FROM PYTHON SOURCE LINES 257-271
 
 References
 ----------
@@ -590,7 +557,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.534 seconds)
+   **Total running time of the script:** ( 0 minutes  8.057 seconds)
 
 
 .. _sphx_glr_download__auto_examples_movies_3T_01_plot_explainable_variance.py:

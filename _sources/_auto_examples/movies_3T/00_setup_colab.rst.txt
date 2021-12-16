@@ -81,7 +81,7 @@ For the record, here is what each command does:
 Now run the following cell to set up the environment variables for the
 tutorials and pycortex.
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-66
+.. GENERATED FROM PYTHON SOURCE LINES 50-61
 
 .. code-block:: default
 
@@ -90,19 +90,14 @@ tutorials and pycortex.
     os.environ['VOXELWISE_TUTORIALS_DATA'] = "/content"
 
     import cortex
-    filestore = "/content/pycortex/filestore/"
-    cortex.options.config['basic']['filestore'] = filestore
+    cortex.db.__init__("/content/pycortex/filestore/")  # change filestore inplace
     cortex.options.config['webgl']['colormaps'] = "/content/pycortex/filestore/colormaps"
-    cortex.database.db = cortex.database.Database(filestore)
-    cortex.db = cortex.database.db
-    cortex.utils.db = cortex.database.db
-    cortex.dataset.braindata.db = cortex.database.db
 
     import sklearn
     sklearn.set_config(assume_finite=True)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-68
+.. GENERATED FROM PYTHON SOURCE LINES 62-63
 
 Your Google Colab environment is now set up for the voxelwise tutorials.
 

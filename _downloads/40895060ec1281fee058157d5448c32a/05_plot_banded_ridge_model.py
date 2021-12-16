@@ -360,7 +360,7 @@ print("(n_kernels, n_voxels_mask) =", split_scores_mask.shape)
 n_kernels = split_scores_mask.shape[0]
 n_voxels = Y_train.shape[1]
 split_scores = np.zeros((n_kernels, n_voxels))
-split_scores[:, mask] = split_scores_mask
+split_scores[:, mask] = backend.to_numpy(split_scores_mask)
 print("(n_kernels, n_voxels) =", split_scores.shape)
 
 ###############################################################################
