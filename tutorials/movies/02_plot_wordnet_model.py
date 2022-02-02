@@ -32,9 +32,8 @@ predictions to the corresponding ground-truth fMRI responses.
 ###############################################################################
 # Path of the data directory
 # --------------------------
-import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-5")
+directory = get_data_home(dataset="vim-5")
 print(directory)
 
 ###############################################################################
@@ -53,6 +52,7 @@ subject = "S01"
 # to estimate the generalization performance of the selected model. The
 # test set contains multiple repetitions of the same experiment to estimate
 # an upper bound of the model prediction accuracy (cf. previous example).
+import os
 import numpy as np
 from voxelwise_tutorials.io import load_hdf5_array
 

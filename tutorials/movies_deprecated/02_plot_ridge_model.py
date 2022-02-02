@@ -32,9 +32,8 @@ responses.
 # -------------
 
 # path of the data directory
-import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-2")
+directory = get_data_home(dataset="vim-2")
 print(directory)
 
 # modify to use another subject
@@ -42,10 +41,11 @@ subject = "subject1"
 
 ###############################################################################
 # Here the data is not loaded in memory, we only take a peek at the data shape.
+import os
 import h5py
-import os.path as op
 
-with h5py.File(op.join(directory, f'VoxelResponses_{subject}.mat'), 'r') as f:
+file_name = os.path.join(directory, f'VoxelResponses_{subject}.mat')
+with h5py.File(file_name, 'r') as f:
     print(f.keys())  # Show all variables
     for key in f.keys():
         print(f[key])
@@ -57,7 +57,7 @@ import numpy as np
 
 from voxelwise_tutorials.io import load_hdf5_array
 
-file_name = op.join(directory, f'VoxelResponses_{subject}.mat')
+file_name = os.path.join(directory, f'VoxelResponses_{subject}.mat')
 Y_train = load_hdf5_array(file_name, key='rt')
 Y_test_repeats = load_hdf5_array(file_name, key='rva')
 
@@ -90,7 +90,7 @@ Y_test = np.nan_to_num(Y_test)
 # Here we load the motion-energy features, that are going to be used for the
 # linear regression model.
 
-file_name = op.join(directory, "features", "motion_energy.hdf")
+file_name = os.path.join(directory, "features", "motion_energy.hdf")
 X_train = load_hdf5_array(file_name, key='X_train')
 X_test = load_hdf5_array(file_name, key='X_test')
 

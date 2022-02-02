@@ -20,9 +20,8 @@ publication [1]_, and the data set [2]_.
 # --------
 
 # path of the data directory
-import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-2")
+directory = get_data_home(dataset="vim-2")
 print(directory)
 
 ###############################################################################

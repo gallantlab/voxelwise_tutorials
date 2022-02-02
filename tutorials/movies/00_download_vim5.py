@@ -30,9 +30,8 @@ raise RuntimeError("The data has not been publicly released yet, so "
 # --------
 
 # path of the data directory
-import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-5")
+directory = get_data_home(dataset="vim-5")
 print(directory)
 
 ###############################################################################

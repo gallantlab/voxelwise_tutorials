@@ -28,9 +28,8 @@ takes a couple hours to run.
 ###############################################################################
 
 # path of the data directory
-import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-5")
+directory = get_data_home(dataset="vim-5")
 print(directory)
 
 ###############################################################################
@@ -38,7 +37,7 @@ print(directory)
 # -----------------------
 #
 # Here the data is not loaded in memory, we only take a peek at the data shape.
-
+import os
 import h5py
 
 first_file_name = os.path.join(directory, 'stimuli', 'train_00.hdf')

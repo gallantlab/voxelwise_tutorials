@@ -29,9 +29,8 @@ comparing the model predictions with the ground-truth fMRI responses.
 ###############################################################################
 # Path of the data directory
 # --------------------------
-import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-5")
+directory = get_data_home(dataset="vim-5")
 print(directory)
 
 ###############################################################################
@@ -44,8 +43,8 @@ subject = "S01"
 # -------------
 #
 # We first load the fMRI responses.
+import os
 import numpy as np
-
 from voxelwise_tutorials.io import load_hdf5_array
 
 file_name = os.path.join(directory, "responses", f"{subject}_responses.hdf")

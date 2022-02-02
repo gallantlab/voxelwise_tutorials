@@ -21,9 +21,8 @@ With a CPU backend, it can last 10 times more.
 ###############################################################################
 # Path of the data directory
 # --------------------------
-import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-5")
+directory = get_data_home(dataset="vim-5")
 print(directory)
 
 ###############################################################################
@@ -37,8 +36,8 @@ subject = "S01"
 #
 # As in the previous examples, we first load the fMRI responses, which are our
 # regression targets.
+import os
 import numpy as np
-
 from voxelwise_tutorials.io import load_hdf5_array
 
 file_name = os.path.join(directory, "responses", f"{subject}_responses.hdf")

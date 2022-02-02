@@ -40,9 +40,8 @@ references [1]_ [2]_ [3]_.
 ###############################################################################
 # Path of the data directory
 # --------------------------
-import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-5")
+directory = get_data_home(dataset="vim-5")
 print(directory)
 
 ###############################################################################
@@ -59,6 +58,7 @@ from voxelwise_tutorials.io import load_hdf5_array
 ###############################################################################
 # First, we load the fMRI responses on the test set, which contains brain
 # responses to ten (10) repeats of the same stimulus.
+import os
 file_name = os.path.join(directory, 'responses', f'{subject}_responses.hdf')
 Y_test = load_hdf5_array(file_name, key="Y_test")
 print("(n_repeats, n_samples_test, n_voxels) =", Y_test.shape)

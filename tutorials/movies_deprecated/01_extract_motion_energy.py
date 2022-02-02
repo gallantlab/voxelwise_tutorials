@@ -27,16 +27,14 @@ takes a couple hours to run.
 # (We downloaded the files in the previous script.)
 
 # path of the data directory
-import os
 from voxelwise_tutorials.io import get_data_home
-directory = os.path.join(get_data_home(), "vim-2")
+directory = get_data_home(dataset="vim-2")
 print(directory)
 
 ###############################################################################
 # Here the data is not loaded in memory, we only take a peak at the data shape.
-
-import h5py
 import os
+import h5py
 
 with h5py.File(os.path.join(directory, 'Stimuli.mat'), 'r') as f:
     print(f.keys())  # Show all variables

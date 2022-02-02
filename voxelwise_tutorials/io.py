@@ -206,8 +206,8 @@ def save_hdf5_dataset(file_name, dataset, mode='w'):
     print("Saved %s" % file_name)
 
 
-def get_data_home(data_home=None) -> str:
-    """Return the path of the voxelwise tutorials data dir.
+def get_data_home(dataset=None, data_home=None) -> str:
+    """Return the path of the voxelwise tutorials data directory.
 
     This folder is used by some large dataset loaders to avoid downloading the
     data several times. By default the data dir is set to a folder named
@@ -219,8 +219,17 @@ def get_data_home(data_home=None) -> str:
 
     Parameters
     ----------
+    dataset : str | None
+        Optional name of a particular dataset subdirectory, to append to the
+        data_home path.
     data_home : str | None
-        The path to voxelwise tutorials data dir.
+        Optional path to voxelwise tutorials data dir, to use instead of the
+        default one.
+
+    Returns
+    -------
+    data_home : str
+        The path to voxelwise tutorials data directory.
     """
     if data_home is None:
         data_home = os.environ.get(
@@ -231,16 +240,23 @@ def get_data_home(data_home=None) -> str:
     if not os.path.exists(data_home):
         os.makedirs(data_home)
 
+    if dataset is not None:
+        data_home = os.path.join(data_home, dataset)
+
     return data_home
 
 
-def clear_data_home(data_home=None):
+def clear_data_home(dataset=None, data_home=None):
     """Delete all the content of the data home cache.
 
     Parameters
     ----------
+    dataset : str | None
+        Optional name of a particular dataset subdirectory, to append to the
+        data_home path.
     data_home : str | None
-        The path to voxelwise tutorials data dir.
+        Optional path to voxelwise tutorials data dir, to use instead of the
+        default one.
     """
-    data_home = get_data_home(data_home)
+    data_home = get_data_home(dataset=dataset, data_home=data_home)
     shutil.rmtree(data_home)
