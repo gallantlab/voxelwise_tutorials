@@ -33,7 +33,7 @@ notebooks:
 	python create_notebooks.py
 	$(MAKE) merge-notebooks
 
-NBDIR = ../tutorials/notebooks/movies_3T
+NBDIR = ../tutorials/notebooks/movies
 
 merge-notebooks:
 	python merge_notebooks.py \

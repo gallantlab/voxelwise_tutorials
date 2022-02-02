@@ -1,6 +1,6 @@
 """Unit tests on the mappers.
 
-Requires the movies 3T dataset locally.
+Requires the movies dataset locally.
 """
 
 import os

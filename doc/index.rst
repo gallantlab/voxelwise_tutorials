@@ -21,10 +21,9 @@ To explore these tutorials, one can:
   <https://github.com/gallantlab/voxelwise_tutorials/tree/main/tutorials/notebooks>`_
   directory)
 - run the merged notebook in
-  `Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/movies_3T/merged_for_colab.ipynb>`_.
+  `Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/movies/merged_for_colab.ipynb>`_.
 
-The tutorials are best explored in order, starting with the "Movies 3T"
-tutorial.
+The tutorials are best explored in order, starting with the "Movies" tutorial.
 
 The project is available on GitHub at `gallantlab/voxelwise_tutorials
 <https://github.com/gallantlab/voxelwise_tutorials>`_. On top of the tutorials,

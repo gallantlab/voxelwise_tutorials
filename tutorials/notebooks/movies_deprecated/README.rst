@@ -1,8 +1,14 @@
 |
 |
 
-Movies 4T tutorial
-==================
+Movies tutorial (deprecated)
+============================
+
+.. Note::
+    This tutorial is redundant with the "Movies tutorial". It uses a
+    different data set with brain responses limited to the occipital lobe,
+    and with no mappers to plot the data on flatmaps.
+    Using the "Movies tutorial" with full brain responses is recommended.
 
 This tutorial describes how to perform voxelwise modeling on a visual
 imaging experiment.
@@ -15,12 +21,6 @@ The data is briefly described in the dataset description
 and in more details in the original publication [5]_.
 If you publish work using this data set, please cite the original
 publication [5]_, and the CRCNS data set [6]_.
-
-.. Note::
-    This tutorial is redundant with the "Movies 3T tutorial". It uses a
-    different data set, with brain responses limited to the occipital lobe,
-    and with no mappers to plot the data on flatmaps.
-    Using the "Movies 3T tutorial" with full brain responses is recommended.
 
 
 **Requirements:**
