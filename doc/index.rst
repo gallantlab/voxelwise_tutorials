@@ -15,42 +15,38 @@ To explore these tutorials, one can:
 
 - read the rendered examples in the tutorials
   `gallery of examples <_auto_examples/index.html>`_ (recommended)
-- run the Python scripts located in the GitHub repository (`tutorials <https://github.com/gallantlab/voxelwise_tutorials/tree/main/tutorials>`_ directory)
-- run the Jupyter notebooks located in the GitHub repository 
-  (`tutorials/notebooks
+- run the Python scripts (`tutorials <https://github.com/gallantlab/voxelwise_tutorials/tree/main/tutorials>`_ directory)
+- run the Jupyter notebooks (`tutorials/notebooks
   <https://github.com/gallantlab/voxelwise_tutorials/tree/main/tutorials/notebooks>`_
   directory)
 - run the merged notebook in
-  `Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/movies/merged_for_colab.ipynb>`_.
+  `Google Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/movies/merged_for_colab.ipynb>`_
 
-The tutorials are best explored in order, starting with the "Movies" tutorial.
+The tutorials are best explored in order, starting with the `Movies tutorial
+<_auto_examples/index.html>`_.
 
 The project is available on GitHub at `gallantlab/voxelwise_tutorials
-<https://github.com/gallantlab/voxelwise_tutorials>`_. On top of the tutorials,
-the GitHub repository contains a Python package called ``voxelwise_tutorials``,
-which contains useful functions to download the data sets, load the files,
-process the data, and visualize the results. Install instructions are available
-`here <voxelwise_package.html>`_. Then, run either the Python scripts or the
-Jupyter notebooks located in the "tutorials" directory.
+<https://github.com/gallantlab/voxelwise_tutorials>`_. On top of the tutorials
+scripts, the GitHub repository contains a Python package called
+``voxelwise_tutorials``, which contains useful functions to download the data
+sets, load the files, process the data, and visualize the results. Install
+instructions are available `here <voxelwise_package.html>`_.
 
-Tutorials
----------
+Navigation
+----------
 .. toctree::
    :includehidden:
-   :maxdepth: 2
+   :maxdepth: 1
    
     
    _auto_examples/index
 
-Documentation
--------------
 .. toctree::
-   :maxdepth: 2
-
-   voxelwise_modeling
-
-.. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    voxelwise_package
 
+.. toctree::
+   :maxdepth: 1
+
+   voxelwise_modeling

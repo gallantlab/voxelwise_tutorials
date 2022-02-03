@@ -4,20 +4,19 @@ Movies tutorial
 This tutorial describes how to perform voxelwise modeling on a visual
 imaging experiment.
 
-**Data set:**
-This tutorial is based on publicly available data
-`published on CRCNS <TBD>`_ [4]_.
-The data is briefly described in the dataset `description PDF <TBD>`_,
-and in more details in the original publication [1]_.
-If you publish work using this data set, please cite the original
-publication [1]_, and the CRCNS data set [4]_.
+**Data set:** This tutorial is based on publicly available data `published on
+CRCNS <TBD>`_ :ref:`[4b]<hut2012data>`. The data is briefly described in the
+dataset `description PDF <TBD>`_, and in more details in the original
+publication :ref:`[4]<hut2012>`. If you publish work using this data set,
+please cite the original publications :ref:`[4]<hut2012>`, and the CRCNS data
+set :ref:`[4b]<hut2012data>`.
 
 **Models:**
 This tutorial implements different voxelwise encoding models:
 
-- a ridge model with wordnet semantic features as described in [1]_.
-- a ridge model with motion-energy features as described in [2]_.
-- a banded-ridge model with both feature spaces as described in [3]_.
+- a ridge model with wordnet semantic features as described in :ref:`[4]<hut2012>`.
+- a ridge model with motion-energy features as described in :ref:`[3]<nis2011>`.
+- a banded-ridge model with both feature spaces as described in :ref:`[12]<nun2019>`.
 
 **Scikit-learn API:** These tutorials use `scikit-learn
 <https://github.com/scikit-learn/scikit-learn>`_ to define the preprocessing
@@ -39,21 +38,5 @@ This tutorial requires the following Python packages:
 - voxelwise_tutorials  (this repository) and its dependencies
 - cupy or pytorch  (optional, to use a GPU backend in himalaya)
 
-**References:**
-
-.. [1] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2012).
-    A continuous semantic space describes the representation of thousands of
-    object and action categories across the human brain. Neuron, 76(6),
-    1210-1224.
-
-.. [2] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
-    B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
-    activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
-
-.. [3] Nunez-Elizalde, A. O., Huth, A. G., & Gallant, J. L. (2019).
-    Voxelwise encoding models with non-spherical multivariate normal priors.
-    Neuroimage, 197, 482-492.
-
-.. [4] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2020):
-    Gallant Lab Natural Movie 3T fMRI Data. CRCNS.org.
-    http://dx.doi.org/10.6080/TBD
+**Gallery of scripts:**
+Click on each thumbnail below to open the corresponding page:

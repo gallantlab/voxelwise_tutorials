@@ -97,12 +97,13 @@ print("(n_samples_test, n_features) =", X_test.shape)
 # ----------------------------------
 #
 # To select the best hyperparameter through cross-validation, we must define a
-# cross-validation splitting scheme. Since fMRI time-series are autocorrelated
-# in time, we should preserve as much as possible the temporal correlation.
-# In other words, since consecutive time samples are correlated, we should not
-# put one time sample in the training set and the immediately following time
-# sample in the validation set. Thus, we define here a leave-one-run-out
-# cross-validation split that keeps each recording run intact.
+# cross-validation splitting scheme. Because fMRI time-series are
+# autocorrelated in time, we should preserve as much as possible the temporal
+# correlation. In other words, because consecutive time samples are correlated,
+# we should not put one time sample in the training set and the immediately
+# following time sample in the validation set. Thus, we define here a
+# leave-one-run-out cross-validation split that keeps each recording run
+# intact.
 
 from sklearn.model_selection import check_cv
 from voxelwise_tutorials.utils import generate_leave_one_run_out
@@ -154,14 +155,13 @@ delayer = Delayer(delays=[1, 2, 3, 4])
 ###############################################################################
 # Finally, we use a ridge regression model. Ridge regression is a linear
 # regression with L2 regularization. The L2 regularization improves robustness
-# to correlated features and improves generalization performance. However, the
-# L2 regularization is controlled by a hyperparameter ``alpha`` that needs to
-# be tuned for each dataset. This regularization hyperparameter is usually
+# to correlated features and improves generalization performance. The L2
+# regularization is controlled by a hyperparameter ``alpha`` that needs to be
+# tuned for each dataset. This regularization hyperparameter is usually
 # selected over a grid search with cross-validation, selecting the
 # hyperparameter that maximizes the predictive performances on the validation
-# set. More details about cross-validation can be found in the `scikit-learn
-# documentation
-# <https://scikit-learn.org/stable/modules/cross_validation.html>`_.
+# set. See the previous example for more details about ridge regression and
+# hyperparameter selection.
 #
 # For computational reasons, when the number of features is larger than the
 # number of samples, it is more efficient to solve ridge regression using the

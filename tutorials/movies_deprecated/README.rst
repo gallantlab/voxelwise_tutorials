@@ -15,12 +15,12 @@ imaging experiment.
 
 **Data set:**
 This tutorial is based on publicly available data published on
-`CRCNS <https://crcns.org/data-sets/vc/vim-2/about-vim-2>`_ [6]_.
+`CRCNS <https://crcns.org/data-sets/vc/vim-2/about-vim-2>`_ :ref:`[3b]<nis2011data>`.
 The data is briefly described in the dataset description
 `PDF <https://crcns.org/files/data/vim-2/crcns-vim-2-data-description.pdf>`_,
-and in more details in the original publication [5]_.
+and in more details in the original publication :ref:`[3]<nis2011>`.
 If you publish work using this data set, please cite the original
-publication [5]_, and the CRCNS data set [6]_.
+publication :ref:`[3]<nis2011>`, and the CRCNS data set :ref:`[3b]<nis2011data>`.
 
 
 **Requirements:**
@@ -29,12 +29,5 @@ This tutorial requires the following Python packages:
 - voxelwise_tutorials  (this repository) and its dependencies
 - cupy or pytorch  (optional, to use a GPU backend in himalaya)
 
-**References:**
-
-.. [5] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
-    B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
-    activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
-
-.. [6] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
-    B., & Gallant, J. L. (2014): Gallant Lab Natural Movie 4T fMRI Data.
-    CRCNS.org. http://dx.doi.org/10.6080/K00Z715X
+**Gallery of scripts:**
+Click on each thumbnail below to open the corresponding page:
