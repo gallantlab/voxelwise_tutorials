@@ -5,7 +5,7 @@ Extract motion energy features from the stimuli
 
 This script describes how to extract motion-energy features from the stimuli.
 
-.. Note:: This public data set already contains precomputed motion-energy.
+.. Note:: The public data set already contains precomputed motion-energy.
     Therefore, you do not need to run this script to fit motion-energy models
     in other part of this tutorial.
 
