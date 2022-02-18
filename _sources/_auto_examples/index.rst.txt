@@ -15,10 +15,10 @@ directory.)
 
 
 
-.. _sphx_glr__auto_examples_movies_3T:
+.. _sphx_glr__auto_examples_movies:
 
-Movies 3T tutorial
-==================
+Movies tutorial
+===============
 
 This tutorial describes how to perform voxelwise modeling on a visual
 imaging experiment.
@@ -32,7 +32,7 @@ If you publish work using this data set, please cite the original
 publication [1]_, and the CRCNS data set [4]_.
 
 **Models:**
-This tutorial implements different voxelwise models:
+This tutorial implements different voxelwise encoding models:
 
 - a ridge model with wordnet semantic features as described in [1]_.
 - a ridge model with motion-energy features as described in [2]_.
@@ -47,11 +47,10 @@ the scikit-learn terminology, which is explained in great details in the
 `glossary of common terms and API elements
 <https://scikit-learn.org/stable/glossary.html#glossary>`_.
 
-**Running time:**
-Most of these tutorials can be run in a very reasonable time (under 1 minute
-for most examples, ~7 minutes for the banded ridge example) with a GPU backend
-in `himalaya <https://github.com/gallantlab/himalaya>`_. Using a CPU backend is
-usually slower (typically 10 times slower).
+**Running time:** Most of these tutorials can be run in a reasonable time
+(under 1 minute for most examples, ~7 minutes for the banded ridge example)
+with a GPU backend in `himalaya <https://github.com/gallantlab/himalaya>`_.
+Using a CPU backend is slower (typically 10 times slower).
 
 **Requirements:**
 This tutorial requires the following Python packages:
@@ -86,10 +85,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_00_download_vim5_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_00_download_vim5_thumb.png
      :alt: Download the data set from CRCNS
 
-     :ref:`sphx_glr__auto_examples_movies_3T_00_download_vim5.py`
+     :ref:`sphx_glr__auto_examples_movies_00_download_vim5.py`
 
 .. raw:: html
 
@@ -99,7 +98,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_3T/00_download_vim5
+   /_auto_examples/movies/00_download_vim5
 
 .. raw:: html
 
@@ -107,10 +106,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_00_setup_colab_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_00_setup_colab_thumb.png
      :alt: Setup Google Colab
 
-     :ref:`sphx_glr__auto_examples_movies_3T_00_setup_colab.py`
+     :ref:`sphx_glr__auto_examples_movies_00_setup_colab.py`
 
 .. raw:: html
 
@@ -120,7 +119,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_3T/00_setup_colab
+   /_auto_examples/movies/00_setup_colab
 
 .. raw:: html
 
@@ -128,10 +127,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_01_plot_explainable_variance_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_01_plot_explainable_variance_thumb.png
      :alt: Compute the explainable variance
 
-     :ref:`sphx_glr__auto_examples_movies_3T_01_plot_explainable_variance.py`
+     :ref:`sphx_glr__auto_examples_movies_01_plot_explainable_variance.py`
 
 .. raw:: html
 
@@ -141,7 +140,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_3T/01_plot_explainable_variance
+   /_auto_examples/movies/01_plot_explainable_variance
 
 .. raw:: html
 
@@ -149,10 +148,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_02_plot_wordnet_model_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_02_plot_wordnet_model_thumb.png
      :alt: Fit a ridge model with wordnet features
 
-     :ref:`sphx_glr__auto_examples_movies_3T_02_plot_wordnet_model.py`
+     :ref:`sphx_glr__auto_examples_movies_02_plot_wordnet_model.py`
 
 .. raw:: html
 
@@ -162,7 +161,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_3T/02_plot_wordnet_model
+   /_auto_examples/movies/02_plot_wordnet_model
 
 .. raw:: html
 
@@ -170,10 +169,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_03_plot_hemodynamic_response_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_03_plot_hemodynamic_response_thumb.png
      :alt: Visualize the hemodynamic response
 
-     :ref:`sphx_glr__auto_examples_movies_3T_03_plot_hemodynamic_response.py`
+     :ref:`sphx_glr__auto_examples_movies_03_plot_hemodynamic_response.py`
 
 .. raw:: html
 
@@ -183,7 +182,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_3T/03_plot_hemodynamic_response
+   /_auto_examples/movies/03_plot_hemodynamic_response
 
 .. raw:: html
 
@@ -191,10 +190,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_04_plot_motion_energy_model_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_04_plot_motion_energy_model_thumb.png
      :alt: Fit a ridge model with motion energy features
 
-     :ref:`sphx_glr__auto_examples_movies_3T_04_plot_motion_energy_model.py`
+     :ref:`sphx_glr__auto_examples_movies_04_plot_motion_energy_model.py`
 
 .. raw:: html
 
@@ -204,7 +203,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_3T/04_plot_motion_energy_model
+   /_auto_examples/movies/04_plot_motion_energy_model
 
 .. raw:: html
 
@@ -212,10 +211,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_05_plot_banded_ridge_model_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_05_plot_banded_ridge_model_thumb.png
      :alt: Fit a banded ridge model with both wordnet and motion energy features
 
-     :ref:`sphx_glr__auto_examples_movies_3T_05_plot_banded_ridge_model.py`
+     :ref:`sphx_glr__auto_examples_movies_05_plot_banded_ridge_model.py`
 
 .. raw:: html
 
@@ -225,7 +224,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_3T/05_plot_banded_ridge_model
+   /_auto_examples/movies/05_plot_banded_ridge_model
 
 .. raw:: html
 
@@ -233,10 +232,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_3T/images/thumb/sphx_glr_06_extract_motion_energy_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_06_extract_motion_energy_thumb.png
      :alt: Extract motion energy features from the stimuli
 
-     :ref:`sphx_glr__auto_examples_movies_3T_06_extract_motion_energy.py`
+     :ref:`sphx_glr__auto_examples_movies_06_extract_motion_energy.py`
 
 .. raw:: html
 
@@ -246,20 +245,26 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_3T/06_extract_motion_energy
+   /_auto_examples/movies/06_extract_motion_energy
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
 
 
 
-.. _sphx_glr__auto_examples_movies_4T:
+.. _sphx_glr__auto_examples_movies_deprecated:
 
 |
 |
 
-Movies 4T tutorial
-==================
+Movies tutorial (deprecated)
+============================
+
+.. Note::
+    This tutorial is redundant with the "Movies tutorial". It uses a
+    different data set with brain responses limited to the occipital lobe,
+    and with no mappers to plot the data on flatmaps.
+    Using the "Movies tutorial" with full brain responses is recommended.
 
 This tutorial describes how to perform voxelwise modeling on a visual
 imaging experiment.
@@ -272,12 +277,6 @@ The data is briefly described in the dataset description
 and in more details in the original publication [5]_.
 If you publish work using this data set, please cite the original
 publication [5]_, and the CRCNS data set [6]_.
-
-.. Note::
-    This tutorial is redundant with the "Movies 3T tutorial". It uses a
-    different data set, with brain responses limited to the occipital lobe,
-    and with no mappers to plot the data on flatmaps.
-    Using the "Movies 3T tutorial" with full brain responses is recommended.
 
 
 **Requirements:**
@@ -297,16 +296,17 @@ This tutorial requires the following Python packages:
     CRCNS.org. http://dx.doi.org/10.6080/K00Z715X
 
 
+
 .. raw:: html
 
     <div class="sphx-glr-thumbcontainer" tooltip="In this script, we download the data set from CRCNS. A (free) account is required.">
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_4T/images/thumb/sphx_glr_00_download_vim2_thumb.png
+ .. figure:: /_auto_examples/movies_deprecated/images/thumb/sphx_glr_00_download_vim2_thumb.png
      :alt: Download the data set from CRCNS
 
-     :ref:`sphx_glr__auto_examples_movies_4T_00_download_vim2.py`
+     :ref:`sphx_glr__auto_examples_movies_deprecated_00_download_vim2.py`
 
 .. raw:: html
 
@@ -316,7 +316,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_4T/00_download_vim2
+   /_auto_examples/movies_deprecated/00_download_vim2
 
 .. raw:: html
 
@@ -324,10 +324,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_4T/images/thumb/sphx_glr_01_extract_motion_energy_thumb.png
+ .. figure:: /_auto_examples/movies_deprecated/images/thumb/sphx_glr_01_extract_motion_energy_thumb.png
      :alt: Extract motion energy features from the stimuli
 
-     :ref:`sphx_glr__auto_examples_movies_4T_01_extract_motion_energy.py`
+     :ref:`sphx_glr__auto_examples_movies_deprecated_01_extract_motion_energy.py`
 
 .. raw:: html
 
@@ -337,7 +337,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_4T/01_extract_motion_energy
+   /_auto_examples/movies_deprecated/01_extract_motion_energy
 
 .. raw:: html
 
@@ -345,10 +345,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies_4T/images/thumb/sphx_glr_02_plot_ridge_model_thumb.png
+ .. figure:: /_auto_examples/movies_deprecated/images/thumb/sphx_glr_02_plot_ridge_model_thumb.png
      :alt: Fit a ridge model with motion energy features
 
-     :ref:`sphx_glr__auto_examples_movies_4T_02_plot_ridge_model.py`
+     :ref:`sphx_glr__auto_examples_movies_deprecated_02_plot_ridge_model.py`
 
 .. raw:: html
 
@@ -358,7 +358,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies_4T/02_plot_ridge_model
+   /_auto_examples/movies_deprecated/02_plot_ridge_model
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>

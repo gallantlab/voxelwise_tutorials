@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fit a ridge model with motion energy features &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="The voxelwise modeling framework" href="../../voxelwise_modeling.html" />
+    <link rel="prev" title="Extract motion energy features from the stimuli" href="01_extract_motion_energy.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/flatmap.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Voxelwise modeling tutorials</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=gallantlab&repo=voxelwise_tutorials&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Movies tutorial</a><ul>
+      <li>Previous: <a href="01_extract_motion_energy.html" title="previous chapter">Extract motion energy features from the stimuli</a></li>
+      <li>Next: <a href="../../voxelwise_modeling.html" title="next chapter">The voxelwise modeling framework</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Movies tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#movies-tutorial-deprecated">Movies tutorial (deprecated)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="00_download_vim2.html">Download the data set from CRCNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_extract_motion_energy.html">Extract motion energy features from the stimuli</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Fit a ridge model with motion energy features</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">The voxelwise modeling framework</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html">Helper Python package</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-deprecated-02-plot-ridge-model-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="fit-a-ridge-model-with-motion-energy-features">
+<span id="sphx-glr-auto-examples-movies-deprecated-02-plot-ridge-model-py"></span><h1>Fit a ridge model with motion energy features<a class="headerlink" href="#fit-a-ridge-model-with-motion-energy-features" title="Permalink to this headline">¶</a></h1>
+<p>In this example, we model the fMRI responses with motion-energy features
+extracted from the movie stimulus. The model is a regularized linear regression
+model.</p>
+<p>This tutorial reproduces part of the analysis described in Nishimoto et al
+(2011) <a class="footnote-reference brackets" href="#id3" id="id1">1</a>. See this publication for more details about the experiment, the
+motion-energy features, along with more results and more discussions.</p>
+<p><em>Motion-energy features:</em> Motion-energy features result from filtering a video
+stimulus with spatio-temporal Gabor filters. A pyramid of filters is used to
+compute the motion-energy features at multiple spatial and temporal scales.
+Motion-energy features were introduced in <a class="footnote-reference brackets" href="#id3" id="id2">1</a>.</p>
+<p><em>Summary:</em> We first concatenate the features with multiple delays, to account
+for the slow hemodynamic response. A linear regression model then weights each
+delayed feature with a different weight, to build a predictive model of BOLD
+activity. Again, the linear regression is regularized to improve robustness to
+correlated features and to improve generalization. The optimal regularization
+hyperparameter is selected independently on each voxel over a grid-search with
+cross-validation. Finally, the model generalization performance is evaluated on
+a held-out test set, comparing the model predictions with the ground-truth fMRI
+responses.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="section" id="load-the-data">
+<h2>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># path of the data directory</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="n">get_data_home</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;vim-2&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+
+<span class="c1"># modify to use another subject</span>
+<span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;subject1&quot;</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/tomdlt/voxelwise_tutorials_data/vim-2
+</pre></div>
+</div>
+<p>Here the data is not loaded in memory, we only take a peek at the data shape.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+
+<span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;VoxelResponses_</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s1">.mat&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># Show all variables</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;KeysViewHDF5 [&#39;ei&#39;, &#39;roi&#39;, &#39;rt&#39;, &#39;rv&#39;, &#39;rva&#39;]&gt;
+&lt;HDF5 group &quot;/ei&quot; (4 members)&gt;
+&lt;HDF5 group &quot;/roi&quot; (30 members)&gt;
+&lt;HDF5 dataset &quot;rt&quot;: shape (73728, 7200), type &quot;&lt;f4&quot;&gt;
+&lt;HDF5 dataset &quot;rv&quot;: shape (73728, 540), type &quot;&lt;f4&quot;&gt;
+&lt;HDF5 dataset &quot;rva&quot;: shape (73728, 10, 540), type &quot;&lt;f4&quot;&gt;
+</pre></div>
+</div>
+<p>Then we load the fMRI responses.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">load_hdf5_array</span>
+
+<span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;VoxelResponses_</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s1">.mat&#39;</span><span class="p">)</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;rt&#39;</span><span class="p">)</span>
+<span class="n">Y_test_repeats</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;rva&#39;</span><span class="p">)</span>
+
+<span class="c1"># transpose to fit in scikit-learn&#39;s API</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">T</span>
+<span class="n">Y_test_repeats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Y_test_repeats</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># Change to True to select only voxels from (e.g.) left V1 (&quot;v1lh&quot;);</span>
+<span class="c1"># Otherwise, all voxels will be modeled.</span>
+<span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="n">roi</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;/roi/v1lh&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">roi</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">Y_train</span> <span class="o">=</span> <span class="n">Y_train</span><span class="p">[:,</span> <span class="n">mask</span><span class="p">]</span>
+    <span class="n">Y_test_repeats</span> <span class="o">=</span> <span class="n">Y_test_repeats</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">mask</span><span class="p">]</span>
+
+<span class="c1"># Z-score test runs, since the mean and scale of fMRI responses changes for</span>
+<span class="c1"># each run. The train runs are already zscored.</span>
+<span class="n">Y_test_repeats</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">Y_test_repeats</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">Y_test_repeats</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">Y_test_repeats</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Average test repeats, since we cannot model the non-repeatable part of</span>
+<span class="c1"># fMRI responses.</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">Y_test_repeats</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># remove nans, mainly present on non-cortical voxels</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">Y_train</span><span class="p">)</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">Y_test</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here we load the motion-energy features, that are going to be used for the
+linear regression model.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s2">&quot;features&quot;</span><span class="p">,</span> <span class="s2">&quot;motion_energy.hdf&quot;</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;X_train&#39;</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;X_test&#39;</span><span class="p">)</span>
+
+<span class="c1"># We use single precision float to speed up model fitting on GPU.</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="define-the-cross-validation-scheme">
+<h2>Define the cross-validation scheme<a class="headerlink" href="#define-the-cross-validation-scheme" title="Permalink to this headline">¶</a></h2>
+<p>To select the best hyperparameter through cross-validation, we must define a
+train-validation splitting scheme. Since fMRI time-series are autocorrelated
+in time, we should preserve as much as possible the time blocks.
+In other words, since consecutive time samples are correlated, we should not
+put one time sample in the training set and the immediately following time
+sample in the validation set. Thus, we define here a leave-one-run-out
+cross-validation split, which preserves each recording run.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">check_cv</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.utils</span> <span class="kn">import</span> <span class="n">generate_leave_one_run_out</span>
+
+<span class="n">n_samples_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># indice of first sample of each run, each run having 600 samples</span>
+<span class="n">run_onsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_samples_train</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+
+<span class="c1"># define a cross-validation splitter, compatible with scikit-learn</span>
+<span class="n">cv</span> <span class="o">=</span> <span class="n">generate_leave_one_run_out</span><span class="p">(</span><span class="n">n_samples_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">)</span>
+<span class="n">cv</span> <span class="o">=</span> <span class="n">check_cv</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span>  <span class="c1"># copy the splitter into a reusable list</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="define-the-model">
+<h2>Define the model<a class="headerlink" href="#define-the-model" title="Permalink to this headline">¶</a></h2>
+<p>Now, let’s define the model pipeline.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># Display the scikit-learn pipeline with an HTML diagram.</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">set_config</span>
+<span class="n">set_config</span><span class="p">(</span><span class="n">display</span><span class="o">=</span><span class="s1">&#39;diagram&#39;</span><span class="p">)</span>  <span class="c1"># requires scikit-learn 0.23</span>
+</pre></div>
+</div>
+<p>With one target, we could directly use the pipeline in scikit-learn’s
+GridSearchCV, to select the optimal hyperparameters over cross-validation.
+However, GridSearchCV can only optimize one score. Thus, in the multiple
+target case, GridSearchCV can only optimize e.g. the mean score over targets.
+Here, we want to find a different optimal hyperparameter per target/voxel, so
+we use himalaya’s KernelRidgeCV instead.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">himalaya.kernel_ridge</span> <span class="kn">import</span> <span class="n">KernelRidgeCV</span>
+</pre></div>
+</div>
+<p>We first concatenate the features with multiple delays, to account for the
+hemodynamic response. The linear regression model will then weight each
+delayed feature with a different weight, to build a predictive model.</p>
+<p>With a sample every 1 second, we use 8 delays [1, 2, 3, 4, 5, 6, 7, 8] to
+cover the most part of the hemodynamic response peak.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.delayer</span> <span class="kn">import</span> <span class="n">Delayer</span>
+</pre></div>
+</div>
+<p>The package``himalaya`` implements different computational backends,
+including GPU backends. The available GPU backends are “torch_cuda” and
+“cupy”. (These backends are only available if you installed the corresponding
+package with CUDA enabled. Check the pytorch/cupy documentation for install
+instructions.)</p>
+<p>Here we use the “torch_cuda” backend, but if the import fails we continue
+with the default “numpy” backend. The “numpy” backend is expected to be
+slower since it only uses the CPU.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">himalaya.backend</span> <span class="kn">import</span> <span class="n">set_backend</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">set_backend</span><span class="p">(</span><span class="s2">&quot;torch_cuda&quot;</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The scale of the regularization hyperparameter alpha is unknown, so we use
+a large logarithmic range, and we will check after the fit that best
+hyperparameters are not all on one range edge.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The scikit-learn Pipeline can be used as a regular estimator, calling
+pipeline.fit, pipeline.predict, etc.
+Using a pipeline can be useful to clarify the different steps, avoid
+cross-validation mistakes, or automatically cache intermediate results.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">StandardScaler</span><span class="p">(</span><span class="n">with_mean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_std</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="n">Delayer</span><span class="p">(</span><span class="n">delays</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]),</span>
+    <span class="n">KernelRidgeCV</span><span class="p">(</span>
+        <span class="n">alphas</span><span class="o">=</span><span class="n">alphas</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
+        <span class="n">solver_params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">n_targets_batch</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_alphas_batch</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                           <span class="n">n_targets_batch_refit</span><span class="o">=</span><span class="mi">50</span><span class="p">),</span>
+        <span class="n">Y_in_cpu</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pipeline</span>
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<style>#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 {color: black;background-color: white;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 pre{padding: 0;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-toggleable {background-color: white;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-estimator:hover {background-color: #d4ebff;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-item {z-index: 1;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-parallel-item:only-child::after {width: 0;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-a058aaec-ff2c-4f36-9e15-0a3712a84120 div.sk-text-repr-fallback {display: none;}</style><div id="sk-a058aaec-ff2c-4f36-9e15-0a3712a84120" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+                (&#x27;delayer&#x27;, Delayer(delays=[1, 2, 3, 4, 5, 6, 7, 8])),
+                (&#x27;kernelridgecv&#x27;,
+                 KernelRidgeCV(Y_in_cpu=True,
+                               alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+       1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
+       1.e+17, 1.e+18, 1.e+19, 1.e+20]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1...99])), (array([   0,    1, ..., 7198, 7199]), array([1800, 1801, ..., 2398, 2399])), (array([   0,    1, ..., 7198, 7199]), array([ 600,  601, ..., 1198, 1199])), (array([   0,    1, ..., 7198, 7199]), array([3600, 3601, ...,...1, ..., 4798, 4799])), (array([   0,    1, ..., 7198, 7199]), array([3000, 3001, ..., 3598, 3599]))]),
+                               solver_params={&#x27;n_alphas_batch&#x27;: 2,
+                                              &#x27;n_targets_batch&#x27;: 100,
+                                              &#x27;n_targets_batch_refit&#x27;: 50}))])</pre><b>Please rerun this cell to show the HTML repr or trust the notebook.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="da94817a-a997-4917-9a30-6d517a9b0ab0" type="checkbox" ><label for="da94817a-a997-4917-9a30-6d517a9b0ab0" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+                (&#x27;delayer&#x27;, Delayer(delays=[1, 2, 3, 4, 5, 6, 7, 8])),
+                (&#x27;kernelridgecv&#x27;,
+                 KernelRidgeCV(Y_in_cpu=True,
+                               alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+       1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
+       1.e+17, 1.e+18, 1.e+19, 1.e+20]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1...99])), (array([   0,    1, ..., 7198, 7199]), array([1800, 1801, ..., 2398, 2399])), (array([   0,    1, ..., 7198, 7199]), array([ 600,  601, ..., 1198, 1199])), (array([   0,    1, ..., 7198, 7199]), array([3600, 3601, ...,...1, ..., 4798, 4799])), (array([   0,    1, ..., 7198, 7199]), array([3000, 3001, ..., 3598, 3599]))]),
+                               solver_params={&#x27;n_alphas_batch&#x27;: 2,
+                                              &#x27;n_targets_batch&#x27;: 100,
+                                              &#x27;n_targets_batch_refit&#x27;: 50}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="41473afc-6b9c-4f98-a7b8-f7643e7c7bdf" type="checkbox" ><label for="41473afc-6b9c-4f98-a7b8-f7643e7c7bdf" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="983373a4-bb05-4039-8212-6b0040ea6913" type="checkbox" ><label for="983373a4-bb05-4039-8212-6b0040ea6913" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4, 5, 6, 7, 8])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="93fabdfc-00ce-4289-92d2-de1b689bcb9b" type="checkbox" ><label for="93fabdfc-00ce-4289-92d2-de1b689bcb9b" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(Y_in_cpu=True,
+              alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+       1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
+       1.e+17, 1.e+18, 1.e+19, 1.e+20]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 6598, 6599]), array([6600, 6601, ..., 7198, 7199])), (array([   0,    1, ..., 7198, 7199]), array([1800, 1801, ..., 2398, 2399])), (array([   0,    1, ..., 7198, 7199]), array([ 600,  601, ..., 1198, 1199])), (array([   0,    1, ..., 7198, 7199]), array([3600, 3601, ...,...1, ..., 4798, 4799])), (array([   0,    1, ..., 7198, 7199]), array([3000, 3001, ..., 3598, 3599]))]),
+              solver_params={&#x27;n_alphas_batch&#x27;: 2, &#x27;n_targets_batch&#x27;: 100,
+                             &#x27;n_targets_batch_refit&#x27;: 50})</pre></div></div></div></div></div></div></div>
+</div>
+<br />
+<br /></div>
+<div class="section" id="fit-the-model">
+<h2>Fit the model<a class="headerlink" href="#fit-the-model" title="Permalink to this headline">¶</a></h2>
+<p>We fit on the train set, and score on the test set.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">)</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">)</span>
+<span class="c1"># Since we performed the KernelRidgeCV on GPU, scores are returned as</span>
+<span class="c1"># torch.Tensor on GPU. Thus, we need to move them into numpy arrays on CPU, to</span>
+<span class="c1"># be able to use them e.g. in a matplotlib figure.</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Since the scale of alphas is unknown, we plot the optimal alphas selected by
+the solver over cross-validation. This plot is helpful to refine the alpha
+grid if the range is too small or too large.</p>
+<p>Note that some voxels are at the maximum regularization of the grid. These
+are voxels where the model has no predictive power, and where the optimal
+regularization is large to lead to a prediction equal to zero.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">himalaya.viz</span> <span class="kn">import</span> <span class="n">plot_alphas_diagnostic</span>
+
+<span class="n">plot_alphas_diagnostic</span><span class="p">(</span><span class="n">best_alphas</span><span class="o">=</span><span class="n">backend</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">pipeline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">best_alphas_</span><span class="p">),</span>
+                       <span class="n">alphas</span><span class="o">=</span><span class="n">alphas</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="02 plot ridge model" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_model_001.png" />
+</div>
+<div class="section" id="compare-with-a-model-without-delays">
+<h2>Compare with a model without delays<a class="headerlink" href="#compare-with-a-model-without-delays" title="Permalink to this headline">¶</a></h2>
+<p>To present an example of model comparison, we define here another model,
+without feature delays (i.e. no Delayer). This model is unlikely to perform
+well, since fMRI responses are delayed in time with respect to the stimulus.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">StandardScaler</span><span class="p">(</span><span class="n">with_mean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_std</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="n">KernelRidgeCV</span><span class="p">(</span>
+        <span class="n">alphas</span><span class="o">=</span><span class="n">alphas</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
+        <span class="n">solver_params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">n_targets_batch</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_alphas_batch</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                           <span class="n">n_targets_batch_refit</span><span class="o">=</span><span class="mi">50</span><span class="p">),</span>
+        <span class="n">Y_in_cpu</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pipeline</span>
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<style>#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda {color: black;background-color: white;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda pre{padding: 0;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-toggleable {background-color: white;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-estimator:hover {background-color: #d4ebff;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-item {z-index: 1;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-parallel-item:only-child::after {width: 0;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda div.sk-text-repr-fallback {display: none;}</style><div id="sk-275c3ef9-dd2e-4ea2-bf8d-4fe458219dda" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+                (&#x27;kernelridgecv&#x27;,
+                 KernelRidgeCV(Y_in_cpu=True,
+                               alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+       1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
+       1.e+17, 1.e+18, 1.e+19, 1.e+20]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 6598, 6599]), array([6600, 6601, ..., 7198, 7199])), (array([   0,    1, ..., 7198, 7199]), array([1800, 1801, ..., 2398, 2399])), (array([   0,    1, ..., 7198, 7199]), array([ 600,  601, ..., 1198, 1199])), (array([   0,    1, ..., 7198, 7199]), array([3600, 3601, ...,...1, ..., 4798, 4799])), (array([   0,    1, ..., 7198, 7199]), array([3000, 3001, ..., 3598, 3599]))]),
+                               solver_params={&#x27;n_alphas_batch&#x27;: 2,
+                                              &#x27;n_targets_batch&#x27;: 100,
+                                              &#x27;n_targets_batch_refit&#x27;: 50}))])</pre><b>Please rerun this cell to show the HTML repr or trust the notebook.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="14a6793c-0bed-4386-9008-74909b8c502b" type="checkbox" ><label for="14a6793c-0bed-4386-9008-74909b8c502b" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+                (&#x27;kernelridgecv&#x27;,
+                 KernelRidgeCV(Y_in_cpu=True,
+                               alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+       1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
+       1.e+17, 1.e+18, 1.e+19, 1.e+20]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 6598, 6599]), array([6600, 6601, ..., 7198, 7199])), (array([   0,    1, ..., 7198, 7199]), array([1800, 1801, ..., 2398, 2399])), (array([   0,    1, ..., 7198, 7199]), array([ 600,  601, ..., 1198, 1199])), (array([   0,    1, ..., 7198, 7199]), array([3600, 3601, ...,...1, ..., 4798, 4799])), (array([   0,    1, ..., 7198, 7199]), array([3000, 3001, ..., 3598, 3599]))]),
+                               solver_params={&#x27;n_alphas_batch&#x27;: 2,
+                                              &#x27;n_targets_batch&#x27;: 100,
+                                              &#x27;n_targets_batch_refit&#x27;: 50}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="35f9e565-3855-4606-9a11-6d8e22df975a" type="checkbox" ><label for="35f9e565-3855-4606-9a11-6d8e22df975a" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="ec5a775c-f89f-47a4-a710-6640cbf4e1c7" type="checkbox" ><label for="ec5a775c-f89f-47a4-a710-6640cbf4e1c7" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(Y_in_cpu=True,
+              alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+       1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
+       1.e+17, 1.e+18, 1.e+19, 1.e+20]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 6598, 6599]), array([6600, 6601, ..., 7198, 7199])), (array([   0,    1, ..., 7198, 7199]), array([1800, 1801, ..., 2398, 2399])), (array([   0,    1, ..., 7198, 7199]), array([ 600,  601, ..., 1198, 1199])), (array([   0,    1, ..., 7198, 7199]), array([3600, 3601, ...,...1, ..., 4798, 4799])), (array([   0,    1, ..., 7198, 7199]), array([3000, 3001, ..., 3598, 3599]))]),
+              solver_params={&#x27;n_alphas_batch&#x27;: 2, &#x27;n_targets_batch&#x27;: 100,
+                             &#x27;n_targets_batch_refit&#x27;: 50})</pre></div></div></div></div></div></div></div>
+</div>
+<br />
+<br /><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">)</span>
+<span class="n">scores_nodelay</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">)</span>
+<span class="n">scores_nodelay</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">scores_nodelay</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/tomdlt/gbox/work/github/himalaya/himalaya/kernel_ridge/_sklearn_api.py:478: UserWarning: Solving linear kernel ridge is slower than solving ridge when n_samples &gt; n_features (here 7200 &gt; 6555). Using himalaya.ridge.RidgeCV would be faster. Use warn=False to silence this warning.
+  &quot;Use warn=False to silence this warning.&quot;, UserWarning)
+</pre></div>
+</div>
+<p>Here we plot the comparison of model performances with a 2D histogram. All
+~70k voxels are represented in this histogram, where the diagonal corresponds
+to identical performance for both models. A distibution deviating from the
+diagonal means that one model has better predictive performances than the
+other.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.viz</span> <span class="kn">import</span> <span class="n">plot_hist2d</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plot_hist2d</span><span class="p">(</span><span class="n">scores_nodelay</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Generalization R2 scores&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;model without delays&#39;</span><span class="p">,</span>
+       <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;model with delays&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="Generalization R2 scores" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_model_002.png" />
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
+B., &amp; Gallant, J. L. (2011). Reconstructing visual experiences from brain
+activity evoked by natural movies. Current Biology, 21(19), 1641-1646.</p>
+</dd>
+</dl>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 6 minutes  31.570 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-movies-deprecated-02-plot-ridge-model-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/1ad3d8aa789af4d1ccecdd001e6456e0/02_plot_ridge_model.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02_plot_ridge_model.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/f930ea56397a1666666f4bcfaba9fa49/02_plot_ridge_model.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02_plot_ridge_model.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Gallant lab.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/_auto_examples/movies_deprecated/02_plot_ridge_model.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

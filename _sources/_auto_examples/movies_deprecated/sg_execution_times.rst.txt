@@ -1,0 +1,16 @@
+
+:orphan:
+
+.. _sphx_glr__auto_examples_movies_deprecated_sg_execution_times:
+
+Computation times
+=================
+**06:31.570** total execution time for **_auto_examples_movies_deprecated** files:
+
++----------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr__auto_examples_movies_deprecated_02_plot_ridge_model.py` (``02_plot_ridge_model.py``)           | 06:31.570 | 0.0 MB |
++----------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr__auto_examples_movies_deprecated_00_download_vim2.py` (``00_download_vim2.py``)                 | 00:00.000 | 0.0 MB |
++----------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr__auto_examples_movies_deprecated_01_extract_motion_energy.py` (``01_extract_motion_energy.py``) | 00:00.000 | 0.0 MB |
++----------------------------------------------------------------------------------------------------------------+-----------+--------+

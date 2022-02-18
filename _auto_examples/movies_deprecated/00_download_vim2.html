@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Download the data set from CRCNS &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Extract motion energy features from the stimuli" href="01_extract_motion_energy.html" />
+    <link rel="prev" title="Extract motion energy features from the stimuli" href="../movies/06_extract_motion_energy.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/flatmap.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Voxelwise modeling tutorials</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=gallantlab&repo=voxelwise_tutorials&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Movies tutorial</a><ul>
+      <li>Previous: <a href="../movies/06_extract_motion_energy.html" title="previous chapter">Extract motion energy features from the stimuli</a></li>
+      <li>Next: <a href="01_extract_motion_energy.html" title="next chapter">Extract motion energy features from the stimuli</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Movies tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#movies-tutorial-deprecated">Movies tutorial (deprecated)</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Download the data set from CRCNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_extract_motion_energy.html">Extract motion energy features from the stimuli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_plot_ridge_model.html">Fit a ridge model with motion energy features</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">The voxelwise modeling framework</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html">Helper Python package</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-movies-deprecated-00-download-vim2-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="download-the-data-set-from-crcns">
+<span id="sphx-glr-auto-examples-movies-deprecated-00-download-vim2-py"></span><h1>Download the data set from CRCNS<a class="headerlink" href="#download-the-data-set-from-crcns" title="Permalink to this headline">¶</a></h1>
+<p>In this script, we download the data set from CRCNS.
+A (free) account is required.</p>
+<div class="section" id="cite-this-data-set">
+<h2>Cite this data set<a class="headerlink" href="#cite-this-data-set" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial is based on publicly available data
+<a class="reference external" href="https://crcns.org/data-sets/vc/vim-2/about-vim-2">published on CRCNS</a>.
+If you publish any work using this data set, please cite the original
+publication <a class="footnote-reference brackets" href="#id3" id="id1">1</a>, and the data set <a class="footnote-reference brackets" href="#id4" id="id2">2</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="download">
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># path of the data directory</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="n">get_data_home</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;vim-2&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We will only use the first subject in this tutorial, but you can run the same
+analysis on the two other subjects. Uncomment the lines in <code class="docutils literal notranslate"><span class="pre">DATAFILES</span></code> to
+download more subjects, or to download the anatomy files.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">getpass</span>
+
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">download_crcns</span>
+
+<span class="n">DATAFILES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;vim-2/Stimuli.tar.gz&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;vim-2/VoxelResponses_subject1.tar.gz&#39;</span><span class="p">,</span>
+    <span class="c1"># &#39;vim-2/VoxelResponses_subject2.tar.gz&#39;,</span>
+    <span class="c1"># &#39;vim-2/VoxelResponses_subject3.tar.gz&#39;,</span>
+    <span class="c1"># &#39;vim-2/anatomy.zip&#39;,</span>
+    <span class="c1"># &#39;vim-2/checksums.md5&#39;,</span>
+    <span class="c1"># &#39;vim-2/filelist.txt&#39;,</span>
+    <span class="c1"># &#39;vim-2/docs/crcns-vim-2-data-description.pdf&#39;,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">username</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;CRCNS username: &quot;</span><span class="p">)</span>
+<span class="n">password</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s2">&quot;CRCNS password: &quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">datafile</span> <span class="ow">in</span> <span class="n">DATAFILES</span><span class="p">:</span>
+    <span class="n">local_filename</span> <span class="o">=</span> <span class="n">download_crcns</span><span class="p">(</span><span class="n">datafile</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span>
+                                    <span class="n">destination</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &amp;
+Gallant, J. L. (2011). Reconstructing visual experiences from brain
+activity evoked by natural movies. Current Biology, 21(19), 1641-1646.</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., &amp;
+Gallant, J. L. (2014): Gallant Lab Natural Movie 4T fMRI Data. CRCNS.org.
+<a class="reference external" href="http://dx.doi.org/10.6080/K00Z715X">http://dx.doi.org/10.6080/K00Z715X</a></p>
+</dd>
+</dl>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-movies-deprecated-00-download-vim2-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/5758dd2a36254dba7eb279bcbcbe207b/00_download_vim2.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">00_download_vim2.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/1f398ccbe1838ae774a270579e364741/00_download_vim2.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">00_download_vim2.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Gallant lab.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/_auto_examples/movies_deprecated/00_download_vim2.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
