@@ -115,6 +115,7 @@ html_theme_options = {
     'github_repo': 'voxelwise_tutorials',
     'github_type': 'star',
     'page_width': '1200px',
+    'sidebar_width': '235px',
     'logo': 'flatmap.png',
     'logo_name': 'voxelwise',
     'description': 'Voxelwise modeling tutorials',
