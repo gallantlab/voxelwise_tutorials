@@ -33,24 +33,21 @@ process the data, and visualize the results. Install instructions are available
 `here <voxelwise_package.html>`_. Then, run either the Python scripts or the
 Jupyter notebooks located in the "tutorials" directory.
 
-Tutorials
----------
+Navigation
+----------
 .. toctree::
    :includehidden:
-   :maxdepth: 2
+   :maxdepth: 1
    
     
    _auto_examples/index
 
-Documentation
--------------
 .. toctree::
-   :maxdepth: 2
-
-   voxelwise_modeling
-
-.. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    voxelwise_package
 
+.. toctree::
+   :maxdepth: 1
+
+   voxelwise_modeling
