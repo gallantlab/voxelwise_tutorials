@@ -25,6 +25,7 @@ skip it if you run the tutorials on your machine.
 # Uncomment and run the following cell to download the tutorial data and
 # install the required dependencies.
 
+# !pip install -U --no-cache-dir gdown --pre
 # ![ -f "vim-5-for-ccn.tar.gz" ] || gdown --id 1b0I0Ytj06m6GCmfxfNrZuyF97fDo3NZb
 # ![ -d "vim-5" ] || tar xzf vim-5-for-ccn.tar.gz
 # ![ -d "pycortex" ] || git clone --quiet https://github.com/gallantlab/pycortex
@@ -35,7 +36,8 @@ skip it if you run the tutorials on your machine.
 
 ###############################################################################
 # For the record, here is what each command does:
-#
+
+# - update gdown to get the latest fixes
 # - Download the dataset archive
 # - Extract the dataset archive
 # - Clone Pycortex to fix some filestore issues with Colab
