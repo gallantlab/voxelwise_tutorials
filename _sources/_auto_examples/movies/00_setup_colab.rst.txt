@@ -50,11 +50,12 @@ Download the data and install all required dependencies
 Uncomment and run the following cell to download the tutorial data and
 install the required dependencies.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-36
+.. GENERATED FROM PYTHON SOURCE LINES 27-37
 
 .. code-block:: default
 
 
+    # !pip install -U --no-cache-dir gdown --pre
     # ![ -f "vim-5-for-ccn.tar.gz" ] || gdown --id 1b0I0Ytj06m6GCmfxfNrZuyF97fDo3NZb
     # ![ -d "vim-5" ] || tar xzf vim-5-for-ccn.tar.gz
     # ![ -d "pycortex" ] || git clone --quiet https://github.com/gallantlab/pycortex
@@ -64,24 +65,31 @@ install the required dependencies.
     # ![ -f "ngrok" ] || unzip ngrok-stable-linux-amd64.zip
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-46
+.. GENERATED FROM PYTHON SOURCE LINES 38-39
 
 For the record, here is what each command does:
 
-- Download the dataset archive
-- Extract the dataset archive
-- Clone Pycortex to fix some filestore issues with Colab
-- Install Inkscape, to use more features from Pycortex
-- Install the tutorial helper package, and all the required dependencies
-- Download ngrok to create a tunnel for pycortex 3D brain viewer
-- Extract the ngrok archive
+.. GENERATED FROM PYTHON SOURCE LINES 39-49
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-50
+.. code-block:: default
+
+
+    # - update gdown to get the latest fixes
+    # - Download the dataset archive
+    # - Extract the dataset archive
+    # - Clone Pycortex to fix some filestore issues with Colab
+    # - Install Inkscape, to use more features from Pycortex
+    # - Install the tutorial helper package, and all the required dependencies
+    # - Download ngrok to create a tunnel for pycortex 3D brain viewer
+    # - Extract the ngrok archive
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 50-52
 
 Now run the following cell to set up the environment variables for the
 tutorials and pycortex.
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-61
+.. GENERATED FROM PYTHON SOURCE LINES 52-63
 
 .. code-block:: default
 
@@ -97,7 +105,7 @@ tutorials and pycortex.
     sklearn.set_config(assume_finite=True)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-63
+.. GENERATED FROM PYTHON SOURCE LINES 64-65
 
 Your Google Colab environment is now set up for the voxelwise tutorials.
 

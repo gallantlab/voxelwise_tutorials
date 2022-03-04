@@ -129,7 +129,8 @@ To do so, click the following menu options in Google Colab:</p>
 <h2>Download the data and install all required dependencies<a class="headerlink" href="#download-the-data-and-install-all-required-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>Uncomment and run the following cell to download the tutorial data and
 install the required dependencies.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ![ -f &quot;vim-5-for-ccn.tar.gz&quot; ] || gdown --id 1b0I0Ytj06m6GCmfxfNrZuyF97fDo3NZb</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># !pip install -U --no-cache-dir gdown --pre</span>
+<span class="c1"># ![ -f &quot;vim-5-for-ccn.tar.gz&quot; ] || gdown --id 1b0I0Ytj06m6GCmfxfNrZuyF97fDo3NZb</span>
 <span class="c1"># ![ -d &quot;vim-5&quot; ] || tar xzf vim-5-for-ccn.tar.gz</span>
 <span class="c1"># ![ -d &quot;pycortex&quot; ] || git clone --quiet https://github.com/gallantlab/pycortex</span>
 <span class="c1"># !apt-get install -qq inkscape &gt; /dev/null</span>
@@ -139,15 +140,16 @@ install the required dependencies.</p>
 </pre></div>
 </div>
 <p>For the record, here is what each command does:</p>
-<ul class="simple">
-<li><p>Download the dataset archive</p></li>
-<li><p>Extract the dataset archive</p></li>
-<li><p>Clone Pycortex to fix some filestore issues with Colab</p></li>
-<li><p>Install Inkscape, to use more features from Pycortex</p></li>
-<li><p>Install the tutorial helper package, and all the required dependencies</p></li>
-<li><p>Download ngrok to create a tunnel for pycortex 3D brain viewer</p></li>
-<li><p>Extract the ngrok archive</p></li>
-</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># - update gdown to get the latest fixes</span>
+<span class="c1"># - Download the dataset archive</span>
+<span class="c1"># - Extract the dataset archive</span>
+<span class="c1"># - Clone Pycortex to fix some filestore issues with Colab</span>
+<span class="c1"># - Install Inkscape, to use more features from Pycortex</span>
+<span class="c1"># - Install the tutorial helper package, and all the required dependencies</span>
+<span class="c1"># - Download ngrok to create a tunnel for pycortex 3D brain viewer</span>
+<span class="c1"># - Extract the ngrok archive</span>
+</pre></div>
+</div>
 <p>Now run the following cell to set up the environment variables for the
 tutorials and pycortex.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>

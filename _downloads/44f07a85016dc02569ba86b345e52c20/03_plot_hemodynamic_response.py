@@ -24,7 +24,7 @@ In this example, we show that a model without delays performs far worse than a
 model with delays. We also show how to visualize the estimated hemodynamic
 response function (HRF) from a model with delays.
 """
-# sphinx_gallery_thumbnail_number = 2
+# sphinx_gallery_thumbnail_number = 3
 ###############################################################################
 # Path of the data directory
 # --------------------------
