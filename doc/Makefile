@@ -46,6 +46,10 @@ merge-notebooks:
 		> $(NBDIR)/merged_for_colab.ipynb
 	echo "Saved in $(NBDIR)/merged_for_colab.ipynb"
 
+all:
+	$(MAKE) html-noplot
+	$(MAKE) notebooks
+
 # -b gh_pages --single-branch (to clone only one branch)
 # --no-checkout (just fetches the root folder without content)
 # --depth 1 (since we don't need the history prior to the last commit)
