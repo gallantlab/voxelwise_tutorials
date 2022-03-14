@@ -51,16 +51,14 @@ Navigation
 
    voxelwise_modeling
 
-Cite this tutorial
-------------------
+Cite as
+-------
 
-To support this tutorial, please cite our (future) publication:
+If you use one of our packages in your work (``voxelwise_tutorials``
+:ref:`[13]<den2022>`, ``himalaya`` :ref:`[14]<dup2022>`, ``pycortex``
+:ref:`[15]<gao2015>`, or ``pymoten`` :ref:`[16]<nun2021>`), please cite the
+corresponding publications.
 
-.. [1] Deniz, F., Visconti di Oleggio Castello, M., Dupré La Tour, T., &
-  Gallant, J. L. (2022). Voxelwise encoding models in functional MRI. *In
-  preparation*.
-
-Additionally, if you use ``himalaya``, please cite our (future) publication:
-
-.. [2] Dupré La Tour, T., Eickenberg, M., & Gallant, J. L. (2022).
-	Variance decomposition with banded ridge regression. *In preparation*.
+If you use one of our public datasets in your work (Movie 4T
+:ref:`[3b]<den2022>`, Movie 3T :ref:`[4b]<hut2012data>`), please cite the
+corresponding publications.
