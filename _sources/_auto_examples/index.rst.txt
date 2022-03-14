@@ -23,20 +23,19 @@ Movies tutorial
 This tutorial describes how to perform voxelwise modeling on a visual
 imaging experiment.
 
-**Data set:**
-This tutorial is based on publicly available data
-`published on CRCNS <TBD>`_ [4]_.
-The data is briefly described in the dataset `description PDF <TBD>`_,
-and in more details in the original publication [1]_.
-If you publish work using this data set, please cite the original
-publication [1]_, and the CRCNS data set [4]_.
+**Data set:** This tutorial is based on publicly available data `published on
+CRCNS <TBD>`_ :ref:`[4b]<hut2012data>`. The data is briefly described in the
+dataset `description PDF <TBD>`_, and in more details in the original
+publication :ref:`[4]<hut2012>`. If you publish work using this data set,
+please cite the original publications :ref:`[4]<hut2012>`, and the CRCNS data
+set :ref:`[4b]<hut2012data>`.
 
 **Models:**
 This tutorial implements different voxelwise encoding models:
 
-- a ridge model with wordnet semantic features as described in [1]_.
-- a ridge model with motion-energy features as described in [2]_.
-- a banded-ridge model with both feature spaces as described in [3]_.
+- a ridge model with wordnet semantic features as described in :ref:`[4]<hut2012>`.
+- a ridge model with motion-energy features as described in :ref:`[3]<nis2011>`.
+- a banded-ridge model with both feature spaces as described in :ref:`[12]<nun2019>`.
 
 **Scikit-learn API:** These tutorials use `scikit-learn
 <https://github.com/scikit-learn/scikit-learn>`_ to define the preprocessing
@@ -58,24 +57,8 @@ This tutorial requires the following Python packages:
 - voxelwise_tutorials  (this repository) and its dependencies
 - cupy or pytorch  (optional, to use a GPU backend in himalaya)
 
-**References:**
-
-.. [1] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2012).
-    A continuous semantic space describes the representation of thousands of
-    object and action categories across the human brain. Neuron, 76(6),
-    1210-1224.
-
-.. [2] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
-    B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
-    activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
-
-.. [3] Nunez-Elizalde, A. O., Huth, A. G., & Gallant, J. L. (2019).
-    Voxelwise encoding models with non-spherical multivariate normal priors.
-    Neuroimage, 197, 482-492.
-
-.. [4] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2020):
-    Gallant Lab Natural Movie 3T fMRI Data. CRCNS.org.
-    http://dx.doi.org/10.6080/TBD
+**Gallery of scripts:**
+Click on each thumbnail below to open the corresponding page:
 
 
 
@@ -144,14 +127,14 @@ This tutorial requires the following Python packages:
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we model the fMRI responses with semantic &quot;wordnet&quot; features, manually annotat...">
+    <div class="sphx-glr-thumbcontainer" tooltip="In future examples, we will model the fMRI responses using a regularized linear regression know...">
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_02_plot_wordnet_model_thumb.png
-     :alt: Fit a ridge model with wordnet features
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_02_plot_ridge_regression_thumb.png
+     :alt: Understand ridge regression and cross-validation
 
-     :ref:`sphx_glr__auto_examples_movies_02_plot_wordnet_model.py`
+     :ref:`sphx_glr__auto_examples_movies_02_plot_ridge_regression.py`
 
 .. raw:: html
 
@@ -161,7 +144,28 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies/02_plot_wordnet_model
+   /_auto_examples/movies/02_plot_ridge_regression
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we model the fMRI responses with semantic &quot;wordnet&quot; features, manually annotat...">
+
+.. only:: html
+
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_03_plot_wordnet_model_thumb.png
+     :alt: Fit a ridge model with wordnet features
+
+     :ref:`sphx_glr__auto_examples_movies_03_plot_wordnet_model.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /_auto_examples/movies/03_plot_wordnet_model
 
 .. raw:: html
 
@@ -169,10 +173,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_03_plot_hemodynamic_response_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_04_plot_hemodynamic_response_thumb.png
      :alt: Visualize the hemodynamic response
 
-     :ref:`sphx_glr__auto_examples_movies_03_plot_hemodynamic_response.py`
+     :ref:`sphx_glr__auto_examples_movies_04_plot_hemodynamic_response.py`
 
 .. raw:: html
 
@@ -182,7 +186,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies/03_plot_hemodynamic_response
+   /_auto_examples/movies/04_plot_hemodynamic_response
 
 .. raw:: html
 
@@ -190,10 +194,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_04_plot_motion_energy_model_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_05_plot_motion_energy_model_thumb.png
      :alt: Fit a ridge model with motion energy features
 
-     :ref:`sphx_glr__auto_examples_movies_04_plot_motion_energy_model.py`
+     :ref:`sphx_glr__auto_examples_movies_05_plot_motion_energy_model.py`
 
 .. raw:: html
 
@@ -203,7 +207,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies/04_plot_motion_energy_model
+   /_auto_examples/movies/05_plot_motion_energy_model
 
 .. raw:: html
 
@@ -211,10 +215,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_05_plot_banded_ridge_model_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_06_plot_banded_ridge_model_thumb.png
      :alt: Fit a banded ridge model with both wordnet and motion energy features
 
-     :ref:`sphx_glr__auto_examples_movies_05_plot_banded_ridge_model.py`
+     :ref:`sphx_glr__auto_examples_movies_06_plot_banded_ridge_model.py`
 
 .. raw:: html
 
@@ -224,7 +228,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies/05_plot_banded_ridge_model
+   /_auto_examples/movies/06_plot_banded_ridge_model
 
 .. raw:: html
 
@@ -232,10 +236,10 @@ This tutorial requires the following Python packages:
 
 .. only:: html
 
- .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_06_extract_motion_energy_thumb.png
+ .. figure:: /_auto_examples/movies/images/thumb/sphx_glr_07_extract_motion_energy_thumb.png
      :alt: Extract motion energy features from the stimuli
 
-     :ref:`sphx_glr__auto_examples_movies_06_extract_motion_energy.py`
+     :ref:`sphx_glr__auto_examples_movies_07_extract_motion_energy.py`
 
 .. raw:: html
 
@@ -245,7 +249,7 @@ This tutorial requires the following Python packages:
 .. toctree::
    :hidden:
 
-   /_auto_examples/movies/06_extract_motion_energy
+   /_auto_examples/movies/07_extract_motion_energy
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
@@ -271,12 +275,12 @@ imaging experiment.
 
 **Data set:**
 This tutorial is based on publicly available data published on
-`CRCNS <https://crcns.org/data-sets/vc/vim-2/about-vim-2>`_ [6]_.
+`CRCNS <https://crcns.org/data-sets/vc/vim-2/about-vim-2>`_ :ref:`[3b]<nis2011data>`.
 The data is briefly described in the dataset description
 `PDF <https://crcns.org/files/data/vim-2/crcns-vim-2-data-description.pdf>`_,
-and in more details in the original publication [5]_.
+and in more details in the original publication :ref:`[3]<nis2011>`.
 If you publish work using this data set, please cite the original
-publication [5]_, and the CRCNS data set [6]_.
+publication :ref:`[3]<nis2011>`, and the CRCNS data set :ref:`[3b]<nis2011data>`.
 
 
 **Requirements:**
@@ -285,15 +289,8 @@ This tutorial requires the following Python packages:
 - voxelwise_tutorials  (this repository) and its dependencies
 - cupy or pytorch  (optional, to use a GPU backend in himalaya)
 
-**References:**
-
-.. [5] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
-    B., & Gallant, J. L. (2011). Reconstructing visual experiences from brain
-    activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
-
-.. [6] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
-    B., & Gallant, J. L. (2014): Gallant Lab Natural Movie 4T fMRI Data.
-    CRCNS.org. http://dx.doi.org/10.6080/K00Z715X
+**Gallery of scripts:**
+Click on each thumbnail below to open the corresponding page:
 
 
 
