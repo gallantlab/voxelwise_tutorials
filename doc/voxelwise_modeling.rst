@@ -11,8 +11,6 @@ publications :ref:`[1]<kay2008>` :ref:`[2]<nas2009>` :ref:`[3]<nis2011>`
 :ref:`[7]<sta2013>` :ref:`[8]<hut2016>` :ref:`[9]<deh2017>`
 :ref:`[10]<les2019>` :ref:`[11]<den2019>` :ref:`[12]<nun2019>`.
 
-[...]
-
 Critical improvements
 ---------------------
 
@@ -146,3 +144,16 @@ Datasets
     Gallant Lab Natural Movie 3T fMRI Data. CRCNS.org.
     http://dx.doi.org/10.6080/TBD
 
+Tutorials
+---------
+
+.. _den2022:
+
+[13] Deniz, F., Visconti di Oleggio Castello, M., Dupré La Tour, T., &
+  Gallant, J. L. (2022). Voxelwise encoding models in functional MRI. *In
+  preparation*.
+
+.. _dup2022:
+
+[14] Dupré La Tour, T., Eickenberg, M., & Gallant, J. L. (2022).
+	Variance decomposition with banded ridge regression. *In preparation*.

@@ -50,3 +50,17 @@ Navigation
    :maxdepth: 1
 
    voxelwise_modeling
+
+Cite this tutorial
+------------------
+
+To support this tutorial, please cite our (future) publication:
+
+.. [1] Deniz, F., Visconti di Oleggio Castello, M., Dupré La Tour, T., &
+  Gallant, J. L. (2022). Voxelwise encoding models in functional MRI. *In
+  preparation*.
+
+Additionally, if you use ``himalaya``, please cite our (future) publication:
+
+.. [2] Dupré La Tour, T., Eickenberg, M., & Gallant, J. L. (2022).
+	Variance decomposition with banded ridge regression. *In preparation*.

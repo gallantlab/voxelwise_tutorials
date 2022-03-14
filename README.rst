@@ -92,13 +92,14 @@ The package ``voxelwise_tutorials`` has the following dependencies:
 Cite this tutorial
 ==================
 
-If you use this tutorial and helper package in your work, please cite our (future)
-publication:
+If you use this tutorial and helper package in your work, please cite our
+(future) publication:
 
-.. [1] Deniz, F., Visconti di Oleggio Castello, M., Dupré La Tour, T., & Gallant, J. L. (2021).
-  Voxelwise encoding models in functional MRI. *In preparation*.
+.. [1] Deniz, F., Visconti di Oleggio Castello, M., Dupré La Tour, T., &
+  Gallant, J. L. (2022). Voxelwise encoding models in functional MRI. *In
+  preparation*.
 
 If you use ``himalaya``, please cite our (future) publication:
 
-.. [2] Dupré La Tour, T., Eickenberg, M., & Gallant, J. L. (2021).
+.. [2] Dupré La Tour, T., Eickenberg, M., & Gallant, J. L. (2022).
 	Variance decomposition with banded ridge regression. *In preparation*.
