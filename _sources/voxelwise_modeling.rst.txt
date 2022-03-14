@@ -132,6 +132,7 @@ References
 
 Datasets
 --------
+
 .. _nis2011data:
 
 [3b] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
@@ -144,8 +145,8 @@ Datasets
     Gallant Lab Natural Movie 3T fMRI Data. CRCNS.org.
     http://dx.doi.org/10.6080/TBD
 
-Tutorials
----------
+Packages
+--------
 
 .. _den2022:
 
@@ -157,3 +158,16 @@ Tutorials
 
 [14] Dupré La Tour, T., Eickenberg, M., & Gallant, J. L. (2022).
 	Variance decomposition with banded ridge regression. *In preparation*.
+
+.. _gao2015:
+
+[15] Gao, J. S., Huth, A. G., Lescroart, M. D., & Gallant, J. L. (2015).
+    Pycortex: an interactive surface visualizer for fMRI. Frontiers in
+    neuroinformatics, 23.
+
+.. _nun2021:
+
+[16] Nunez-Elizalde, A.O., Deniz, F., Dupré la Tour, T., Visconti di Oleggio
+   Castello, M., and Gallant, J.L. (2021). pymoten: scientific python package
+   for computing motion energy features from video. Zenodo.
+   https://doi.org/10.5281/zenodo.6349625
