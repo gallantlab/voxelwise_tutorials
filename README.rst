@@ -19,15 +19,12 @@ To explore these tutorials, one can:
 
 - read the rendered examples in the tutorials
   `website <https://gallantlab.github.io/voxelwise_tutorials/>`_ (recommended)
-- run the Python scripts located in the `tutorials <tutorials>`_ directory
-- run the Jupyter notebooks located in the
-  `tutorials/notebooks <tutorials/notebooks>`_ directory
+- run the Python scripts (`tutorials <tutorials>`_ directory)
+- run the Jupyter notebooks (`tutorials/notebooks <tutorials/notebooks>`_ directory)
 - run the merged notebook in
   `Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/movies/merged_for_colab.ipynb>`_.
 
-To run the tutorials yourself, first download this repository, and install the
-dependencies (see below). The tutorials are best explored in order, starting
-with the "Movies" tutorial.
+The tutorials are best explored in order, starting with the "Movies" tutorial.
 
 Helper Python package
 =====================
@@ -66,17 +63,16 @@ Requirements
 ------------
 
 The package ``voxelwise_tutorials`` has the following dependencies:
-
-- `numpy <https://github.com/numpy/numpy>`_
-- `scipy <https://github.com/scipy/scipy>`_
-- `h5py <https://github.com/h5py/h5py>`_
-- `scikit-learn <https://github.com/scikit-learn/scikit-learn>`_
-- `matplotlib <https://github.com/matplotlib/matplotlib>`_
-- `networkx <https://github.com/networkx/networkx>`_
-- `nltk <https://github.com/nltk/nltk>`_
-- `pycortex <https://github.com/gallantlab/pycortex>`_
-- `himalaya <https://github.com/gallantlab/himalaya>`_
-- `pymoten <https://github.com/gallantlab/pymoten>`_
+`numpy <https://github.com/numpy/numpy>`_,
+`scipy <https://github.com/scipy/scipy>`_,
+`h5py <https://github.com/h5py/h5py>`_,
+`scikit-learn <https://github.com/scikit-learn/scikit-learn>`_,
+`matplotlib <https://github.com/matplotlib/matplotlib>`_,
+`networkx <https://github.com/networkx/networkx>`_,
+`nltk <https://github.com/nltk/nltk>`_,
+`pycortex <https://github.com/gallantlab/pycortex>`_,
+`himalaya <https://github.com/gallantlab/himalaya>`_,
+`pymoten <https://github.com/gallantlab/pymoten>`_.
 
 
 .. |Github| image:: https://img.shields.io/badge/github-voxelwise_tutorials-blue
