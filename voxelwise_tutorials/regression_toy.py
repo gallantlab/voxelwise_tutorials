@@ -82,11 +82,16 @@ def plot_2d(X, y, w, flat=True, alpha=None, show_noiseless=True):
 
     fig = plt.figure(figsize=(6.7, 2.5))
 
+    #####################
     # left plot: y = f(x)
-    ax = fig.add_subplot(121, projection='3d', computed_zorder=False)
+
+    try:  # computed_zorder is only available in matplotlib >= 3.4
+        ax = fig.add_subplot(121, projection='3d', computed_zorder=False)
+    except AttributeError:
+        ax = fig.add_subplot(121, projection='3d')
 
     # to help matplotlib displays scatter points behind any surface, we
-    # first plot the point below, then the surface, then the ponts above,
+    # first plot the point below, then the surface, then the points above,
     # and use computed_zorder=False.
     above = y > X @ w
     ax.scatter3D(X[~above, 0], X[~above, 1], y[~above], alpha=0.5, color="C0")
@@ -103,6 +108,7 @@ def plot_2d(X, y, w, flat=True, alpha=None, show_noiseless=True):
     ax.set(xlabel="X[:, 0]", ylabel="X[:, 1]", zlabel="y",
            zlim=[yy.min(), yy.max()])
 
+    #########################
     # right plot: loss = f(w)
     if flat:
         ax = fig.add_subplot(122)

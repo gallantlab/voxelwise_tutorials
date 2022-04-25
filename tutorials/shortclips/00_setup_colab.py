@@ -30,7 +30,7 @@ skip it if you run the tutorials on your machine.
 # ![ -d "vim-5" ] || tar xzf vim-5-for-ccn.tar.gz
 # !ln -s vim-5 shortclips
 # !apt-get install -qq inkscape > /dev/null
-# !pip install -q voxelwise_tutorials==0.1.2
+# !pip install -q voxelwise_tutorials==0.1.3
 # ![ -f "ngrok-stable-linux-amd64.zip" ] || wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
 # ![ -f "ngrok" ] || unzip ngrok-stable-linux-amd64.zip
 
