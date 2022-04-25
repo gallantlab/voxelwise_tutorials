@@ -30,25 +30,9 @@ skip it if you run the tutorials on your machine.
 # ![ -d "vim-5" ] || tar xzf vim-5-for-ccn.tar.gz
 # !ln -s vim-5 shortclips
 # !apt-get install -qq inkscape > /dev/null
-# !pip install -q voxelwise_tutorials>=0.1.2
+# !pip install -q voxelwise_tutorials==0.1.2
 # ![ -f "ngrok-stable-linux-amd64.zip" ] || wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
 # ![ -f "ngrok" ] || unzip ngrok-stable-linux-amd64.zip
-
-###############################################################################
-# If downloading the data failed, you can try to download it manually, turning
-# `if False` into `if True`, and running the following cell.
-
-if False:
-    from voxelwise_tutorials.io import get_data_home
-    from voxelwise_tutorials.io import download_datalad
-
-    for datafile in [
-        "features/motion_energy.hdf", "features/wordnet.hdf",
-        "mappers/S01_mappers.hdf", "responses/S01_responses.hdf",
-    ]:
-        local_filename = download_datalad(
-            datafile, destination=get_data_home(dataset="shortclips"),
-            source="https://gin.g-node.org/gallantlab/shortclips")
 
 ###############################################################################
 # For the record, here is what each command does:
