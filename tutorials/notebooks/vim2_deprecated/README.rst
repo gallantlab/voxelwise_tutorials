@@ -1,14 +1,14 @@
 |
 |
 
-Movies tutorial (deprecated)
-============================
+Vim-2 tutorial (deprecated)
+===========================
 
 .. Note::
-    This tutorial is redundant with the "Movies tutorial". It uses a
-    different data set with brain responses limited to the occipital lobe,
-    and with no mappers to plot the data on flatmaps.
-    Using the "Movies tutorial" with full brain responses is recommended.
+    This tutorial is redundant with the "Shortclips tutorial". It uses the
+    "vim-2" data set, a data set with brain responses limited to the occipital
+    lobe, and with no mappers to plot the data on flatmaps.
+    Using the "Shortclips tutorial" with full brain responses is recommended.
 
 This tutorial describes how to perform voxelwise modeling on a visual
 imaging experiment.

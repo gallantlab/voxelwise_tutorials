@@ -91,6 +91,49 @@ def unpack_archive(archive_name):
     shutil.unpack_archive(archive_name, extract_dir=extract_dir)
 
 
+def download_datalad(datafile, destination, source,
+                     siblings=["wasabi", "origin"]):
+    """
+    Parameters
+    ----------
+    datafile : str
+        Name of the file in the dataset.
+    destination: str
+        Directory where the data will be saved.
+    source : str
+        URL of the dataset.
+    siblings : list of str
+        List of sibling/remote on which the download will be attempted.
+
+    Returns
+    -------
+    local_filename : str
+        Local name of the downloaded file.
+
+    Examples
+    --------
+    >>> from voxelwise_tutorials.io import get_data_home
+    >>> from voxelwise_tutorials.io import download_datalad
+    >>> directory = get_data_home(dataset="shortclips")
+    >>> download_datalad("features/wordnet.hdf", destination=directory,
+                         source="https://gin.g-node.org/gallantlab/shortclips")
+    """
+    import datalad.api
+    dataset = datalad.api.install(path=destination, source=source)
+
+    def has_content():
+        """Double check that the file is actually present."""
+        repo = datalad.support.annexrepo.AnnexRepo(destination)
+        return repo.file_has_content(datafile)
+
+    for sibling in siblings:  # Try the download successively on each sibling
+        result = dataset.get(datafile, source=sibling)
+        if has_content():
+            return result[0]["path"]
+
+    raise RuntimeError("Failed to download %s." % datafile)
+
+
 def load_hdf5_array(file_name, key=None, slice=slice(0, None)):
     """Function to load data from an hdf file.
 

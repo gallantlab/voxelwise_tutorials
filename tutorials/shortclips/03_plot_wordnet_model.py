@@ -33,7 +33,7 @@ predictions to the corresponding ground-truth fMRI responses.
 # Path of the data directory
 # --------------------------
 from voxelwise_tutorials.io import get_data_home
-directory = get_data_home(dataset="vim-5")
+directory = get_data_home(dataset="shortclips")
 print(directory)
 
 ###############################################################################

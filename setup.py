@@ -23,9 +23,10 @@ requirements = [
     "matplotlib",
     "networkx",
     "nltk",
-    "pycortex",
+    "pycortex>=1.2.4",
     "himalaya",
     "pymoten",
+    "datalad",
 ]
 
 extras_require = {

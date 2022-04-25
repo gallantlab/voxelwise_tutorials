@@ -1,6 +1,6 @@
 """Unit tests on the mappers.
 
-Requires the movies dataset locally.
+Requires the shortclips dataset locally.
 """
 
 import os

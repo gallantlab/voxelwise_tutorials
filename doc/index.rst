@@ -20,10 +20,10 @@ To explore these tutorials, one can:
   <https://github.com/gallantlab/voxelwise_tutorials/tree/main/tutorials/notebooks>`_
   directory)
 - run the merged notebook in
-  `Google Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/movies/merged_for_colab.ipynb>`_
+  `Google Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab.ipynb>`_
 
-The tutorials are best explored in order, starting with the `Movies tutorial
-<_auto_examples/index.html>`_.
+The tutorials are best explored in order, starting with the `Shortclips
+tutorial <_auto_examples/index.html>`_.
 
 The project is available on GitHub at `gallantlab/voxelwise_tutorials
 <https://github.com/gallantlab/voxelwise_tutorials>`_. On top of the tutorials
@@ -59,6 +59,6 @@ If you use one of our packages in your work (``voxelwise_tutorials``
 :ref:`[15]<gao2015>`, or ``pymoten`` :ref:`[16]<nun2021>`), please cite the
 corresponding publications.
 
-If you use one of our public datasets in your work (Movie 4T
-:ref:`[3b]<den2022>`, Movie 3T :ref:`[4b]<hut2012data>`), please cite the
+If you use one of our public datasets in your work (vim-2
+:ref:`[3b]<nis2011data>`, shortclips :ref:`[4b]<hut2012data>`), please cite the
 corresponding publications.

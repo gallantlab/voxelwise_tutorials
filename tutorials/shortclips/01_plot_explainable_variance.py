@@ -41,7 +41,7 @@ references [1]_ [2]_ [3]_.
 # Path of the data directory
 # --------------------------
 from voxelwise_tutorials.io import get_data_home
-directory = get_data_home(dataset="vim-5")
+directory = get_data_home(dataset="shortclips")
 print(directory)
 
 ###############################################################################
@@ -180,7 +180,7 @@ surface = "fsaverage"
 if not hasattr(cortex.db, surface):
     cortex.utils.download_subject(subject_id=surface,
                                   pycortex_store=cortex.db.filestore)
-    cortex.db._subjects = None  # force filestore reload
+    cortex.db.reload_subjects()  # force filestore reload
     assert hasattr(cortex.db, surface)
 
 ###############################################################################

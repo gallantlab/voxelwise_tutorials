@@ -1,5 +1,5 @@
 """These helper functions are used in the tutorial on ridge regression
-(tutorials/movies/02_plot_ridge_regression.py).
+(tutorials/shortclips/02_plot_ridge_regression.py).
 """
 import numpy as np
 import matplotlib.pyplot as plt

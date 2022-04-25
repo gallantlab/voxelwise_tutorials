@@ -11,8 +11,8 @@ def load_wordnet(directory=None, recache=False):
     Parameters
     ----------
     directory : str or None
-        Directory where the dataset has been downloaded.
-        If None, use "vim-5" in ``voxelwise_tutorials.io.get_data_home()``.
+        Directory where the dataset has been downloaded. If None, use
+        "shortclips" in ``voxelwise_tutorials.io.get_data_home()``.
 
     Returns
     -------
@@ -37,7 +37,7 @@ def load_wordnet(directory=None, recache=False):
 
     if directory is None:
         from voxelwise_tutorials.io import get_data_home
-        directory = os.path.join(get_data_home(), "vim-5")
+        directory = get_data_home("shortclips")
 
     dot_file = os.path.join(directory, 'utils', 'wordnet_graph.dot')
     txt_file = os.path.join(directory, 'utils', 'wordnet_categories.txt')
@@ -152,9 +152,8 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
     Parameters
     ----------
     node_colors : array of shape (1705, 3)
-        RGB colors of each feature.
-        If you want to plot an array of shape (1705, ) use ``apply_cmap`` to
-        map it to RGB.
+        RGB colors of each feature. If you want to plot an array of shape
+        (1705, ) use ``apply_cmap`` to map it to RGB.
     node_sizes : array of shape (1705, )
         Size of each feature. Values are scaled by the maximum.
     zorder : array of shape (1705, ) or None
@@ -164,19 +163,18 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
     alpha : float
         Transparancy of the nodes.
     ax : Axes or None
-        Matplotlib Axes where the grap will be plotted.
-        If None, the current figure is used.
+        Matplotlib Axes where the grap will be plotted. If None, the current
+        figure is used.
     extra_edges : list of (str, str)
-        Add extra edges between named nodes.
-        See the function ``load_wordnet`` to have the list of names.
+        Add extra edges between named nodes. See the function ``load_wordnet``
+        to have the list of names.
     highlighted_nodes : list of str, or in {"default", "random_42"}
-        List of nodes to be highlighted (with name).
-        If "default", use a fixed list of 84 nodes.
-        If "random_42", choose 42 random nodes.
-        See the function ``load_wordnet`` to have the list of names.
+        List of nodes to be highlighted (with name). If "default", use a fixed
+        list of 84 nodes. If "random_42", choose 42 random nodes. See the
+        function ``load_wordnet`` to have the list of names.
     directory : str or None
-        Directory where the dataset has been downloaded.
-        If None, use "vim-5" in ``voxelwise_tutorials.io.get_data_home()``.
+        Directory where the dataset has been downloaded. If None, use
+        "shortclips" in ``voxelwise_tutorials.io.get_data_home()``.
 
     Returns
     -------

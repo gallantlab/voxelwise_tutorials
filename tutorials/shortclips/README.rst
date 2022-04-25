@@ -1,15 +1,17 @@
-Movies tutorial
-===============
+Shortclips tutorial
+===================
 
 This tutorial describes how to perform voxelwise modeling on a visual
 imaging experiment.
 
 **Data set:** This tutorial is based on publicly available data `published on
-CRCNS <TBD>`_ :ref:`[4b]<hut2012data>`. The data is briefly described in the
-dataset `description PDF <TBD>`_, and in more details in the original
-publication :ref:`[4]<hut2012>`. If you publish work using this data set,
-please cite the original publications :ref:`[4]<hut2012>`, and the CRCNS data
-set :ref:`[4b]<hut2012data>`.
+GIN <https://gin.g-node.org/gallantlab/shortclips>`_ :ref:`[4b]<hut2012data>`.
+This data set contains BOLD fMRI responses in human subjects viewing a set of
+natural short movie clips. The functional data were collected in five subjects,
+in three sessions over three separate days for each subject. Details of the
+experiment are described in the original publication :ref:`[4]<hut2012>`. If
+you publish work using this data set, please cite the original publications
+:ref:`[4]<hut2012>`, and the GIN data set :ref:`[4b]<hut2012data>`.
 
 **Models:**
 This tutorial implements different voxelwise encoding models:

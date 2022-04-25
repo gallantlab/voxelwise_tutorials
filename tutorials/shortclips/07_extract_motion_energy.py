@@ -29,7 +29,7 @@ takes a couple hours to run.
 
 # path of the data directory
 from voxelwise_tutorials.io import get_data_home
-directory = get_data_home(dataset="vim-5")
+directory = get_data_home(dataset="shortclips")
 print(directory)
 
 ###############################################################################

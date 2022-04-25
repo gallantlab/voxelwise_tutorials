@@ -28,11 +28,27 @@ skip it if you run the tutorials on your machine.
 # !pip install -U --no-cache-dir gdown --pre
 # ![ -f "vim-5-for-ccn.tar.gz" ] || gdown --id 1b0I0Ytj06m6GCmfxfNrZuyF97fDo3NZb
 # ![ -d "vim-5" ] || tar xzf vim-5-for-ccn.tar.gz
-# ![ -d "pycortex" ] || git clone --quiet https://github.com/gallantlab/pycortex
+# !ln -s vim-5 shortclips
 # !apt-get install -qq inkscape > /dev/null
-# !pip install -q voxelwise_tutorials
+# !pip install -q voxelwise_tutorials>=0.1.2
 # ![ -f "ngrok-stable-linux-amd64.zip" ] || wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
 # ![ -f "ngrok" ] || unzip ngrok-stable-linux-amd64.zip
+
+###############################################################################
+# If downloading the data failed, you can try to download it manually, turning
+# `if False` into `if True`, and running the following cell.
+
+if False:
+    from voxelwise_tutorials.io import get_data_home
+    from voxelwise_tutorials.io import download_datalad
+
+    for datafile in [
+        "features/motion_energy.hdf", "features/wordnet.hdf",
+        "mappers/S01_mappers.hdf", "responses/S01_responses.hdf",
+    ]:
+        local_filename = download_datalad(
+            datafile, destination=get_data_home(dataset="shortclips"),
+            source="https://gin.g-node.org/gallantlab/shortclips")
 
 ###############################################################################
 # For the record, here is what each command does:
@@ -40,7 +56,7 @@ skip it if you run the tutorials on your machine.
 # - update gdown to get the latest fixes
 # - Download the dataset archive
 # - Extract the dataset archive
-# - Clone Pycortex to fix some filestore issues with Colab
+# - Create a symlink to the extracted dataset
 # - Install Inkscape, to use more features from Pycortex
 # - Install the tutorial helper package, and all the required dependencies
 # - Download ngrok to create a tunnel for pycortex 3D brain viewer
@@ -52,10 +68,6 @@ skip it if you run the tutorials on your machine.
 
 import os
 os.environ['VOXELWISE_TUTORIALS_DATA'] = "/content"
-
-import cortex
-cortex.db.__init__("/content/pycortex/filestore/")  # change filestore inplace
-cortex.options.config['webgl']['colormaps'] = "/content/pycortex/filestore/colormaps"
 
 import sklearn
 sklearn.set_config(assume_finite=True)

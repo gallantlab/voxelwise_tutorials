@@ -22,9 +22,10 @@ To explore these tutorials, one can:
 - run the Python scripts (`tutorials <tutorials>`_ directory)
 - run the Jupyter notebooks (`tutorials/notebooks <tutorials/notebooks>`_ directory)
 - run the merged notebook in
-  `Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/movies/merged_for_colab.ipynb>`_.
+  `Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab.ipynb>`_.
 
-The tutorials are best explored in order, starting with the "Movies" tutorial.
+The tutorials are best explored in order, starting with the "Shortclips"
+tutorial.
 
 Helper Python package
 =====================
@@ -72,7 +73,8 @@ The package ``voxelwise_tutorials`` has the following dependencies:
 `nltk <https://github.com/nltk/nltk>`_,
 `pycortex <https://github.com/gallantlab/pycortex>`_,
 `himalaya <https://github.com/gallantlab/himalaya>`_,
-`pymoten <https://github.com/gallantlab/pymoten>`_.
+`pymoten <https://github.com/gallantlab/pymoten>`_,
+`datalad <https://github.com/datalad/datalad>`_.
 
 
 .. |Github| image:: https://img.shields.io/badge/github-voxelwise_tutorials-blue

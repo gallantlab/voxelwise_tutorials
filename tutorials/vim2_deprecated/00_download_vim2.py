@@ -14,7 +14,7 @@ This tutorial is based on publicly available data
 If you publish any work using this data set, please cite the original
 publication [1]_, and the data set [2]_.
 """
-# sphinx_gallery_thumbnail_path = "static/crcns.png"
+# sphinx_gallery_thumbnail_path = "static/download.png"
 ###############################################################################
 # Download
 # --------
