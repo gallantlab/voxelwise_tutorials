@@ -1,8 +1,8 @@
 |
 |
 
-Vim-2 tutorial (deprecated)
-===========================
+Vim-2 tutorial
+==============
 
 .. Note::
     This tutorial is redundant with the "Shortclips tutorial". It uses the
