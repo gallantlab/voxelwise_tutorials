@@ -114,12 +114,14 @@ def download_datalad(datafile, destination, source,
     --------
     >>> from voxelwise_tutorials.io import get_data_home
     >>> from voxelwise_tutorials.io import download_datalad
-    >>> directory = get_data_home(dataset="shortclips")
-    >>> download_datalad("features/wordnet.hdf", destination=directory,
+    >>> destination = get_data_home(dataset="shortclips")
+    >>> download_datalad("features/wordnet.hdf", destination=destination,
                          source="https://gin.g-node.org/gallantlab/shortclips")
     """
     import datalad.api
-    dataset = datalad.api.install(path=destination, source=source)
+    dataset = datalad.api.Dataset(path=destination)
+    if not dataset.is_installed():
+        dataset = datalad.api.install(path=destination, source=source)
 
     def has_content():
         """Double check that the file is actually present."""

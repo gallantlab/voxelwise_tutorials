@@ -141,8 +141,8 @@ Datasets
 
 .. _hut2012data:
 
-[4b] Huth, A. G., Nishimoto, S., Vu, A. T., Dupre la Tour, T., & Gallant, J. L. (2022).
-    Gallant Lab Natural Short Clips 3T fMRI Data. http://dx.doi.org/--TBD--
+[4b] Huth, A. G., Nishimoto, S., Vu, A. T., Dupré la Tour, T., & Gallant, J. L. (2022).
+    Gallant Lab Natural Short Clips 3T fMRI Data. http://dx.doi.org/10.12751/g-node.vy1zjd
 
 Packages
 --------
@@ -156,7 +156,7 @@ Packages
 .. _dup2022:
 
 [14] Dupré La Tour, T., Eickenberg, M., & Gallant, J. L. (2022).
-	Variance decomposition with banded ridge regression. *In preparation*.
+	Feature-space selection with banded ridge regression. *In preparation*.
 
 .. _gao2015:
 

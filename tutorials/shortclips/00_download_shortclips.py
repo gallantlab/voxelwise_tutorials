@@ -78,5 +78,5 @@ for datafile in DATAFILES:
 #     object and action categories across the human brain. Neuron, 76(6),
 #     1210-1224.
 #
-# .. [2] Huth, A. G., Nishimoto, S., Vu, A. T., Dupre la Tour, T., & Gallant, J. L. (2022).
-#     Gallant Lab Natural Short Clips 3T fMRI Data. http://dx.doi.org/--TBD--
+# .. [2] Huth, A. G., Nishimoto, S., Vu, A. T., Dupré la Tour, T., & Gallant, J. L. (2022).
+#     Gallant Lab Natural Short Clips 3T fMRI Data. http://dx.doi.org/10.12751/g-node.vy1zjd

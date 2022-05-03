@@ -285,6 +285,7 @@ plot_cv_path(X, y)
 ###############################################################################
 # To summarize, to select the best hyperparameter :math:`\alpha`, the standard
 # method is to perform a grid search:
+#
 #   - Split the training set into two subsets: one subset used to fit the
 #     models, and one subset to estimate the prediction accuracy (*validation
 #     set*)

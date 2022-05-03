@@ -99,7 +99,7 @@ corresponding publications:
   preparation*.
 
 .. [2] Dupré La Tour, T., Eickenberg, M., & Gallant, J. L. (2022).
-	Variance decomposition with banded ridge regression. *In preparation*.
+	Feature-space selection with banded ridge regression. *In preparation*.
 
 .. [3] Gao, J. S., Huth, A. G., Lescroart, M. D., & Gallant, J. L. (2015).
     Pycortex: an interactive surface visualizer for fMRI. Frontiers in
