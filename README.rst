@@ -95,15 +95,16 @@ If you use one of our packages in your work (``voxelwise_tutorials`` [1]_,
 corresponding publications:
 
 .. [1] Deniz, F., Visconti di Oleggio Castello, M., Dupré La Tour, T., &
-  Gallant, J. L. (2022). Voxelwise encoding models in functional MRI. *In
-  preparation*.
+   Gallant, J. L. (2022). Voxelwise encoding models in functional MRI. *In
+   preparation*.
 
 .. [2] Dupré La Tour, T., Eickenberg, M., & Gallant, J. L. (2022).
-	Feature-space selection with banded ridge regression. *In preparation*.
+   Feature-space selection with banded ridge regression. BioRxiv.
+   https://doi.org/10.1101/2022.05.05.490831 
 
 .. [3] Gao, J. S., Huth, A. G., Lescroart, M. D., & Gallant, J. L. (2015).
-    Pycortex: an interactive surface visualizer for fMRI. Frontiers in
-    neuroinformatics, 23.
+   Pycortex: an interactive surface visualizer for fMRI. Frontiers in
+   neuroinformatics, 23. https://doi.org/10.3389/fninf.2015.00023
 
 .. [4] Nunez-Elizalde, A.O., Deniz, F., Dupré la Tour, T., Visconti di Oleggio
    Castello, M., and Gallant, J.L. (2021). pymoten: scientific python package
