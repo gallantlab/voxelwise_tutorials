@@ -135,38 +135,39 @@ Datasets
 
 .. _nis2011data:
 
-[3b] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
-    B., & Gallant, J. L. (2014): Gallant Lab Natural Movie 4T fMRI Data.
+[3b] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., & Gallant, J. L. (2014).
+    Gallant Lab Natural Movie 4T fMRI Data.
     CRCNS.org. http://dx.doi.org/10.6080/K00Z715X
 
 .. _hut2012data:
 
 [4b] Huth, A. G., Nishimoto, S., Vu, A. T., Dupré la Tour, T., & Gallant, J. L. (2022).
-    Gallant Lab Natural Short Clips 3T fMRI Data. http://dx.doi.org/10.12751/g-node.vy1zjd
+    Gallant Lab Natural Short Clips 3T fMRI Data.
+    GIN. http://dx.doi.org/10.12751/g-node.vy1zjd
 
 Packages
 --------
 
 .. _den2022:
 
-[13] Deniz, F., Visconti di Oleggio Castello, M., Dupré La Tour, T., &
-  Gallant, J. L. (2022). Voxelwise encoding models in functional MRI. *In
-  preparation*.
+[13] Deniz, F., Visconti di Oleggio Castello, M., Dupré La Tour, T., & Gallant, J. L. (2022).
+   Voxelwise encoding models in functional MRI.
+   *In preparation*.
 
 .. _dup2022:
 
 [14] Dupré La Tour, T., Eickenberg, M., & Gallant, J. L. (2022).
-	Feature-space selection with banded ridge regression. *In preparation*.
+    Feature-space selection with banded ridge regression.
+    BioRxiv. https://doi.org/10.1101/2022.05.05.490831 
 
 .. _gao2015:
 
 [15] Gao, J. S., Huth, A. G., Lescroart, M. D., & Gallant, J. L. (2015).
-    Pycortex: an interactive surface visualizer for fMRI. Frontiers in
-    neuroinformatics, 23.
+    Pycortex: an interactive surface visualizer for fMRI.
+    Frontiers in Neuroinformatics, 23. https://doi.org/10.3389/fninf.2015.00023
 
 .. _nun2021:
 
-[16] Nunez-Elizalde, A.O., Deniz, F., Dupré la Tour, T., Visconti di Oleggio
-   Castello, M., and Gallant, J.L. (2021). pymoten: scientific python package
-   for computing motion energy features from video. Zenodo.
-   https://doi.org/10.5281/zenodo.6349625
+[16] Nunez-Elizalde, A.O., Deniz, F., Dupré la Tour, T., Visconti di Oleggio Castello, M., and Gallant, J.L. (2021).
+    pymoten: scientific python package for computing motion energy features from video.
+    Zenodo. https://doi.org/10.5281/zenodo.6349625
