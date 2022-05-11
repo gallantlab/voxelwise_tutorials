@@ -525,28 +525,28 @@ We can display the ``scikit-learn`` pipeline with an HTML diagram.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-b946194a-6761-4947-8ff9-af383f553740 {color: black;background-color: white;}#sk-b946194a-6761-4947-8ff9-af383f553740 pre{padding: 0;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-toggleable {background-color: white;}#sk-b946194a-6761-4947-8ff9-af383f553740 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-b946194a-6761-4947-8ff9-af383f553740 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-b946194a-6761-4947-8ff9-af383f553740 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-b946194a-6761-4947-8ff9-af383f553740 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-b946194a-6761-4947-8ff9-af383f553740 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-b946194a-6761-4947-8ff9-af383f553740 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-estimator:hover {background-color: #d4ebff;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-item {z-index: 1;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-parallel-item:only-child::after {width: 0;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-b946194a-6761-4947-8ff9-af383f553740 div.sk-text-repr-fallback {display: none;}</style><div id="sk-b946194a-6761-4947-8ff9-af383f553740" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+    <style>#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 {color: black;background-color: white;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 pre{padding: 0;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-toggleable {background-color: white;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-estimator:hover {background-color: #d4ebff;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-item {z-index: 1;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-parallel-item:only-child::after {width: 0;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7 div.sk-text-repr-fallback {display: none;}</style><div id="sk-d5939b1d-e2dd-42ba-95f7-ec776923b5c7" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
                     (&#x27;delayer&#x27;, Delayer(delays=[1, 2, 3, 4])),
                     (&#x27;kernelridgecv&#x27;,
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1...1, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array...99])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...  1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 500,
-                                                  &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>Please rerun this cell to show the HTML repr or trust the notebook.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="5ba49f7d-2e5c-4ef4-984a-9c88413a4833" type="checkbox" ><label for="5ba49f7d-2e5c-4ef4-984a-9c88413a4833" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+                                                  &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>Please rerun this cell to show the HTML repr or trust the notebook.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="910254b9-519d-42f8-96f7-98175623a7c9" type="checkbox" ><label for="910254b9-519d-42f8-96f7-98175623a7c9" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
                     (&#x27;delayer&#x27;, Delayer(delays=[1, 2, 3, 4])),
                     (&#x27;kernelridgecv&#x27;,
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1...1, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array...99])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...  1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 500,
-                                                  &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="72734ebe-5254-4254-b9b5-6ae2b96e111f" type="checkbox" ><label for="72734ebe-5254-4254-b9b5-6ae2b96e111f" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="72303a95-69a3-4eb1-a8eb-2df5e23ea2ff" type="checkbox" ><label for="72303a95-69a3-4eb1-a8eb-2df5e23ea2ff" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="a6870d41-3be9-45cf-86eb-0664914c7c88" type="checkbox" ><label for="a6870d41-3be9-45cf-86eb-0664914c7c88" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+                                                  &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="4f34d205-dd5a-48f8-9c61-ac4b49c0c261" type="checkbox" ><label for="4f34d205-dd5a-48f8-9c61-ac4b49c0c261" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="b77e977d-f9ea-48da-905d-6f402a2b951a" type="checkbox" ><label for="b77e977d-f9ea-48da-905d-6f402a2b951a" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="789efe91-e2e3-4b04-9e1a-86d97d7b76e4" type="checkbox" ><label for="789efe91-e2e3-4b04-9e1a-86d97d7b76e4" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1...1, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299]))]),
+                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...  1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                   solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                                  &#x27;n_targets_batch_refit&#x27;: 100})</pre></div></div></div></div></div></div></div>
     </div>
@@ -750,16 +750,25 @@ model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 334-336
+.. GENERATED FROM PYTHON SOURCE LINES 334-344
 
-Here, we are only interested in the voxels with good generalization
-performances. We select an arbitrary threshold of 0.05 (R^2 score).
+Because the ridge model allows a different regularization per voxel, the
+regression coefficients may have very different scales. In turn, these
+different scales can introduce a bias in the interpretation, focusing the
+attention disproportionately on voxels fitted with the lowest alpha. To
+address this issue, we rescale the regression coefficient to have a norm
+equal to the square-root of the :math:`R^2` scores. We found empirically that
+this rescaling best matches results obtained with a regularization shared
+accross voxels. This rescaling also removes the need to select only best
+performing voxels, because voxels with low prediction accuracies are rescaled
+to have a low norm.
 
-.. GENERATED FROM PYTHON SOURCE LINES 336-338
+.. GENERATED FROM PYTHON SOURCE LINES 344-347
 
 .. code-block:: default
 
-    primal_coef_selection = primal_coef[:, scores > 0.05]
+    primal_coef /= np.linalg.norm(primal_coef, axis=0)[None]
+    primal_coef *= np.sqrt(np.maximum(0, scores))[None]
 
 
 
@@ -768,24 +777,25 @@ performances. We select an arbitrary threshold of 0.05 (R^2 score).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 339-340
+.. GENERATED FROM PYTHON SOURCE LINES 348-349
 
 Then, we aggregate the coefficients across the different delays.
 
-.. GENERATED FROM PYTHON SOURCE LINES 340-351
+.. GENERATED FROM PYTHON SOURCE LINES 349-361
 
 .. code-block:: default
 
 
     # split the ridge coefficients per delays
     delayer = pipeline.named_steps['delayer']
-    primal_coef_per_delay = delayer.reshape_by_delays(primal_coef_selection,
-                                                      axis=0)
+    primal_coef_per_delay = delayer.reshape_by_delays(primal_coef, axis=0)
     print("(n_delays, n_features, n_voxels) =", primal_coef_per_delay.shape)
+    del primal_coef
 
     # average over delays
     average_coef = np.mean(primal_coef_per_delay, axis=0)
     print("(n_features, n_voxels) =", average_coef.shape)
+    del primal_coef_per_delay
 
 
 
@@ -797,19 +807,19 @@ Then, we aggregate the coefficients across the different delays.
 
  .. code-block:: none
 
-    (n_delays, n_features, n_voxels) = (4, 1705, 5317)
-    (n_features, n_voxels) = (1705, 5317)
+    (n_delays, n_features, n_voxels) = (4, 1705, 84038)
+    (n_features, n_voxels) = (1705, 84038)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 352-355
+.. GENERATED FROM PYTHON SOURCE LINES 362-365
 
 Even after averaging over delays, the coefficient matrix is still too large
 to interpret it. Therefore, we use principal component analysis (PCA) to
 reduce the dimensionality of the matrix.
 
-.. GENERATED FROM PYTHON SOURCE LINES 355-362
+.. GENERATED FROM PYTHON SOURCE LINES 365-372
 
 .. code-block:: default
 
@@ -835,13 +845,13 @@ reduce the dimensionality of the matrix.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 363-366
+.. GENERATED FROM PYTHON SOURCE LINES 373-376
 
 We can check the ratio of explained variance by each principal component.
 We see that the first four components already explain a large part of the
 coefficients variance.
 
-.. GENERATED FROM PYTHON SOURCE LINES 366-368
+.. GENERATED FROM PYTHON SOURCE LINES 376-378
 
 .. code-block:: default
 
@@ -857,12 +867,12 @@ coefficients variance.
 
  .. code-block:: none
 
-    PCA explained variance = [0.20117165 0.1183511  0.07573541 0.04402834]
+    PCA explained variance = [0.35199547 0.08103147 0.05653867 0.03766733]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 369-375
+.. GENERATED FROM PYTHON SOURCE LINES 379-385
 
 Similarly to [1]_, we correct the coefficients of features linked by a
 semantic relationship. When building the wordnet features, if a frame was
@@ -871,7 +881,7 @@ categories `canine`, `carnivore`, `placental mammal`, `mamma`, `vertebrate`,
 `chordate`, `organism`, and `whole`. The authors thus argue that the same
 correction needs to be done on the coefficients.
 
-.. GENERATED FROM PYTHON SOURCE LINES 375-383
+.. GENERATED FROM PYTHON SOURCE LINES 385-393
 
 .. code-block:: default
 
@@ -890,7 +900,7 @@ correction needs to be done on the coefficients.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 384-389
+.. GENERATED FROM PYTHON SOURCE LINES 394-399
 
 Finally, we plot the first principal component on the wordnet graph. In such
 graph, edges indicate "is a" relationships (e.g. an `athlete` "is a"
@@ -898,7 +908,7 @@ graph, edges indicate "is a" relationships (e.g. an `athlete` "is a"
 The area of each marker indicates the principal component magnitude, and the
 color indicates the sign (red is positive, blue is negative).
 
-.. GENERATED FROM PYTHON SOURCE LINES 389-401
+.. GENERATED FROM PYTHON SOURCE LINES 399-411
 
 .. code-block:: default
 
@@ -925,7 +935,7 @@ color indicates the sign (red is positive, blue is negative).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 402-413
+.. GENERATED FROM PYTHON SOURCE LINES 412-423
 
 According to the authors of [1]_, "this principal component distinguishes
 between categories with high stimulus energy (e.g. moving objects like
@@ -933,31 +943,21 @@ between categories with high stimulus energy (e.g. moving objects like
 objects like `sky` and `city`)".
 
 In this example, because we use only a single subject and we perform a
-different voxel selection, our result is slightly different than in [1]_. We
-also use a different regularization parameter in each voxel, while in [1]_
-all voxels had the same regularization parameter. We do not aim at
-reproducing exactly the results in [1]_, but we rather describe the general
-approach.
+different voxel selection, our result is slightly different than in the
+original publication. We also use a different regularization parameter in
+each voxel, while in [1]_ all voxels had the same regularization parameter.
+However, we do not aim at reproducing exactly the results of the original
+publication, but we rather describe the general approach.
 
-.. GENERATED FROM PYTHON SOURCE LINES 415-417
+.. GENERATED FROM PYTHON SOURCE LINES 425-427
 
 To project the principal component on the cortical surface, we first need to
 use the fitted PCA to transform the primal weights of all voxels.
 
-.. GENERATED FROM PYTHON SOURCE LINES 417-441
+.. GENERATED FROM PYTHON SOURCE LINES 427-441
 
 .. code-block:: default
 
-
-    # split the ridge coefficients per delays
-    primal_coef_per_delay = delayer.reshape_by_delays(primal_coef, axis=0)
-    print("(n_delays, n_features, n_voxels) =", primal_coef_per_delay.shape)
-    del primal_coef
-
-    # average over delays
-    average_coef = np.mean(primal_coef_per_delay, axis=0)
-    print("(n_features, n_voxels) =", average_coef.shape)
-    del primal_coef_per_delay
 
     # transform with the fitted PCA
     average_coef_transformed = pca.transform(average_coef.T).T
@@ -986,8 +986,6 @@ use the fitted PCA to transform the primal weights of all voxels.
 
  .. code-block:: none
 
-    (n_delays, n_features, n_voxels) = (4, 1705, 84038)
-    (n_features, n_voxels) = (1705, 84038)
     (n_components, n_voxels) = (4, 84038)
 
 
@@ -1105,7 +1103,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  17.202 seconds)
+   **Total running time of the script:** ( 0 minutes  56.647 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_03_plot_wordnet_model.py:

@@ -644,10 +644,11 @@ predict zero (:math:`w=0`).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 286-307
+.. GENERATED FROM PYTHON SOURCE LINES 286-308
 
 To summarize, to select the best hyperparameter :math:`\alpha`, the standard
 method is to perform a grid search:
+
   - Split the training set into two subsets: one subset used to fit the
     models, and one subset to estimate the prediction accuracy (*validation
     set*)
@@ -671,7 +672,7 @@ Learn more about hyperparameter selection and cross-validation on the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.539 seconds)
+   **Total running time of the script:** ( 0 minutes  2.487 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_02_plot_ridge_regression.py:

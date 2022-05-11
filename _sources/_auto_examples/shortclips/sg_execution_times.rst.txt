@@ -5,24 +5,24 @@
 
 Computation times
 =================
-**06:07.416** total execution time for **_auto_examples_shortclips** files:
+**00:56.647** total execution time for **_auto_examples_shortclips** files:
 
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_06_plot_banded_ridge_model.py` (``06_plot_banded_ridge_model.py``)     | 02:28.404 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_03_plot_wordnet_model.py` (``03_plot_wordnet_model.py``)               | 01:17.202 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_04_plot_hemodynamic_response.py` (``04_plot_hemodynamic_response.py``) | 00:53.256 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_05_plot_motion_energy_model.py` (``05_plot_motion_energy_model.py``)   | 00:51.548 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_01_plot_explainable_variance.py` (``01_plot_explainable_variance.py``) | 00:37.006 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_shortclips_03_plot_wordnet_model.py` (``03_plot_wordnet_model.py``)               | 00:56.647 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_shortclips_00_download_shortclips.py` (``00_download_shortclips.py``)             | 00:00.000 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_shortclips_00_setup_colab.py` (``00_setup_colab.py``)                             | 00:00.000 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr__auto_examples_shortclips_01_plot_explainable_variance.py` (``01_plot_explainable_variance.py``) | 00:00.000 | 0.0 MB |
++-----------------------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_shortclips_02_plot_ridge_regression.py` (``02_plot_ridge_regression.py``)         | 00:00.000 | 0.0 MB |
++-----------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr__auto_examples_shortclips_04_plot_hemodynamic_response.py` (``04_plot_hemodynamic_response.py``) | 00:00.000 | 0.0 MB |
++-----------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr__auto_examples_shortclips_05_plot_motion_energy_model.py` (``05_plot_motion_energy_model.py``)   | 00:00.000 | 0.0 MB |
++-----------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr__auto_examples_shortclips_06_plot_banded_ridge_model.py` (``06_plot_banded_ridge_model.py``)     | 00:00.000 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_shortclips_07_extract_motion_energy.py` (``07_extract_motion_energy.py``)         | 00:00.000 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+

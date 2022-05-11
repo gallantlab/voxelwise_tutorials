@@ -331,22 +331,32 @@ primal_coef = backend.to_numpy(primal_coef)
 print("(n_delays * n_features, n_voxels) =", primal_coef.shape)
 
 ###############################################################################
-# Here, we are only interested in the voxels with good generalization
-# performances. We select an arbitrary threshold of 0.05 (R^2 score).
-primal_coef_selection = primal_coef[:, scores > 0.05]
+# Because the ridge model allows a different regularization per voxel, the
+# regression coefficients may have very different scales. In turn, these
+# different scales can introduce a bias in the interpretation, focusing the
+# attention disproportionately on voxels fitted with the lowest alpha. To
+# address this issue, we rescale the regression coefficient to have a norm
+# equal to the square-root of the :math:`R^2` scores. We found empirically that
+# this rescaling best matches results obtained with a regularization shared
+# accross voxels. This rescaling also removes the need to select only best
+# performing voxels, because voxels with low prediction accuracies are rescaled
+# to have a low norm.
+primal_coef /= np.linalg.norm(primal_coef, axis=0)[None]
+primal_coef *= np.sqrt(np.maximum(0, scores))[None]
 
 ###############################################################################
 # Then, we aggregate the coefficients across the different delays.
 
 # split the ridge coefficients per delays
 delayer = pipeline.named_steps['delayer']
-primal_coef_per_delay = delayer.reshape_by_delays(primal_coef_selection,
-                                                  axis=0)
+primal_coef_per_delay = delayer.reshape_by_delays(primal_coef, axis=0)
 print("(n_delays, n_features, n_voxels) =", primal_coef_per_delay.shape)
+del primal_coef
 
 # average over delays
 average_coef = np.mean(primal_coef_per_delay, axis=0)
 print("(n_features, n_voxels) =", average_coef.shape)
+del primal_coef_per_delay
 
 ###############################################################################
 # Even after averaging over delays, the coefficient matrix is still too large
@@ -405,25 +415,15 @@ plt.show()
 # objects like `sky` and `city`)".
 #
 # In this example, because we use only a single subject and we perform a
-# different voxel selection, our result is slightly different than in [1]_. We
-# also use a different regularization parameter in each voxel, while in [1]_
-# all voxels had the same regularization parameter. We do not aim at
-# reproducing exactly the results in [1]_, but we rather describe the general
-# approach.
+# different voxel selection, our result is slightly different than in the
+# original publication. We also use a different regularization parameter in
+# each voxel, while in [1]_ all voxels had the same regularization parameter.
+# However, we do not aim at reproducing exactly the results of the original
+# publication, but we rather describe the general approach.
 
 ###############################################################################
 # To project the principal component on the cortical surface, we first need to
 # use the fitted PCA to transform the primal weights of all voxels.
-
-# split the ridge coefficients per delays
-primal_coef_per_delay = delayer.reshape_by_delays(primal_coef, axis=0)
-print("(n_delays, n_features, n_voxels) =", primal_coef_per_delay.shape)
-del primal_coef
-
-# average over delays
-average_coef = np.mean(primal_coef_per_delay, axis=0)
-print("(n_features, n_voxels) =", average_coef.shape)
-del primal_coef_per_delay
 
 # transform with the fitted PCA
 average_coef_transformed = pca.transform(average_coef.T).T
