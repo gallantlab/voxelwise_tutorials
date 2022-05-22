@@ -26,7 +26,11 @@ jobs:
 
     - name: Install dependencies
       run: |
+        pip install -U setuptools
+        pip install -U wheel
+        pip install git+https://github.com/gallantlab/pycortex.git
         pip install -e ."[github]"
+        $CONDA/bin/conda install -c conda-forge git-annex=*=alldep*
 
     - name: Lint with flake8
       run: |
@@ -36,10 +40,21 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --ignore=E402,C901 --max-line-length=127 --statistics
 
+    - name: Config git-annex
+      run: |
+        # change of path not in effect before next action
+        echo "${CONDA}/bin" >> $GITHUB_PATH
+        # add back python to avoid using conda's
+        echo $(dirname $(which python)) >> $GITHUB_PATH
+        # add some git config for git-annex
+        git config --global user.email "github-actions@example.com"
+        git config --global user.name "Github Actions"
+
     - name: Test with pytest
       run: |
+        # run the tests
         pip install -q pytest pytest-cov codecov
-        pytest --cov=./  --reruns 2
+        pytest --cov=./
 
     - name: Run codecov
       run: |

@@ -12,8 +12,15 @@ from voxelwise_tutorials.io import load_hdf5_sparse_array
 from voxelwise_tutorials.viz import plot_flatmap_from_mapper
 from voxelwise_tutorials.viz import plot_2d_flatmap_from_mapper
 
-dataset_directory = '/data1/tutorials/vim-4/'
+from voxelwise_tutorials.io import get_data_home
+from voxelwise_tutorials.io import download_datalad
+
+dataset_directory = get_data_home(dataset="shortclips")
 subject_id = "S01"
+
+# download mapper if not already present
+download_datalad("mappers/S01_mappers.hdf", destination=dataset_directory,
+                 source="https://gin.g-node.org/gallantlab/shortclips")
 
 
 def test_flatmap_mappers():
