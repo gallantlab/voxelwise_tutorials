@@ -24,6 +24,11 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
+    - uses: actions/cache@v3
+      with:
+        path: ~/.voxelwise_tutorials_data/shortclips
+        key: ${{ runner.os }}-shortclips
+
     - name: Install dependencies
       run: |
         pip install -U setuptools
