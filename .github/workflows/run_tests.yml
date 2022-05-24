@@ -26,13 +26,14 @@ jobs:
 
     - uses: actions/cache@v3
       with:
-        path: ~/.voxelwise_tutorials_data/shortclips
-        key: ${{ runner.os }}-shortclips
+        path: ~/voxelwise_tutorials_data/shortclips
+        key: shortclips-dataset
 
     - name: Install dependencies
       run: |
         pip install -U setuptools
         pip install -U wheel
+        # install pycortex from source to avoid using the cached wheel
         pip install git+https://github.com/gallantlab/pycortex.git
         pip install -e ."[github]"
         $CONDA/bin/conda install -c conda-forge git-annex=*=alldep*
@@ -47,7 +48,7 @@ jobs:
 
     - name: Config git-annex
       run: |
-        # change of path not in effect before next action
+        # note: change of path not in effect before next action
         echo "${CONDA}/bin" >> $GITHUB_PATH
         # add back python to avoid using conda's
         echo $(dirname $(which python)) >> $GITHUB_PATH

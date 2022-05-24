@@ -20,6 +20,7 @@ from voxelwise_tutorials.io import download_datalad
 
 subject = "S01"
 directory = get_data_home(dataset="shortclips")
+print(f"\n\n{directory}\n\n")
 file_name = os.path.join("mappers", f'{subject}_mappers.hdf')
 mapper_file = os.path.join(directory, file_name)
 

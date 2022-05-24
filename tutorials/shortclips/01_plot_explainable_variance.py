@@ -41,6 +41,7 @@ references [1]_ [2]_ [3]_.
 # Path of the data directory
 # --------------------------
 from voxelwise_tutorials.io import get_data_home
+
 directory = get_data_home(dataset="shortclips")
 print(directory)
 
@@ -59,6 +60,7 @@ from voxelwise_tutorials.io import load_hdf5_array
 # First, we load the fMRI responses on the test set, which contains brain
 # responses to ten (10) repeats of the same stimulus.
 import os
+
 file_name = os.path.join(directory, 'responses', f'{subject}_responses.hdf')
 Y_test = load_hdf5_array(file_name, key="Y_test")
 print("(n_repeats, n_samples_test, n_voxels) =", Y_test.shape)
@@ -67,6 +69,7 @@ print("(n_repeats, n_samples_test, n_voxels) =", Y_test.shape)
 # Then, we compute the explainable variance for each voxel.
 
 from voxelwise_tutorials.utils import explainable_variance
+
 ev = explainable_variance(Y_test)
 print("(n_voxels,) =", ev.shape)
 
@@ -190,6 +193,7 @@ if not hasattr(cortex.db, surface):
 # with a dot product ``@`` (equivalent to ``np.dot``).
 
 from voxelwise_tutorials.io import load_hdf5_sparse_array
+
 voxel_to_fsaverage = load_hdf5_sparse_array(mapper_file,
                                             key='voxel_to_fsaverage')
 ev_projected = voxel_to_fsaverage @ ev

@@ -85,7 +85,7 @@ def plot_2d(X, y, w, flat=True, alpha=None, show_noiseless=True):
     #####################
     # left plot: y = f(x)
 
-    try:  # computed_zorder is only available in matplotlib >= 3.4
+    try:  # computed_zorder is only available in matplotlib >= 3.4
         ax = fig.add_subplot(121, projection='3d', computed_zorder=False)
     except AttributeError:
         ax = fig.add_subplot(121, projection='3d')
