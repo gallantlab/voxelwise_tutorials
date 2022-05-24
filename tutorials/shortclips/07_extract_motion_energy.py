@@ -59,7 +59,7 @@ with h5py.File(first_file_name, 'r') as f:
 import numpy as np
 from moten.io import imagearray2luminance
 
-from voxelwise_tutorials.progress_bar import bar
+from himalaya.progress_bar import bar
 from voxelwise_tutorials.io import load_hdf5_array
 
 

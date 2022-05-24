@@ -4,8 +4,8 @@ import shutil
 
 import h5py
 import scipy.sparse
+from himalaya.progress_bar import ProgressBar
 
-from .progress_bar import ProgressBar
 
 URL_CRCNS = 'https://portal.nersc.gov/project/crcns/download/index.php'
 
@@ -207,14 +207,6 @@ OLD_KEYS = {
     "flatmap_mask": "pixmask",
     "voxel_to_flatmap": "pixmap",
 }
-
-
-def _concatenate_fsaverage_left_right(file_name):
-    """Load the"""
-    voxel_to_fsavg_L = load_hdf5_sparse_array(file_name, "vox_to_fsavg_left")
-    voxel_to_fsavg_R = load_hdf5_sparse_array(file_name, "vox_to_fsavg_right")
-    voxel_to_fsavg = scipy.sparse.vstack([voxel_to_fsavg_L, voxel_to_fsavg_R])
-    return voxel_to_fsavg
 
 
 def save_hdf5_dataset(file_name, dataset, mode='w'):
