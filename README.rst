@@ -2,7 +2,7 @@
 Voxelwise modeling tutorials
 ============================
 
-|Github| |Python| |License|
+|Github| |Python| |License| |Build| |Downloads|
 
 Welcome to the voxelwise modeling tutorial from the
 `Gallantlab <https://gallantlab.org>`_.
@@ -85,6 +85,12 @@ The package ``voxelwise_tutorials`` has the following dependencies:
 
 .. |License| image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
    :target: https://opensource.org/licenses/BSD-3-Clause
+
+.. |Build| image:: https://github.com/gallantlab/voxelwise_tutorials/actions/workflows/run_tests.yml/badge.svg
+   :target: https://github.com/gallantlab/voxelwise_tutorials/actions/workflows/run_tests.yml
+
+.. |Downloads| image:: https://pepy.tech/badge/voxelwise_tutorials
+   :target: https://pepy.tech/project/voxelwise_tutorials
 
 
 Cite as
