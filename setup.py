@@ -22,6 +22,7 @@ requirements = [
     "scikit-learn>=0.23",
     "matplotlib",
     "networkx",
+    "pydot",
     "nltk",
     "pycortex>=1.2.4",
     "himalaya",
