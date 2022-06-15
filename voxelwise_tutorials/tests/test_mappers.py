@@ -44,7 +44,7 @@ def test_flatmap_mappers():
                                   ax=None)
     fig = ax.figure
     if save_fig:
-        fig.savefig(f'test.png')
+        fig.savefig('test.png')
     plt.close(fig)
 
 
@@ -66,7 +66,7 @@ def test_plot_2d_flatmap_from_mapper():
                                      vmin=-1, vmax=1, vmin2=-1, vmax2=1)
     fig = ax.figure
     if save_fig:
-        fig.savefig(f'test_2d.png')
+        fig.savefig('test_2d.png')
     plt.close(fig)
 
 
@@ -107,5 +107,5 @@ def test_fsaverage_mappers():
                            cmap='inferno', alpha=0.7, with_curvature=True)
     fig = cortex.quickshow(vertex, with_rois=has_installed("inkscape"))
     if save_fig:
-        fig.savefig(f'test_fsaverage.png')
+        fig.savefig('test_fsaverage.png')
     plt.close(fig)

@@ -1,4 +1,4 @@
-"""
+r"""
 ================================
 Compute the explainable variance
 ================================
@@ -15,26 +15,25 @@ repetitions. In voxelwise modeling, the features used to model brain activity
 are the same for each repetition of the stimulus. Thus, encoding models will
 predict only the repeatable stimulus-dependent signal.
 
-The stimulus-dependent signal can be estimated by taking the mean of 
-brain responses over repeats of the same stimulus or experiment. The variance
-of the estimated stimulus-dependent signal, which we call the explainable
-variance, is proportional to the maximum prediction accuracy that can be
-obtained by a voxelwise encoding model in the test set. 
+The stimulus-dependent signal can be estimated by taking the mean of brain
+responses over repeats of the same stimulus or experiment. The variance of the
+estimated stimulus-dependent signal, which we call the explainable variance, is
+proportional to the maximum prediction accuracy that can be obtained by a
+voxelwise encoding model in the test set.
 
-Mathematically, let :math:`y_i, i = 1 \\dots N` be the measured signal in
-a voxel for each of the :math:`N` repetitions of the same stimulus and 
-:math:`\\bar{y} = \\frac{1}{N}\\sum_{i=1}^Ny_i` the average brain response
-across repetitions. For each repeat, we define the residual timeseries
-between brain response and average brain response as :math:`r_i = y_i - \\bar{y}`.
-The explainable variance (EV) is estimated as
+Mathematically, let :math:`y_i, i = 1 \dots N` be the measured signal in a
+voxel for each of the :math:`N` repetitions of the same stimulus and
+:math:`\bar{y} = \frac{1}{N}\sum_{i=1}^Ny_i` the average brain response
+across repetitions. For each repeat, we define the residual timeseries between
+brain response and average brain response as :math:`r_i = y_i - \bar{y}`. The
+explainable variance (EV) is estimated as
 
 .. math::
-   \\text{EV} = \\frac{1}{N}\sum_{i=1}^N\\text{Var}(y_i) - \\frac{N}{N-1}\sum_{i=1}^N\\text{Var}(r_i)
+   \text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)
 
 
-In the literature, the explainable
-variance is also known as the *signal power*. For more information, see these
-references [1]_ [2]_ [3]_.
+In the literature, the explainable variance is also known as the *signal
+power*. For more information, see these references [1]_ [2]_ [3]_.
 """
 # sphinx_gallery_thumbnail_number = 1
 ###############################################################################
@@ -151,8 +150,8 @@ plot_flatmap_from_mapper(ev, mapper_file, vmin=0, vmax=0.7)
 plt.show()
 
 ###############################################################################
-# This figure is a flattened map of the cortical surface. A number of regions of
-# interest (ROIs) have been labeled to ease interpretation. If you have
+# This figure is a flattened map of the cortical surface. A number of regions
+# of interest (ROIs) have been labeled to ease interpretation. If you have
 # never seen such a flatmap, we recommend taking a look at a `pycortex brain
 # viewer <https://www.gallantlab.org/brainviewer/Deniz2019>`_, which displays
 # the brain in 3D. In this viewer, press "I" to inflate the brain, "F" to
