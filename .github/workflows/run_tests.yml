@@ -62,6 +62,22 @@ jobs:
         pip install -q pytest pytest-cov codecov
         pytest --cov=./
 
+    - name: Run some tutorials
+      run: |
+        date
+        python tutorials/shortclips/00_download_shortclips.py
+        date
+        python tutorials/shortclips/01_plot_explainable_variance.py
+        date
+        python tutorials/shortclips/02_plot_ridge_regression.py
+        date
+        python tutorials/shortclips/03_plot_wordnet_model.py
+        date
+        python tutorials/shortclips/04_plot_hemodynamic_response.py
+        date
+        python tutorials/shortclips/05_plot_motion_energy_model.py
+        date
+
     - name: Run codecov
       run: |
         codecov
