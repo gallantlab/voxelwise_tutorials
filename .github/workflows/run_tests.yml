@@ -69,3 +69,11 @@ jobs:
     - name: Run codecov
       run: |
         codecov
+
+    - name: Run some tutorials
+      run: |
+        # do not run all tutorials because it is slow on CPU
+        python tutorials/shortclips/00_download_shortclips.py
+        python tutorials/shortclips/01_plot_explainable_variance.py
+        python tutorials/shortclips/02_plot_ridge_regression.py
+        python tutorials/shortclips/03_plot_wordnet_model.py

@@ -84,6 +84,7 @@ def correct_coefficients(primal_coef, feature_names, norm_by_depth=True):
     import itertools
     import nltk
     nltk.download('wordnet', quiet=True)
+    nltk.download('omw-1.4', quiet=True)
     from nltk.corpus import wordnet
 
     def _get_hypernyms(name):
