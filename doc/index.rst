@@ -55,7 +55,7 @@ Cite as
 -------
 
 If you use one of our packages in your work (``voxelwise_tutorials``
-:ref:`[13]<den2022>`, ``himalaya`` :ref:`[14]<dup2022>`, ``pycortex``
+:ref:`[13]<dup2022b>`, ``himalaya`` :ref:`[14]<dup2022>`, ``pycortex``
 :ref:`[15]<gao2015>`, or ``pymoten`` :ref:`[16]<nun2021>`), please cite the
 corresponding publications.
 

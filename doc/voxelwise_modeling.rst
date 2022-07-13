@@ -148,15 +148,15 @@ Datasets
 Packages
 --------
 
-.. _den2022:
+.. _dup2022b:
 
-[13] Deniz, F., Visconti di Oleggio Castello, M., Dupré La Tour, T., & Gallant, J. L. (2022).
-   Voxelwise encoding models in functional MRI.
+[13] Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2022).
+   Voxelwise encoding models tutorials.
    *In preparation*.
 
 .. _dup2022:
 
-[14] Dupré La Tour, T., Eickenberg, M., & Gallant, J. L. (2022).
+[14] Dupré La Tour, T., Eickenberg, M., Nunez-Elizalde, A.O., & Gallant, J. L. (2022).
     Feature-space selection with banded ridge regression.
     BioRxiv. https://doi.org/10.1101/2022.05.05.490831 
 
