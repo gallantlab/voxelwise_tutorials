@@ -101,11 +101,12 @@ If you use one of our packages in your work (``voxelwise_tutorials`` [1]_,
 corresponding publications:
 
 .. [1] Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2022).
-   Voxelwise encoding models tutorials. *In preparation*.
+   Voxelwise modeling tutorials: an encoding model approach to functional MRI analysis.
+   *In preparation*.
 
 .. [2] Dupré La Tour, T., Eickenberg, M., Nunez-Elizalde, A.O., & Gallant, J. L. (2022).
-   Feature-space selection with banded ridge regression. BioRxiv.
-   https://doi.org/10.1101/2022.05.05.490831 
+   Feature-space selection with banded ridge regression. NeuroImage.
+   https://doi.org/10.1016/j.neuroimage.2022.119728
 
 .. [3] Gao, J. S., Huth, A. G., Lescroart, M. D., & Gallant, J. L. (2015).
    Pycortex: an interactive surface visualizer for fMRI. Frontiers in
