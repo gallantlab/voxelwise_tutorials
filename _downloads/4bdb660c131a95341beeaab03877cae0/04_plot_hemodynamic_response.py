@@ -29,6 +29,7 @@ response function (HRF) from a model with delays.
 # Path of the data directory
 # --------------------------
 from voxelwise_tutorials.io import get_data_home
+
 directory = get_data_home(dataset="shortclips")
 print(directory)
 
@@ -107,7 +108,9 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from voxelwise_tutorials.delayer import Delayer
 from himalaya.kernel_ridge import KernelRidgeCV
+from himalaya.ridge import RidgeCV
 from himalaya.backend import set_backend
+
 backend = set_backend("torch_cuda", on_error="warn")
 
 X_train = X_train.astype("float32")
@@ -126,6 +129,7 @@ pipeline = make_pipeline(
 
 ###############################################################################
 from sklearn import set_config
+
 set_config(display='diagram')  # requires scikit-learn 0.23
 pipeline
 
@@ -182,22 +186,22 @@ x_delayed = delayer.fit_transform(x[:, None])
 # function.
 
 import matplotlib.pyplot as plt
-fig, axs = plt.subplots(6, 1, figsize=(8, 6.5), constrained_layout=True, 
-        sharex=True)
-times = np.arange(n_trs)*TR
+
+fig, axs = plt.subplots(6, 1, figsize=(8, 6.5), constrained_layout=True,
+                        sharex=True)
+times = np.arange(n_trs) * TR
 
 axs[0].plot(times, y, color="r")
 axs[0].set_title("BOLD response")
 for i, (ax, xx) in enumerate(zip(axs.flat[1:], x_delayed.T)):
-  ax.plot(times, xx, color='k')
-  ax.set_title("$x(t - {0:.0f})$ (feature delayed by {1} sample{2})".format(
-      i*TR, i, "" if i == 1 else "s"))
+    ax.plot(times, xx, color='k')
+    ax.set_title("$x(t - {0:.0f})$ (feature delayed by {1} sample{2})".format(
+        i * TR, i, "" if i == 1 else "s"))
 for ax in axs.flat:
-  ax.axvline(40, color='gray')
-  ax.set_yticks([])
+    ax.axvline(40, color='gray')
+    ax.set_yticks([])
 _ = axs[-1].set_xlabel("Time [s]")
 plt.show()
-
 
 ###############################################################################
 # Compare with a model without delays
@@ -206,10 +210,15 @@ plt.show()
 # We define here another model without feature delays (i.e. no ``Delayer``).
 # Because the BOLD signal is inherently slow due to the dynamics of
 # neuro-vascular coupling, this model is unlikely to perform well.
+#
+# Note that if we remove the feature delays, we will have more fMRI samples (3600) than
+# number of features (1705). In this case, running a kernel version of ridge regression
+# is computationally suboptimal. Thus, to create a model without delays we are using
+# `RidgeCV` instead of `KernelRidgeCV`.
 
 pipeline_no_delay = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
-    KernelRidgeCV(
+    RidgeCV(
         alphas=alphas, cv=cv,
         solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
                            n_targets_batch_refit=100)),

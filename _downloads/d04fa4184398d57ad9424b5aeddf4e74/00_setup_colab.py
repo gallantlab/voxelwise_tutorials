@@ -22,29 +22,51 @@ skip it if you run the tutorials on your machine.
 # Download the data and install all required dependencies
 # -------------------------------------------------------
 #
-# Uncomment and run the following cell to download the tutorial data and
-# install the required dependencies.
+# Uncomment and run the following cell to download the required packages.
 
-# !pip install -U --no-cache-dir gdown --pre
-# ![ -f "vim-5-for-ccn.tar.gz" ] || gdown --id 1b0I0Ytj06m6GCmfxfNrZuyF97fDo3NZb
-# ![ -d "vim-5" ] || tar xzf vim-5-for-ccn.tar.gz
-# !ln -s vim-5 shortclips
-# !apt-get install -qq inkscape > /dev/null
-# !pip install -q voxelwise_tutorials==0.1.3
-# ![ -f "ngrok-stable-linux-amd64.zip" ] || wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-# ![ -f "ngrok" ] || unzip ngrok-stable-linux-amd64.zip
+#!git config --global user.email "you@example.com" && git config --global user.name "Your Name"
+#!wget -O- http://neuro.debian.net/lists/impish.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+#!apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9 > /dev/null
+#!apt-get -qq update > /dev/null
+#!apt-get install -qq inkscape git-annex-standalone > /dev/null
+#!pip install -q voxelwise_tutorials
+#![ -f "ngrok-stable-linux-amd64.zip" ] || wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+#![ -f "ngrok" ] || unzip ngrok-stable-linux-amd64.zip
 
 ###############################################################################
 # For the record, here is what each command does:
 
-# - update gdown to get the latest fixes
-# - Download the dataset archive
-# - Extract the dataset archive
-# - Create a symlink to the extracted dataset
-# - Install Inkscape, to use more features from Pycortex
+# - Set up an email and user name to use git, git-annex, and datalad (required to download the data)
+# - Add NeuroDebian to the package sources
+# - Update the gpg keys to use NeuroDebian
+# - Update the list of available packages
+# - Install Inkscape to use more features from Pycortex, and install git-annex to download the data
 # - Install the tutorial helper package, and all the required dependencies
 # - Download ngrok to create a tunnel for pycortex 3D brain viewer
 # - Extract the ngrok archive
+
+###############################################################################
+# Now run the following cell to download the data for the tutorials.
+
+
+from voxelwise_tutorials.io import download_datalad
+
+DATAFILES = [
+    "features/motion_energy.hdf",
+    "features/wordnet.hdf",
+    "mappers/S01_mappers.hdf",
+    "responses/S01_responses.hdf",
+]
+
+source = "https://gin.g-node.org/gallantlab/shortclips"
+destination = "/content/shortclips"
+
+for datafile in DATAFILES:
+    local_filename = download_datalad(
+        datafile,
+        destination=destination,
+        source=source
+    )
 
 ###############################################################################
 # Now run the following cell to set up the environment variables for the

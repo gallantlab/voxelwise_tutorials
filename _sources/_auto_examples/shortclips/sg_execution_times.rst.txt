@@ -5,10 +5,10 @@
 
 Computation times
 =================
-**00:56.647** total execution time for **_auto_examples_shortclips** files:
+**04:30.061** total execution time for **_auto_examples_shortclips** files:
 
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_03_plot_wordnet_model.py` (``03_plot_wordnet_model.py``)               | 00:56.647 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_shortclips_04_plot_hemodynamic_response.py` (``04_plot_hemodynamic_response.py``) | 04:30.061 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_shortclips_00_download_shortclips.py` (``00_download_shortclips.py``)             | 00:00.000 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
@@ -18,7 +18,7 @@ Computation times
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_shortclips_02_plot_ridge_regression.py` (``02_plot_ridge_regression.py``)         | 00:00.000 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_04_plot_hemodynamic_response.py` (``04_plot_hemodynamic_response.py``) | 00:00.000 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_shortclips_03_plot_wordnet_model.py` (``03_plot_wordnet_model.py``)               | 00:00.000 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_shortclips_05_plot_motion_energy_model.py` (``05_plot_motion_energy_model.py``)   | 00:00.000 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+

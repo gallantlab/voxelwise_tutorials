@@ -34,28 +34,27 @@ repetitions. In voxelwise modeling, the features used to model brain activity
 are the same for each repetition of the stimulus. Thus, encoding models will
 predict only the repeatable stimulus-dependent signal.
 
-The stimulus-dependent signal can be estimated by taking the mean of 
-brain responses over repeats of the same stimulus or experiment. The variance
-of the estimated stimulus-dependent signal, which we call the explainable
-variance, is proportional to the maximum prediction accuracy that can be
-obtained by a voxelwise encoding model in the test set. 
+The stimulus-dependent signal can be estimated by taking the mean of brain
+responses over repeats of the same stimulus or experiment. The variance of the
+estimated stimulus-dependent signal, which we call the explainable variance, is
+proportional to the maximum prediction accuracy that can be obtained by a
+voxelwise encoding model in the test set.
 
-Mathematically, let :math:`y_i, i = 1 \dots N` be the measured signal in
-a voxel for each of the :math:`N` repetitions of the same stimulus and 
+Mathematically, let :math:`y_i, i = 1 \dots N` be the measured signal in a
+voxel for each of the :math:`N` repetitions of the same stimulus and
 :math:`\bar{y} = \frac{1}{N}\sum_{i=1}^Ny_i` the average brain response
-across repetitions. For each repeat, we define the residual timeseries
-between brain response and average brain response as :math:`r_i = y_i - \bar{y}`.
-The explainable variance (EV) is estimated as
+across repetitions. For each repeat, we define the residual timeseries between
+brain response and average brain response as :math:`r_i = y_i - \bar{y}`. The
+explainable variance (EV) is estimated as
 
 .. math::
    \text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)
 
 
-In the literature, the explainable
-variance is also known as the *signal power*. For more information, see these
-references [1]_ [2]_ [3]_.
+In the literature, the explainable variance is also known as the *signal
+power*. For more information, see these references [1]_ [2]_ [3]_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-39
+.. GENERATED FROM PYTHON SOURCE LINES 38-38
 
 .. code-block:: default
 
@@ -66,16 +65,17 @@ references [1]_ [2]_ [3]_.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-43
+.. GENERATED FROM PYTHON SOURCE LINES 40-42
 
 Path of the data directory
 --------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-47
+.. GENERATED FROM PYTHON SOURCE LINES 42-47
 
 .. code-block:: default
 
     from voxelwise_tutorials.io import get_data_home
+
     directory = get_data_home(dataset="shortclips")
     print(directory)
 
@@ -89,7 +89,7 @@ Path of the data directory
 
  .. code-block:: none
 
-    /home/jlg/tomdlt/voxelwise_tutorials_data/shortclips
+    /home/jlg/mvdoc/voxelwise_tutorials_data/shortclips
 
 
 
@@ -133,11 +133,12 @@ Compute the explainable variance
 First, we load the fMRI responses on the test set, which contains brain
 responses to ten (10) repeats of the same stimulus.
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-66
+.. GENERATED FROM PYTHON SOURCE LINES 61-67
 
 .. code-block:: default
 
     import os
+
     file_name = os.path.join(directory, 'responses', f'{subject}_responses.hdf')
     Y_test = load_hdf5_array(file_name, key="Y_test")
     print("(n_repeats, n_samples_test, n_voxels) =", Y_test.shape)
@@ -157,16 +158,17 @@ responses to ten (10) repeats of the same stimulus.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-68
+.. GENERATED FROM PYTHON SOURCE LINES 68-69
 
 Then, we compute the explainable variance for each voxel.
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-73
+.. GENERATED FROM PYTHON SOURCE LINES 69-75
 
 .. code-block:: default
 
 
     from voxelwise_tutorials.utils import explainable_variance
+
     ev = explainable_variance(Y_test)
     print("(n_voxels,) =", ev.shape)
 
@@ -185,12 +187,12 @@ Then, we compute the explainable variance for each voxel.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-76
+.. GENERATED FROM PYTHON SOURCE LINES 76-78
 
 To better understand the concept of explainable variance, we can plot the
 measured signal in a voxel with high explainable variance...
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-91
+.. GENERATED FROM PYTHON SOURCE LINES 78-93
 
 .. code-block:: default
 
@@ -220,11 +222,11 @@ measured signal in a voxel with high explainable variance...
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-93
+.. GENERATED FROM PYTHON SOURCE LINES 94-95
 
 ... and in a voxel with low explainable variance.
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-104
+.. GENERATED FROM PYTHON SOURCE LINES 95-106
 
 .. code-block:: default
 
@@ -250,11 +252,11 @@ measured signal in a voxel with high explainable variance...
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-106
+.. GENERATED FROM PYTHON SOURCE LINES 107-108
 
 We can also plot the distribution of explainable variance over voxels.
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-114
+.. GENERATED FROM PYTHON SOURCE LINES 108-116
 
 .. code-block:: default
 
@@ -277,7 +279,7 @@ We can also plot the distribution of explainable variance over voxels.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 115-121
+.. GENERATED FROM PYTHON SOURCE LINES 117-123
 
 We see that many voxels have low explainable variance. This is
 expected, since many voxels are not driven by a visual stimulus, and their
@@ -286,7 +288,7 @@ We also see that some voxels have high explainable variance (around 0.7). The
 responses in these voxels are highly consistent across repetitions of the
 same stimulus. Thus, they are good targets for encoding models.
 
-.. GENERATED FROM PYTHON SOURCE LINES 123-143
+.. GENERATED FROM PYTHON SOURCE LINES 125-145
 
 Map to subject flatmap
 ----------------------
@@ -309,7 +311,7 @@ voxel to a set of pixel in a flatmap. The matrix is efficiently stored in a
 ``scipy`` sparse CSR matrix. The function ``plot_flatmap_from_mapper``
 provides an example of how to use the mapper and visualize the flatmap.
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-150
+.. GENERATED FROM PYTHON SOURCE LINES 145-152
 
 .. code-block:: default
 
@@ -331,10 +333,10 @@ provides an example of how to use the mapper and visualize the flatmap.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-160
+.. GENERATED FROM PYTHON SOURCE LINES 153-162
 
-This figure is a flattened map of the cortical surface. A number of regions of
-interest (ROIs) have been labeled to ease interpretation. If you have
+This figure is a flattened map of the cortical surface. A number of regions
+of interest (ROIs) have been labeled to ease interpretation. If you have
 never seen such a flatmap, we recommend taking a look at a `pycortex brain
 viewer <https://www.gallantlab.org/brainviewer/Deniz2019>`_, which displays
 the brain in 3D. In this viewer, press "I" to inflate the brain, "F" to
@@ -343,14 +345,14 @@ cursor on the right menu). Press "H" for a list of all keyboard shortcuts.
 This viewer should help you understand the correspondance between the flatten
 and the folded cortical surface of the brain.
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-166
+.. GENERATED FROM PYTHON SOURCE LINES 164-168
 
 On this flatmap, we can see that the explainable variance is mainly located
 in the visual cortex, in early visual regions like V1, V2, V3, or in
 higher-level regions like EBA, FFA or IPS. This is expected since this
 dataset contains responses to a visual stimulus.
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-175
+.. GENERATED FROM PYTHON SOURCE LINES 170-177
 
 Map to "fsaverage"
 ------------------
@@ -360,7 +362,7 @@ average surface ("fsaverage"), that can be used in ``pycortex``.
 
 First, let's download the "fsaverage" surface.
 
-.. GENERATED FROM PYTHON SOURCE LINES 175-186
+.. GENERATED FROM PYTHON SOURCE LINES 177-188
 
 .. code-block:: default
 
@@ -382,19 +384,20 @@ First, let's download the "fsaverage" surface.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 187-191
+.. GENERATED FROM PYTHON SOURCE LINES 189-193
 
 Then, we load the "fsaverage" mapper. The mapper is a matrix of shape
 (n_vertices, n_voxels), which maps each voxel to some vertices in the
 fsaverage surface. It is stored as a sparse CSR matrix. The mapper is applied
 with a dot product ``@`` (equivalent to ``np.dot``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 191-198
+.. GENERATED FROM PYTHON SOURCE LINES 193-201
 
 .. code-block:: default
 
 
     from voxelwise_tutorials.io import load_hdf5_sparse_array
+
     voxel_to_fsaverage = load_hdf5_sparse_array(mapper_file,
                                                 key='voxel_to_fsaverage')
     ev_projected = voxel_to_fsaverage @ ev
@@ -415,13 +418,13 @@ with a dot product ``@`` (equivalent to ``np.dot``).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 199-202
+.. GENERATED FROM PYTHON SOURCE LINES 202-205
 
 We can then create a ``Vertex`` object in ``pycortex``, containing the
 projected data. This object can be used either in a ``pycortex`` interactive
 3D viewer, or in a ``matplotlib`` figure showing only the flatmap.
 
-.. GENERATED FROM PYTHON SOURCE LINES 202-205
+.. GENERATED FROM PYTHON SOURCE LINES 205-208
 
 .. code-block:: default
 
@@ -435,7 +438,7 @@ projected data. This object can be used either in a ``pycortex`` interactive
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 206-211
+.. GENERATED FROM PYTHON SOURCE LINES 209-214
 
 To start an interactive 3D viewer in the browser, we can use the ``webshow``
 function in pycortex. If you are running the notebook on Colab, you first
@@ -443,7 +446,7 @@ need to tunnel the pycortex application out of Colab. To do so, use the
 following cell to start a tunnel with ``ngrok`` and to get an address where
 the pycortex viewer will be made accessible.
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-233
+.. GENERATED FROM PYTHON SOURCE LINES 214-236
 
 .. code-block:: default
 
@@ -484,14 +487,14 @@ the pycortex viewer will be made accessible.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 234-238
+.. GENERATED FROM PYTHON SOURCE LINES 237-241
 
 Now you can start an interactive 3D viewer by changing ``run_webshow`` to
 ``True`` and running the following cell.  If you are using Colab, remember to
 use the address returned by ngrok in the cell above rather than the address
 returned by this cell.
 
-.. GENERATED FROM PYTHON SOURCE LINES 238-243
+.. GENERATED FROM PYTHON SOURCE LINES 241-246
 
 .. code-block:: default
 
@@ -507,7 +510,7 @@ returned by this cell.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 244-249
+.. GENERATED FROM PYTHON SOURCE LINES 247-252
 
 Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
 `quickshow` function.
@@ -515,7 +518,7 @@ Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
 (This function requires Inkscape to be installed. The rest of the tutorial
 does not use this function, so feel free to ignore.)
 
-.. GENERATED FROM PYTHON SOURCE LINES 249-256
+.. GENERATED FROM PYTHON SOURCE LINES 252-259
 
 .. code-block:: default
 
@@ -534,18 +537,10 @@ does not use this function, so feel free to ignore.)
     :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    Generating a flatmap cache
 
 
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 257-271
+.. GENERATED FROM PYTHON SOURCE LINES 260-274
 
 References
 ----------
@@ -565,7 +560,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  37.006 seconds)
+   **Total running time of the script:** ( 0 minutes  22.315 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_01_plot_explainable_variance.py:

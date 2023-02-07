@@ -54,8 +54,7 @@ with h5py.File(os.path.join(directory, 'Stimuli.mat'), 'r') as f:
 
 import numpy as np
 from moten.io import imagearray2luminance
-
-from voxelwise_tutorials.progress_bar import bar
+from himalaya.progress_bar import bar
 
 
 def compute_luminance(train_or_test, batch_size=1024):

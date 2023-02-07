@@ -672,7 +672,7 @@ Learn more about hyperparameter selection and cross-validation on the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.487 seconds)
+   **Total running time of the script:** ( 0 minutes  3.947 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_02_plot_ridge_regression.py:

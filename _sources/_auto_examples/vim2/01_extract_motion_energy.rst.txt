@@ -90,15 +90,14 @@ To avoid loading the entire simulus array in memory, we use batches of data.
 These batches can be arbitray, since the luminance is computed independently
 on each image.
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-95
+.. GENERATED FROM PYTHON SOURCE LINES 54-94
 
 .. code-block:: default
 
 
     import numpy as np
     from moten.io import imagearray2luminance
-
-    from voxelwise_tutorials.progress_bar import bar
+    from himalaya.progress_bar import bar
 
 
     def compute_luminance(train_or_test, batch_size=1024):
@@ -136,7 +135,7 @@ on each image.
     luminance_test = compute_luminance("test")
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-106
+.. GENERATED FROM PYTHON SOURCE LINES 95-105
 
 Compute the motion energy
 -------------------------
@@ -149,7 +148,7 @@ computed over multiple images, since the filters have a temporal component.
 Therefore, motion-energy is not independent of other images, and we cannot
 arbitrarily split the images.
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-149
+.. GENERATED FROM PYTHON SOURCE LINES 105-148
 
 .. code-block:: default
 
@@ -197,12 +196,12 @@ arbitrarily split the images.
     motion_energy_test = compute_motion_energy(luminance_test)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-152
+.. GENERATED FROM PYTHON SOURCE LINES 149-151
 
 We end this script with saving the features, to use them in voxelwise
 modeling in the following example.
 
-.. GENERATED FROM PYTHON SOURCE LINES 152-163
+.. GENERATED FROM PYTHON SOURCE LINES 151-162
 
 .. code-block:: default
 
@@ -218,7 +217,7 @@ modeling in the following example.
         dataset=dict(X_train=motion_energy_train, X_test=motion_energy_test))
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 164-170
+.. GENERATED FROM PYTHON SOURCE LINES 163-169
 
 References
 ----------
