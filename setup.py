@@ -31,7 +31,7 @@ requirements = [
 ]
 
 extras_require = {
-    "docs": ["sphinx", "sphinx_gallery", "numpydoc"],
+    "docs": ["sphinx", "sphinx_gallery", "numpydoc", "nbformat"],
     "github": ["pytest"],
 }
 
