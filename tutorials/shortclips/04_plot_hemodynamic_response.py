@@ -108,6 +108,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from voxelwise_tutorials.delayer import Delayer
 from himalaya.kernel_ridge import KernelRidgeCV
+from himalaya.ridge import RidgeCV
 from himalaya.backend import set_backend
 
 backend = set_backend("torch_cuda", on_error="warn")
@@ -209,10 +210,15 @@ plt.show()
 # We define here another model without feature delays (i.e. no ``Delayer``).
 # Because the BOLD signal is inherently slow due to the dynamics of
 # neuro-vascular coupling, this model is unlikely to perform well.
+#
+# Note that if we remove the feature delays, we wil have more fMRI samples (3600) than
+# number of features (1705). In this case, running a kernel version of ridge regression
+# is computationally suboptimal. Thus, to create a model without delays we are using
+# `RidgeCV` instead of `KernelRidgeCV`.
 
 pipeline_no_delay = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
-    KernelRidgeCV(
+    RidgeCV(
         alphas=alphas, cv=cv,
         solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
                            n_targets_batch_refit=100)),
