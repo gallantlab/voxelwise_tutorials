@@ -40,11 +40,9 @@ jobs:
         # install himalaya from source to get early testing
         pip install git+https://github.com/gallantlab/himalaya.git
         pip install -e ."[github]"
-        # add neurodebian repo to install git-annex
-        wget -O- http://neuro.debian.net/lists/impish.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
-        apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
-        apt-get -qq update
-        apt-get install -qq git-annex-standalone
+        # use datalad-installer to install git-annex
+        pip install datalad-installer
+        datalad-installer git-annex
 
     - name: Lint with flake8
       run: |
