@@ -40,9 +40,10 @@ jobs:
         # install himalaya from source to get early testing
         pip install git+https://github.com/gallantlab/himalaya.git
         pip install -e ."[github]"
-        # use datalad-installer to install git-annex
-        pip install datalad-installer
-        datalad-installer git-annex --method neurodebian
+        # use neurodebian installer for travis
+        bash <(wget -q -O- http://neuro.debian.net/_files/neurodebian-travis.sh)
+        apt-get update -qq
+        apt-get install git-annex-standalone
 
     - name: Lint with flake8
       run: |
