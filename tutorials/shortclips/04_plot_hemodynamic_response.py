@@ -211,7 +211,7 @@ plt.show()
 # Because the BOLD signal is inherently slow due to the dynamics of
 # neuro-vascular coupling, this model is unlikely to perform well.
 #
-# Note that if we remove the feature delays, we wil have more fMRI samples (3600) than
+# Note that if we remove the feature delays, we will have more fMRI samples (3600) than
 # number of features (1705). In this case, running a kernel version of ridge regression
 # is computationally suboptimal. Thus, to create a model without delays we are using
 # `RidgeCV` instead of `KernelRidgeCV`.
