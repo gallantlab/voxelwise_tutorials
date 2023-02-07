@@ -42,7 +42,7 @@ jobs:
         pip install -e ."[github]"
         # use datalad-installer to install git-annex
         pip install datalad-installer
-        datalad-installer --method neurodebian git-annex
+        datalad-installer git-annex --method neurodebian
 
     - name: Lint with flake8
       run: |
