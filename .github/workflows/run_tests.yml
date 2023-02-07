@@ -40,7 +40,11 @@ jobs:
         # install himalaya from source to get early testing
         pip install git+https://github.com/gallantlab/himalaya.git
         pip install -e ."[github]"
-        $CONDA/bin/conda install -c conda-forge git-annex=*=alldep*
+        # add neurodebian repo to install git-annex
+        wget -O- http://neuro.debian.net/lists/impish.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+        apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
+        apt-get -qq update
+        apt-get install -qq git-annex-standalone
 
     - name: Lint with flake8
       run: |
@@ -52,10 +56,6 @@ jobs:
 
     - name: Config git-annex
       run: |
-        # note: change of path not in effect before next action
-        echo "${CONDA}/bin" >> $GITHUB_PATH
-        # add back python to avoid using conda's
-        echo $(dirname $(which python)) >> $GITHUB_PATH
         # add some git config for git-annex
         git config --global user.email "github-actions@example.com"
         git config --global user.name "Github Actions"
