@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.7, 3.8, 3.9, "3.10"]
       max-parallel: 5
 
     steps:
@@ -40,7 +40,10 @@ jobs:
         # install himalaya from source to get early testing
         pip install git+https://github.com/gallantlab/himalaya.git
         pip install -e ."[github]"
-        $CONDA/bin/conda install -c conda-forge git-annex=*=alldep*
+        # use neurodebian installer for travis
+        bash <(wget -q -O- http://neuro.debian.net/_files/neurodebian-travis.sh)
+        sudo apt-get update -qq
+        sudo apt-get install git-annex-standalone
 
     - name: Lint with flake8
       run: |
@@ -52,10 +55,6 @@ jobs:
 
     - name: Config git-annex
       run: |
-        # note: change of path not in effect before next action
-        echo "${CONDA}/bin" >> $GITHUB_PATH
-        # add back python to avoid using conda's
-        echo $(dirname $(which python)) >> $GITHUB_PATH
         # add some git config for git-annex
         git config --global user.email "github-actions@example.com"
         git config --global user.name "Github Actions"
