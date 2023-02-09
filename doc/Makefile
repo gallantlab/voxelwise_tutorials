@@ -47,6 +47,17 @@ merge-notebooks:
 		> $(NBDIR)/merged_for_colab.ipynb
 	echo "Saved in $(NBDIR)/merged_for_colab.ipynb"
 
+
+merge-notebooks-model-fitting:
+	python merge_notebooks.py \
+		$(NBDIR)/00_setup_colab.ipynb \
+		$(NBDIR)/01_plot_explainable_variance.ipynb \
+		$(NBDIR)/03_plot_wordnet_model.ipynb \
+		$(NBDIR)/05_plot_motion_energy_model.ipynb \
+		$(NBDIR)/06_plot_banded_ridge_model.ipynb \
+		> $(NBDIR)/merged_for_colab_model_fitting.ipynb
+	echo "Saved in $(NBDIR)/merged_for_colab_model_fitting.ipynb"
+
 all:
 	$(MAKE) html-noplot
 	$(MAKE) notebooks
