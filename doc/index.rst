@@ -19,7 +19,7 @@ To explore these tutorials, one can:
 - run the Jupyter notebooks (`tutorials/notebooks
   <https://github.com/gallantlab/voxelwise_tutorials/tree/main/tutorials/notebooks>`_
   directory)
-- run the merged notebook in Google Colab: 
+- run the notebooks in Google Colab: 
   `all notebooks <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab.ipynb>`_ or
   `only the notebooks about model fitting <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab_model_fitting.ipynb>`_
 
