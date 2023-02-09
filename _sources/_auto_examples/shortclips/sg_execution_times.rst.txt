@@ -5,10 +5,10 @@
 
 Computation times
 =================
-**04:30.061** total execution time for **_auto_examples_shortclips** files:
+**01:13.304** total execution time for **_auto_examples_shortclips** files:
 
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_04_plot_hemodynamic_response.py` (``04_plot_hemodynamic_response.py``) | 04:30.061 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_shortclips_04_plot_hemodynamic_response.py` (``04_plot_hemodynamic_response.py``) | 01:13.304 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_shortclips_00_download_shortclips.py` (``00_download_shortclips.py``)             | 00:00.000 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+

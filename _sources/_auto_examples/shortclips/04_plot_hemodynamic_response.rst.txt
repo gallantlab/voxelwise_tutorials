@@ -335,7 +335,7 @@ example for more details about the model definition.
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), a..., (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 239...00, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 500,
                                                   &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -344,13 +344,13 @@ example for more details about the model definition.
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), a..., (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 239...00, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 500,
                                                   &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
+                  cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 239...00, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
                   solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                                  &#x27;n_targets_batch_refit&#x27;: 100})</pre></div></div></div></div></div></div></div>
     </div>
@@ -440,9 +440,9 @@ and 8 s in time with a 2 s TR).
 When these delayed features are used to fit a voxelwise encoding model, the
 brain response :math:`y` at time :math:`t` is simultaneously modeled by the
 feature :math:`x` at times :math:`t-0, t-2, t-4, t-6, t-8`. In the remaining
-of this example we will see that this method improves model prediction accuracy
-and it allows to account for the underlying shape of the hemodynamic response
-function.
+of this example we will see that this method improves model prediction
+accuracy and it allows to account for the underlying shape of the hemodynamic
+response function.
 
 .. GENERATED FROM PYTHON SOURCE LINES 187-206
 
@@ -487,10 +487,10 @@ We define here another model without feature delays (i.e. no ``Delayer``).
 Because the BOLD signal is inherently slow due to the dynamics of
 neuro-vascular coupling, this model is unlikely to perform well.
 
-Note that if we remove the feature delays, we will have more fMRI samples (3600) than
-number of features (1705). In this case, running a kernel version of ridge regression
-is computationally suboptimal. Thus, to create a model without delays we are using
-`RidgeCV` instead of `KernelRidgeCV`.
+Note that if we remove the feature delays, we will have more fMRI samples
+(3600) than number of features (1705). In this case, running a kernel version
+of ridge regression is computationally suboptimal. Thus, to create a model
+without delays we are using `RidgeCV` instead of `KernelRidgeCV`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 218-228
 
@@ -500,7 +500,7 @@ is computationally suboptimal. Thus, to create a model without delays we are usi
     pipeline_no_delay = make_pipeline(
         StandardScaler(with_mean=True, with_std=False),
         RidgeCV(
-            alphas=alphas, cv=cv,
+            alphas=alphas, cv=cv, solver="svd",
             solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
                                n_targets_batch_refit=100)),
     )
@@ -519,7 +519,7 @@ is computationally suboptimal. Thus, to create a model without delays we are usi
                      RidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                             cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
+                             cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 239...00, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
                              solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                             &#x27;n_targets_batch&#x27;: 500,
                                             &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -527,13 +527,13 @@ is computationally suboptimal. Thus, to create a model without delays we are usi
                      RidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                             cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
+                             cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 239...00, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
                              solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                             &#x27;n_targets_batch&#x27;: 500,
                                             &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">RidgeCV</label><div class="sk-toggleable__content"><pre>RidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-            cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
+            cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 239...00, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
             solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                            &#x27;n_targets_batch_refit&#x27;: 100})</pre></div></div></div></div></div></div></div>
     </div>
@@ -702,7 +702,7 @@ two seconds.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 4 minutes  30.061 seconds)
+   **Total running time of the script:** ( 1 minutes  13.305 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_04_plot_hemodynamic_response.py:

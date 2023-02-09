@@ -181,9 +181,9 @@ x_delayed = delayer.fit_transform(x[:, None])
 # When these delayed features are used to fit a voxelwise encoding model, the
 # brain response :math:`y` at time :math:`t` is simultaneously modeled by the
 # feature :math:`x` at times :math:`t-0, t-2, t-4, t-6, t-8`. In the remaining
-# of this example we will see that this method improves model prediction accuracy
-# and it allows to account for the underlying shape of the hemodynamic response
-# function.
+# of this example we will see that this method improves model prediction
+# accuracy and it allows to account for the underlying shape of the hemodynamic
+# response function.
 
 import matplotlib.pyplot as plt
 
@@ -211,15 +211,15 @@ plt.show()
 # Because the BOLD signal is inherently slow due to the dynamics of
 # neuro-vascular coupling, this model is unlikely to perform well.
 #
-# Note that if we remove the feature delays, we will have more fMRI samples (3600) than
-# number of features (1705). In this case, running a kernel version of ridge regression
-# is computationally suboptimal. Thus, to create a model without delays we are using
-# `RidgeCV` instead of `KernelRidgeCV`.
+# Note that if we remove the feature delays, we will have more fMRI samples
+# (3600) than number of features (1705). In this case, running a kernel version
+# of ridge regression is computationally suboptimal. Thus, to create a model
+# without delays we are using `RidgeCV` instead of `KernelRidgeCV`.
 
 pipeline_no_delay = make_pipeline(
     StandardScaler(with_mean=True, with_std=False),
     RidgeCV(
-        alphas=alphas, cv=cv,
+        alphas=alphas, cv=cv, solver="svd",
         solver_params=dict(n_targets_batch=500, n_alphas_batch=5,
                            n_targets_batch_refit=100)),
 )
