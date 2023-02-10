@@ -30,20 +30,16 @@ skip it if you run the tutorials on your machine.
 #!apt-get -qq update > /dev/null
 #!apt-get install -qq inkscape git-annex-standalone > /dev/null
 #!pip install -q voxelwise_tutorials
-#![ -f "ngrok-stable-linux-amd64.zip" ] || wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-#![ -f "ngrok" ] || unzip ngrok-stable-linux-amd64.zip
 
 ###############################################################################
 # For the record, here is what each command does:
 
-# - Set up an email and user name to use git, git-annex, and datalad (required to download the data)
+# - Set up an email and username to use git, git-annex, and datalad (required to download the data)
 # - Add NeuroDebian to the package sources
 # - Update the gpg keys to use NeuroDebian
 # - Update the list of available packages
 # - Install Inkscape to use more features from Pycortex, and install git-annex to download the data
 # - Install the tutorial helper package, and all the required dependencies
-# - Download ngrok to create a tunnel for pycortex 3D brain viewer
-# - Extract the ngrok archive
 
 ###############################################################################
 # Now run the following cell to download the data for the tutorials.
