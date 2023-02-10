@@ -438,63 +438,14 @@ projected data. This object can be used either in a ``pycortex`` interactive
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-214
+.. GENERATED FROM PYTHON SOURCE LINES 209-213
 
 To start an interactive 3D viewer in the browser, we can use the ``webshow``
-function in pycortex. If you are running the notebook on Colab, you first
-need to tunnel the pycortex application out of Colab. To do so, use the
-following cell to start a tunnel with ``ngrok`` and to get an address where
-the pycortex viewer will be made accessible.
+function in pycortex. (Note that this method works only if you are running the
+notebooks locally.) You can start an interactive 3D viewer by changing
+``run_webshow`` to ``True`` and running the following cell.
 
-.. GENERATED FROM PYTHON SOURCE LINES 214-236
-
-.. code-block:: default
-
-
-    try:
-        import google.colab  # noqa
-        in_colab = True
-    except ImportError:
-        in_colab = False
-    print(in_colab)
-
-    if in_colab:
-        from IPython import get_ipython
-        get_ipython().system_raw('./ngrok http 8050 &')
-        plt.pause(1)
-
-        command = """
-            curl -s http://localhost:4040/api/tunnels | python3 -c \
-            "import sys, json; print(json.load(sys.stdin)['tunnels'][0]['public_url'])"
-            """
-        result = get_ipython().getoutput(command, split=True)
-        print("Use the following address to connect to the brain viewer:\n"
-              f"{result}\n"
-              "and not the one proposed by pycortex ('Open viewer: ...')\n")
-
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    False
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 237-241
-
-Now you can start an interactive 3D viewer by changing ``run_webshow`` to
-``True`` and running the following cell.  If you are using Colab, remember to
-use the address returned by ngrok in the cell above rather than the address
-returned by this cell.
-
-.. GENERATED FROM PYTHON SOURCE LINES 241-246
+.. GENERATED FROM PYTHON SOURCE LINES 213-218
 
 .. code-block:: default
 
@@ -510,7 +461,7 @@ returned by this cell.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 247-252
+.. GENERATED FROM PYTHON SOURCE LINES 219-224
 
 Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
 `quickshow` function.
@@ -518,7 +469,7 @@ Alternatively, to plot a flatmap in a ``matplotlib`` figure, use the
 (This function requires Inkscape to be installed. The rest of the tutorial
 does not use this function, so feel free to ignore.)
 
-.. GENERATED FROM PYTHON SOURCE LINES 252-259
+.. GENERATED FROM PYTHON SOURCE LINES 224-231
 
 .. code-block:: default
 
@@ -540,7 +491,7 @@ does not use this function, so feel free to ignore.)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 260-274
+.. GENERATED FROM PYTHON SOURCE LINES 232-246
 
 References
 ----------
@@ -560,7 +511,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  22.315 seconds)
+   **Total running time of the script:** ( 0 minutes  12.951 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_01_plot_explainable_variance.py:

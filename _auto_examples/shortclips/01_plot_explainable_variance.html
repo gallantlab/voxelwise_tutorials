@@ -306,40 +306,9 @@ projected data. This object can be used either in a <code class="docutils litera
 </pre></div>
 </div>
 <p>To start an interactive 3D viewer in the browser, we can use the <code class="docutils literal notranslate"><span class="pre">webshow</span></code>
-function in pycortex. If you are running the notebook on Colab, you first
-need to tunnel the pycortex application out of Colab. To do so, use the
-following cell to start a tunnel with <code class="docutils literal notranslate"><span class="pre">ngrok</span></code> and to get an address where
-the pycortex viewer will be made accessible.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">google.colab</span>  <span class="c1"># noqa</span>
-    <span class="n">in_colab</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="n">in_colab</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">in_colab</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">in_colab</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
-    <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">system_raw</span><span class="p">(</span><span class="s1">&#39;./ngrok http 8050 &amp;&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">        curl -s http://localhost:4040/api/tunnels | python3 -c </span><span class="se">\</span>
-<span class="s2">        &quot;import sys, json; print(json.load(sys.stdin)[&#39;tunnels&#39;][0][&#39;public_url&#39;])&quot;</span>
-<span class="s2">        &quot;&quot;&quot;</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">getoutput</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Use the following address to connect to the brain viewer:</span><span class="se">\n</span><span class="s2">&quot;</span>
-          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-          <span class="s2">&quot;and not the one proposed by pycortex (&#39;Open viewer: ...&#39;)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>False
-</pre></div>
-</div>
-<p>Now you can start an interactive 3D viewer by changing <code class="docutils literal notranslate"><span class="pre">run_webshow</span></code> to
-<code class="docutils literal notranslate"><span class="pre">True</span></code> and running the following cell.  If you are using Colab, remember to
-use the address returned by ngrok in the cell above rather than the address
-returned by this cell.</p>
+function in pycortex. (Note that this method works only if you are running the
+notebooks locally.) You can start an interactive 3D viewer by changing
+<code class="docutils literal notranslate"><span class="pre">run_webshow</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> and running the following cell.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run_webshow</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="k">if</span> <span class="n">run_webshow</span><span class="p">:</span>
     <span class="n">cortex</span><span class="o">.</span><span class="n">webshow</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">open_browser</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8050</span><span class="p">)</span>
@@ -376,7 +345,7 @@ J. W. (2016). Measuring the performance of neural models. Frontiers in
 computational neuroscience, 10, 10.</p>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  22.315 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.951 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-shortclips-01-plot-explainable-variance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/bf4a721433a9e404643cafa79c8a41ff/01_plot_explainable_variance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_plot_explainable_variance.py</span></code></a></p>

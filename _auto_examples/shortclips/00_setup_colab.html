@@ -125,19 +125,15 @@ To do so, click the following menu options in Google Colab:</p>
 <span class="c1">#!apt-get -qq update &gt; /dev/null</span>
 <span class="c1">#!apt-get install -qq inkscape git-annex-standalone &gt; /dev/null</span>
 <span class="c1">#!pip install -q voxelwise_tutorials</span>
-<span class="c1">#![ -f &quot;ngrok-stable-linux-amd64.zip&quot; ] || wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip</span>
-<span class="c1">#![ -f &quot;ngrok&quot; ] || unzip ngrok-stable-linux-amd64.zip</span>
 </pre></div>
 </div>
 <p>For the record, here is what each command does:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># - Set up an email and user name to use git, git-annex, and datalad (required to download the data)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># - Set up an email and username to use git, git-annex, and datalad (required to download the data)</span>
 <span class="c1"># - Add NeuroDebian to the package sources</span>
 <span class="c1"># - Update the gpg keys to use NeuroDebian</span>
 <span class="c1"># - Update the list of available packages</span>
 <span class="c1"># - Install Inkscape to use more features from Pycortex, and install git-annex to download the data</span>
 <span class="c1"># - Install the tutorial helper package, and all the required dependencies</span>
-<span class="c1"># - Download ngrok to create a tunnel for pycortex 3D brain viewer</span>
-<span class="c1"># - Extract the ngrok archive</span>
 </pre></div>
 </div>
 <p>Now run the following cell to download the data for the tutorials.</p>

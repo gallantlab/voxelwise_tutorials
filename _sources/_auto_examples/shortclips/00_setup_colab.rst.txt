@@ -49,7 +49,7 @@ Download the data and install all required dependencies
 
 Uncomment and run the following cell to download the required packages.
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-36
+.. GENERATED FROM PYTHON SOURCE LINES 26-34
 
 .. code-block:: default
 
@@ -60,34 +60,30 @@ Uncomment and run the following cell to download the required packages.
     #!apt-get -qq update > /dev/null
     #!apt-get install -qq inkscape git-annex-standalone > /dev/null
     #!pip install -q voxelwise_tutorials
-    #![ -f "ngrok-stable-linux-amd64.zip" ] || wget -q https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-    #![ -f "ngrok" ] || unzip ngrok-stable-linux-amd64.zip
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-38
+.. GENERATED FROM PYTHON SOURCE LINES 35-36
 
 For the record, here is what each command does:
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-48
+.. GENERATED FROM PYTHON SOURCE LINES 36-44
 
 .. code-block:: default
 
 
-    # - Set up an email and user name to use git, git-annex, and datalad (required to download the data)
+    # - Set up an email and username to use git, git-annex, and datalad (required to download the data)
     # - Add NeuroDebian to the package sources
     # - Update the gpg keys to use NeuroDebian
     # - Update the list of available packages
     # - Install Inkscape to use more features from Pycortex, and install git-annex to download the data
     # - Install the tutorial helper package, and all the required dependencies
-    # - Download ngrok to create a tunnel for pycortex 3D brain viewer
-    # - Extract the ngrok archive
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-50
+.. GENERATED FROM PYTHON SOURCE LINES 45-46
 
 Now run the following cell to download the data for the tutorials.
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-71
+.. GENERATED FROM PYTHON SOURCE LINES 46-67
 
 .. code-block:: default
 
@@ -113,12 +109,12 @@ Now run the following cell to download the data for the tutorials.
         )
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-74
+.. GENERATED FROM PYTHON SOURCE LINES 68-70
 
 Now run the following cell to set up the environment variables for the
 tutorials and pycortex.
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-81
+.. GENERATED FROM PYTHON SOURCE LINES 70-77
 
 .. code-block:: default
 
@@ -130,7 +126,7 @@ tutorials and pycortex.
     sklearn.set_config(assume_finite=True)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-83
+.. GENERATED FROM PYTHON SOURCE LINES 78-79
 
 Your Google Colab environment is now set up for the voxelwise tutorials.
 

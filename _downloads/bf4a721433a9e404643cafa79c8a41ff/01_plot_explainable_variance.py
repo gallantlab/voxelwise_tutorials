@@ -207,37 +207,9 @@ vertex = cortex.Vertex(ev_projected, surface, vmin=0, vmax=0.7, cmap='viridis')
 
 ###############################################################################
 # To start an interactive 3D viewer in the browser, we can use the ``webshow``
-# function in pycortex. If you are running the notebook on Colab, you first
-# need to tunnel the pycortex application out of Colab. To do so, use the
-# following cell to start a tunnel with ``ngrok`` and to get an address where
-# the pycortex viewer will be made accessible.
-
-try:
-    import google.colab  # noqa
-    in_colab = True
-except ImportError:
-    in_colab = False
-print(in_colab)
-
-if in_colab:
-    from IPython import get_ipython
-    get_ipython().system_raw('./ngrok http 8050 &')
-    plt.pause(1)
-
-    command = """
-        curl -s http://localhost:4040/api/tunnels | python3 -c \
-        "import sys, json; print(json.load(sys.stdin)['tunnels'][0]['public_url'])"
-        """
-    result = get_ipython().getoutput(command, split=True)
-    print("Use the following address to connect to the brain viewer:\n"
-          f"{result}\n"
-          "and not the one proposed by pycortex ('Open viewer: ...')\n")
-
-###############################################################################
-# Now you can start an interactive 3D viewer by changing ``run_webshow`` to
-# ``True`` and running the following cell.  If you are using Colab, remember to
-# use the address returned by ngrok in the cell above rather than the address
-# returned by this cell.
+# function in pycortex. (Note that this method works only if you are running the
+# notebooks locally.) You can start an interactive 3D viewer by changing
+# ``run_webshow`` to ``True`` and running the following cell.
 
 run_webshow = False
 if run_webshow:
