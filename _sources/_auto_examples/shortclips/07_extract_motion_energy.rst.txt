@@ -235,23 +235,18 @@ References
 
 .. _sphx_glr_download__auto_examples_shortclips_07_extract_motion_energy.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 07_extract_motion_energy.py <07_extract_motion_energy.py>`
 
-     :download:`Download Python source code: 07_extract_motion_energy.py <07_extract_motion_energy.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 07_extract_motion_energy.ipynb <07_extract_motion_energy.ipynb>`
+      :download:`Download Jupyter notebook: 07_extract_motion_energy.ipynb <07_extract_motion_energy.ipynb>`
 
 
 .. only:: html

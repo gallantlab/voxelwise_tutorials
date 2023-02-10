@@ -85,9 +85,10 @@ loss. Plotting the squared loss for every value of ``w`` leads to a parabola
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_001.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_001.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_001.png
+   :class: sphx-glr-single-img
 
 
 
@@ -106,9 +107,10 @@ accuracy of the model, and thus the squared loss.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_002.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_002.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_002.png
+   :class: sphx-glr-single-img
 
 
 
@@ -123,9 +125,10 @@ accuracy of the model, and thus the squared loss.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_003.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_003.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_003.png
+   :class: sphx-glr-single-img
 
 
 
@@ -153,9 +156,10 @@ This is the OLS solution.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_004.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_004.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_004.png
+   :class: sphx-glr-single-img
 
 
 
@@ -182,9 +186,10 @@ of ``w[0]`` and ``w[1]`` leads to a 2D parabola (right panel).
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_005.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_005.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_005.png
+   :class: sphx-glr-single-img
 
 
 
@@ -198,9 +203,10 @@ of ``w[0]`` and ``w[1]`` leads to a 2D parabola (right panel).
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_006.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_006.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_006.png
+   :class: sphx-glr-single-img
 
 
 
@@ -215,9 +221,10 @@ of ``w[0]`` and ``w[1]`` leads to a 2D parabola (right panel).
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_007.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_007.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_007.png
+   :class: sphx-glr-single-img
 
 
 
@@ -242,9 +249,10 @@ generalize correctly to new data.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_008.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_008.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_008.png
+   :class: sphx-glr-single-img
 
 
 
@@ -275,9 +283,10 @@ makes the OLS solution less robust to noise in some particular directions
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_009.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_009.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_009.png
+   :class: sphx-glr-single-img
 
 
 
@@ -308,9 +317,10 @@ less stable.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_010.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_010.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_010.png
+   :class: sphx-glr-single-img
 
 
 
@@ -334,9 +344,10 @@ features, or with smaller numbers of samples.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_011.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_011.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_011.png
+   :class: sphx-glr-single-img
 
 
 
@@ -391,9 +402,10 @@ squared loss.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_012.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_012.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_012.png
+   :class: sphx-glr-single-img
 
 
 
@@ -434,9 +446,10 @@ the OLS solution would be far off.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_013.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_013.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_013.png
+   :class: sphx-glr-single-img
 
 
 
@@ -461,9 +474,10 @@ ridge solution.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_014.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_014.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_014.png
+   :class: sphx-glr-single-img
 
 
 
@@ -506,9 +520,10 @@ To illustrate this idea, we can split the data into two subsets.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_015.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_015.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_015.png
+   :class: sphx-glr-single-img
 
 
 
@@ -529,9 +544,10 @@ Then, we can fit a model on each subset.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_016.png
-    :alt: model 1, model 2
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_016.png
+   :alt: model 1, model 2
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_016.png
+   :class: sphx-glr-single-img
 
 
 
@@ -551,9 +567,10 @@ And compute the prediction accuracy of each model on the other subset.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_017.png
-    :alt: model 1, model 2
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_017.png
+   :alt: model 1, model 2
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_017.png
+   :class: sphx-glr-single-img
 
 
 
@@ -580,9 +597,10 @@ leading to the best out-of-set prediction accuracy.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_018.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_018.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_018.png
+   :class: sphx-glr-single-img
 
 
 
@@ -608,9 +626,10 @@ ridge regression is better than OLS.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_019.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_019.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_019.png
+   :class: sphx-glr-single-img
 
 
 
@@ -636,9 +655,10 @@ predict zero (:math:`w=0`).
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_020.png
-    :alt: 02 plot ridge regression
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_020.png
+   :alt: 02 plot ridge regression
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_02_plot_ridge_regression_020.png
+   :class: sphx-glr-single-img
 
 
 
@@ -672,28 +692,23 @@ Learn more about hyperparameter selection and cross-validation on the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.947 seconds)
+   **Total running time of the script:** ( 0 minutes  3.937 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_02_plot_ridge_regression.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 02_plot_ridge_regression.py <02_plot_ridge_regression.py>`
 
-     :download:`Download Python source code: 02_plot_ridge_regression.py <02_plot_ridge_regression.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 02_plot_ridge_regression.ipynb <02_plot_ridge_regression.ipynb>`
+      :download:`Download Jupyter notebook: 02_plot_ridge_regression.ipynb <02_plot_ridge_regression.ipynb>`
 
 
 .. only:: html

@@ -1,22 +1,21 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Understand ridge regression and cross-validation &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -61,15 +60,17 @@
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Shortclips tutorial</a><ul>
+  <li><a href="index.html">Shortclips tutorial</a><ul>
       <li>Previous: <a href="01_plot_explainable_variance.html" title="previous chapter">Compute the explainable variance</a></li>
       <li>Next: <a href="03_plot_wordnet_model.html" title="next chapter">Fit a ridge model with wordnet features</a></li>
+  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
 </div><h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Shortclips tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#vim-2-tutorial">Vim-2 tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Shortclips tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#vim-2-tutorial">Vim-2 tutorial</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html">Helper Python package</a></li>
@@ -88,7 +89,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="documentwrapper">
@@ -103,7 +104,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="understand-ridge-regression-and-cross-validation">
-<span id="sphx-glr-auto-examples-shortclips-02-plot-ridge-regression-py"></span><h1>Understand ridge regression and cross-validation<a class="headerlink" href="#understand-ridge-regression-and-cross-validation" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-shortclips-02-plot-ridge-regression-py"></span><h1>Understand ridge regression and cross-validation<a class="headerlink" href="#understand-ridge-regression-and-cross-validation" title="Permalink to this heading">¶</a></h1>
 <p>In future examples, we will model the fMRI responses using a regularized linear
 regression known as <em>ridge regression</em>. This example explains why we use ridge
 regression, and how to use cross-validation to select the appropriate
@@ -111,7 +112,7 @@ regularization hyper-parameter.</p>
 <p>Linear regression is a method to model the relation between some input
 variables <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{(n \times p)}\)</span> (the features) and an output
 variable <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{n}\)</span> (the target). Specifically, linear
-regression uses a vector of coefficient <span class="math notranslate nohighlight">\(w \in \mathbb{R}^{p}\)</span> to
+regression uses a vector of coefficient <span class="math notranslate nohighlight">\(w \in \mathbb{R}^{p}`\)</span> to
 predict the output</p>
 <div class="math notranslate nohighlight">
 \[\hat{y} = Xw\]</div>
@@ -126,7 +127,7 @@ least squares</em> (OLS).</p>
 </pre></div>
 </div>
 <section id="ordinary-least-squares-ols">
-<h2>Ordinary least squares (OLS)<a class="headerlink" href="#ordinary-least-squares-ols" title="Permalink to this headline">¶</a></h2>
+<h2>Ordinary least squares (OLS)<a class="headerlink" href="#ordinary-least-squares-ols" title="Permalink to this heading">¶</a></h2>
 <p>To illustrate OLS, let’s use a toy dataset with a single features <code class="docutils literal notranslate"><span class="pre">X[:,0]</span></code>.
 On the plot below (left panel), each dot is a sample <code class="docutils literal notranslate"><span class="pre">(X[i,0],</span> <span class="pre">y[i])</span></code>, and
 the linear regression model is the line <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">X[:,0]</span> <span class="pre">*</span> <span class="pre">w[0]</span></code>. On each
@@ -143,18 +144,15 @@ loss. Plotting the squared loss for every value of <code class="docutils literal
 <span class="n">plot_1d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_001.png" />
-<p>By varying the linear coefficient <code class="docutils literal notranslate"><span class="pre">w</span></code>, we can change the prediction
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_001.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_001.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>By varying the linear coefficient <code class="docutils literal notranslate"><span class="pre">w</span></code>, we can change the prediction
 accuracy of the model, and thus the squared loss.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_1d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mf">0.2</span><span class="p">])</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_002.png" />
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_1d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7</span><span class="p">])</span>
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_002.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_002.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_1d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7</span><span class="p">])</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_003.png" />
-<p>The linear coefficient leading to the minimum squared loss can be found
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_003.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_003.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>The linear coefficient leading to the minimum squared loss can be found
 analytically with the formula:</p>
 <div class="math notranslate nohighlight">
 \[w = (X^\top X)^{-1}  X^\top y\]</div>
@@ -164,8 +162,7 @@ analytically with the formula:</p>
 <span class="n">plot_1d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w_ols</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_004.png" />
-<p>Linear regression can also be used on more than one feature. On the next toy
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_004.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_004.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>Linear regression can also be used on more than one feature. On the next toy
 dataset, we will use two features <code class="docutils literal notranslate"><span class="pre">X[:,0]</span></code> and <code class="docutils literal notranslate"><span class="pre">X[:,1]</span></code>. The linear
 regression model is a now plane. Here again, summing the squared errors over
 all samples gives the squared loss.Plotting the squared loss for every value
@@ -178,16 +175,13 @@ of <code class="docutils literal notranslate"><span class="pre">w[0]</span></cod
 <span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">show_noiseless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_005.png" />
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">show_noiseless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_005.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_005.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">show_noiseless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_006.png" />
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span> <span class="n">show_noiseless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_006.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_006.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span> <span class="n">show_noiseless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_007.png" />
-<p>Here again, the OLS solution can be found analytically with the same formula.
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_007.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_007.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>Here again, the OLS solution can be found analytically with the same formula.
 Note that the OLS solution is not equal to the ground-truth coefficients used
 to generate the toy dataset (black cross), because we added some noise to the
 target values <code class="docutils literal notranslate"><span class="pre">y</span></code>. We want the solution we find to be as close as possible
@@ -197,8 +191,7 @@ generalize correctly to new data.</p>
 <span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w_ols</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_008.png" />
-<p>The situation becomes more interesting when the features in <code class="docutils literal notranslate"><span class="pre">X</span></code> are
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_008.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_008.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>The situation becomes more interesting when the features in <code class="docutils literal notranslate"><span class="pre">X</span></code> are
 correlated. Here, we add a correlation between the first feature <code class="docutils literal notranslate"><span class="pre">X[:,</span> <span class="pre">0]</span></code>
 and the second feature <code class="docutils literal notranslate"><span class="pre">X[:,</span> <span class="pre">1]</span></code>. With this correlation, the squared loss
 function is no more isotropic, so the lines of equal loss are now ellipses
@@ -213,8 +206,7 @@ makes the OLS solution less robust to noise in some particular directions
 <span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w_ols</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_009.png" />
-<p>The different robustness to noise can be understood mathematically by the
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_009.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_009.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>The different robustness to noise can be understood mathematically by the
 fact that the OLS solution requires inverting the matrix <span class="math notranslate nohighlight">\((X^T X)\)</span>. The
 matrix inversion amounts to inverting the eigenvalues <span class="math notranslate nohighlight">\(\lambda_k\)</span> of
 the matrix. When the features are highly correlated, some eigenvalues
@@ -229,8 +221,7 @@ less stable.</p>
 <span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w_ols</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_010.png" />
-<p>The instability can become even more pronounced with larger number of
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_010.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_010.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>The instability can become even more pronounced with larger number of
 features, or with smaller numbers of samples.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="mf">0.999</span><span class="p">)</span>
 
@@ -238,14 +229,13 @@ features, or with smaller numbers of samples.</p>
 <span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w_ols</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_011.png" />
-<p>When the number of features is larger than the number of samples, the linear
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_011.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_011.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>When the number of features is larger than the number of samples, the linear
 system becomes under-determined, which means that the OLS problem has an
 infinite number of solutions, most of which do not generalize well to new
 data.</p>
 </section>
 <section id="ridge-regression">
-<h2>Ridge regression<a class="headerlink" href="#ridge-regression" title="Permalink to this headline">¶</a></h2>
+<h2>Ridge regression<a class="headerlink" href="#ridge-regression" title="Permalink to this heading">¶</a></h2>
 <p>To solve the instability and under-determinacy issues of OLS, OLS can be
 extended to <em>ridge regression</em>. Ridge regression considers a different
 optimization problem:</p>
@@ -272,8 +262,7 @@ squared loss.</p>
 <span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w_ridge</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_012.png" />
-<p>To understand why the regularization term makes the solution more robust to
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_012.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_012.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>To understand why the regularization term makes the solution more robust to
 noise, let’s consider the ridge solution. The ridge solution can be found
 analytically with the formula:</p>
 <div class="math notranslate nohighlight">
@@ -296,8 +285,7 @@ the OLS solution would be far off.</p>
 <span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w_ridge</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_013.png" />
-<p>Changing the regularization hyperparameter <span class="math notranslate nohighlight">\(\alpha\)</span> leads to another
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_013.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_013.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>Changing the regularization hyperparameter <span class="math notranslate nohighlight">\(\alpha\)</span> leads to another
 ridge solution.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="mf">0.999</span><span class="p">)</span>
 
@@ -306,14 +294,13 @@ ridge solution.</p>
 <span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w_ridge</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_014.png" />
-<p>Side note: For every <span class="math notranslate nohighlight">\(\alpha\)</span>, at the corresponding ridge solution, the
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_014.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_014.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>Side note: For every <span class="math notranslate nohighlight">\(\alpha\)</span>, at the corresponding ridge solution, the
 line of equal regularization and the line of equal loss are tangent. If the
 two lines were crossing, one could improve the ridge solution by moving along
 one line. It would improve one term while keeping the other term constant.</p>
 </section>
 <section id="hyperparameter-selection">
-<h2>Hyperparameter selection<a class="headerlink" href="#hyperparameter-selection" title="Permalink to this headline">¶</a></h2>
+<h2>Hyperparameter selection<a class="headerlink" href="#hyperparameter-selection" title="Permalink to this heading">¶</a></h2>
 <p>One issue with ridge regression is that the hyperparameter <span class="math notranslate nohighlight">\(\alpha\)</span> is
 arbitrary. Different choices of hyperparameter lead to different models. To
 compare these models, we cannot compare the ability to fit the training data,
@@ -331,19 +318,16 @@ accuracy on a separate dataset that was not used during the model fitting
 <span class="n">plot_kfold2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_015.png" />
-<p>Then, we can fit a model on each subset.</p>
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_015.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_015.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>Then, we can fit a model on each subset.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="n">plot_kfold2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="model 1, model 2" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_016.png" />
-<p>And compute the prediction accuracy of each model on the other subset.</p>
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_016.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_016.png" alt="model 1, model 2" class = "sphx-glr-single-img"/><p>And compute the prediction accuracy of each model on the other subset.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_kfold2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="model 1, model 2" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_017.png" />
-<p>In this way, we can evaluate the ridge regression (fit with a specific
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_017.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_017.png" alt="model 1, model 2" class = "sphx-glr-single-img"/><p>In this way, we can evaluate the ridge regression (fit with a specific
 <span class="math notranslate nohighlight">\(\alpha\)</span>) on its ability to generalize to new data. If we do that for
 different hyperparameter candidates <span class="math notranslate nohighlight">\(\alpha\)</span>, we can select the model
 leading to the best out-of-set prediction accuracy.</p>
@@ -354,8 +338,7 @@ leading to the best out-of-set prediction accuracy.</p>
 <span class="n">plot_cv_path</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_018.png" />
-<p>In the example above, the noise level is low, so the best hyperparameter
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_018.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_018.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>In the example above, the noise level is low, so the best hyperparameter
 alpha is close to zero, and ridge regression is not much better than OLS.
 However, if the dataset has more noise, a lower number of samples, or more
 correlated features, the best hyperparameter can be higher. In this case,
@@ -365,8 +348,7 @@ ridge regression is better than OLS.</p>
 <span class="n">plot_cv_path</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_019.png" />
-<p>When the noise level is too high, the best hyperparameter can be the largest
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_019.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_019.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>When the noise level is too high, the best hyperparameter can be the largest
 on the grid. It either means that the grid is too small, or that the
 regression does not find a predictive link between the features and the
 target. In this case, the model with the lowest generalization error always
@@ -376,8 +358,7 @@ predict zero (<span class="math notranslate nohighlight">\(w=0\)</span>).</p>
 <span class="n">plot_cv_path</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="02 plot ridge regression" class="sphx-glr-single-img" src="../../_images/sphx_glr_02_plot_ridge_regression_020.png" />
-<p>To summarize, to select the best hyperparameter <span class="math notranslate nohighlight">\(\alpha\)</span>, the standard
+<img src="../../_images/sphx_glr_02_plot_ridge_regression_020.png" srcset="../../_images/sphx_glr_02_plot_ridge_regression_020.png" alt="02 plot ridge regression" class = "sphx-glr-single-img"/><p>To summarize, to select the best hyperparameter <span class="math notranslate nohighlight">\(\alpha\)</span>, the standard
 method is to perform a grid search:</p>
 <blockquote>
 <div><ul class="simple">
@@ -399,8 +380,8 @@ different prediction accuracies can be averaged over splits before the
 hyperparameter selection. Thus, the process is called a <em>cross-validation</em>.</p>
 <p>Learn more about hyperparameter selection and cross-validation on the
 <a class="reference external" href="https://scikit-learn.org/stable/modules/cross_validation.html">scikit-learn documentation</a>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.947 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-shortclips-02-plot-ridge-regression-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.937 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-shortclips-02-plot-ridge-regression-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/2408f8bb7228659eb6fd173d262de0c6/02_plot_ridge_regression.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02_plot_ridge_regression.py</span></code></a></p>
 </div>
@@ -423,7 +404,7 @@ hyperparameter selection. Thus, the process is called a <em>cross-validation</em
       &copy;2020, Gallant lab.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

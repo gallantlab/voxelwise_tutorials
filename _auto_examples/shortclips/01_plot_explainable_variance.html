@@ -1,22 +1,21 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Compute the explainable variance &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -61,15 +60,17 @@
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Shortclips tutorial</a><ul>
+  <li><a href="index.html">Shortclips tutorial</a><ul>
       <li>Previous: <a href="00_setup_colab.html" title="previous chapter">Setup Google Colab</a></li>
       <li>Next: <a href="02_plot_ridge_regression.html" title="next chapter">Understand ridge regression and cross-validation</a></li>
+  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
 </div><h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Shortclips tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#vim-2-tutorial">Vim-2 tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Shortclips tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#vim-2-tutorial">Vim-2 tutorial</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html">Helper Python package</a></li>
@@ -88,7 +89,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="documentwrapper">
@@ -103,7 +104,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="compute-the-explainable-variance">
-<span id="sphx-glr-auto-examples-shortclips-01-plot-explainable-variance-py"></span><h1>Compute the explainable variance<a class="headerlink" href="#compute-the-explainable-variance" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-shortclips-01-plot-explainable-variance-py"></span><h1>Compute the explainable variance<a class="headerlink" href="#compute-the-explainable-variance" title="Permalink to this heading">¶</a></h1>
 <p>Before fitting any voxelwise model to fMRI responses, it is good practice to
 quantify the amount of signal in the test set that can be predicted by an
 encoding model. This quantity is called the <em>explainable variance</em>.</p>
@@ -128,19 +129,18 @@ explainable variance (EV) is estimated as</p>
 <div class="math notranslate nohighlight">
 \[\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\]</div>
 <p>In the literature, the explainable variance is also known as the <em>signal
-power</em>. For more information, see these references <a class="footnote-reference brackets" href="#id5" id="id1">1</a> <a class="footnote-reference brackets" href="#id6" id="id2">2</a> <a class="footnote-reference brackets" href="#id7" id="id3">3</a>.</p>
+power</em>. For more information, see these references <a class="footnote-reference brackets" href="#id5" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> <a class="footnote-reference brackets" href="#id6" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> <a class="footnote-reference brackets" href="#id7" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 <section id="path-of-the-data-directory">
-<h2>Path of the data directory<a class="headerlink" href="#path-of-the-data-directory" title="Permalink to this headline">¶</a></h2>
+<h2>Path of the data directory<a class="headerlink" href="#path-of-the-data-directory" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
 
 <span class="n">directory</span> <span class="o">=</span> <span class="n">get_data_home</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;shortclips&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/mvdoc/voxelwise_tutorials_data/shortclips
 </pre></div>
 </div>
@@ -150,7 +150,7 @@ power</em>. For more information, see these references <a class="footnote-refere
 </div>
 </section>
 <section id="id4">
-<h2>Compute the explainable variance<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>Compute the explainable variance<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">load_hdf5_array</span>
 </pre></div>
@@ -164,7 +164,6 @@ responses to ten (10) repeats of the same stimulus.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_repeats, n_samples_test, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_repeats, n_samples_test, n_voxels) = (10, 270, 84038)
 </pre></div>
 </div>
@@ -175,7 +174,6 @@ responses to ten (10) repeats of the same stimulus.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_voxels,) =&quot;</span><span class="p">,</span> <span class="n">ev</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_voxels,) = (84038,)
 </pre></div>
 </div>
@@ -196,8 +194,7 @@ measured signal in a voxel with high explainable variance…</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Voxel with large explainable variance (0.71)" class="sphx-glr-single-img" src="../../_images/sphx_glr_01_plot_explainable_variance_001.png" />
-<p>… and in a voxel with low explainable variance.</p>
+<img src="../../_images/sphx_glr_01_plot_explainable_variance_001.png" srcset="../../_images/sphx_glr_01_plot_explainable_variance_001.png" alt="Voxel with large explainable variance (0.71)" class = "sphx-glr-single-img"/><p>… and in a voxel with low explainable variance.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">voxel_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">ev</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">Y_test</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">voxel_2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C0&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
@@ -210,8 +207,7 @@ measured signal in a voxel with high explainable variance…</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Voxel with low explainable variance (-0.05)" class="sphx-glr-single-img" src="../../_images/sphx_glr_01_plot_explainable_variance_002.png" />
-<p>We can also plot the distribution of explainable variance over voxels.</p>
+<img src="../../_images/sphx_glr_01_plot_explainable_variance_002.png" srcset="../../_images/sphx_glr_01_plot_explainable_variance_002.png" alt="Voxel with low explainable variance (-0.05)" class = "sphx-glr-single-img"/><p>We can also plot the distribution of explainable variance over voxels.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ev</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Explainable variance&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Number of voxels&quot;</span><span class="p">)</span>
@@ -220,8 +216,7 @@ measured signal in a voxel with high explainable variance…</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Histogram of explainable variance" class="sphx-glr-single-img" src="../../_images/sphx_glr_01_plot_explainable_variance_003.png" />
-<p>We see that many voxels have low explainable variance. This is
+<img src="../../_images/sphx_glr_01_plot_explainable_variance_003.png" srcset="../../_images/sphx_glr_01_plot_explainable_variance_003.png" alt="Histogram of explainable variance" class = "sphx-glr-single-img"/><p>We see that many voxels have low explainable variance. This is
 expected, since many voxels are not driven by a visual stimulus, and their
 response changes over repeats of the same stimulus.
 We also see that some voxels have high explainable variance (around 0.7). The
@@ -229,7 +224,7 @@ responses in these voxels are highly consistent across repetitions of the
 same stimulus. Thus, they are good targets for encoding models.</p>
 </section>
 <section id="map-to-subject-flatmap">
-<h2>Map to subject flatmap<a class="headerlink" href="#map-to-subject-flatmap" title="Permalink to this headline">¶</a></h2>
+<h2>Map to subject flatmap<a class="headerlink" href="#map-to-subject-flatmap" title="Permalink to this heading">¶</a></h2>
 <p>To better understand the distribution of explainable variance, we map the
 values to the subject brain. This can be done with <a class="reference external" href="https://gallantlab.github.io/pycortex/">pycortex</a>, which can create interactive 3D
 viewers to be displayed in any modern browser. <code class="docutils literal notranslate"><span class="pre">pycortex</span></code> can also display
@@ -252,8 +247,7 @@ provides an example of how to use the mapper and visualize the flatmap.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="01 plot explainable variance" class="sphx-glr-single-img" src="../../_images/sphx_glr_01_plot_explainable_variance_004.png" />
-<p>This figure is a flattened map of the cortical surface. A number of regions
+<img src="../../_images/sphx_glr_01_plot_explainable_variance_004.png" srcset="../../_images/sphx_glr_01_plot_explainable_variance_004.png" alt="01 plot explainable variance" class = "sphx-glr-single-img"/><p>This figure is a flattened map of the cortical surface. A number of regions
 of interest (ROIs) have been labeled to ease interpretation. If you have
 never seen such a flatmap, we recommend taking a look at a <a class="reference external" href="https://www.gallantlab.org/brainviewer/Deniz2019">pycortex brain
 viewer</a>, which displays
@@ -268,7 +262,7 @@ higher-level regions like EBA, FFA or IPS. This is expected since this
 dataset contains responses to a visual stimulus.</p>
 </section>
 <section id="map-to-fsaverage">
-<h2>Map to “fsaverage”<a class="headerlink" href="#map-to-fsaverage" title="Permalink to this headline">¶</a></h2>
+<h2>Map to “fsaverage”<a class="headerlink" href="#map-to-fsaverage" title="Permalink to this heading">¶</a></h2>
 <p>The second mapper we provide maps the voxel data to a Freesurfer
 average surface (“fsaverage”), that can be used in <code class="docutils literal notranslate"><span class="pre">pycortex</span></code>.</p>
 <p>First, let’s download the “fsaverage” surface.</p>
@@ -295,7 +289,6 @@ with a dot product <code class="docutils literal notranslate"><span class="pre">
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_vertices,) =&quot;</span><span class="p">,</span> <span class="n">ev_projected</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_vertices,) = (327684,)
 </pre></div>
 </div>
@@ -325,28 +318,30 @@ does not use this function, so feel free to ignore.)</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="01 plot explainable variance" class="sphx-glr-single-img" src="../../_images/sphx_glr_01_plot_explainable_variance_005.png" />
-</section>
+<img src="../../_images/sphx_glr_01_plot_explainable_variance_005.png" srcset="../../_images/sphx_glr_01_plot_explainable_variance_005.png" alt="01 plot explainable variance" class = "sphx-glr-single-img"/></section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Sahani, M., &amp; Linden, J. F. (2003). How linear are auditory cortical
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id5" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Sahani, M., &amp; Linden, J. F. (2003). How linear are auditory cortical
 responses?. Advances in neural information processing systems, 125-132.</p>
-</dd>
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>Hsu, A., Borst, A., &amp; Theunissen, F. E. (2004). Quantifying
+</aside>
+<aside class="footnote brackets" id="id6" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Hsu, A., Borst, A., &amp; Theunissen, F. E. (2004). Quantifying
 variability in neural responses and its application for the validation of
 model predictions. Network: Computation in Neural Systems, 15(2), 91-109.</p>
-</dd>
-<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p>Schoppe, O., Harper, N. S., Willmore, B. D., King, A. J., &amp; Schnupp,
+</aside>
+<aside class="footnote brackets" id="id7" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>Schoppe, O., Harper, N. S., Willmore, B. D., King, A. J., &amp; Schnupp,
 J. W. (2016). Measuring the performance of neural models. Frontiers in
 computational neuroscience, 10, 10.</p>
-</dd>
-</dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.951 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-shortclips-01-plot-explainable-variance-py">
+</aside>
+</aside>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.531 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-shortclips-01-plot-explainable-variance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/bf4a721433a9e404643cafa79c8a41ff/01_plot_explainable_variance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_plot_explainable_variance.py</span></code></a></p>
 </div>
@@ -369,7 +364,7 @@ computational neuroscience, 10, 10.</p>
       &copy;2020, Gallant lab.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

@@ -85,8 +85,6 @@ Path of the data directory
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     /home/jlg/mvdoc/voxelwise_tutorials_data/shortclips
@@ -149,8 +147,6 @@ responses to ten (10) repeats of the same stimulus.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (n_repeats, n_samples_test, n_voxels) = (10, 270, 84038)
@@ -177,8 +173,6 @@ Then, we compute the explainable variance for each voxel.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -214,9 +208,10 @@ measured signal in a voxel with high explainable variance...
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_001.png
-    :alt: Voxel with large explainable variance (0.71)
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_001.png
+   :alt: Voxel with large explainable variance (0.71)
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_001.png
+   :class: sphx-glr-single-img
 
 
 
@@ -244,9 +239,10 @@ measured signal in a voxel with high explainable variance...
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_002.png
-    :alt: Voxel with low explainable variance (-0.05)
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_002.png
+   :alt: Voxel with low explainable variance (-0.05)
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_002.png
+   :class: sphx-glr-single-img
 
 
 
@@ -271,9 +267,10 @@ We can also plot the distribution of explainable variance over voxels.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_003.png
-    :alt: Histogram of explainable variance
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_003.png
+   :alt: Histogram of explainable variance
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_003.png
+   :class: sphx-glr-single-img
 
 
 
@@ -325,9 +322,10 @@ provides an example of how to use the mapper and visualize the flatmap.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_004.png
-    :alt: 01 plot explainable variance
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_004.png
+   :alt: 01 plot explainable variance
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_004.png
+   :class: sphx-glr-single-img
 
 
 
@@ -409,8 +407,6 @@ with a dot product ``@`` (equivalent to ``np.dot``).
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (n_vertices,) = (327684,)
@@ -483,9 +479,10 @@ does not use this function, so feel free to ignore.)
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_005.png
-    :alt: 01 plot explainable variance
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_005.png
+   :alt: 01 plot explainable variance
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_01_plot_explainable_variance_005.png
+   :class: sphx-glr-single-img
 
 
 
@@ -511,28 +508,23 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  12.951 seconds)
+   **Total running time of the script:** ( 0 minutes  12.531 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_01_plot_explainable_variance.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 01_plot_explainable_variance.py <01_plot_explainable_variance.py>`
 
-     :download:`Download Python source code: 01_plot_explainable_variance.py <01_plot_explainable_variance.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 01_plot_explainable_variance.ipynb <01_plot_explainable_variance.ipynb>`
+      :download:`Download Jupyter notebook: 01_plot_explainable_variance.ipynb <01_plot_explainable_variance.ipynb>`
 
 
 .. only:: html

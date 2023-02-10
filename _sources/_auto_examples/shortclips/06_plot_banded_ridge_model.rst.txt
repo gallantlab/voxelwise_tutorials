@@ -66,8 +66,6 @@ Path of the data directory
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     /home/jlg/mvdoc/voxelwise_tutorials_data/shortclips
@@ -119,8 +117,6 @@ regression targets.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (n_samples_train, n_voxels) = (3600, 84038)
@@ -152,8 +148,6 @@ explainable variance from the fit, and speed up the model fitting.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (n_voxels,) = (84038,)
@@ -180,8 +174,6 @@ responses.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -264,8 +256,6 @@ linear regression model.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (n_samples_train, n_features_total) = (3600, 8260)
@@ -299,8 +289,6 @@ We define again a leave-one-run-out cross-validation split scheme.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -393,8 +381,6 @@ solver used, they are passed as a ``solver_params`` dictionary.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -634,8 +620,6 @@ features, here defined with ``slices``.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
@@ -737,7 +721,7 @@ Then we can define the model pipeline.
                                                                                       2,
                                                                                       3,
                                                                                       4]...
-                     MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
+                     MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3... 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599]))]),
                                            kernels=&#x27;precomputed&#x27;,
                                            solver_params={&#x27;alphas&#x27;: array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
@@ -765,7 +749,7 @@ Then we can define the model pipeline.
                                                                                       2,
                                                                                       3,
                                                                                       4]...
-                     MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
+                     MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3... 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599]))]),
                                            kernels=&#x27;precomputed&#x27;,
                                            solver_params={&#x27;alphas&#x27;: array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
@@ -786,7 +770,7 @@ Then we can define the model pipeline.
                                                     (&#x27;delayer&#x27;,
                                                      Delayer(delays=[1, 2, 3, 4])),
                                                     (&#x27;kernelizer&#x27;, Kernelizer())]),
-                                    slice(1705, 8260, None))])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-31" type="checkbox" ><label for="sk-estimator-id-31" class="sk-toggleable__label sk-toggleable__label-arrow">wordnet</label><div class="sk-toggleable__content"><pre>slice(0, 1705, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-32" type="checkbox" ><label for="sk-estimator-id-32" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-33" type="checkbox" ><label for="sk-estimator-id-33" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-34" type="checkbox" ><label for="sk-estimator-id-34" class="sk-toggleable__label sk-toggleable__label-arrow">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-35" type="checkbox" ><label for="sk-estimator-id-35" class="sk-toggleable__label sk-toggleable__label-arrow">motion_energy</label><div class="sk-toggleable__content"><pre>slice(1705, 8260, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-36" type="checkbox" ><label for="sk-estimator-id-36" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-37" type="checkbox" ><label for="sk-estimator-id-37" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-38" type="checkbox" ><label for="sk-estimator-id-38" class="sk-toggleable__label sk-toggleable__label-arrow">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-39" type="checkbox" ><label for="sk-estimator-id-39" class="sk-toggleable__label sk-toggleable__label-arrow">MultipleKernelRidgeCV</label><div class="sk-toggleable__content"><pre>MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
+                                    slice(1705, 8260, None))])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-31" type="checkbox" ><label for="sk-estimator-id-31" class="sk-toggleable__label sk-toggleable__label-arrow">wordnet</label><div class="sk-toggleable__content"><pre>slice(0, 1705, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-32" type="checkbox" ><label for="sk-estimator-id-32" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-33" type="checkbox" ><label for="sk-estimator-id-33" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-34" type="checkbox" ><label for="sk-estimator-id-34" class="sk-toggleable__label sk-toggleable__label-arrow">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-35" type="checkbox" ><label for="sk-estimator-id-35" class="sk-toggleable__label sk-toggleable__label-arrow">motion_energy</label><div class="sk-toggleable__content"><pre>slice(1705, 8260, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-36" type="checkbox" ><label for="sk-estimator-id-36" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-37" type="checkbox" ><label for="sk-estimator-id-37" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-38" type="checkbox" ><label for="sk-estimator-id-38" class="sk-toggleable__label sk-toggleable__label-arrow">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-39" type="checkbox" ><label for="sk-estimator-id-39" class="sk-toggleable__label sk-toggleable__label-arrow">MultipleKernelRidgeCV</label><div class="sk-toggleable__content"><pre>MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3... 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599]))]),
                           kernels=&#x27;precomputed&#x27;,
                           solver_params={&#x27;alphas&#x27;: array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
@@ -835,11 +819,9 @@ CPU backend, it can last 10 times more.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
-    [                                        ] 0% | 0.00 sec | 20 random sampling with cv |     [..                                      ] 5% | 11.76 sec | 20 random sampling with cv |     [....                                    ] 10% | 23.04 sec | 20 random sampling with cv |     [......                                  ] 15% | 34.26 sec | 20 random sampling with cv |     [........                                ] 20% | 45.52 sec | 20 random sampling with cv |     [..........                              ] 25% | 56.76 sec | 20 random sampling with cv |     [............                            ] 30% | 68.07 sec | 20 random sampling with cv |     [..............                          ] 35% | 79.18 sec | 20 random sampling with cv |     [................                        ] 40% | 90.38 sec | 20 random sampling with cv |     [..................                      ] 45% | 101.55 sec | 20 random sampling with cv |     [....................                    ] 50% | 112.83 sec | 20 random sampling with cv |     [......................                  ] 55% | 124.00 sec | 20 random sampling with cv |     [........................                ] 60% | 135.18 sec | 20 random sampling with cv |     [..........................              ] 65% | 146.35 sec | 20 random sampling with cv |     [............................            ] 70% | 157.56 sec | 20 random sampling with cv |     [..............................          ] 75% | 168.70 sec | 20 random sampling with cv |     [................................        ] 80% | 179.86 sec | 20 random sampling with cv |     [..................................      ] 85% | 190.93 sec | 20 random sampling with cv |     [....................................    ] 90% | 201.24 sec | 20 random sampling with cv |     [......................................  ] 95% | 212.57 sec | 20 random sampling with cv |     [........................................] 100% | 223.67 sec | 20 random sampling with cv | 
+    [                                        ] 0% | 0.00 sec | 20 random sampling with cv |     [..                                      ] 5% | 4.39 sec | 20 random sampling with cv |     [....                                    ] 10% | 8.63 sec | 20 random sampling with cv |     [......                                  ] 15% | 12.82 sec | 20 random sampling with cv |     [........                                ] 20% | 17.03 sec | 20 random sampling with cv |     [..........                              ] 25% | 21.15 sec | 20 random sampling with cv |     [............                            ] 30% | 25.34 sec | 20 random sampling with cv |     [..............                          ] 35% | 29.46 sec | 20 random sampling with cv |     [................                        ] 40% | 33.60 sec | 20 random sampling with cv |     [..................                      ] 45% | 37.73 sec | 20 random sampling with cv |     [....................                    ] 50% | 41.84 sec | 20 random sampling with cv |     [......................                  ] 55% | 45.99 sec | 20 random sampling with cv |     [........................                ] 60% | 50.11 sec | 20 random sampling with cv |     [..........................              ] 65% | 54.24 sec | 20 random sampling with cv |     [............................            ] 70% | 58.35 sec | 20 random sampling with cv |     [..............................          ] 75% | 62.49 sec | 20 random sampling with cv |     [................................        ] 80% | 66.61 sec | 20 random sampling with cv |     [..................................      ] 85% | 70.71 sec | 20 random sampling with cv |     [....................................    ] 90% | 74.85 sec | 20 random sampling with cv |     [......................................  ] 95% | 78.68 sec | 20 random sampling with cv |     [........................................] 100% | 82.85 sec | 20 random sampling with cv | 
     (n_voxels_mask,) = (6849,)
     (n_voxels,) = (84038,)
 
@@ -887,7 +869,7 @@ spaces.
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3... 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 200,
                                                   &#x27;n_targets_batch_refit&#x27;: 200}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-40" type="checkbox" ><label for="sk-estimator-id-40" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -896,13 +878,13 @@ spaces.
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3... 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 200,
                                                   &#x27;n_targets_batch_refit&#x27;: 200}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-41" type="checkbox" ><label for="sk-estimator-id-41" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-42" type="checkbox" ><label for="sk-estimator-id-42" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-43" type="checkbox" ><label for="sk-estimator-id-43" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
+                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3... 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599]))]),
                   solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 200,
                                  &#x27;n_targets_batch_refit&#x27;: 200})</pre></div></div></div></div></div></div></div>
     </div>
@@ -952,9 +934,10 @@ predictive performance than the other.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_06_plot_banded_ridge_model_001.png
-    :alt: Generalization R2 scores
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_06_plot_banded_ridge_model_001.png
+   :alt: Generalization R2 scores
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_06_plot_banded_ridge_model_001.png
+   :class: sphx-glr-single-img
 
 
 
@@ -1014,8 +997,6 @@ scores. These scores are corrected so that their sum is equal to the
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (n_kernels, n_samples_test, n_voxels_mask) = torch.Size([2, 270, 6849])
@@ -1046,9 +1027,10 @@ We can then plot the split scores on a flatmap with a 2D colormap.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_06_plot_banded_ridge_model_002.png
-    :alt: 06 plot banded ridge model
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_06_plot_banded_ridge_model_002.png
+   :alt: 06 plot banded ridge model
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_06_plot_banded_ridge_model_002.png
+   :class: sphx-glr-single-img
 
 
 
@@ -1080,28 +1062,23 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 4 minutes  17.389 seconds)
+   **Total running time of the script:** ( 1 minutes  47.970 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_06_plot_banded_ridge_model.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 06_plot_banded_ridge_model.py <06_plot_banded_ridge_model.py>`
 
-     :download:`Download Python source code: 06_plot_banded_ridge_model.py <06_plot_banded_ridge_model.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 06_plot_banded_ridge_model.ipynb <06_plot_banded_ridge_model.ipynb>`
+      :download:`Download Jupyter notebook: 06_plot_banded_ridge_model.ipynb <06_plot_banded_ridge_model.ipynb>`
 
 
 .. only:: html

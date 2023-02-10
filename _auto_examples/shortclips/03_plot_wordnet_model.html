@@ -1,22 +1,21 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Fit a ridge model with wordnet features &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -61,15 +60,17 @@
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
   <li><a href="../index.html">Shortclips tutorial</a><ul>
+  <li><a href="index.html">Shortclips tutorial</a><ul>
       <li>Previous: <a href="02_plot_ridge_regression.html" title="previous chapter">Understand ridge regression and cross-validation</a></li>
       <li>Next: <a href="04_plot_hemodynamic_response.html" title="next chapter">Visualize the hemodynamic response</a></li>
+  </ul></li>
   </ul></li>
   </ul></li>
 </ul>
 </div><h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Shortclips tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#vim-2-tutorial">Vim-2 tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Shortclips tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html#vim-2-tutorial">Vim-2 tutorial</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html">Helper Python package</a></li>
@@ -88,7 +89,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="documentwrapper">
@@ -103,14 +104,14 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="fit-a-ridge-model-with-wordnet-features">
-<span id="sphx-glr-auto-examples-shortclips-03-plot-wordnet-model-py"></span><h1>Fit a ridge model with wordnet features<a class="headerlink" href="#fit-a-ridge-model-with-wordnet-features" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-examples-shortclips-03-plot-wordnet-model-py"></span><h1>Fit a ridge model with wordnet features<a class="headerlink" href="#fit-a-ridge-model-with-wordnet-features" title="Permalink to this heading">¶</a></h1>
 <p>In this example, we model the fMRI responses with semantic “wordnet” features,
 manually annotated on each frame of the movie stimulus. The model is a
 regularized linear regression model, known as ridge regression. Since this
 model is used to predict brain activity from the stimulus, it is called a
 (voxelwise) encoding model.</p>
 <p>This example reproduces part of the analysis described in Huth et al (2012)
-<a class="footnote-reference brackets" href="#id12" id="id1">1</a>. See this publication for more details about the experiment, the wordnet
+<a class="footnote-reference brackets" href="#id12" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. See this publication for more details about the experiment, the wordnet
 features, along with more results and more discussions.</p>
 <p><em>Wordnet features:</em> The features used in this example are semantic labels
 manually annotated on each frame of the movie stimulus. The semantic labels
@@ -127,13 +128,12 @@ grid-search with cross-validation. Finally, the model generalization
 performance is evaluated on a held-out test set, comparing the model
 predictions to the corresponding ground-truth fMRI responses.</p>
 <section id="path-of-the-data-directory">
-<h2>Path of the data directory<a class="headerlink" href="#path-of-the-data-directory" title="Permalink to this headline">¶</a></h2>
+<h2>Path of the data directory<a class="headerlink" href="#path-of-the-data-directory" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
 <span class="n">directory</span> <span class="o">=</span> <span class="n">get_data_home</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;shortclips&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/mvdoc/voxelwise_tutorials_data/shortclips
 </pre></div>
 </div>
@@ -143,9 +143,9 @@ predictions to the corresponding ground-truth fMRI responses.</p>
 </div>
 </section>
 <section id="load-the-data">
-<h2>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this headline">¶</a></h2>
+<h2>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this heading">¶</a></h2>
 <p>We first load the fMRI responses. These responses have been preprocessed as
-decribed in <a class="footnote-reference brackets" href="#id12" id="id2">1</a>. The data is separated into a training set <code class="docutils literal notranslate"><span class="pre">Y_train</span></code> and a
+decribed in <a class="footnote-reference brackets" href="#id12" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. The data is separated into a training set <code class="docutils literal notranslate"><span class="pre">Y_train</span></code> and a
 testing set <code class="docutils literal notranslate"><span class="pre">Y_test</span></code>. The training set is used for fitting models, and
 selecting the best models and hyperparameters. The test set is later used
 to estimate the generalization performance of the selected model. The
@@ -163,7 +163,6 @@ an upper bound of the model prediction accuracy (cf. previous example).</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_repeats, n_samples_test, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_samples_train, n_voxels) = (3600, 84038)
 (n_repeats, n_samples_test, n_voxels) = (10, 270, 84038)
 </pre></div>
@@ -178,7 +177,6 @@ repeatable part of the signal by averaging the test repeats.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_samples_test, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_samples_test, n_voxels) = (270, 84038)
 </pre></div>
 </div>
@@ -201,14 +199,13 @@ each time point. The features corresponding to the training set are noted
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_samples_test, n_features) =&quot;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_samples_train, n_features) = (3600, 1705)
 (n_samples_test, n_features) = (270, 1705)
 </pre></div>
 </div>
 </section>
 <section id="define-the-cross-validation-scheme">
-<h2>Define the cross-validation scheme<a class="headerlink" href="#define-the-cross-validation-scheme" title="Permalink to this headline">¶</a></h2>
+<h2>Define the cross-validation scheme<a class="headerlink" href="#define-the-cross-validation-scheme" title="Permalink to this heading">¶</a></h2>
 <p>To select the best hyperparameter through cross-validation, we must define a
 cross-validation splitting scheme. Because fMRI time-series are
 autocorrelated in time, we should preserve as much as possible the temporal
@@ -225,7 +222,6 @@ intact.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">run_onsets</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[   0  300  600  900 1200 1500 1800 2100 2400 2700 3000 3300]
 </pre></div>
 </div>
@@ -237,7 +233,7 @@ intact.</p>
 </div>
 </section>
 <section id="define-the-model">
-<h2>Define the model<a class="headerlink" href="#define-the-model" title="Permalink to this headline">¶</a></h2>
+<h2>Define the model<a class="headerlink" href="#define-the-model" title="Permalink to this heading">¶</a></h2>
 <p>Now, let’s define the model pipeline.</p>
 <p>We first center the features, since we will not use an intercept. The mean
 value in fMRI recording is non-informative, so each run is detrended and
@@ -277,7 +273,7 @@ set. See the previous example for more details about ridge regression and
 hyperparameter selection.</p>
 <p>For computational reasons, when the number of features is larger than the
 number of samples, it is more efficient to solve ridge regression using the
-(equivalent) dual formulation <a class="footnote-reference brackets" href="#id13" id="id3">2</a>. This dual formulation is equivalent to
+(equivalent) dual formulation <a class="footnote-reference brackets" href="#id13" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. This dual formulation is equivalent to
 kernel ridge regression with a linear kernel. Here, we have 3600 training
 samples, and 1705 * 4 = 6820 features (we multiply by 4 since we use 4 time
 delays), therefore it is more efficient to use kernel ridge regression.</p>
@@ -306,7 +302,6 @@ slower since it only uses the CPU.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;himalaya.backend.torch_cuda&#39; from &#39;/home/jlg/mvdoc/miniconda3/lib/python3.8/site-packages/himalaya/backend/torch_cuda.py&#39;&gt;
 </pre></div>
 </div>
@@ -358,7 +353,7 @@ more information.</p>
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -367,20 +362,20 @@ more information.</p>
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
               solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                              &#x27;n_targets_batch_refit&#x27;: 100})</pre></div></div></div></div></div></div></div>
 </div>
 <br />
 <br /></section>
 <section id="fit-the-model">
-<h2>Fit the model<a class="headerlink" href="#fit-the-model" title="Permalink to this headline">¶</a></h2>
+<h2>Fit the model<a class="headerlink" href="#fit-the-model" title="Permalink to this heading">¶</a></h2>
 <p>We fit on the training set..</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">)</span>
 </pre></div>
@@ -395,7 +390,6 @@ one score per target/voxel.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_voxels,) =&quot;</span><span class="p">,</span> <span class="n">scores</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_voxels,) = torch.Size([84038])
 </pre></div>
 </div>
@@ -408,7 +402,7 @@ a <code class="docutils literal notranslate"><span class="pre">matplotlib</span>
 </div>
 </section>
 <section id="plot-the-model-prediction-accuracy">
-<h2>Plot the model prediction accuracy<a class="headerlink" href="#plot-the-model-prediction-accuracy" title="Permalink to this headline">¶</a></h2>
+<h2>Plot the model prediction accuracy<a class="headerlink" href="#plot-the-model-prediction-accuracy" title="Permalink to this heading">¶</a></h2>
 <p>To visualize the model prediction accuracy, we can plot it for each voxel on
 a flattened surface of the brain. To do so, we use a mapper that is specific
 to the each subject’s brain. (Check previous example to see how to use the
@@ -421,8 +415,7 @@ mapper to Freesurfer average surface.)</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="03 plot wordnet model" class="sphx-glr-single-img" src="../../_images/sphx_glr_03_plot_wordnet_model_001.png" />
-<p>We can see that the “wordnet” features successfully predict part of the
+<img src="../../_images/sphx_glr_03_plot_wordnet_model_001.png" srcset="../../_images/sphx_glr_03_plot_wordnet_model_001.png" alt="03 plot wordnet model" class = "sphx-glr-single-img"/><p>We can see that the “wordnet” features successfully predict part of the
 measured brain activity, with <span class="math notranslate nohighlight">\(R^2\)</span> scores as high as 0.4. Note that
 these scores are generalization scores, since they are computed on a test set
 that was not used during model fitting. Since we fitted a model independently
@@ -431,10 +424,10 @@ available spatial resolution: individual voxels.</p>
 <p>The best-predicted voxels are located in visual semantic areas like EBA, or
 FFA. This is expected since the wordnet features encode semantic information
 about the visual stimulus. For more discussions about these results, we refer
-the reader to the original publication <a class="footnote-reference brackets" href="#id12" id="id4">1</a>.</p>
+the reader to the original publication <a class="footnote-reference brackets" href="#id12" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 </section>
 <section id="plot-the-selected-hyperparameters">
-<h2>Plot the selected hyperparameters<a class="headerlink" href="#plot-the-selected-hyperparameters" title="Permalink to this headline">¶</a></h2>
+<h2>Plot the selected hyperparameters<a class="headerlink" href="#plot-the-selected-hyperparameters" title="Permalink to this heading">¶</a></h2>
 <p>Since the scale of alphas is unknown, we plot the optimal alphas selected by
 the solver over cross-validation. This plot is helpful to refine the alpha
 grid if the range is too small or too large.</p>
@@ -448,10 +441,9 @@ to zero. We do not need to extend the alpha range for these voxels.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="03 plot wordnet model" class="sphx-glr-single-img" src="../../_images/sphx_glr_03_plot_wordnet_model_002.png" />
-</section>
+<img src="../../_images/sphx_glr_03_plot_wordnet_model_002.png" srcset="../../_images/sphx_glr_03_plot_wordnet_model_002.png" alt="03 plot wordnet model" class = "sphx-glr-single-img"/></section>
 <section id="visualize-the-regression-coefficients">
-<h2>Visualize the regression coefficients<a class="headerlink" href="#visualize-the-regression-coefficients" title="Permalink to this headline">¶</a></h2>
+<h2>Visualize the regression coefficients<a class="headerlink" href="#visualize-the-regression-coefficients" title="Permalink to this heading">¶</a></h2>
 <p>Here, we go back to the main model on all voxels. Since our model is linear,
 we can use the (primal) regression coefficients to interpret the model. The
 basic intuition is that the model will use larger coefficients on features
@@ -467,7 +459,6 @@ model.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_delays * n_features, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">primal_coef</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_delays * n_features, n_voxels) = (6820, 84038)
 </pre></div>
 </div>
@@ -498,7 +489,6 @@ to have a low norm.</p>
 <span class="k">del</span> <span class="n">primal_coef_per_delay</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_delays, n_features, n_voxels) = (4, 1705, 84038)
 (n_features, n_voxels) = (1705, 84038)
 </pre></div>
@@ -514,7 +504,6 @@ reduce the dimensionality of the matrix.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_components, n_features) =&quot;</span><span class="p">,</span> <span class="n">components</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_components, n_features) = (4, 1705)
 </pre></div>
 </div>
@@ -524,11 +513,10 @@ coefficients variance.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PCA explained variance =&quot;</span><span class="p">,</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>PCA explained variance = [0.35200105 0.08103256 0.0565395  0.03766764]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>PCA explained variance = [0.35199628 0.0810313  0.05653874 0.03766723]
 </pre></div>
 </div>
-<p>Similarly to <a class="footnote-reference brackets" href="#id12" id="id5">1</a>, we correct the coefficients of features linked by a
+<p>Similarly to <a class="footnote-reference brackets" href="#id12" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, we correct the coefficients of features linked by a
 semantic relationship. When building the wordnet features, if a frame was
 labeled with <cite>wolf</cite>, the authors automatically added the semantically linked
 categories <cite>canine</cite>, <cite>carnivore</cite>, <cite>placental mammal</cite>, <cite>mamma</cite>, <cite>vertebrate</cite>,
@@ -559,15 +547,14 @@ color indicates the sign (red is positive, blue is negative).</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="03 plot wordnet model" class="sphx-glr-single-img" src="../../_images/sphx_glr_03_plot_wordnet_model_003.png" />
-<p>According to the authors of <a class="footnote-reference brackets" href="#id12" id="id6">1</a>, “this principal component distinguishes
+<img src="../../_images/sphx_glr_03_plot_wordnet_model_003.png" srcset="../../_images/sphx_glr_03_plot_wordnet_model_003.png" alt="03 plot wordnet model" class = "sphx-glr-single-img"/><p>According to the authors of <a class="footnote-reference brackets" href="#id12" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, “this principal component distinguishes
 between categories with high stimulus energy (e.g. moving objects like
 <cite>person</cite> and <cite>vehicle</cite>) and those with low stimulus energy (e.g. stationary
 objects like <cite>sky</cite> and <cite>city</cite>)”.</p>
 <p>In this example, because we use only a single subject and we perform a
 different voxel selection, our result is slightly different than in the
 original publication. We also use a different regularization parameter in
-each voxel, while in <a class="footnote-reference brackets" href="#id12" id="id7">1</a> all voxels had the same regularization parameter.
+each voxel, while in <a class="footnote-reference brackets" href="#id12" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> all voxels had the same regularization parameter.
 However, we do not aim at reproducing exactly the results of the original
 publication, but we rather describe the general approach.</p>
 <p>To project the principal component on the cortical surface, we first need to
@@ -586,16 +573,14 @@ use the fitted PCA to transform the primal weights of all voxels.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="03 plot wordnet model" class="sphx-glr-single-img" src="../../_images/sphx_glr_03_plot_wordnet_model_004.png" />
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_components, n_voxels) = (4, 84038)
+<img src="../../_images/sphx_glr_03_plot_wordnet_model_004.png" srcset="../../_images/sphx_glr_03_plot_wordnet_model_004.png" alt="03 plot wordnet model" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_components, n_voxels) = (4, 84038)
 </pre></div>
 </div>
 <p>This flatmap shows in which brain regions the model has the largest
 projection on the first component. Again, this result is different from the
-one in <a class="footnote-reference brackets" href="#id12" id="id8">1</a>, and should only be considered as reproducing the general
+one in <a class="footnote-reference brackets" href="#id12" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, and should only be considered as reproducing the general
 approach.</p>
-<p>Following <a class="footnote-reference brackets" href="#id12" id="id9">1</a>, we also plot the next three principal components on the
+<p>Following <a class="footnote-reference brackets" href="#id12" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, we also plot the next three principal components on the
 wordnet graph, mapping the three vectors to RGB colors.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.wordnet</span> <span class="kn">import</span> <span class="n">scale_to_rgb_cube</span>
 
@@ -608,12 +593,10 @@ wordnet graph, mapping the three vectors to RGB colors.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="03 plot wordnet model" class="sphx-glr-single-img" src="../../_images/sphx_glr_03_plot_wordnet_model_005.png" />
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_nodes, n_channels) = (1705, 3)
+<img src="../../_images/sphx_glr_03_plot_wordnet_model_005.png" srcset="../../_images/sphx_glr_03_plot_wordnet_model_005.png" alt="03 plot wordnet model" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_nodes, n_channels) = (1705, 3)
 </pre></div>
 </div>
-<p>According to the authors of <a class="footnote-reference brackets" href="#id12" id="id10">1</a>, “this graph shows that categories thought
+<p>According to the authors of <a class="footnote-reference brackets" href="#id12" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, “this graph shows that categories thought
 to be semantically related (e.g. athletes and walking) are represented
 similarly in the brain”.</p>
 <p>Finally, we project these principal components on the cortical surface.</p>
@@ -629,30 +612,31 @@ similarly in the brain”.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="03 plot wordnet model" class="sphx-glr-single-img" src="../../_images/sphx_glr_03_plot_wordnet_model_006.png" />
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_channels, n_voxels) = (3, 84038)
+<img src="../../_images/sphx_glr_03_plot_wordnet_model_006.png" srcset="../../_images/sphx_glr_03_plot_wordnet_model_006.png" alt="03 plot wordnet model" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(n_channels, n_voxels) = (3, 84038)
 </pre></div>
 </div>
-<p>Again, our results are different from the ones in <a class="footnote-reference brackets" href="#id12" id="id11">1</a>, for the same reasons
+<p>Again, our results are different from the ones in <a class="footnote-reference brackets" href="#id12" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, for the same reasons
 mentioned earlier.</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<dl class="footnote brackets">
-<dt class="label" id="id12"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id4">3</a>,<a href="#id5">4</a>,<a href="#id6">5</a>,<a href="#id7">6</a>,<a href="#id8">7</a>,<a href="#id9">8</a>,<a href="#id10">9</a>,<a href="#id11">10</a>)</span></dt>
-<dd><p>Huth, A. G., Nishimoto, S., Vu, A. T., &amp; Gallant, J. L. (2012).
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id12" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id4">3</a>,<a role="doc-backlink" href="#id5">4</a>,<a role="doc-backlink" href="#id6">5</a>,<a role="doc-backlink" href="#id7">6</a>,<a role="doc-backlink" href="#id8">7</a>,<a role="doc-backlink" href="#id9">8</a>,<a role="doc-backlink" href="#id10">9</a>,<a role="doc-backlink" href="#id11">10</a>)</span>
+<p>Huth, A. G., Nishimoto, S., Vu, A. T., &amp; Gallant, J. L. (2012).
 A continuous semantic space describes the representation of thousands of
 object and action categories across the human brain. Neuron, 76(6),
 1210-1224.</p>
-</dd>
-<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
-<dd><p>Saunders, C., Gammerman, A., &amp; Vovk, V. (1998).
+</aside>
+<aside class="footnote brackets" id="id13" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
+<p>Saunders, C., Gammerman, A., &amp; Vovk, V. (1998).
 Ridge regression learning algorithm in dual variables.</p>
-</dd>
-</dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  28.396 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-shortclips-03-plot-wordnet-model-py">
+</aside>
+</aside>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  59.160 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-shortclips-03-plot-wordnet-model-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6e671f39e14d46b8c8c09be593ea3192/03_plot_wordnet_model.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_plot_wordnet_model.py</span></code></a></p>
 </div>
@@ -675,7 +659,7 @@ Ridge regression learning algorithm in dual variables.</p>
       &copy;2020, Gallant lab.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

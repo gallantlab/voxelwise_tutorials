@@ -67,8 +67,6 @@ Path of the data directory
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     /home/jlg/mvdoc/voxelwise_tutorials_data/shortclips
@@ -125,8 +123,6 @@ an upper bound of the model prediction accuracy (cf. previous example).
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (n_samples_train, n_voxels) = (3600, 84038)
@@ -156,8 +152,6 @@ repeatable part of the signal by averaging the test repeats.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -210,8 +204,6 @@ each time point. The features corresponding to the training set are noted
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (n_samples_train, n_features) = (3600, 1705)
@@ -251,8 +243,6 @@ intact.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -409,8 +399,6 @@ slower since it only uses the CPU.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <module 'himalaya.backend.torch_cuda' from '/home/jlg/mvdoc/miniconda3/lib/python3.8/site-packages/himalaya/backend/torch_cuda.py'>
@@ -531,7 +519,7 @@ We can display the ``scikit-learn`` pipeline with an HTML diagram.
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 500,
                                                   &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -540,13 +528,13 @@ We can display the ``scikit-learn`` pipeline with an HTML diagram.
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 500,
                                                   &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                   solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                                  &#x27;n_targets_batch_refit&#x27;: 100})</pre></div></div></div></div></div></div></div>
     </div>
@@ -596,8 +584,6 @@ one score per target/voxel.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -650,9 +636,10 @@ mapper to Freesurfer average surface.)
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_001.png
-    :alt: 03 plot wordnet model
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_001.png
+   :alt: 03 plot wordnet model
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_001.png
+   :class: sphx-glr-single-img
 
 
 
@@ -699,9 +686,10 @@ to zero. We do not need to extend the alpha range for these voxels.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_002.png
-    :alt: 03 plot wordnet model
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_002.png
+   :alt: 03 plot wordnet model
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_002.png
+   :class: sphx-glr-single-img
 
 
 
@@ -740,8 +728,6 @@ model.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -803,8 +789,6 @@ Then, we aggregate the coefficients across the different delays.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (n_delays, n_features, n_voxels) = (4, 1705, 84038)
@@ -836,8 +820,6 @@ reduce the dimensionality of the matrix.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (n_components, n_features) = (4, 1705)
@@ -863,11 +845,9 @@ coefficients variance.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
-    PCA explained variance = [0.35200105 0.08103256 0.0565395  0.03766764]
+    PCA explained variance = [0.35199628 0.0810313  0.05653874 0.03766723]
 
 
 
@@ -927,9 +907,10 @@ color indicates the sign (red is positive, blue is negative).
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_003.png
-    :alt: 03 plot wordnet model
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_003.png
+   :alt: 03 plot wordnet model
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_003.png
+   :class: sphx-glr-single-img
 
 
 
@@ -975,14 +956,13 @@ use the fitted PCA to transform the primal weights of all voxels.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_004.png
-    :alt: 03 plot wordnet model
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_004.png
+   :alt: 03 plot wordnet model
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_004.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -1021,14 +1001,13 @@ wordnet graph, mapping the three vectors to RGB colors.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_005.png
-    :alt: 03 plot wordnet model
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_005.png
+   :alt: 03 plot wordnet model
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_005.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -1066,14 +1045,13 @@ Finally, we project these principal components on the cortical surface.
 
 
 
-.. image:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_006.png
-    :alt: 03 plot wordnet model
-    :class: sphx-glr-single-img
+.. image-sg:: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_006.png
+   :alt: 03 plot wordnet model
+   :srcset: /_auto_examples/shortclips/images/sphx_glr_03_plot_wordnet_model_006.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -1103,28 +1081,23 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  28.396 seconds)
+   **Total running time of the script:** ( 0 minutes  59.160 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_03_plot_wordnet_model.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 03_plot_wordnet_model.py <03_plot_wordnet_model.py>`
 
-     :download:`Download Python source code: 03_plot_wordnet_model.py <03_plot_wordnet_model.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 03_plot_wordnet_model.ipynb <03_plot_wordnet_model.ipynb>`
+      :download:`Download Jupyter notebook: 03_plot_wordnet_model.ipynb <03_plot_wordnet_model.ipynb>`
 
 
 .. only:: html

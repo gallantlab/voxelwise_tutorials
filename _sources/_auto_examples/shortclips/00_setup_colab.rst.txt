@@ -138,23 +138,18 @@ Your Google Colab environment is now set up for the voxelwise tutorials.
 
 .. _sphx_glr_download__auto_examples_shortclips_00_setup_colab.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 00_setup_colab.py <00_setup_colab.py>`
 
-     :download:`Download Python source code: 00_setup_colab.py <00_setup_colab.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 00_setup_colab.ipynb <00_setup_colab.ipynb>`
+      :download:`Download Jupyter notebook: 00_setup_colab.ipynb <00_setup_colab.ipynb>`
 
 
 .. only:: html

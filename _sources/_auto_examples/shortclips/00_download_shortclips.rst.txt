@@ -127,23 +127,18 @@ References
 
 .. _sphx_glr_download__auto_examples_shortclips_00_download_shortclips.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: 00_download_shortclips.py <00_download_shortclips.py>`
 
-     :download:`Download Python source code: 00_download_shortclips.py <00_download_shortclips.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: 00_download_shortclips.ipynb <00_download_shortclips.ipynb>`
+      :download:`Download Jupyter notebook: 00_download_shortclips.ipynb <00_download_shortclips.ipynb>`
 
 
 .. only:: html

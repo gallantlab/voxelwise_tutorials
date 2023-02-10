@@ -5,10 +5,10 @@
 
 Computation times
 =================
-**00:12.951** total execution time for **_auto_examples_shortclips** files:
+**00:12.531** total execution time for **_auto_examples_shortclips** files:
 
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_01_plot_explainable_variance.py` (``01_plot_explainable_variance.py``) | 00:12.951 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_shortclips_01_plot_explainable_variance.py` (``01_plot_explainable_variance.py``) | 00:12.531 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_shortclips_00_download_shortclips.py` (``00_download_shortclips.py``)             | 00:00.000 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------+-----------+--------+
