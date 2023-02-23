@@ -38,26 +38,22 @@ Navigation
 .. toctree::
    :includehidden:
    :maxdepth: 1
-   
-    
+
    _auto_examples/index
 
 .. toctree::
    :maxdepth: 1
 
-   voxelwise_package
-
-.. toctree::
-   :maxdepth: 1
-
    voxelwise_modeling
+   voxelwise_package
+   references
 
 Cite as
 -------
 
 If you use one of our packages in your work (``voxelwise_tutorials``
-:ref:`[13]<dup2022b>`, ``himalaya`` :ref:`[14]<dup2022>`, ``pycortex``
-:ref:`[15]<gao2015>`, or ``pymoten`` :ref:`[16]<nun2021>`), please cite the
+:ref:`[p1]<dup2023>`, ``himalaya`` :ref:`[p2]<dup2022>`, ``pycortex``
+:ref:`[p3]<gao2015>`, or ``pymoten`` :ref:`[p4]<nun2021>`), please cite the
 corresponding publications.
 
 If you use one of our public datasets in your work (vim-2

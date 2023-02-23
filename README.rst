@@ -11,9 +11,10 @@ Tutorials
 =========
 
 This repository contains tutorials describing how to use the voxelwise modeling
-framework. Voxelwise modeling is a framework to perform functional magnetic
-resonance imaging (fMRI) data analysis, fitting encoding models at the voxel
-level.
+framework. `Voxelwise modeling
+<https://gallantlab.github.io/voxelwise_tutorials/voxelwise_modeling.html>`_ is
+a framework to perform functional magnetic resonance imaging (fMRI) data
+analysis, fitting encoding models at the voxel level.
 
 To explore these tutorials, one can:
 
@@ -100,7 +101,7 @@ If you use one of our packages in your work (``voxelwise_tutorials`` [1]_,
 ``himalaya`` [2]_, ``pycortex`` [3]_, or ``pymoten`` [4]_), please cite the
 corresponding publications:
 
-.. [1] Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2022).
+.. [1] Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2023).
    Voxelwise modeling tutorials: an encoding model approach to functional MRI analysis.
    *In preparation*.
 
