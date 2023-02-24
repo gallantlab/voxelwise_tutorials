@@ -69,7 +69,7 @@ Path of the data directory
 
  .. code-block:: none
 
-    /home/jlg/mvdoc/voxelwise_tutorials_data/shortclips
+    /home/jlg/tomdlt/voxelwise_tutorials_data/shortclips
 
 
 
@@ -401,7 +401,7 @@ slower since it only uses the CPU.
 
  .. code-block:: none
 
-    <module 'himalaya.backend.torch_cuda' from '/home/jlg/mvdoc/miniconda3/lib/python3.8/site-packages/himalaya/backend/torch_cuda.py'>
+    <module 'himalaya.backend.torch_cuda' from '/home/jlg/tomdlt/gbox/work/github/himalaya/himalaya/backend/torch_cuda.py'>
 
 
 
@@ -519,7 +519,7 @@ We can display the ``scikit-learn`` pipeline with an HTML diagram.
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ...,...1, ..., 2398, 2399])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 500,
                                                   &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -528,13 +528,13 @@ We can display the ``scikit-learn`` pipeline with an HTML diagram.
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ...,...1, ..., 2398, 2399])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 500,
                                                   &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
+                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ...,...1, ..., 2398, 2399])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
                   solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                                  &#x27;n_targets_batch_refit&#x27;: 100})</pre></div></div></div></div></div></div></div>
     </div>
@@ -847,7 +847,7 @@ coefficients variance.
 
  .. code-block:: none
 
-    PCA explained variance = [0.35199628 0.0810313  0.05653874 0.03766723]
+    PCA explained variance = [0.35199556 0.0810314  0.05653872 0.03766738]
 
 
 
@@ -1081,7 +1081,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  59.160 seconds)
+   **Total running time of the script:** ( 1 minutes  18.344 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_03_plot_wordnet_model.py:

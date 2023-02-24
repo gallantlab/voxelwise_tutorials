@@ -73,10 +73,9 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html#vim-2-tutorial">Vim-2 tutorial</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">Voxelwise modeling framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html">Helper Python package</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
 </ul>
 
 
@@ -131,7 +130,7 @@ comparing the model predictions with the ground-truth fMRI responses.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/mvdoc/voxelwise_tutorials_data/shortclips
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/jlg/tomdlt/voxelwise_tutorials_data/shortclips
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># modify to use another subject</span>
@@ -248,7 +247,7 @@ example for more details about the model definition.</p>
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), a...), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 299...1, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox" ><label for="sk-estimator-id-12" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -257,13 +256,13 @@ example for more details about the model definition.</p>
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), a...), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 299...1, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox" ><label for="sk-estimator-id-13" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox" ><label for="sk-estimator-id-14" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox" ><label for="sk-estimator-id-15" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-              cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 299...1, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 5...601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399]))]),
               solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                              &#x27;n_targets_batch_refit&#x27;: 100})</pre></div></div></div></div></div></div></div>
 </div>
@@ -395,7 +394,7 @@ Voxelwise encoding models with non-spherical multivariate normal priors.
 Neuroimage, 197, 482-492.</p>
 </aside>
 </aside>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  46.395 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  17.441 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-shortclips-05-plot-motion-energy-model-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/61e753f506a8977cc9956dbcc1524999/05_plot_motion_energy_model.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">05_plot_motion_energy_model.py</span></code></a></p>
@@ -416,11 +415,11 @@ Neuroimage, 197, 482-492.</p>
     <div class="clearer"></div>
   </div>
     <div class="footer">
-      &copy;2020, Gallant lab.
+      &copy;2023, Gallant lab.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
       <a href="../../_sources/_auto_examples/shortclips/05_plot_motion_energy_model.rst.txt"

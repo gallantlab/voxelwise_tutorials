@@ -1,173 +1,108 @@
-References
-==========
-
 Voxelwise modeling framework
-----------------------------
+============================
 
-Voxelwise modeling (VM) is a framework to perform functional magnetic resonance
-imaging (fMRI) data analysis. Over the years, VM has led to many high profile
-publications :ref:`[1]<kay2008>` :ref:`[2]<nas2009>` :ref:`[3]<nis2011>`
-:ref:`[4]<hut2012>` :ref:`[5]<cuk2013>` :ref:`[6]<cuk2013b>`
-:ref:`[7]<sta2013>` :ref:`[8]<hut2016>` :ref:`[9]<deh2017>`
-:ref:`[10]<les2019>` :ref:`[11]<den2019>` :ref:`[12]<nun2019>`.
+A fundamental problem in neuroscience is to identify the information
+represented in different brain areas. 	In the VM framework, this problem is
+solved using encoding models. An encoding model describes how various features
+of the stimulus (or task) predict the activity in some part of the brain. Using
+VM to fit an encoding model to blood oxygen level-dependent signals (BOLD)
+recorded by fMRI involves several steps. First, brain activity is recorded
+while subjects perceive a stimulus or perform a task. Then, a set of features
+(that together constitute one or more *feature spaces*) is extracted from the
+stimulus or task at each point in time. For example, a video might be
+represented in terms of amount of motion in each part of the screen
+:ref:`[3]<nis2011>`, or in terms of semantic categories of the
+objects present in the scene :ref:`[4]<hut2012>`. Each feature space
+corresponds to a different representation of the stimulus- or task-related
+information. The VM framework aims to identify if each feature space is encoded
+in brain activity. Each feature space thus corresponds to a hypothesis about
+the stimulus- or task-related information that might be represented in some
+part of the brain. To test this hypothesis for some specific feature space, a
+regression model is trained to predict brain activity from that feature space.
+The resulting regression model is called an *encoding model*. If the encoding
+model predicts brain activity significantly in some part of the brain, then one
+may conclude that some information represented in the feature space is also
+represented in brain activity. To maximize spatial resolution, in VM a separate
+encoding model is fit on each spatial sample in fMRI recordings (that is on
+each voxel), leading to *voxelwise encoding models*.
 
-Critical improvements
----------------------
+Before fitting a voxelwise encoding model, it is sometimes possible to estimate
+an upper bound of the model prediction accuracy in each voxel. In VM, this
+upper bound is called the noise ceiling, and it is related to a quantity called
+the explainable variance. The explainable variance quantifies the fraction of
+the variance in the data that is consistent across repetitions of the same
+stimulus. Because an encoding model makes the same predictions across
+repetitions of the same stimulus, the explainable variance is the fraction of
+the variance in the data that can be explained by the model.
 
-VM provides multiple critical improvements over other approaches to fMRI data
-analysis:
+To estimate the prediction accuracy of an encoding model, the model prediction
+is compared with the recorded brain response. However, higher-dimensional
+encoding models are more likely to overfit to the training data. Overfitting
+causes inflated prediction accuracy on the training set and poor prediction
+accuracy on new data. To minimize the chances of overfitting and to obtain a
+fair estimate of prediction accuracy, the comparison between model predictions
+and brain responses must be performed on a separate test data set that was not
+used during model training. The ability to evaluate a model on a separate test
+data set is a major strength of the VM framework. It provides a principled way
+to build complex models while limiting the amount of overfitting. To further
+reduce overfitting, the encoding model is regularized. In VM, regularization is
+obtained by ridge regression, a common and powerful regularized regression
+method.
 
-#.
-    Most methods for analyzing fMRI data rely on simple contrasts between a
-    small number of conditions. In contrast, VM can efficiently analyze many
-    different stimulus and task features simultaneously. This framework enables
-    the analysis of complex naturalistic stimuli and tasks which contain a
-    large number of features; for example, VM has been used with naturalistic
-    images :ref:`[1]<kay2008>` :ref:`[2]<nas2009>`, shortclips
-    :ref:`[3]<nis2011>`, and stories :ref:`[8]<hut2016>`.
+To take into account the temporal delay between the stimulus and the
+corresponding BOLD response (i.e. the hemodynamic response), the features are
+duplicated multiple times using different temporal delays. The regression then
+estimates a separate weight for each feature and for each delay. In this way,
+the regression builds for each feature the best combination of temporal delays
+to predict brain activity. This combination of temporal delays is sometimes
+called a finite impulse response (FIR) filter. By estimating a separate FIR
+filter per feature and per voxel, VM does not assume a unique hemodynamic
+response function.
 
-#.
-    Unlike the traditional null hypothesis testing framework, VM is not prone
-    to overfitting and type I error and generalizes to new subjects and stimuli
-    . VM is a predictive modeling framework that evaluates model performance on
-    a separate test data set not used during fitting.
+After fitting the regression model, the model prediction accuracy is projected
+on the cortical surface for visualization. Our lab created the pycortex
+:ref:`[p3]<gao2015>` visualization software specifically for this purpose.
+These prediction-accuracy maps reveal how information present in the feature
+space is represented across the entire cortical sheet. (Note that VM can also
+be applied to other brain structures, such as the cerebellum
+:ref:`[14]<leb2021>` and the hippocampus. However, those structures are more
+difficult to visualize computationally.) In an encoding model, all features are
+not equally useful to predict brain activity. To interpret which features are
+most useful to the model, VM uses the fit regression weights as a measure of
+relative importance of each feature. A feature with a large absolute regression
+weight has a large impact on the predictions, whereas a feature with a
+regression weight close to zero has a small impact on the predictions. Overall,
+the regression weight vector describes the *feature tuning* of a voxel, that is
+the feature combination that would maximally drive the voxel's activity. To
+visualize these high-dimensional feature tunings over all voxels, feature
+tunings are projected on fewer dimensions with principal component analysis,
+and the first few principal components are visualized over the cortical surface
+:ref:`[4]<hut2012>` :ref:`[8]<hut2016>`. These feature-tuning maps reflect
+the selectivity of each voxel to thousands of stimulus and task features.
 
-#.
-    VM performs an analysis in each subject's native brain space instead of
-    lossily transforming subjects into a common group space. This allows VM to
-    produce results with maximal spatial resolution. Each subject provides
-    their own fit and test data, so every subject provides a complete
-    replication of all hypothesis tests.
+In VM, comparing the prediction accuracy of different feature spaces within a
+single data set amounts to comparing competing hypotheses about brain
+representations. In each brain voxel, the best-predicting feature space
+corresponds to the best hypothesis about the information represented in that
+voxel. However, many voxels represent multiple feature spaces simultaneously.
+To take this possibility into account, in VM a joint encoding model is fit on
+multiple feature spaces simultaneously. The joint model automatically combines
+the information from all feature spaces to maximize the joint prediction
+accuracy. 
 
-#.
-    VM produces high-dimensional functional maps rather than simple contrast
-    maps or correlation matrices. These maps reflect the selectivity of each
-    voxel to thousands of stimulus and task features spread across dozens of
-    feature spaces. These functional maps are much more detailed than those
-    produced using statistical parametric mapping (SPM), multivariate pattern
-    analysis (MVPA), or representational similarity analysis (RSA).
+Because different feature spaces used in a joint model might require different
+regularization levels, VM uses an extended form of ridge regression that
+provides a separate regularization parameter for each feature space. This
+extension is called banded ridge regression :ref:`[12]<nun2019>`. Banded ridge
+regression also contains an implicit feature-space selection mechanism that
+tends to ignore feature spaces that are non-predictive or redundant
+:ref:`[15]<dup2022>`. This feature-space selection mechanism helps to
+disentangle correlated feature spaces and it improves generalization to new
+data. 
 
-#.
-    VM recovers stable and interpretable functional parcellations, which
-    respect individual variability in anatomy :ref:`[8]<hut2016>`. 
-
-
-References
-----------
-
-.. _kay2008:
-
-[1] Kay, K. N., Naselaris, T., Prenger, R. J., & Gallant, J. L. (2008).
-    Identifying natural images from human brain activity.
-    Nature, 452(7185), 352-355.
-
-.. _nas2009:
-
-[2] Naselaris, T., Prenger, R. J., Kay, K. N., Oliver, M., & Gallant, J. L. (2009).
-    Bayesian reconstruction of natural images from human brain activity.
-    Neuron, 63(6), 902-915.
-
-.. _nis2011:
-
-[3] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., & Gallant, J. L. (2011).
-    Reconstructing visual experiences from brain activity evoked by natural movies.
-    Current Biology, 21(19), 1641-1646.
-
-.. _hut2012:
-
-[4] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2012).
-    A continuous semantic space describes the representation of thousands of
-    object and action categories across the human brain.
-    Neuron, 76(6), 1210-1224.
-
-.. _cuk2013:
-
-[5] Çukur, T., Nishimoto, S., Huth, A. G., & Gallant, J. L. (2013).
-    Attention during natural vision warps semantic representation across the human brain.
-    Nature neuroscience, 16(6), 763-770.
-
-.. _cuk2013b:
-
-[6] Çukur, T., Huth, A. G., Nishimoto, S., & Gallant, J. L. (2013).
-    Functional subdomains within human FFA.
-    Journal of Neuroscience, 33(42), 16748-16766.
-
-.. _sta2013:
-
-[7] Stansbury, D. E., Naselaris, T., & Gallant, J. L. (2013).
-    Natural scene statistics account for the representation of scene categories
-    in human visual cortex.
-    Neuron, 79(5), 1025-1034
-
-.. _hut2016:
-
-[8] Huth, A. G., De Heer, W. A., Griffiths, T. L., Theunissen, F. E., & Gallant, J. L. (2016).
-    Natural speech reveals the semantic maps that tile human cerebral cortex.
-    Nature, 532(7600), 453-458.
-
-.. _deh2017:
-
-[9] de Heer, W. A., Huth, A. G., Griffiths, T. L., Gallant, J. L., & Theunissen, F. E. (2017).
-    The hierarchical cortical organization of human speech processing.
-    Journal of Neuroscience, 37(27), 6539-6557.
-
-.. _les2019:
-
-[10] Lescroart, M. D., & Gallant, J. L. (2019).
-    Human scene-selective areas represent 3D configurations of surfaces.
-    Neuron, 101(1), 178-192.
-
-.. _den2019:
-
-[11] Deniz, F., Nunez-Elizalde, A. O., Huth, A. G., & Gallant, J. L. (2019).
-    The representation of semantic information across human cerebral cortex
-    during listening versus reading is invariant to stimulus modality.
-    Journal of Neuroscience, 39(39), 7722-7736.
-
-.. _nun2019:
-
-[12] Nunez-Elizalde, A. O., Huth, A. G., & Gallant, J. L. (2019).
-    Voxelwise encoding models with non-spherical multivariate normal priors.
-    Neuroimage, 197, 482-492.
-
-Datasets
---------
-
-.. _nis2011data:
-
-[3b] Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu, B., & Gallant, J. L. (2014).
-    Gallant Lab Natural Movie 4T fMRI Data.
-    CRCNS.org. http://dx.doi.org/10.6080/K00Z715X
-
-.. _hut2012data:
-
-[4b] Huth, A. G., Nishimoto, S., Vu, A. T., Dupré la Tour, T., & Gallant, J. L. (2022).
-    Gallant Lab Natural Short Clips 3T fMRI Data.
-    GIN. http://dx.doi.org/10.12751/g-node.vy1zjd
-
-Packages
---------
-
-.. _dup2022b:
-
-[13] Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2022).
-   Voxelwise modeling tutorials: an encoding model approach to functional MRI analysis.
-   *In preparation*.
-
-.. _dup2022:
-
-[14] Dupré La Tour, T., Eickenberg, M., Nunez-Elizalde, A.O., & Gallant, J. L. (2022).
-    Feature-space selection with banded ridge regression.
-    NeuroImage. https://doi.org/10.1016/j.neuroimage.2022.119728
-
-.. _gao2015:
-
-[15] Gao, J. S., Huth, A. G., Lescroart, M. D., & Gallant, J. L. (2015).
-    Pycortex: an interactive surface visualizer for fMRI.
-    Frontiers in Neuroinformatics, 23. https://doi.org/10.3389/fninf.2015.00023
-
-.. _nun2021:
-
-[16] Nunez-Elizalde, A.O., Deniz, F., Dupré la Tour, T., Visconti di Oleggio Castello, M., and Gallant, J.L. (2021).
-    pymoten: scientific python package for computing motion energy features from video.
-    Zenodo. https://doi.org/10.5281/zenodo.6349625
+To interpret the joint model, VM implements a variance decomposition method
+that quantifies the separate contributions of each feature space. Variance
+decomposition methods include variance partitioning, the split-correlation
+measure, or the product measure :ref:`[15]<dup2022>`. The obtained variance
+decomposition describes the contribution of each feature space to the joint
+encoding model predictions.
