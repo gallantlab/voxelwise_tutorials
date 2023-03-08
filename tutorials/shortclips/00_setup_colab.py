@@ -42,8 +42,18 @@ skip it if you run the tutorials on your machine.
 # - Install the tutorial helper package, and all the required dependencies
 
 ###############################################################################
-# Now run the following cell to download the data for the tutorials.
+try:
+    import google.colab # noqa
+    in_colab = True
+except ImportError:
+    in_colab = False
+if not in_colab:
+    raise RuntimeError("This script is only meant to be run from Google "
+                       "Colab. You can skip it if you run the tutorials "
+                       "on your machine.")
 
+###############################################################################
+# Now run the following cell to download the data for the tutorials.
 
 from voxelwise_tutorials.io import download_datalad
 

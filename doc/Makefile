@@ -47,8 +47,6 @@ merge-notebooks:
 		> $(NBDIR)/merged_for_colab.ipynb
 	echo "Saved in $(NBDIR)/merged_for_colab.ipynb"
 
-
-merge-notebooks-model-fitting:
 	python merge_notebooks.py \
 		$(NBDIR)/00_setup_colab.ipynb \
 		$(NBDIR)/01_plot_explainable_variance.ipynb \
