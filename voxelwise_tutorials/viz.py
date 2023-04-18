@@ -73,10 +73,13 @@ def plot_flatmap_from_mapper(voxels, mapper_file, ax=None, alpha=0.7,
                              with_colorbar=True,
                              colorbar_location=(.4, .9, .2, .05)):
     """Plot a flatmap from a mapper file, with 1D data.
+    
+    This function is equivalent to the pycortex functions:
+    cortex.quickshow(cortex.Volume(voxels, ...), ...)
 
     Note that this function does not have the full capability of pycortex,
-    (like cortex.quickshow) since it is based on flatmap mappers and not on the
-    original brain surface of the subject.
+    since it is based on flatmap mappers and not on the original brain
+    surface of the subject.
 
     Parameters
     ----------
@@ -222,9 +225,12 @@ def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
                                 colorbar_location=(.45, .85, .1, .1)):
     """Plot a flatmap from a mapper file, with 2D data.
 
+    This function is equivalent to the pycortex functions:
+    cortex.quickshow(cortex.Volume2D(voxels_1, voxels_2, ...), ...)
+
     Note that this function does not have the full capability of pycortex,
-    (like cortex.quickshow) since it is based on flatmap mappers and not on the
-    original brain surface of the subject.
+    since it is based on flatmap mappers and not on the original brain
+    surface of the subject.
 
     Parameters
     ----------
@@ -371,9 +377,12 @@ def plot_3d_flatmap_from_mapper(voxels_1, voxels_2, voxels_3, mapper_file,
                                 with_curvature=True, with_rois=True):
     """Plot a flatmap from a mapper file, with 3D data.
 
+    This function is equivalent to the pycortex functions:
+    cortex.quickshow(cortex.VolumeRGB(voxels_1, voxels_2, voxels_3, ...), ...)
+
     Note that this function does not have the full capability of pycortex,
-    (like cortex.quickshow) since it is based on flatmap mappers and not on the
-    original brain surface of the subject.
+    since it is based on flatmap mappers and not on the original brain
+    surface of the subject.
 
     Parameters
     ----------
