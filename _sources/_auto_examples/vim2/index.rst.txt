@@ -50,7 +50,7 @@ Click on each thumbnail below to open the corresponding page:
 .. only:: html
 
   .. image:: /_auto_examples/vim2/images/thumb/sphx_glr_00_download_vim2_thumb.png
-    :alt: Download the data set from CRCNS
+    :alt:
 
   :ref:`sphx_glr__auto_examples_vim2_00_download_vim2.py`
 
@@ -67,7 +67,7 @@ Click on each thumbnail below to open the corresponding page:
 .. only:: html
 
   .. image:: /_auto_examples/vim2/images/thumb/sphx_glr_01_extract_motion_energy_thumb.png
-    :alt: Extract motion energy features from the stimuli
+    :alt:
 
   :ref:`sphx_glr__auto_examples_vim2_01_extract_motion_energy.py`
 
@@ -84,7 +84,7 @@ Click on each thumbnail below to open the corresponding page:
 .. only:: html
 
   .. image:: /_auto_examples/vim2/images/thumb/sphx_glr_02_plot_ridge_model_thumb.png
-    :alt: Fit a ridge model with motion energy features
+    :alt:
 
   :ref:`sphx_glr__auto_examples_vim2_02_plot_ridge_model.py`
 

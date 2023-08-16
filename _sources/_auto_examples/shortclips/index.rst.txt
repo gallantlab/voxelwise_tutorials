@@ -61,7 +61,7 @@ Click on each thumbnail below to open the corresponding page:
 .. only:: html
 
   .. image:: /_auto_examples/shortclips/images/thumb/sphx_glr_00_download_shortclips_thumb.png
-    :alt: Download the data set
+    :alt:
 
   :ref:`sphx_glr__auto_examples_shortclips_00_download_shortclips.py`
 
@@ -73,12 +73,12 @@ Click on each thumbnail below to open the corresponding page:
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="In this script, we setup a Google Colab environment. This script will only work when run from `...">
+    <div class="sphx-glr-thumbcontainer" tooltip="In this script, we setup a Google Colab environment. This script will only work when run from G...">
 
 .. only:: html
 
   .. image:: /_auto_examples/shortclips/images/thumb/sphx_glr_00_setup_colab_thumb.png
-    :alt: Setup Google Colab
+    :alt:
 
   :ref:`sphx_glr__auto_examples_shortclips_00_setup_colab.py`
 
@@ -95,7 +95,7 @@ Click on each thumbnail below to open the corresponding page:
 .. only:: html
 
   .. image:: /_auto_examples/shortclips/images/thumb/sphx_glr_01_plot_explainable_variance_thumb.png
-    :alt: Compute the explainable variance
+    :alt:
 
   :ref:`sphx_glr__auto_examples_shortclips_01_plot_explainable_variance.py`
 
@@ -112,7 +112,7 @@ Click on each thumbnail below to open the corresponding page:
 .. only:: html
 
   .. image:: /_auto_examples/shortclips/images/thumb/sphx_glr_02_plot_ridge_regression_thumb.png
-    :alt: Understand ridge regression and cross-validation
+    :alt:
 
   :ref:`sphx_glr__auto_examples_shortclips_02_plot_ridge_regression.py`
 
@@ -129,7 +129,7 @@ Click on each thumbnail below to open the corresponding page:
 .. only:: html
 
   .. image:: /_auto_examples/shortclips/images/thumb/sphx_glr_03_plot_wordnet_model_thumb.png
-    :alt: Fit a ridge model with wordnet features
+    :alt:
 
   :ref:`sphx_glr__auto_examples_shortclips_03_plot_wordnet_model.py`
 
@@ -146,7 +146,7 @@ Click on each thumbnail below to open the corresponding page:
 .. only:: html
 
   .. image:: /_auto_examples/shortclips/images/thumb/sphx_glr_04_plot_hemodynamic_response_thumb.png
-    :alt: Visualize the hemodynamic response
+    :alt:
 
   :ref:`sphx_glr__auto_examples_shortclips_04_plot_hemodynamic_response.py`
 
@@ -163,7 +163,7 @@ Click on each thumbnail below to open the corresponding page:
 .. only:: html
 
   .. image:: /_auto_examples/shortclips/images/thumb/sphx_glr_05_plot_motion_energy_model_thumb.png
-    :alt: Fit a ridge model with motion energy features
+    :alt:
 
   :ref:`sphx_glr__auto_examples_shortclips_05_plot_motion_energy_model.py`
 
@@ -180,7 +180,7 @@ Click on each thumbnail below to open the corresponding page:
 .. only:: html
 
   .. image:: /_auto_examples/shortclips/images/thumb/sphx_glr_06_plot_banded_ridge_model_thumb.png
-    :alt: Fit a banded ridge model with both wordnet and motion energy features
+    :alt:
 
   :ref:`sphx_glr__auto_examples_shortclips_06_plot_banded_ridge_model.py`
 
@@ -197,7 +197,7 @@ Click on each thumbnail below to open the corresponding page:
 .. only:: html
 
   .. image:: /_auto_examples/shortclips/images/thumb/sphx_glr_07_extract_motion_energy_thumb.png
-    :alt: Extract motion energy features from the stimuli
+    :alt:
 
   :ref:`sphx_glr__auto_examples_shortclips_07_extract_motion_energy.py`
 

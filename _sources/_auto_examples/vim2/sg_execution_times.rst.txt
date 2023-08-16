@@ -3,12 +3,13 @@
 
 .. _sphx_glr__auto_examples_vim2_sg_execution_times:
 
+
 Computation times
 =================
-**09:13.846** total execution time for **_auto_examples_vim2** files:
+**06:47.013** total execution time for **_auto_examples_vim2** files:
 
 +---------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_vim2_02_plot_ridge_model.py` (``02_plot_ridge_model.py``)           | 09:13.846 | 0.0 MB |
+| :ref:`sphx_glr__auto_examples_vim2_02_plot_ridge_model.py` (``02_plot_ridge_model.py``)           | 06:47.013 | 0.0 MB |
 +---------------------------------------------------------------------------------------------------+-----------+--------+
 | :ref:`sphx_glr__auto_examples_vim2_00_download_vim2.py` (``00_download_vim2.py``)                 | 00:00.000 | 0.0 MB |
 +---------------------------------------------------------------------------------------------------+-----------+--------+

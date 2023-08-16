@@ -25,7 +25,7 @@ skip it if you run the tutorials on your machine.
 # Uncomment and run the following cell to download the required packages.
 
 #!git config --global user.email "you@example.com" && git config --global user.name "Your Name"
-#!wget -O- http://neuro.debian.net/lists/impish.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+#!wget -O- http://neuro.debian.net/lists/jammy.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
 #!apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9 > /dev/null
 #!apt-get -qq update > /dev/null
 #!apt-get install -qq inkscape git-annex-standalone > /dev/null
@@ -42,8 +42,18 @@ skip it if you run the tutorials on your machine.
 # - Install the tutorial helper package, and all the required dependencies
 
 ###############################################################################
-# Now run the following cell to download the data for the tutorials.
+try:
+    import google.colab # noqa
+    in_colab = True
+except ImportError:
+    in_colab = False
+if not in_colab:
+    raise RuntimeError("This script is only meant to be run from Google "
+                       "Colab. You can skip it if you run the tutorials "
+                       "on your machine.")
 
+###############################################################################
+# Now run the following cell to download the data for the tutorials.
 
 from voxelwise_tutorials.io import download_datalad
 

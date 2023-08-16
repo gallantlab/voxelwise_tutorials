@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download__auto_examples_shortclips_00_setup_colab.py>`
+        :ref:`Go to the end <sphx_glr_download__auto_examples_shortclips_00_setup_colab.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -55,7 +55,7 @@ Uncomment and run the following cell to download the required packages.
 
 
     #!git config --global user.email "you@example.com" && git config --global user.name "Your Name"
-    #!wget -O- http://neuro.debian.net/lists/impish.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
+    #!wget -O- http://neuro.debian.net/lists/jammy.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
     #!apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9 > /dev/null
     #!apt-get -qq update > /dev/null
     #!apt-get install -qq inkscape git-annex-standalone > /dev/null
@@ -79,14 +79,28 @@ For the record, here is what each command does:
     # - Install the tutorial helper package, and all the required dependencies
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-46
-
-Now run the following cell to download the data for the tutorials.
-
-.. GENERATED FROM PYTHON SOURCE LINES 46-67
+.. GENERATED FROM PYTHON SOURCE LINES 45-55
 
 .. code-block:: default
 
+    try:
+        import google.colab # noqa
+        in_colab = True
+    except ImportError:
+        in_colab = False
+    if not in_colab:
+        raise RuntimeError("This script is only meant to be run from Google "
+                           "Colab. You can skip it if you run the tutorials "
+                           "on your machine.")
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 56-57
+
+Now run the following cell to download the data for the tutorials.
+
+.. GENERATED FROM PYTHON SOURCE LINES 57-77
+
+.. code-block:: default
 
 
     from voxelwise_tutorials.io import download_datalad
@@ -109,12 +123,12 @@ Now run the following cell to download the data for the tutorials.
         )
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-70
+.. GENERATED FROM PYTHON SOURCE LINES 78-80
 
 Now run the following cell to set up the environment variables for the
 tutorials and pycortex.
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-77
+.. GENERATED FROM PYTHON SOURCE LINES 80-87
 
 .. code-block:: default
 
@@ -126,7 +140,7 @@ tutorials and pycortex.
     sklearn.set_config(assume_finite=True)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-79
+.. GENERATED FROM PYTHON SOURCE LINES 88-89
 
 Your Google Colab environment is now set up for the voxelwise tutorials.
 
@@ -141,6 +155,8 @@ Your Google Colab environment is now set up for the voxelwise tutorials.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python
