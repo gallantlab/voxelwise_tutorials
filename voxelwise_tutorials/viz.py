@@ -345,7 +345,7 @@ def _map_to_2d_cmap(data1, data2, vmin, vmax, vmin2, vmax2, cmap):
     -------
     mapped_rgba : array of shape (n_voxels, 4)
         2D data mapped to a 2D colormap, with 4 (RGBA) color channels.
-    cmap_image : array of shape (heigh, width, 4)
+    cmap_image : array of shape (height, width, 4)
         2D image of the 2D colormap.
     """
     # load 2D cmap image
