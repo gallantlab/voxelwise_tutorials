@@ -244,7 +244,7 @@ scores_nodelay = backend.to_numpy(scores_nodelay)
 ###############################################################################
 # Here we plot the comparison of model performances with a 2D histogram. All
 # ~70k voxels are represented in this histogram, where the diagonal corresponds
-# to identical performance for both models. A distibution deviating from the
+# to identical performance for both models. A distribution deviating from the
 # diagonal means that one model has better predictive performances than the
 # other.
 

@@ -56,7 +56,7 @@ def explainable_variance(data, bias_correction=True, do_zscore=True):
     Parameters
     ----------
     data : array of shape (n_repeats, n_times, n_voxels)
-        fMRI reponses of the repeated test set.
+        fMRI responses of the repeated test set.
     bias_correction: bool
         Perform bias correction based on the number of repetitions.
     do_zscore: bool

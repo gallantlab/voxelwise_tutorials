@@ -311,7 +311,7 @@ scores_baseline[mask] = scores_baseline_mask
 # Here we plot the comparison of model prediction accuracies with a 2D
 # histogram. All 70k voxels are represented in this histogram, where the
 # diagonal corresponds to identical model prediction accuracy for both models.
-# A distibution deviating from the diagonal means that one model has better
+# A distribution deviating from the diagonal means that one model has better
 # predictive performance than the other.
 import matplotlib.pyplot as plt
 from voxelwise_tutorials.viz import plot_hist2d
