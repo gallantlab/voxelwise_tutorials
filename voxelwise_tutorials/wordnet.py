@@ -162,7 +162,7 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
     node_scale : float
         Scaling factor for the node sizes.
     alpha : float
-        Transparancy of the nodes.
+        Transparency of the nodes.
     ax : Axes or None
         Matplotlib Axes where the grap will be plotted. If None, the current
         figure is used.

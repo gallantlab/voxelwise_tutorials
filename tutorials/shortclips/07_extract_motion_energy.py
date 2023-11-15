@@ -53,7 +53,7 @@ with h5py.File(first_file_name, 'r') as f:
 # The motion energy is typically not computed on RGB (color) images,
 # but on the luminance channel of the LAB color space.
 # To avoid loading the entire simulus array in memory, we use batches of data.
-# These batches can be arbitray, since the luminance is computed independently
+# These batches can be arbitrary, since the luminance is computed independently
 # on each image.
 
 import numpy as np

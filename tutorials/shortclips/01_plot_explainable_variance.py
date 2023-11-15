@@ -157,7 +157,7 @@ plt.show()
 # the brain in 3D. In this viewer, press "I" to inflate the brain, "F" to
 # flatten the surface, and "R" to reset the view (or use the ``surface/unfold``
 # cursor on the right menu). Press "H" for a list of all keyboard shortcuts.
-# This viewer should help you understand the correspondance between the flatten
+# This viewer should help you understand the correspondence between the flatten
 # and the folded cortical surface of the brain.
 
 ###############################################################################

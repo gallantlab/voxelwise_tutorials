@@ -199,7 +199,7 @@ plt.show()
 # We can also plot the comparison of model prediction accuracies with a 2D
 # histogram. All ~70k voxels are represented in this histogram, where the
 # diagonal corresponds to identical prediction accuracy for both models. A
-# distibution deviating from the diagonal means that one model has better
+# distribution deviating from the diagonal means that one model has better
 # predictive performance than the other.
 
 from voxelwise_tutorials.viz import plot_hist2d
