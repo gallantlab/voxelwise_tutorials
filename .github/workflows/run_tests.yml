@@ -21,14 +21,14 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.py') }}
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: ~/voxelwise_tutorials_data/shortclips
         key: shortclips-dataset
