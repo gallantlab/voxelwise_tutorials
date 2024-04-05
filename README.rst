@@ -11,7 +11,8 @@ Paper
 =====
 
 If you use these tutorials for your work, consider citing the corresponding paper:
-Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024). The Voxelwise Modeling framework: a tutorial introduction to fitting encoding models to fMRI data. **Under review**.
+
+Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024). The Voxelwise Modeling framework: a tutorial introduction to fitting encoding models to fMRI data. 
 
 You can find a copy of the paper in this repository: `paper/voxelwise_tutorials_paper.pdf <paper/voxelwise_tutorials_paper.pdf>`_
 
