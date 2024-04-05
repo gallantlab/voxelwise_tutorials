@@ -3,7 +3,13 @@ Voxelwise modeling tutorials
 
 
 Welcome to the voxelwise modeling tutorials from the
-`Gallantlab <https://gallantlab.org>`_.
+`GallantLab <https://gallantlab.org>`_.
+
+If you use these tutorials for your work, consider citing the corresponding paper:
+
+Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024). The Voxelwise Modeling framework: a tutorial introduction to fitting encoding models to fMRI data.
+
+You can find a copy of the paper `here <https://github.com/gallantlab/voxelwise_tutorials/blob/main/paper/voxelwise_tutorials_paper.pdf>`_.
 
 Getting started
 ---------------

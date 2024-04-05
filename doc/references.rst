@@ -126,9 +126,9 @@ Packages
 
 .. _dup2023:
 
-[p1] Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2023).
-   Voxelwise modeling tutorials: an encoding model approach to functional MRI analysis.
-   *In preparation*.
+[p1] Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024).
+   The Voxelwise Modeling framework: a tutorial introduction to fitting encoding models to fMRI data.
+   *Under review*.
 
 [p2] Dupré La Tour, T., Eickenberg, M., Nunez-Elizalde, A.O., & Gallant, J. L. (2022).
     Feature-space selection with banded ridge regression.
