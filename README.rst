@@ -5,7 +5,15 @@ Voxelwise modeling tutorials
 |Github| |Python| |License| |Build| |Downloads|
 
 Welcome to the voxelwise modeling tutorial from the
-`Gallantlab <https://gallantlab.org>`_.
+`GallantLab <https://gallantlab.org>`_.
+
+Paper
+=====
+
+If you use these tutorials for your work, consider citing the corresponding paper:
+Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024). The Voxelwise Modeling framework: a tutorial introduction to fitting encoding models to fMRI data. **Under review**.
+
+You can find a copy of the paper in this repository: `paper/voxelwise_tutorials_paper.pdf <paper/voxelwise_tutorials_paper.pdf>`_
 
 Tutorials
 =========
@@ -101,9 +109,9 @@ If you use one of our packages in your work (``voxelwise_tutorials`` [1]_,
 ``himalaya`` [2]_, ``pycortex`` [3]_, or ``pymoten`` [4]_), please cite the
 corresponding publications:
 
-.. [1] Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2023).
-   Voxelwise modeling tutorials: an encoding model approach to functional MRI analysis.
-   *In preparation*.
+.. [1] Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024).
+   The Voxelwise Modeling framework: a tutorial introduction to fitting encoding models to fMRI data.
+   *Under review*.
 
 .. [2] Dupré La Tour, T., Eickenberg, M., Nunez-Elizalde, A.O., & Gallant, J. L. (2022).
    Feature-space selection with banded ridge regression. NeuroImage.
