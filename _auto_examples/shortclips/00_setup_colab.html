@@ -1,24 +1,20 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Setup Google Colab &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=e9c93658" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Compute the explainable variance" href="01_plot_explainable_variance.html" />
@@ -26,8 +22,9 @@
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   <div class="document">
@@ -36,7 +33,9 @@
         <div class="sphinxsidebarwrapper">
 <p class="logo">
   <a href="../../index.html">
-    <img class="logo" src="../../_static/flatmap.png" alt="Logo"/>
+    <img class="logo" src="../../_static/flatmap.png" alt="Logo" />
+    
+    <h1 class="logo logo-name">voxelwise</h1>
     
   </a>
 </p>
@@ -105,24 +104,24 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="setup-google-colab">
-<span id="sphx-glr-auto-examples-shortclips-00-setup-colab-py"></span><h1>Setup Google Colab<a class="headerlink" href="#setup-google-colab" title="Permalink to this heading">¶</a></h1>
+<span id="sphx-glr-auto-examples-shortclips-00-setup-colab-py"></span><h1>Setup Google Colab<a class="headerlink" href="#setup-google-colab" title="Link to this heading">¶</a></h1>
 <p>In this script, we setup a Google Colab environment. This script will only work
 when run from <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>). You can
 skip it if you run the tutorials on your machine.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 <section id="change-runtime-to-use-a-gpu">
-<h2>Change runtime to use a GPU<a class="headerlink" href="#change-runtime-to-use-a-gpu" title="Permalink to this heading">¶</a></h2>
+<h2>Change runtime to use a GPU<a class="headerlink" href="#change-runtime-to-use-a-gpu" title="Link to this heading">¶</a></h2>
 <p>This tutorial is much faster when a GPU is available to run the computations.
 In Google Colab you can request access to a GPU by changing the runtime type.
 To do so, click the following menu options in Google Colab:</p>
 <p>(Menu) “Runtime” -&gt; “Change runtime type” -&gt; “Hardware accelerator” -&gt; “GPU”.</p>
 </section>
 <section id="download-the-data-and-install-all-required-dependencies">
-<h2>Download the data and install all required dependencies<a class="headerlink" href="#download-the-data-and-install-all-required-dependencies" title="Permalink to this heading">¶</a></h2>
+<h2>Download the data and install all required dependencies<a class="headerlink" href="#download-the-data-and-install-all-required-dependencies" title="Link to this heading">¶</a></h2>
 <p>Uncomment and run the following cell to download the required packages.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!git config --global user.email &quot;you@example.com&quot; &amp;&amp; git config --global user.name &quot;Your Name&quot;</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!git config --global user.email &quot;you@example.com&quot; &amp;&amp; git config --global user.name &quot;Your Name&quot;</span>
 <span class="c1">#!wget -O- http://neuro.debian.net/lists/jammy.us-ca.libre | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list</span>
 <span class="c1">#!apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9 &gt; /dev/null</span>
 <span class="c1">#!apt-get -qq update &gt; /dev/null</span>
@@ -131,7 +130,7 @@ To do so, click the following menu options in Google Colab:</p>
 </pre></div>
 </div>
 <p>For the record, here is what each command does:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># - Set up an email and username to use git, git-annex, and datalad (required to download the data)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># - Set up an email and username to use git, git-annex, and datalad (required to download the data)</span>
 <span class="c1"># - Add NeuroDebian to the package sources</span>
 <span class="c1"># - Update the gpg keys to use NeuroDebian</span>
 <span class="c1"># - Update the list of available packages</span>
@@ -139,7 +138,7 @@ To do so, click the following menu options in Google Colab:</p>
 <span class="c1"># - Install the tutorial helper package, and all the required dependencies</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">google.colab</span> <span class="c1"># noqa</span>
     <span class="n">in_colab</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
@@ -151,7 +150,7 @@ To do so, click the following menu options in Google Colab:</p>
 </pre></div>
 </div>
 <p>Now run the following cell to download the data for the tutorials.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">download_datalad</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">download_datalad</span>
 
 <span class="n">DATAFILES</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;features/motion_energy.hdf&quot;</span><span class="p">,</span>
@@ -173,7 +172,7 @@ To do so, click the following menu options in Google Colab:</p>
 </div>
 <p>Now run the following cell to set up the environment variables for the
 tutorials and pycortex.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;VOXELWISE_TUTORIALS_DATA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/content&quot;</span>
 
 <span class="kn">import</span> <span class="nn">sklearn</span>
@@ -181,13 +180,12 @@ tutorials and pycortex.</p>
 </pre></div>
 </div>
 <p>Your Google Colab environment is now set up for the voxelwise tutorials.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-shortclips-00-setup-colab-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/d04fa4184398d57ad9424b5aeddf4e74/00_setup_colab.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">00_setup_colab.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b84f8ebb4f1645a4292004dd2d2f2fa9/00_setup_colab.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">00_setup_colab.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/d04fa4184398d57ad9424b5aeddf4e74/00_setup_colab.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">00_setup_colab.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -202,11 +200,11 @@ tutorials and pycortex.</p>
     <div class="clearer"></div>
   </div>
     <div class="footer">
-      &copy;2023, Gallant lab.
+      &#169;2023, Gallant lab.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="../../_sources/_auto_examples/shortclips/00_setup_colab.rst.txt"

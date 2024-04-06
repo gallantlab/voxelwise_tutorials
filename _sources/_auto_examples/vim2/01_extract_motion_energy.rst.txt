@@ -41,7 +41,8 @@ takes a couple hours to run.
 
 .. GENERATED FROM PYTHON SOURCE LINES 23-23
 
-.. code-block:: default
+.. code-block:: Python
+   :dedent: 1
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 25-28
@@ -52,7 +53,7 @@ Load the stimuli images
 
 .. GENERATED FROM PYTHON SOURCE LINES 28-34
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # path of the data directory
@@ -67,7 +68,7 @@ Here the data is not loaded in memory, we only take a peak at the data shape.
 
 .. GENERATED FROM PYTHON SOURCE LINES 36-45
 
-.. code-block:: default
+.. code-block:: Python
 
     import os
     import h5py
@@ -87,12 +88,12 @@ Compute the luminance
 The motion energy is typically not computed on RGB (color) images,
 but on the luminance channel of the LAB color space.
 To avoid loading the entire simulus array in memory, we use batches of data.
-These batches can be arbitray, since the luminance is computed independently
+These batches can be arbitrary, since the luminance is computed independently
 on each image.
 
 .. GENERATED FROM PYTHON SOURCE LINES 54-94
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import numpy as np
@@ -150,7 +151,7 @@ arbitrarily split the images.
 
 .. GENERATED FROM PYTHON SOURCE LINES 105-148
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from scipy.signal import decimate
@@ -203,7 +204,7 @@ modeling in the following example.
 
 .. GENERATED FROM PYTHON SOURCE LINES 151-162
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from voxelwise_tutorials.io import save_hdf5_dataset
@@ -227,27 +228,19 @@ References
     activity evoked by natural movies. Current Biology, 21(19), 1641-1646.
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
-
-
 .. _sphx_glr_download__auto_examples_vim2_01_extract_motion_energy.py:
 
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: 01_extract_motion_energy.ipynb <01_extract_motion_energy.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 01_extract_motion_energy.py <01_extract_motion_energy.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: 01_extract_motion_energy.ipynb <01_extract_motion_energy.ipynb>`
 
 
 .. only:: html

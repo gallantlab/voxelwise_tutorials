@@ -56,7 +56,8 @@ power*. For more information, see these references [1]_ [2]_ [3]_.
 
 .. GENERATED FROM PYTHON SOURCE LINES 38-38
 
-.. code-block:: default
+.. code-block:: Python
+   :dedent: 1
 
 
 
@@ -72,7 +73,7 @@ Path of the data directory
 
 .. GENERATED FROM PYTHON SOURCE LINES 42-47
 
-.. code-block:: default
+.. code-block:: Python
 
     from voxelwise_tutorials.io import get_data_home
 
@@ -94,7 +95,7 @@ Path of the data directory
 
 .. GENERATED FROM PYTHON SOURCE LINES 48-52
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # modify to use another subject
@@ -114,7 +115,7 @@ Compute the explainable variance
 
 .. GENERATED FROM PYTHON SOURCE LINES 55-58
 
-.. code-block:: default
+.. code-block:: Python
 
     import numpy as np
     from voxelwise_tutorials.io import load_hdf5_array
@@ -133,7 +134,7 @@ responses to ten (10) repeats of the same stimulus.
 
 .. GENERATED FROM PYTHON SOURCE LINES 61-67
 
-.. code-block:: default
+.. code-block:: Python
 
     import os
 
@@ -160,7 +161,7 @@ Then, we compute the explainable variance for each voxel.
 
 .. GENERATED FROM PYTHON SOURCE LINES 69-75
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from voxelwise_tutorials.utils import explainable_variance
@@ -188,7 +189,7 @@ measured signal in a voxel with high explainable variance...
 
 .. GENERATED FROM PYTHON SOURCE LINES 78-93
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import matplotlib.pyplot as plt
@@ -223,7 +224,7 @@ measured signal in a voxel with high explainable variance...
 
 .. GENERATED FROM PYTHON SOURCE LINES 95-106
 
-.. code-block:: default
+.. code-block:: Python
 
     voxel_2 = np.argmin(ev)
     plt.figure(figsize=(10, 3))
@@ -254,7 +255,7 @@ We can also plot the distribution of explainable variance over voxels.
 
 .. GENERATED FROM PYTHON SOURCE LINES 108-116
 
-.. code-block:: default
+.. code-block:: Python
 
 
     plt.hist(ev, bins=np.linspace(0, 1, 100), log=True, histtype='step')
@@ -310,7 +311,7 @@ provides an example of how to use the mapper and visualize the flatmap.
 
 .. GENERATED FROM PYTHON SOURCE LINES 145-152
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from voxelwise_tutorials.viz import plot_flatmap_from_mapper
@@ -340,7 +341,7 @@ viewer <https://www.gallantlab.org/brainviewer/Deniz2019>`_, which displays
 the brain in 3D. In this viewer, press "I" to inflate the brain, "F" to
 flatten the surface, and "R" to reset the view (or use the ``surface/unfold``
 cursor on the right menu). Press "H" for a list of all keyboard shortcuts.
-This viewer should help you understand the correspondance between the flatten
+This viewer should help you understand the correspondence between the flatten
 and the folded cortical surface of the brain.
 
 .. GENERATED FROM PYTHON SOURCE LINES 164-168
@@ -362,7 +363,7 @@ First, let's download the "fsaverage" surface.
 
 .. GENERATED FROM PYTHON SOURCE LINES 177-188
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import cortex
@@ -391,7 +392,7 @@ with a dot product ``@`` (equivalent to ``np.dot``).
 
 .. GENERATED FROM PYTHON SOURCE LINES 193-201
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from voxelwise_tutorials.io import load_hdf5_sparse_array
@@ -422,7 +423,7 @@ projected data. This object can be used either in a ``pycortex`` interactive
 
 .. GENERATED FROM PYTHON SOURCE LINES 205-208
 
-.. code-block:: default
+.. code-block:: Python
 
 
     vertex = cortex.Vertex(ev_projected, surface, vmin=0, vmax=0.7, cmap='viridis')
@@ -443,7 +444,7 @@ notebooks locally.) You can start an interactive 3D viewer by changing
 
 .. GENERATED FROM PYTHON SOURCE LINES 213-218
 
-.. code-block:: default
+.. code-block:: Python
 
 
     run_webshow = False
@@ -467,7 +468,7 @@ does not use this function, so feel free to ignore.)
 
 .. GENERATED FROM PYTHON SOURCE LINES 224-231
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from cortex.testing_utils import has_installed
@@ -508,7 +509,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  12.376 seconds)
+   **Total running time of the script:** (0 minutes 28.850 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_01_plot_explainable_variance.py:
@@ -517,16 +518,13 @@ References
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: 01_plot_explainable_variance.ipynb <01_plot_explainable_variance.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 01_plot_explainable_variance.py <01_plot_explainable_variance.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: 01_plot_explainable_variance.ipynb <01_plot_explainable_variance.ipynb>`
 
 
 .. only:: html

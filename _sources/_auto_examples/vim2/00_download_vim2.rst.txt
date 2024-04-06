@@ -35,7 +35,8 @@ publication [1]_, and the data set [2]_.
 
 .. GENERATED FROM PYTHON SOURCE LINES 17-17
 
-.. code-block:: default
+.. code-block:: Python
+   :dedent: 1
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 19-21
@@ -45,7 +46,7 @@ Download
 
 .. GENERATED FROM PYTHON SOURCE LINES 21-27
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # path of the data directory
@@ -62,7 +63,7 @@ download more subjects, or to download the anatomy files.
 
 .. GENERATED FROM PYTHON SOURCE LINES 31-47
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import getpass
@@ -83,7 +84,7 @@ download more subjects, or to download the anatomy files.
 
 .. GENERATED FROM PYTHON SOURCE LINES 48-54
 
-.. code-block:: default
+.. code-block:: Python
 
     username = input("CRCNS username: ")
     password = getpass.getpass("CRCNS password: ")
@@ -106,27 +107,19 @@ References
     http://dx.doi.org/10.6080/K00Z715X
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
-
-
 .. _sphx_glr_download__auto_examples_vim2_00_download_vim2.py:
 
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: 00_download_vim2.ipynb <00_download_vim2.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 00_download_vim2.py <00_download_vim2.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: 00_download_vim2.ipynb <00_download_vim2.ipynb>`
 
 
 .. only:: html

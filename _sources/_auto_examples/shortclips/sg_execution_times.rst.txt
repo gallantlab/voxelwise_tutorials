@@ -6,24 +6,56 @@
 
 Computation times
 =================
-**04:40.186** total execution time for **_auto_examples_shortclips** files:
+**05:46.000** total execution time for 9 files **from _auto_examples/shortclips**:
 
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_06_plot_banded_ridge_model.py` (``06_plot_banded_ridge_model.py``)     | 01:48.497 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_03_plot_wordnet_model.py` (``03_plot_wordnet_model.py``)               | 01:00.949 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_04_plot_hemodynamic_response.py` (``04_plot_hemodynamic_response.py``) | 00:47.511 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_05_plot_motion_energy_model.py` (``05_plot_motion_energy_model.py``)   | 00:46.885 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_01_plot_explainable_variance.py` (``01_plot_explainable_variance.py``) | 00:12.376 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_02_plot_ridge_regression.py` (``02_plot_ridge_regression.py``)         | 00:03.969 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_00_download_shortclips.py` (``00_download_shortclips.py``)             | 00:00.000 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_00_setup_colab.py` (``00_setup_colab.py``)                             | 00:00.000 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr__auto_examples_shortclips_07_extract_motion_energy.py` (``07_extract_motion_energy.py``)         | 00:00.000 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr__auto_examples_shortclips_06_plot_banded_ridge_model.py` (``06_plot_banded_ridge_model.py``)
+     - 01:58.143
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_03_plot_wordnet_model.py` (``03_plot_wordnet_model.py``)
+     - 01:16.347
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_05_plot_motion_energy_model.py` (``05_plot_motion_energy_model.py``)
+     - 00:58.974
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_04_plot_hemodynamic_response.py` (``04_plot_hemodynamic_response.py``)
+     - 00:57.648
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_01_plot_explainable_variance.py` (``01_plot_explainable_variance.py``)
+     - 00:28.850
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_02_plot_ridge_regression.py` (``02_plot_ridge_regression.py``)
+     - 00:06.038
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_00_download_shortclips.py` (``00_download_shortclips.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_00_setup_colab.py` (``00_setup_colab.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_07_extract_motion_energy.py` (``07_extract_motion_energy.py``)
+     - 00:00.000
+     - 0.0

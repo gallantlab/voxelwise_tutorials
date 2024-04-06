@@ -35,7 +35,8 @@ this data set, please cite the original publication [1]_, and the data set
 
 .. GENERATED FROM PYTHON SOURCE LINES 17-17
 
-.. code-block:: default
+.. code-block:: Python
+   :dedent: 1
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 19-21
@@ -45,7 +46,7 @@ Download
 
 .. GENERATED FROM PYTHON SOURCE LINES 21-27
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # path of the data directory
@@ -66,7 +67,7 @@ stimuli.
 
 .. GENERATED FROM PYTHON SOURCE LINES 35-72
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from voxelwise_tutorials.io import download_datalad
@@ -120,27 +121,19 @@ References
     Gallant Lab Natural Short Clips 3T fMRI Data. http://dx.doi.org/10.12751/g-node.vy1zjd
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
-
-
 .. _sphx_glr_download__auto_examples_shortclips_00_download_shortclips.py:
 
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: 00_download_shortclips.ipynb <00_download_shortclips.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 00_download_shortclips.py <00_download_shortclips.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: 00_download_shortclips.ipynb <00_download_shortclips.ipynb>`
 
 
 .. only:: html

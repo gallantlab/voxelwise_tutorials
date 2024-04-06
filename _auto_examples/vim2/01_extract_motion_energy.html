@@ -1,24 +1,20 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Extract motion energy features from the stimuli &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=e9c93658" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Fit a ridge model with motion energy features" href="02_plot_ridge_model.html" />
@@ -26,8 +22,9 @@
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   <div class="document">
@@ -36,7 +33,9 @@
         <div class="sphinxsidebarwrapper">
 <p class="logo">
   <a href="../../index.html">
-    <img class="logo" src="../../_static/flatmap.png" alt="Logo"/>
+    <img class="logo" src="../../_static/flatmap.png" alt="Logo" />
+    
+    <h1 class="logo logo-name">voxelwise</h1>
     
   </a>
 </p>
@@ -105,7 +104,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="extract-motion-energy-features-from-the-stimuli">
-<span id="sphx-glr-auto-examples-vim2-01-extract-motion-energy-py"></span><h1>Extract motion energy features from the stimuli<a class="headerlink" href="#extract-motion-energy-features-from-the-stimuli" title="Permalink to this heading">¶</a></h1>
+<span id="sphx-glr-auto-examples-vim2-01-extract-motion-energy-py"></span><h1>Extract motion energy features from the stimuli<a class="headerlink" href="#extract-motion-energy-features-from-the-stimuli" title="Link to this heading">¶</a></h1>
 <p>This script describes how to extract motion-energy features from the stimuli.</p>
 <p><em>Motion-energy features:</em> Motion-energy features result from filtering a video
 stimulus with spatio-temporal Gabor filters. A pyramid of filters is used to
@@ -115,24 +114,24 @@ Motion-energy features were introduced in <a class="footnote-reference brackets"
 examples</a> for
 visualizing motion-energy filters, and for pymoten API usage examples.</p>
 <section id="running-time">
-<h2>Running time<a class="headerlink" href="#running-time" title="Permalink to this heading">¶</a></h2>
+<h2>Running time<a class="headerlink" href="#running-time" title="Link to this heading">¶</a></h2>
 <p>Extracting motion energy is a bit longer than the other examples. It typically
 takes a couple hours to run.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </section>
 <section id="load-the-stimuli-images">
-<h2>Load the stimuli images<a class="headerlink" href="#load-the-stimuli-images" title="Permalink to this heading">¶</a></h2>
+<h2>Load the stimuli images<a class="headerlink" href="#load-the-stimuli-images" title="Link to this heading">¶</a></h2>
 <p>(We downloaded the files in the previous script.)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># path of the data directory</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># path of the data directory</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
 <span class="n">directory</span> <span class="o">=</span> <span class="n">get_data_home</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;vim-2&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Here the data is not loaded in memory, we only take a peak at the data shape.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">h5py</span>
 
 <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s1">&#39;Stimuli.mat&#39;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -144,13 +143,13 @@ takes a couple hours to run.</p>
 </div>
 </section>
 <section id="compute-the-luminance">
-<h2>Compute the luminance<a class="headerlink" href="#compute-the-luminance" title="Permalink to this heading">¶</a></h2>
+<h2>Compute the luminance<a class="headerlink" href="#compute-the-luminance" title="Link to this heading">¶</a></h2>
 <p>The motion energy is typically not computed on RGB (color) images,
 but on the luminance channel of the LAB color space.
 To avoid loading the entire simulus array in memory, we use batches of data.
-These batches can be arbitray, since the luminance is computed independently
+These batches can be arbitrary, since the luminance is computed independently
 on each image.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">moten.io</span> <span class="kn">import</span> <span class="n">imagearray2luminance</span>
 <span class="kn">from</span> <span class="nn">himalaya.progress_bar</span> <span class="kn">import</span> <span class="n">bar</span>
 
@@ -192,14 +191,14 @@ on each image.</p>
 </div>
 </section>
 <section id="compute-the-motion-energy">
-<h2>Compute the motion energy<a class="headerlink" href="#compute-the-motion-energy" title="Permalink to this heading">¶</a></h2>
+<h2>Compute the motion energy<a class="headerlink" href="#compute-the-motion-energy" title="Link to this heading">¶</a></h2>
 <p>This is done with a <code class="docutils literal notranslate"><span class="pre">MotionEnergyPyramid</span></code> object of the <code class="docutils literal notranslate"><span class="pre">pymoten</span></code>
 package. The parameters used are the one described in <a class="footnote-reference brackets" href="#id3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <p>Here we use batches corresponding to run lengths. Indeed, motion energy is
 computed over multiple images, since the filters have a temporal component.
 Therefore, motion-energy is not independent of other images, and we cannot
 arbitrarily split the images.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">decimate</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">decimate</span>
 <span class="kn">from</span> <span class="nn">moten.pyramids</span> <span class="kn">import</span> <span class="n">MotionEnergyPyramid</span>
 
 <span class="c1"># fixed experiment settings</span>
@@ -244,7 +243,7 @@ arbitrarily split the images.</p>
 </div>
 <p>We end this script with saving the features, to use them in voxelwise
 modeling in the following example.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">save_hdf5_dataset</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">save_hdf5_dataset</span>
 
 <span class="n">features_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s2">&quot;features&quot;</span><span class="p">)</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">features_directory</span><span class="p">):</span>
@@ -257,9 +256,9 @@ modeling in the following example.</p>
 </div>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id3" role="note">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
 <p>Nishimoto, S., Vu, A. T., Naselaris, T., Benjamini, Y., Yu,
@@ -267,13 +266,12 @@ B., &amp; Gallant, J. L. (2011). Reconstructing visual experiences from brain
 activity evoked by natural movies. Current Biology, 21(19), 1641-1646.</p>
 </aside>
 </aside>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-vim2-01-extract-motion-energy-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/b7b3a3567b758759928dd66f54d18c04/01_extract_motion_energy.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_extract_motion_energy.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0b71eea3e5fc3aadddc75e2c97b53a97/01_extract_motion_energy.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01_extract_motion_energy.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/b7b3a3567b758759928dd66f54d18c04/01_extract_motion_energy.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_extract_motion_energy.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -288,11 +286,11 @@ activity evoked by natural movies. Current Biology, 21(19), 1641-1646.</p>
     <div class="clearer"></div>
   </div>
     <div class="footer">
-      &copy;2023, Gallant lab.
+      &#169;2023, Gallant lab.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="../../_sources/_auto_examples/vim2/01_extract_motion_energy.rst.txt"

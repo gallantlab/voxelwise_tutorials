@@ -38,7 +38,8 @@ With a CPU backend, it can last 10 times more.
 
 .. GENERATED FROM PYTHON SOURCE LINES 20-20
 
-.. code-block:: default
+.. code-block:: Python
+   :dedent: 1
 
 
 
@@ -54,7 +55,7 @@ Path of the data directory
 
 .. GENERATED FROM PYTHON SOURCE LINES 24-28
 
-.. code-block:: default
+.. code-block:: Python
 
     from voxelwise_tutorials.io import get_data_home
     directory = get_data_home(dataset="shortclips")
@@ -75,7 +76,7 @@ Path of the data directory
 
 .. GENERATED FROM PYTHON SOURCE LINES 29-33
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # modify to use another subject
@@ -98,7 +99,7 @@ regression targets.
 
 .. GENERATED FROM PYTHON SOURCE LINES 39-50
 
-.. code-block:: default
+.. code-block:: Python
 
     import os
     import numpy as np
@@ -132,7 +133,7 @@ explainable variance from the fit, and speed up the model fitting.
 
 .. GENERATED FROM PYTHON SOURCE LINES 53-61
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from voxelwise_tutorials.utils import explainable_variance
@@ -163,7 +164,7 @@ responses.
 
 .. GENERATED FROM PYTHON SOURCE LINES 64-68
 
-.. code-block:: default
+.. code-block:: Python
 
     Y_test = Y_test.mean(0)
 
@@ -188,7 +189,7 @@ We fill potential NaN (not-a-number) values with zeros.
 
 .. GENERATED FROM PYTHON SOURCE LINES 70-73
 
-.. code-block:: default
+.. code-block:: Python
 
     Y_train = np.nan_to_num(Y_train)
     Y_test = np.nan_to_num(Y_test)
@@ -206,7 +207,7 @@ And we make sure the targets are centered.
 
 .. GENERATED FROM PYTHON SOURCE LINES 75-78
 
-.. code-block:: default
+.. code-block:: Python
 
     Y_train -= Y_train.mean(0)
     Y_test -= Y_test.mean(0)
@@ -225,7 +226,7 @@ linear regression model.
 
 .. GENERATED FROM PYTHON SOURCE LINES 81-104
 
-.. code-block:: default
+.. code-block:: Python
 
 
     feature_names = ["wordnet", "motion_energy"]
@@ -274,7 +275,7 @@ We define again a leave-one-run-out cross-validation split scheme.
 
 .. GENERATED FROM PYTHON SOURCE LINES 109-117
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from sklearn.model_selection import check_cv
@@ -303,7 +304,7 @@ We define a cross-validation splitter, compatible with ``scikit-learn`` API.
 
 .. GENERATED FROM PYTHON SOURCE LINES 119-123
 
-.. code-block:: default
+.. code-block:: Python
 
     n_samples_train = X_train.shape[0]
     cv = generate_leave_one_run_out(n_samples_train, run_onsets)
@@ -327,7 +328,7 @@ and add delays with a ``Delayer``.
 
 .. GENERATED FROM PYTHON SOURCE LINES 130-136
 
-.. code-block:: default
+.. code-block:: Python
 
     from sklearn.pipeline import make_pipeline
     from sklearn.preprocessing import StandardScaler
@@ -363,7 +364,7 @@ solver used, they are passed as a ``solver_params`` dictionary.
 
 .. GENERATED FROM PYTHON SOURCE LINES 152-163
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from himalaya.kernel_ridge import MultipleKernelRidgeCV
@@ -486,7 +487,7 @@ criterion in the random-search method.)
 
 .. GENERATED FROM PYTHON SOURCE LINES 173-177
 
-.. code-block:: default
+.. code-block:: Python
 
     n_iter = 20
 
@@ -507,7 +508,7 @@ Optimal values depend on the size of your dataset.
 
 .. GENERATED FROM PYTHON SOURCE LINES 181-185
 
-.. code-block:: default
+.. code-block:: Python
 
     n_targets_batch = 200
     n_alphas_batch = 5
@@ -527,7 +528,7 @@ the main estimator ``MultipleKernelRidgeCV``.
 
 .. GENERATED FROM PYTHON SOURCE LINES 188-197
 
-.. code-block:: default
+.. code-block:: Python
 
 
     solver_params = dict(n_iter=n_iter, alphas=alphas,
@@ -565,7 +566,7 @@ accepts any ``Kernelizer``, or ``scikit-learn`` ``Pipeline`` ending with a
 
 .. GENERATED FROM PYTHON SOURCE LINES 212-223
 
-.. code-block:: default
+.. code-block:: Python
 
     from himalaya.kernel_ridge import Kernelizer
     from sklearn import set_config
@@ -586,11 +587,415 @@ accepts any ``Kernelizer``, or ``scikit-learn`` ``Pipeline`` ending with a
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 {color: black;background-color: white;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 pre{padding: 0;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-toggleable {background-color: white;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-estimator:hover {background-color: #d4ebff;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-item {z-index: 1;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-parallel-item:only-child::after {width: 0;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669 div.sk-text-repr-fallback {display: none;}</style><div id="sk-9f5f072a-44b3-4573-bc4c-3a3d762f0669" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+    <style>#sk-container-id-5 {
+      /* Definition of color scheme common for light and dark mode */
+      --sklearn-color-text: black;
+      --sklearn-color-line: gray;
+      /* Definition of color scheme for unfitted estimators */
+      --sklearn-color-unfitted-level-0: #fff5e6;
+      --sklearn-color-unfitted-level-1: #f6e4d2;
+      --sklearn-color-unfitted-level-2: #ffe0b3;
+      --sklearn-color-unfitted-level-3: chocolate;
+      /* Definition of color scheme for fitted estimators */
+      --sklearn-color-fitted-level-0: #f0f8ff;
+      --sklearn-color-fitted-level-1: #d4ebff;
+      --sklearn-color-fitted-level-2: #b3dbfd;
+      --sklearn-color-fitted-level-3: cornflowerblue;
+
+      /* Specific color for light theme */
+      --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+      --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+      --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+      --sklearn-color-icon: #696969;
+
+      @media (prefers-color-scheme: dark) {
+        /* Redefinition of color scheme for dark theme */
+        --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+        --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+        --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+        --sklearn-color-icon: #878787;
+      }
+    }
+
+    #sk-container-id-5 {
+      color: var(--sklearn-color-text);
+    }
+
+    #sk-container-id-5 pre {
+      padding: 0;
+    }
+
+    #sk-container-id-5 input.sk-hidden--visually {
+      border: 0;
+      clip: rect(1px 1px 1px 1px);
+      clip: rect(1px, 1px, 1px, 1px);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    #sk-container-id-5 div.sk-dashed-wrapped {
+      border: 1px dashed var(--sklearn-color-line);
+      margin: 0 0.4em 0.5em 0.4em;
+      box-sizing: border-box;
+      padding-bottom: 0.4em;
+      background-color: var(--sklearn-color-background);
+    }
+
+    #sk-container-id-5 div.sk-container {
+      /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+         but bootstrap.min.css set `[hidden] { display: none !important; }`
+         so we also need the `!important` here to be able to override the
+         default hidden behavior on the sphinx rendered scikit-learn.org.
+         See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+      display: inline-block !important;
+      position: relative;
+    }
+
+    #sk-container-id-5 div.sk-text-repr-fallback {
+      display: none;
+    }
+
+    div.sk-parallel-item,
+    div.sk-serial,
+    div.sk-item {
+      /* draw centered vertical line to link estimators */
+      background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+      background-size: 2px 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    /* Parallel-specific style estimator block */
+
+    #sk-container-id-5 div.sk-parallel-item::after {
+      content: "";
+      width: 100%;
+      border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+      flex-grow: 1;
+    }
+
+    #sk-container-id-5 div.sk-parallel {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      background-color: var(--sklearn-color-background);
+      position: relative;
+    }
+
+    #sk-container-id-5 div.sk-parallel-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #sk-container-id-5 div.sk-parallel-item:first-child::after {
+      align-self: flex-end;
+      width: 50%;
+    }
+
+    #sk-container-id-5 div.sk-parallel-item:last-child::after {
+      align-self: flex-start;
+      width: 50%;
+    }
+
+    #sk-container-id-5 div.sk-parallel-item:only-child::after {
+      width: 0;
+    }
+
+    /* Serial-specific style estimator block */
+
+    #sk-container-id-5 div.sk-serial {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--sklearn-color-background);
+      padding-right: 1em;
+      padding-left: 1em;
+    }
+
+
+    /* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+    clickable and can be expanded/collapsed.
+    - Pipeline and ColumnTransformer use this feature and define the default style
+    - Estimators will overwrite some part of the style using the `sk-estimator` class
+    */
+
+    /* Pipeline and ColumnTransformer style (default) */
+
+    #sk-container-id-5 div.sk-toggleable {
+      /* Default theme specific background. It is overwritten whether we have a
+      specific estimator or a Pipeline/ColumnTransformer */
+      background-color: var(--sklearn-color-background);
+    }
+
+    /* Toggleable label */
+    #sk-container-id-5 label.sk-toggleable__label {
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      margin-bottom: 0;
+      padding: 0.5em;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    #sk-container-id-5 label.sk-toggleable__label-arrow:before {
+      /* Arrow on the left of the label */
+      content: "▸";
+      float: left;
+      margin-right: 0.25em;
+      color: var(--sklearn-color-icon);
+    }
+
+    #sk-container-id-5 label.sk-toggleable__label-arrow:hover:before {
+      color: var(--sklearn-color-text);
+    }
+
+    /* Toggleable content - dropdown */
+
+    #sk-container-id-5 div.sk-toggleable__content {
+      max-height: 0;
+      max-width: 0;
+      overflow: hidden;
+      text-align: left;
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-5 div.sk-toggleable__content.fitted {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    #sk-container-id-5 div.sk-toggleable__content pre {
+      margin: 0.2em;
+      border-radius: 0.25em;
+      color: var(--sklearn-color-text);
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-5 div.sk-toggleable__content.fitted pre {
+      /* unfitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    #sk-container-id-5 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+      /* Expand drop-down */
+      max-height: 200px;
+      max-width: 100%;
+      overflow: auto;
+    }
+
+    #sk-container-id-5 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+      content: "▾";
+    }
+
+    /* Pipeline/ColumnTransformer-specific style */
+
+    #sk-container-id-5 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-5 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Estimator-specific style */
+
+    /* Colorize estimator box */
+    #sk-container-id-5 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-5 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    #sk-container-id-5 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-5 div.sk-label label {
+      /* The background is the default theme color */
+      color: var(--sklearn-color-text-on-default-background);
+    }
+
+    /* On hover, darken the color of the background */
+    #sk-container-id-5 div.sk-label:hover label.sk-toggleable__label {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    /* Label box, darken color on hover, fitted */
+    #sk-container-id-5 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Estimator label */
+
+    #sk-container-id-5 div.sk-label label {
+      font-family: monospace;
+      font-weight: bold;
+      display: inline-block;
+      line-height: 1.2em;
+    }
+
+    #sk-container-id-5 div.sk-label-container {
+      text-align: center;
+    }
+
+    /* Estimator-specific */
+    #sk-container-id-5 div.sk-estimator {
+      font-family: monospace;
+      border: 1px dotted var(--sklearn-color-border-box);
+      border-radius: 0.25em;
+      box-sizing: border-box;
+      margin-bottom: 0.5em;
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-5 div.sk-estimator.fitted {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    /* on hover */
+    #sk-container-id-5 div.sk-estimator:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-5 div.sk-estimator.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Specification for estimator info (e.g. "i" and "?") */
+
+    /* Common style for "i" and "?" */
+
+    .sk-estimator-doc-link,
+    a:link.sk-estimator-doc-link,
+    a:visited.sk-estimator-doc-link {
+      float: right;
+      font-size: smaller;
+      line-height: 1em;
+      font-family: monospace;
+      background-color: var(--sklearn-color-background);
+      border-radius: 1em;
+      height: 1em;
+      width: 1em;
+      text-decoration: none !important;
+      margin-left: 1ex;
+      /* unfitted */
+      border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+      color: var(--sklearn-color-unfitted-level-1);
+    }
+
+    .sk-estimator-doc-link.fitted,
+    a:link.sk-estimator-doc-link.fitted,
+    a:visited.sk-estimator-doc-link.fitted {
+      /* fitted */
+      border: var(--sklearn-color-fitted-level-1) 1pt solid;
+      color: var(--sklearn-color-fitted-level-1);
+    }
+
+    /* On hover */
+    div.sk-estimator:hover .sk-estimator-doc-link:hover,
+    .sk-estimator-doc-link:hover,
+    div.sk-label-container:hover .sk-estimator-doc-link:hover,
+    .sk-estimator-doc-link:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+    .sk-estimator-doc-link.fitted:hover,
+    div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+    .sk-estimator-doc-link.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    /* Span, style for the box shown on hovering the info icon */
+    .sk-estimator-doc-link span {
+      display: none;
+      z-index: 9999;
+      position: relative;
+      font-weight: normal;
+      right: .2ex;
+      padding: .5ex;
+      margin: .5ex;
+      width: min-content;
+      min-width: 20ex;
+      max-width: 50ex;
+      color: var(--sklearn-color-text);
+      box-shadow: 2pt 2pt 4pt #999;
+      /* unfitted */
+      background: var(--sklearn-color-unfitted-level-0);
+      border: .5pt solid var(--sklearn-color-unfitted-level-3);
+    }
+
+    .sk-estimator-doc-link.fitted span {
+      /* fitted */
+      background: var(--sklearn-color-fitted-level-0);
+      border: var(--sklearn-color-fitted-level-3);
+    }
+
+    .sk-estimator-doc-link:hover span {
+      display: block;
+    }
+
+    /* "?"-specific style due to the `<a>` HTML tag */
+
+    #sk-container-id-5 a.estimator_doc_link {
+      float: right;
+      font-size: 1rem;
+      line-height: 1em;
+      font-family: monospace;
+      background-color: var(--sklearn-color-background);
+      border-radius: 1rem;
+      height: 1rem;
+      width: 1rem;
+      text-decoration: none;
+      /* unfitted */
+      color: var(--sklearn-color-unfitted-level-1);
+      border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+    }
+
+    #sk-container-id-5 a.estimator_doc_link.fitted {
+      /* fitted */
+      border: var(--sklearn-color-fitted-level-1) 1pt solid;
+      color: var(--sklearn-color-fitted-level-1);
+    }
+
+    /* On hover */
+    #sk-container-id-5 a.estimator_doc_link:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    #sk-container-id-5 a.estimator_doc_link.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-3);
+    }
+    </style><div id="sk-container-id-5" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
                     (&#x27;delayer&#x27;, Delayer(delays=[1, 2, 3, 4])),
-                    (&#x27;kernelizer&#x27;, Kernelizer())])</pre><b>Please rerun this cell to show the HTML repr or trust the notebook.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="3db29d71-28d5-46f9-979c-a30cfb9a5c2e" type="checkbox" ><label for="3db29d71-28d5-46f9-979c-a30cfb9a5c2e" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+                    (&#x27;kernelizer&#x27;, Kernelizer())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-16" type="checkbox" ><label for="sk-estimator-id-16" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;&nbsp;Pipeline<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
                     (&#x27;delayer&#x27;, Delayer(delays=[1, 2, 3, 4])),
-                    (&#x27;kernelizer&#x27;, Kernelizer())])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="e6f87b98-6250-416d-9a35-c21d44211e64" type="checkbox" ><label for="e6f87b98-6250-416d-9a35-c21d44211e64" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="179f233e-fbd0-4301-909c-38f793769b5e" type="checkbox" ><label for="179f233e-fbd0-4301-909c-38f793769b5e" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="1f3d3fff-7220-49d8-973a-f45d8f47b22b" type="checkbox" ><label for="1f3d3fff-7220-49d8-973a-f45d8f47b22b" class="sk-toggleable__label sk-toggleable__label-arrow">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div>
+                    (&#x27;kernelizer&#x27;, Kernelizer())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-17" type="checkbox" ><label for="sk-estimator-id-17" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-18" type="checkbox" ><label for="sk-estimator-id-18" class="sk-toggleable__label  sk-toggleable__label-arrow ">Delayer</label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-19" type="checkbox" ><label for="sk-estimator-id-19" class="sk-toggleable__label  sk-toggleable__label-arrow ">Kernelizer</label><div class="sk-toggleable__content "><pre>Kernelizer()</pre></div> </div></div></div></div></div></div>
     </div>
     <br />
     <br />
@@ -602,7 +1007,7 @@ features, here defined with ``slices``.
 
 .. GENERATED FROM PYTHON SOURCE LINES 226-236
 
-.. code-block:: default
+.. code-block:: Python
 
     from himalaya.kernel_ridge import ColumnKernelizer
 
@@ -629,7 +1034,7 @@ features, here defined with ``slices``.
 
 .. GENERATED FROM PYTHON SOURCE LINES 237-245
 
-.. code-block:: default
+.. code-block:: Python
 
     kernelizers_tuples = [(name, preprocess_pipeline, slice_)
                           for name, slice_ in zip(feature_names, slices)]
@@ -647,7 +1052,411 @@ features, here defined with ``slices``.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-1e863a01-c102-4e50-bf47-8c0c928683ad {color: black;background-color: white;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad pre{padding: 0;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-toggleable {background-color: white;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-estimator:hover {background-color: #d4ebff;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-item {z-index: 1;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-parallel-item:only-child::after {width: 0;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-1e863a01-c102-4e50-bf47-8c0c928683ad div.sk-text-repr-fallback {display: none;}</style><div id="sk-1e863a01-c102-4e50-bf47-8c0c928683ad" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>ColumnKernelizer(transformers=[(&#x27;wordnet&#x27;,
+    <style>#sk-container-id-6 {
+      /* Definition of color scheme common for light and dark mode */
+      --sklearn-color-text: black;
+      --sklearn-color-line: gray;
+      /* Definition of color scheme for unfitted estimators */
+      --sklearn-color-unfitted-level-0: #fff5e6;
+      --sklearn-color-unfitted-level-1: #f6e4d2;
+      --sklearn-color-unfitted-level-2: #ffe0b3;
+      --sklearn-color-unfitted-level-3: chocolate;
+      /* Definition of color scheme for fitted estimators */
+      --sklearn-color-fitted-level-0: #f0f8ff;
+      --sklearn-color-fitted-level-1: #d4ebff;
+      --sklearn-color-fitted-level-2: #b3dbfd;
+      --sklearn-color-fitted-level-3: cornflowerblue;
+
+      /* Specific color for light theme */
+      --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+      --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+      --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+      --sklearn-color-icon: #696969;
+
+      @media (prefers-color-scheme: dark) {
+        /* Redefinition of color scheme for dark theme */
+        --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+        --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+        --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+        --sklearn-color-icon: #878787;
+      }
+    }
+
+    #sk-container-id-6 {
+      color: var(--sklearn-color-text);
+    }
+
+    #sk-container-id-6 pre {
+      padding: 0;
+    }
+
+    #sk-container-id-6 input.sk-hidden--visually {
+      border: 0;
+      clip: rect(1px 1px 1px 1px);
+      clip: rect(1px, 1px, 1px, 1px);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    #sk-container-id-6 div.sk-dashed-wrapped {
+      border: 1px dashed var(--sklearn-color-line);
+      margin: 0 0.4em 0.5em 0.4em;
+      box-sizing: border-box;
+      padding-bottom: 0.4em;
+      background-color: var(--sklearn-color-background);
+    }
+
+    #sk-container-id-6 div.sk-container {
+      /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+         but bootstrap.min.css set `[hidden] { display: none !important; }`
+         so we also need the `!important` here to be able to override the
+         default hidden behavior on the sphinx rendered scikit-learn.org.
+         See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+      display: inline-block !important;
+      position: relative;
+    }
+
+    #sk-container-id-6 div.sk-text-repr-fallback {
+      display: none;
+    }
+
+    div.sk-parallel-item,
+    div.sk-serial,
+    div.sk-item {
+      /* draw centered vertical line to link estimators */
+      background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+      background-size: 2px 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    /* Parallel-specific style estimator block */
+
+    #sk-container-id-6 div.sk-parallel-item::after {
+      content: "";
+      width: 100%;
+      border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+      flex-grow: 1;
+    }
+
+    #sk-container-id-6 div.sk-parallel {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      background-color: var(--sklearn-color-background);
+      position: relative;
+    }
+
+    #sk-container-id-6 div.sk-parallel-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #sk-container-id-6 div.sk-parallel-item:first-child::after {
+      align-self: flex-end;
+      width: 50%;
+    }
+
+    #sk-container-id-6 div.sk-parallel-item:last-child::after {
+      align-self: flex-start;
+      width: 50%;
+    }
+
+    #sk-container-id-6 div.sk-parallel-item:only-child::after {
+      width: 0;
+    }
+
+    /* Serial-specific style estimator block */
+
+    #sk-container-id-6 div.sk-serial {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--sklearn-color-background);
+      padding-right: 1em;
+      padding-left: 1em;
+    }
+
+
+    /* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+    clickable and can be expanded/collapsed.
+    - Pipeline and ColumnTransformer use this feature and define the default style
+    - Estimators will overwrite some part of the style using the `sk-estimator` class
+    */
+
+    /* Pipeline and ColumnTransformer style (default) */
+
+    #sk-container-id-6 div.sk-toggleable {
+      /* Default theme specific background. It is overwritten whether we have a
+      specific estimator or a Pipeline/ColumnTransformer */
+      background-color: var(--sklearn-color-background);
+    }
+
+    /* Toggleable label */
+    #sk-container-id-6 label.sk-toggleable__label {
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      margin-bottom: 0;
+      padding: 0.5em;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    #sk-container-id-6 label.sk-toggleable__label-arrow:before {
+      /* Arrow on the left of the label */
+      content: "▸";
+      float: left;
+      margin-right: 0.25em;
+      color: var(--sklearn-color-icon);
+    }
+
+    #sk-container-id-6 label.sk-toggleable__label-arrow:hover:before {
+      color: var(--sklearn-color-text);
+    }
+
+    /* Toggleable content - dropdown */
+
+    #sk-container-id-6 div.sk-toggleable__content {
+      max-height: 0;
+      max-width: 0;
+      overflow: hidden;
+      text-align: left;
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-6 div.sk-toggleable__content.fitted {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    #sk-container-id-6 div.sk-toggleable__content pre {
+      margin: 0.2em;
+      border-radius: 0.25em;
+      color: var(--sklearn-color-text);
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-6 div.sk-toggleable__content.fitted pre {
+      /* unfitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    #sk-container-id-6 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+      /* Expand drop-down */
+      max-height: 200px;
+      max-width: 100%;
+      overflow: auto;
+    }
+
+    #sk-container-id-6 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+      content: "▾";
+    }
+
+    /* Pipeline/ColumnTransformer-specific style */
+
+    #sk-container-id-6 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-6 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Estimator-specific style */
+
+    /* Colorize estimator box */
+    #sk-container-id-6 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-6 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    #sk-container-id-6 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-6 div.sk-label label {
+      /* The background is the default theme color */
+      color: var(--sklearn-color-text-on-default-background);
+    }
+
+    /* On hover, darken the color of the background */
+    #sk-container-id-6 div.sk-label:hover label.sk-toggleable__label {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    /* Label box, darken color on hover, fitted */
+    #sk-container-id-6 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Estimator label */
+
+    #sk-container-id-6 div.sk-label label {
+      font-family: monospace;
+      font-weight: bold;
+      display: inline-block;
+      line-height: 1.2em;
+    }
+
+    #sk-container-id-6 div.sk-label-container {
+      text-align: center;
+    }
+
+    /* Estimator-specific */
+    #sk-container-id-6 div.sk-estimator {
+      font-family: monospace;
+      border: 1px dotted var(--sklearn-color-border-box);
+      border-radius: 0.25em;
+      box-sizing: border-box;
+      margin-bottom: 0.5em;
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-6 div.sk-estimator.fitted {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    /* on hover */
+    #sk-container-id-6 div.sk-estimator:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-6 div.sk-estimator.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Specification for estimator info (e.g. "i" and "?") */
+
+    /* Common style for "i" and "?" */
+
+    .sk-estimator-doc-link,
+    a:link.sk-estimator-doc-link,
+    a:visited.sk-estimator-doc-link {
+      float: right;
+      font-size: smaller;
+      line-height: 1em;
+      font-family: monospace;
+      background-color: var(--sklearn-color-background);
+      border-radius: 1em;
+      height: 1em;
+      width: 1em;
+      text-decoration: none !important;
+      margin-left: 1ex;
+      /* unfitted */
+      border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+      color: var(--sklearn-color-unfitted-level-1);
+    }
+
+    .sk-estimator-doc-link.fitted,
+    a:link.sk-estimator-doc-link.fitted,
+    a:visited.sk-estimator-doc-link.fitted {
+      /* fitted */
+      border: var(--sklearn-color-fitted-level-1) 1pt solid;
+      color: var(--sklearn-color-fitted-level-1);
+    }
+
+    /* On hover */
+    div.sk-estimator:hover .sk-estimator-doc-link:hover,
+    .sk-estimator-doc-link:hover,
+    div.sk-label-container:hover .sk-estimator-doc-link:hover,
+    .sk-estimator-doc-link:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+    .sk-estimator-doc-link.fitted:hover,
+    div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+    .sk-estimator-doc-link.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    /* Span, style for the box shown on hovering the info icon */
+    .sk-estimator-doc-link span {
+      display: none;
+      z-index: 9999;
+      position: relative;
+      font-weight: normal;
+      right: .2ex;
+      padding: .5ex;
+      margin: .5ex;
+      width: min-content;
+      min-width: 20ex;
+      max-width: 50ex;
+      color: var(--sklearn-color-text);
+      box-shadow: 2pt 2pt 4pt #999;
+      /* unfitted */
+      background: var(--sklearn-color-unfitted-level-0);
+      border: .5pt solid var(--sklearn-color-unfitted-level-3);
+    }
+
+    .sk-estimator-doc-link.fitted span {
+      /* fitted */
+      background: var(--sklearn-color-fitted-level-0);
+      border: var(--sklearn-color-fitted-level-3);
+    }
+
+    .sk-estimator-doc-link:hover span {
+      display: block;
+    }
+
+    /* "?"-specific style due to the `<a>` HTML tag */
+
+    #sk-container-id-6 a.estimator_doc_link {
+      float: right;
+      font-size: 1rem;
+      line-height: 1em;
+      font-family: monospace;
+      background-color: var(--sklearn-color-background);
+      border-radius: 1rem;
+      height: 1rem;
+      width: 1rem;
+      text-decoration: none;
+      /* unfitted */
+      color: var(--sklearn-color-unfitted-level-1);
+      border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+    }
+
+    #sk-container-id-6 a.estimator_doc_link.fitted {
+      /* fitted */
+      border: var(--sklearn-color-fitted-level-1) 1pt solid;
+      color: var(--sklearn-color-fitted-level-1);
+    }
+
+    /* On hover */
+    #sk-container-id-6 a.estimator_doc_link:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    #sk-container-id-6 a.estimator_doc_link.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-3);
+    }
+    </style><div id="sk-container-id-6" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>ColumnKernelizer(transformers=[(&#x27;wordnet&#x27;,
                                     Pipeline(steps=[(&#x27;standardscaler&#x27;,
                                                      StandardScaler(with_std=False)),
                                                     (&#x27;delayer&#x27;,
@@ -660,7 +1469,7 @@ features, here defined with ``slices``.
                                                     (&#x27;delayer&#x27;,
                                                      Delayer(delays=[1, 2, 3, 4])),
                                                     (&#x27;kernelizer&#x27;, Kernelizer())]),
-                                    slice(1705, 8260, None))])</pre><b>Please rerun this cell to show the HTML repr or trust the notebook.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="d2d7632c-0810-4728-96b0-7503cc6983d0" type="checkbox" ><label for="d2d7632c-0810-4728-96b0-7503cc6983d0" class="sk-toggleable__label sk-toggleable__label-arrow">ColumnKernelizer</label><div class="sk-toggleable__content"><pre>ColumnKernelizer(transformers=[(&#x27;wordnet&#x27;,
+                                    slice(1705, 8260, None))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-20" type="checkbox" ><label for="sk-estimator-id-20" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;ColumnKernelizer<span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></label><div class="sk-toggleable__content "><pre>ColumnKernelizer(transformers=[(&#x27;wordnet&#x27;,
                                     Pipeline(steps=[(&#x27;standardscaler&#x27;,
                                                      StandardScaler(with_std=False)),
                                                     (&#x27;delayer&#x27;,
@@ -673,7 +1482,7 @@ features, here defined with ``slices``.
                                                     (&#x27;delayer&#x27;,
                                                      Delayer(delays=[1, 2, 3, 4])),
                                                     (&#x27;kernelizer&#x27;, Kernelizer())]),
-                                    slice(1705, 8260, None))])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="b71eb695-2ae5-4535-bd6c-3ede45879d08" type="checkbox" ><label for="b71eb695-2ae5-4535-bd6c-3ede45879d08" class="sk-toggleable__label sk-toggleable__label-arrow">wordnet</label><div class="sk-toggleable__content"><pre>slice(0, 1705, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="e77bc24e-c131-4b10-9c0d-1ad3362b66cd" type="checkbox" ><label for="e77bc24e-c131-4b10-9c0d-1ad3362b66cd" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="089628b4-b8cd-4200-9cdc-1036f7f8606f" type="checkbox" ><label for="089628b4-b8cd-4200-9cdc-1036f7f8606f" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="76c7ecd4-ac37-4198-9692-115714c01520" type="checkbox" ><label for="76c7ecd4-ac37-4198-9692-115714c01520" class="sk-toggleable__label sk-toggleable__label-arrow">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="fe66065a-93d7-4545-b359-bafb07e855cd" type="checkbox" ><label for="fe66065a-93d7-4545-b359-bafb07e855cd" class="sk-toggleable__label sk-toggleable__label-arrow">motion_energy</label><div class="sk-toggleable__content"><pre>slice(1705, 8260, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="bb666579-090f-4612-ac10-e82bf97c903e" type="checkbox" ><label for="bb666579-090f-4612-ac10-e82bf97c903e" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="2cf5fdd3-88f4-4523-8ddc-2301a0ca187d" type="checkbox" ><label for="2cf5fdd3-88f4-4523-8ddc-2301a0ca187d" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="58b62c87-e37b-4e2c-a017-1577242ae62c" type="checkbox" ><label for="58b62c87-e37b-4e2c-a017-1577242ae62c" class="sk-toggleable__label sk-toggleable__label-arrow">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div></div></div></div></div>
+                                    slice(1705, 8260, None))])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-21" type="checkbox" ><label for="sk-estimator-id-21" class="sk-toggleable__label  sk-toggleable__label-arrow ">wordnet</label><div class="sk-toggleable__content "><pre>slice(0, 1705, None)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-22" type="checkbox" ><label for="sk-estimator-id-22" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-23" type="checkbox" ><label for="sk-estimator-id-23" class="sk-toggleable__label  sk-toggleable__label-arrow ">Delayer</label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-24" type="checkbox" ><label for="sk-estimator-id-24" class="sk-toggleable__label  sk-toggleable__label-arrow ">Kernelizer</label><div class="sk-toggleable__content "><pre>Kernelizer()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-25" type="checkbox" ><label for="sk-estimator-id-25" class="sk-toggleable__label  sk-toggleable__label-arrow ">motion_energy</label><div class="sk-toggleable__content "><pre>slice(1705, 8260, None)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-26" type="checkbox" ><label for="sk-estimator-id-26" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-27" type="checkbox" ><label for="sk-estimator-id-27" class="sk-toggleable__label  sk-toggleable__label-arrow ">Delayer</label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-28" type="checkbox" ><label for="sk-estimator-id-28" class="sk-toggleable__label  sk-toggleable__label-arrow ">Kernelizer</label><div class="sk-toggleable__content "><pre>Kernelizer()</pre></div> </div></div></div></div></div></div></div></div></div></div></div>
     </div>
     <br />
     <br />
@@ -684,7 +1493,7 @@ Then we can define the model pipeline.
 
 .. GENERATED FROM PYTHON SOURCE LINES 247-254
 
-.. code-block:: default
+.. code-block:: Python
 
 
     pipeline = make_pipeline(
@@ -701,7 +1510,411 @@ Then we can define the model pipeline.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 {color: black;background-color: white;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 pre{padding: 0;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-toggleable {background-color: white;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-estimator:hover {background-color: #d4ebff;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-item {z-index: 1;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-parallel-item:only-child::after {width: 0;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-412f2ed5-52fe-40e3-9487-021ebaacd512 div.sk-text-repr-fallback {display: none;}</style><div id="sk-412f2ed5-52fe-40e3-9487-021ebaacd512" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;columnkernelizer&#x27;,
+    <style>#sk-container-id-7 {
+      /* Definition of color scheme common for light and dark mode */
+      --sklearn-color-text: black;
+      --sklearn-color-line: gray;
+      /* Definition of color scheme for unfitted estimators */
+      --sklearn-color-unfitted-level-0: #fff5e6;
+      --sklearn-color-unfitted-level-1: #f6e4d2;
+      --sklearn-color-unfitted-level-2: #ffe0b3;
+      --sklearn-color-unfitted-level-3: chocolate;
+      /* Definition of color scheme for fitted estimators */
+      --sklearn-color-fitted-level-0: #f0f8ff;
+      --sklearn-color-fitted-level-1: #d4ebff;
+      --sklearn-color-fitted-level-2: #b3dbfd;
+      --sklearn-color-fitted-level-3: cornflowerblue;
+
+      /* Specific color for light theme */
+      --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+      --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+      --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+      --sklearn-color-icon: #696969;
+
+      @media (prefers-color-scheme: dark) {
+        /* Redefinition of color scheme for dark theme */
+        --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+        --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+        --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+        --sklearn-color-icon: #878787;
+      }
+    }
+
+    #sk-container-id-7 {
+      color: var(--sklearn-color-text);
+    }
+
+    #sk-container-id-7 pre {
+      padding: 0;
+    }
+
+    #sk-container-id-7 input.sk-hidden--visually {
+      border: 0;
+      clip: rect(1px 1px 1px 1px);
+      clip: rect(1px, 1px, 1px, 1px);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    #sk-container-id-7 div.sk-dashed-wrapped {
+      border: 1px dashed var(--sklearn-color-line);
+      margin: 0 0.4em 0.5em 0.4em;
+      box-sizing: border-box;
+      padding-bottom: 0.4em;
+      background-color: var(--sklearn-color-background);
+    }
+
+    #sk-container-id-7 div.sk-container {
+      /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+         but bootstrap.min.css set `[hidden] { display: none !important; }`
+         so we also need the `!important` here to be able to override the
+         default hidden behavior on the sphinx rendered scikit-learn.org.
+         See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+      display: inline-block !important;
+      position: relative;
+    }
+
+    #sk-container-id-7 div.sk-text-repr-fallback {
+      display: none;
+    }
+
+    div.sk-parallel-item,
+    div.sk-serial,
+    div.sk-item {
+      /* draw centered vertical line to link estimators */
+      background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+      background-size: 2px 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    /* Parallel-specific style estimator block */
+
+    #sk-container-id-7 div.sk-parallel-item::after {
+      content: "";
+      width: 100%;
+      border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+      flex-grow: 1;
+    }
+
+    #sk-container-id-7 div.sk-parallel {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      background-color: var(--sklearn-color-background);
+      position: relative;
+    }
+
+    #sk-container-id-7 div.sk-parallel-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #sk-container-id-7 div.sk-parallel-item:first-child::after {
+      align-self: flex-end;
+      width: 50%;
+    }
+
+    #sk-container-id-7 div.sk-parallel-item:last-child::after {
+      align-self: flex-start;
+      width: 50%;
+    }
+
+    #sk-container-id-7 div.sk-parallel-item:only-child::after {
+      width: 0;
+    }
+
+    /* Serial-specific style estimator block */
+
+    #sk-container-id-7 div.sk-serial {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--sklearn-color-background);
+      padding-right: 1em;
+      padding-left: 1em;
+    }
+
+
+    /* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+    clickable and can be expanded/collapsed.
+    - Pipeline and ColumnTransformer use this feature and define the default style
+    - Estimators will overwrite some part of the style using the `sk-estimator` class
+    */
+
+    /* Pipeline and ColumnTransformer style (default) */
+
+    #sk-container-id-7 div.sk-toggleable {
+      /* Default theme specific background. It is overwritten whether we have a
+      specific estimator or a Pipeline/ColumnTransformer */
+      background-color: var(--sklearn-color-background);
+    }
+
+    /* Toggleable label */
+    #sk-container-id-7 label.sk-toggleable__label {
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      margin-bottom: 0;
+      padding: 0.5em;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    #sk-container-id-7 label.sk-toggleable__label-arrow:before {
+      /* Arrow on the left of the label */
+      content: "▸";
+      float: left;
+      margin-right: 0.25em;
+      color: var(--sklearn-color-icon);
+    }
+
+    #sk-container-id-7 label.sk-toggleable__label-arrow:hover:before {
+      color: var(--sklearn-color-text);
+    }
+
+    /* Toggleable content - dropdown */
+
+    #sk-container-id-7 div.sk-toggleable__content {
+      max-height: 0;
+      max-width: 0;
+      overflow: hidden;
+      text-align: left;
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-7 div.sk-toggleable__content.fitted {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    #sk-container-id-7 div.sk-toggleable__content pre {
+      margin: 0.2em;
+      border-radius: 0.25em;
+      color: var(--sklearn-color-text);
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-7 div.sk-toggleable__content.fitted pre {
+      /* unfitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    #sk-container-id-7 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+      /* Expand drop-down */
+      max-height: 200px;
+      max-width: 100%;
+      overflow: auto;
+    }
+
+    #sk-container-id-7 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+      content: "▾";
+    }
+
+    /* Pipeline/ColumnTransformer-specific style */
+
+    #sk-container-id-7 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-7 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Estimator-specific style */
+
+    /* Colorize estimator box */
+    #sk-container-id-7 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-7 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    #sk-container-id-7 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-7 div.sk-label label {
+      /* The background is the default theme color */
+      color: var(--sklearn-color-text-on-default-background);
+    }
+
+    /* On hover, darken the color of the background */
+    #sk-container-id-7 div.sk-label:hover label.sk-toggleable__label {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    /* Label box, darken color on hover, fitted */
+    #sk-container-id-7 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Estimator label */
+
+    #sk-container-id-7 div.sk-label label {
+      font-family: monospace;
+      font-weight: bold;
+      display: inline-block;
+      line-height: 1.2em;
+    }
+
+    #sk-container-id-7 div.sk-label-container {
+      text-align: center;
+    }
+
+    /* Estimator-specific */
+    #sk-container-id-7 div.sk-estimator {
+      font-family: monospace;
+      border: 1px dotted var(--sklearn-color-border-box);
+      border-radius: 0.25em;
+      box-sizing: border-box;
+      margin-bottom: 0.5em;
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-7 div.sk-estimator.fitted {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    /* on hover */
+    #sk-container-id-7 div.sk-estimator:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-7 div.sk-estimator.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Specification for estimator info (e.g. "i" and "?") */
+
+    /* Common style for "i" and "?" */
+
+    .sk-estimator-doc-link,
+    a:link.sk-estimator-doc-link,
+    a:visited.sk-estimator-doc-link {
+      float: right;
+      font-size: smaller;
+      line-height: 1em;
+      font-family: monospace;
+      background-color: var(--sklearn-color-background);
+      border-radius: 1em;
+      height: 1em;
+      width: 1em;
+      text-decoration: none !important;
+      margin-left: 1ex;
+      /* unfitted */
+      border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+      color: var(--sklearn-color-unfitted-level-1);
+    }
+
+    .sk-estimator-doc-link.fitted,
+    a:link.sk-estimator-doc-link.fitted,
+    a:visited.sk-estimator-doc-link.fitted {
+      /* fitted */
+      border: var(--sklearn-color-fitted-level-1) 1pt solid;
+      color: var(--sklearn-color-fitted-level-1);
+    }
+
+    /* On hover */
+    div.sk-estimator:hover .sk-estimator-doc-link:hover,
+    .sk-estimator-doc-link:hover,
+    div.sk-label-container:hover .sk-estimator-doc-link:hover,
+    .sk-estimator-doc-link:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+    .sk-estimator-doc-link.fitted:hover,
+    div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+    .sk-estimator-doc-link.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    /* Span, style for the box shown on hovering the info icon */
+    .sk-estimator-doc-link span {
+      display: none;
+      z-index: 9999;
+      position: relative;
+      font-weight: normal;
+      right: .2ex;
+      padding: .5ex;
+      margin: .5ex;
+      width: min-content;
+      min-width: 20ex;
+      max-width: 50ex;
+      color: var(--sklearn-color-text);
+      box-shadow: 2pt 2pt 4pt #999;
+      /* unfitted */
+      background: var(--sklearn-color-unfitted-level-0);
+      border: .5pt solid var(--sklearn-color-unfitted-level-3);
+    }
+
+    .sk-estimator-doc-link.fitted span {
+      /* fitted */
+      background: var(--sklearn-color-fitted-level-0);
+      border: var(--sklearn-color-fitted-level-3);
+    }
+
+    .sk-estimator-doc-link:hover span {
+      display: block;
+    }
+
+    /* "?"-specific style due to the `<a>` HTML tag */
+
+    #sk-container-id-7 a.estimator_doc_link {
+      float: right;
+      font-size: 1rem;
+      line-height: 1em;
+      font-family: monospace;
+      background-color: var(--sklearn-color-background);
+      border-radius: 1rem;
+      height: 1rem;
+      width: 1rem;
+      text-decoration: none;
+      /* unfitted */
+      color: var(--sklearn-color-unfitted-level-1);
+      border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+    }
+
+    #sk-container-id-7 a.estimator_doc_link.fitted {
+      /* fitted */
+      border: var(--sklearn-color-fitted-level-1) 1pt solid;
+      color: var(--sklearn-color-fitted-level-1);
+    }
+
+    /* On hover */
+    #sk-container-id-7 a.estimator_doc_link:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    #sk-container-id-7 a.estimator_doc_link.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-3);
+    }
+    </style><div id="sk-container-id-7" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;columnkernelizer&#x27;,
                      ColumnKernelizer(transformers=[(&#x27;wordnet&#x27;,
                                                      Pipeline(steps=[(&#x27;standardscaler&#x27;,
                                                                       StandardScaler(with_std=False)),
@@ -721,7 +1934,7 @@ Then we can define the model pipeline.
                                                                                       2,
                                                                                       3,
                                                                                       4]...
-                     MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+                     MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
                                            kernels=&#x27;precomputed&#x27;,
                                            solver_params={&#x27;alphas&#x27;: array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
@@ -729,7 +1942,7 @@ Then we can define the model pipeline.
                                                           &#x27;n_alphas_batch&#x27;: 5,
                                                           &#x27;n_iter&#x27;: 20,
                                                           &#x27;n_targets_batch&#x27;: 200,
-                                                          &#x27;n_targets_batch_refit&#x27;: 200}))])</pre><b>Please rerun this cell to show the HTML repr or trust the notebook.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="3b44924d-15ee-4647-9644-cb0e2a57cab0" type="checkbox" ><label for="3b44924d-15ee-4647-9644-cb0e2a57cab0" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;columnkernelizer&#x27;,
+                                                          &#x27;n_targets_batch_refit&#x27;: 200}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-29" type="checkbox" ><label for="sk-estimator-id-29" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;&nbsp;Pipeline<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;columnkernelizer&#x27;,
                      ColumnKernelizer(transformers=[(&#x27;wordnet&#x27;,
                                                      Pipeline(steps=[(&#x27;standardscaler&#x27;,
                                                                       StandardScaler(with_std=False)),
@@ -749,7 +1962,7 @@ Then we can define the model pipeline.
                                                                                       2,
                                                                                       3,
                                                                                       4]...
-                     MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+                     MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
                                            kernels=&#x27;precomputed&#x27;,
                                            solver_params={&#x27;alphas&#x27;: array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
@@ -757,7 +1970,7 @@ Then we can define the model pipeline.
                                                           &#x27;n_alphas_batch&#x27;: 5,
                                                           &#x27;n_iter&#x27;: 20,
                                                           &#x27;n_targets_batch&#x27;: 200,
-                                                          &#x27;n_targets_batch_refit&#x27;: 200}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="935961d3-8e56-4a25-9cee-26c229f056e8" type="checkbox" ><label for="935961d3-8e56-4a25-9cee-26c229f056e8" class="sk-toggleable__label sk-toggleable__label-arrow">columnkernelizer: ColumnKernelizer</label><div class="sk-toggleable__content"><pre>ColumnKernelizer(transformers=[(&#x27;wordnet&#x27;,
+                                                          &#x27;n_targets_batch_refit&#x27;: 200}))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-30" type="checkbox" ><label for="sk-estimator-id-30" class="sk-toggleable__label  sk-toggleable__label-arrow ">columnkernelizer: ColumnKernelizer</label><div class="sk-toggleable__content "><pre>ColumnKernelizer(transformers=[(&#x27;wordnet&#x27;,
                                     Pipeline(steps=[(&#x27;standardscaler&#x27;,
                                                      StandardScaler(with_std=False)),
                                                     (&#x27;delayer&#x27;,
@@ -770,14 +1983,14 @@ Then we can define the model pipeline.
                                                     (&#x27;delayer&#x27;,
                                                      Delayer(delays=[1, 2, 3, 4])),
                                                     (&#x27;kernelizer&#x27;, Kernelizer())]),
-                                    slice(1705, 8260, None))])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="a69e101f-488f-40c5-bc13-2b8d18810816" type="checkbox" ><label for="a69e101f-488f-40c5-bc13-2b8d18810816" class="sk-toggleable__label sk-toggleable__label-arrow">wordnet</label><div class="sk-toggleable__content"><pre>slice(0, 1705, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="0b504202-f0a2-4d1a-81d5-c0e967601ff0" type="checkbox" ><label for="0b504202-f0a2-4d1a-81d5-c0e967601ff0" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="6f6b264e-68c2-4fd0-81c3-1c930ab0058a" type="checkbox" ><label for="6f6b264e-68c2-4fd0-81c3-1c930ab0058a" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="7801146a-9722-4af9-854f-af71957ad0a0" type="checkbox" ><label for="7801146a-9722-4af9-854f-af71957ad0a0" class="sk-toggleable__label sk-toggleable__label-arrow">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="432b3ebe-6f84-49e3-9168-02e57a94f0f6" type="checkbox" ><label for="432b3ebe-6f84-49e3-9168-02e57a94f0f6" class="sk-toggleable__label sk-toggleable__label-arrow">motion_energy</label><div class="sk-toggleable__content"><pre>slice(1705, 8260, None)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="45667457-ffa2-4971-85b0-9618eb1958b0" type="checkbox" ><label for="45667457-ffa2-4971-85b0-9618eb1958b0" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="283970e6-1fd5-4ef2-85e6-dc1ab8dd5c07" type="checkbox" ><label for="283970e6-1fd5-4ef2-85e6-dc1ab8dd5c07" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="f2043cf0-eb5f-4a8e-992d-e392f748da8f" type="checkbox" ><label for="f2043cf0-eb5f-4a8e-992d-e392f748da8f" class="sk-toggleable__label sk-toggleable__label-arrow">Kernelizer</label><div class="sk-toggleable__content"><pre>Kernelizer()</pre></div></div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="750e2b50-7265-4898-8ab4-96c644072b2d" type="checkbox" ><label for="750e2b50-7265-4898-8ab4-96c644072b2d" class="sk-toggleable__label sk-toggleable__label-arrow">MultipleKernelRidgeCV</label><div class="sk-toggleable__content"><pre>MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+                                    slice(1705, 8260, None))])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-31" type="checkbox" ><label for="sk-estimator-id-31" class="sk-toggleable__label  sk-toggleable__label-arrow ">wordnet</label><div class="sk-toggleable__content "><pre>slice(0, 1705, None)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-32" type="checkbox" ><label for="sk-estimator-id-32" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-33" type="checkbox" ><label for="sk-estimator-id-33" class="sk-toggleable__label  sk-toggleable__label-arrow ">Delayer</label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-34" type="checkbox" ><label for="sk-estimator-id-34" class="sk-toggleable__label  sk-toggleable__label-arrow ">Kernelizer</label><div class="sk-toggleable__content "><pre>Kernelizer()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-35" type="checkbox" ><label for="sk-estimator-id-35" class="sk-toggleable__label  sk-toggleable__label-arrow ">motion_energy</label><div class="sk-toggleable__content "><pre>slice(1705, 8260, None)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-36" type="checkbox" ><label for="sk-estimator-id-36" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-37" type="checkbox" ><label for="sk-estimator-id-37" class="sk-toggleable__label  sk-toggleable__label-arrow ">Delayer</label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-38" type="checkbox" ><label for="sk-estimator-id-38" class="sk-toggleable__label  sk-toggleable__label-arrow ">Kernelizer</label><div class="sk-toggleable__content "><pre>Kernelizer()</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-39" type="checkbox" ><label for="sk-estimator-id-39" class="sk-toggleable__label  sk-toggleable__label-arrow ">MultipleKernelRidgeCV</label><div class="sk-toggleable__content "><pre>MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
                           kernels=&#x27;precomputed&#x27;,
                           solver_params={&#x27;alphas&#x27;: array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
                                          &#x27;n_alphas_batch&#x27;: 5, &#x27;n_iter&#x27;: 20,
                                          &#x27;n_targets_batch&#x27;: 200,
-                                         &#x27;n_targets_batch_refit&#x27;: 200})</pre></div></div></div></div></div></div></div>
+                                         &#x27;n_targets_batch_refit&#x27;: 200})</pre></div> </div></div></div></div></div></div>
     </div>
     <br />
     <br />
@@ -797,7 +2010,7 @@ CPU backend, it can last 10 times more.
 
 .. GENERATED FROM PYTHON SOURCE LINES 265-279
 
-.. code-block:: default
+.. code-block:: Python
 
 
     pipeline.fit(X_train, Y_train[:, mask])
@@ -821,7 +2034,7 @@ CPU backend, it can last 10 times more.
 
  .. code-block:: none
 
-    [                                        ] 0% | 0.00 sec | 20 random sampling with cv |     [..                                      ] 5% | 4.40 sec | 20 random sampling with cv |     [....                                    ] 10% | 8.58 sec | 20 random sampling with cv |     [......                                  ] 15% | 12.75 sec | 20 random sampling with cv |     [........                                ] 20% | 16.89 sec | 20 random sampling with cv |     [..........                              ] 25% | 21.10 sec | 20 random sampling with cv |     [............                            ] 30% | 25.24 sec | 20 random sampling with cv |     [..............                          ] 35% | 29.41 sec | 20 random sampling with cv |     [................                        ] 40% | 33.59 sec | 20 random sampling with cv |     [..................                      ] 45% | 37.78 sec | 20 random sampling with cv |     [....................                    ] 50% | 41.93 sec | 20 random sampling with cv |     [......................                  ] 55% | 46.06 sec | 20 random sampling with cv |     [........................                ] 60% | 50.22 sec | 20 random sampling with cv |     [..........................              ] 65% | 54.36 sec | 20 random sampling with cv |     [............................            ] 70% | 58.53 sec | 20 random sampling with cv |     [..............................          ] 75% | 62.68 sec | 20 random sampling with cv |     [................................        ] 80% | 66.84 sec | 20 random sampling with cv |     [..................................      ] 85% | 71.00 sec | 20 random sampling with cv |     [....................................    ] 90% | 75.15 sec | 20 random sampling with cv |     [......................................  ] 95% | 79.29 sec | 20 random sampling with cv |     [........................................] 100% | 83.45 sec | 20 random sampling with cv | 
+    [                                        ] 0% | 0.00 sec | 20 random sampling with cv |     [..                                      ] 5% | 4.91 sec | 20 random sampling with cv |     [....                                    ] 10% | 9.74 sec | 20 random sampling with cv |     [......                                  ] 15% | 14.19 sec | 20 random sampling with cv |     [........                                ] 20% | 18.47 sec | 20 random sampling with cv |     [..........                              ] 25% | 22.76 sec | 20 random sampling with cv |     [............                            ] 30% | 27.24 sec | 20 random sampling with cv |     [..............                          ] 35% | 31.90 sec | 20 random sampling with cv |     [................                        ] 40% | 36.31 sec | 20 random sampling with cv |     [..................                      ] 45% | 40.81 sec | 20 random sampling with cv |     [....................                    ] 50% | 45.24 sec | 20 random sampling with cv |     [......................                  ] 55% | 50.00 sec | 20 random sampling with cv |     [........................                ] 60% | 54.41 sec | 20 random sampling with cv |     [..........................              ] 65% | 58.99 sec | 20 random sampling with cv |     [............................            ] 70% | 63.24 sec | 20 random sampling with cv |     [..............................          ] 75% | 68.01 sec | 20 random sampling with cv |     [................................        ] 80% | 72.37 sec | 20 random sampling with cv |     [..................................      ] 85% | 76.87 sec | 20 random sampling with cv |     [....................................    ] 90% | 81.16 sec | 20 random sampling with cv |     [......................................  ] 95% | 85.98 sec | 20 random sampling with cv |     [........................................] 100% | 90.25 sec | 20 random sampling with cv | 
     (n_voxels_mask,) = (6849,)
     (n_voxels,) = (84038,)
 
@@ -839,7 +2052,7 @@ spaces.
 
 .. GENERATED FROM PYTHON SOURCE LINES 286-300
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from himalaya.kernel_ridge import KernelRidgeCV
@@ -863,37 +2076,441 @@ spaces.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 {color: black;background-color: white;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 pre{padding: 0;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-toggleable {background-color: white;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-estimator:hover {background-color: #d4ebff;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-item {z-index: 1;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-parallel::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 2em;bottom: 0;left: 50%;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-parallel-item {display: flex;flex-direction: column;position: relative;background-color: white;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-parallel-item:only-child::after {width: 0;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;position: relative;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-label label {font-family: monospace;font-weight: bold;background-color: white;display: inline-block;line-height: 1.2em;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-label-container {position: relative;z-index: 2;text-align: center;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-8cc7641f-7226-439b-af48-8f4af9b70aa6 div.sk-text-repr-fallback {display: none;}</style><div id="sk-8cc7641f-7226-439b-af48-8f4af9b70aa6" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+    <style>#sk-container-id-8 {
+      /* Definition of color scheme common for light and dark mode */
+      --sklearn-color-text: black;
+      --sklearn-color-line: gray;
+      /* Definition of color scheme for unfitted estimators */
+      --sklearn-color-unfitted-level-0: #fff5e6;
+      --sklearn-color-unfitted-level-1: #f6e4d2;
+      --sklearn-color-unfitted-level-2: #ffe0b3;
+      --sklearn-color-unfitted-level-3: chocolate;
+      /* Definition of color scheme for fitted estimators */
+      --sklearn-color-fitted-level-0: #f0f8ff;
+      --sklearn-color-fitted-level-1: #d4ebff;
+      --sklearn-color-fitted-level-2: #b3dbfd;
+      --sklearn-color-fitted-level-3: cornflowerblue;
+
+      /* Specific color for light theme */
+      --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+      --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+      --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+      --sklearn-color-icon: #696969;
+
+      @media (prefers-color-scheme: dark) {
+        /* Redefinition of color scheme for dark theme */
+        --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+        --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+        --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+        --sklearn-color-icon: #878787;
+      }
+    }
+
+    #sk-container-id-8 {
+      color: var(--sklearn-color-text);
+    }
+
+    #sk-container-id-8 pre {
+      padding: 0;
+    }
+
+    #sk-container-id-8 input.sk-hidden--visually {
+      border: 0;
+      clip: rect(1px 1px 1px 1px);
+      clip: rect(1px, 1px, 1px, 1px);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    #sk-container-id-8 div.sk-dashed-wrapped {
+      border: 1px dashed var(--sklearn-color-line);
+      margin: 0 0.4em 0.5em 0.4em;
+      box-sizing: border-box;
+      padding-bottom: 0.4em;
+      background-color: var(--sklearn-color-background);
+    }
+
+    #sk-container-id-8 div.sk-container {
+      /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+         but bootstrap.min.css set `[hidden] { display: none !important; }`
+         so we also need the `!important` here to be able to override the
+         default hidden behavior on the sphinx rendered scikit-learn.org.
+         See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+      display: inline-block !important;
+      position: relative;
+    }
+
+    #sk-container-id-8 div.sk-text-repr-fallback {
+      display: none;
+    }
+
+    div.sk-parallel-item,
+    div.sk-serial,
+    div.sk-item {
+      /* draw centered vertical line to link estimators */
+      background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+      background-size: 2px 100%;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    /* Parallel-specific style estimator block */
+
+    #sk-container-id-8 div.sk-parallel-item::after {
+      content: "";
+      width: 100%;
+      border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+      flex-grow: 1;
+    }
+
+    #sk-container-id-8 div.sk-parallel {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      background-color: var(--sklearn-color-background);
+      position: relative;
+    }
+
+    #sk-container-id-8 div.sk-parallel-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #sk-container-id-8 div.sk-parallel-item:first-child::after {
+      align-self: flex-end;
+      width: 50%;
+    }
+
+    #sk-container-id-8 div.sk-parallel-item:last-child::after {
+      align-self: flex-start;
+      width: 50%;
+    }
+
+    #sk-container-id-8 div.sk-parallel-item:only-child::after {
+      width: 0;
+    }
+
+    /* Serial-specific style estimator block */
+
+    #sk-container-id-8 div.sk-serial {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--sklearn-color-background);
+      padding-right: 1em;
+      padding-left: 1em;
+    }
+
+
+    /* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+    clickable and can be expanded/collapsed.
+    - Pipeline and ColumnTransformer use this feature and define the default style
+    - Estimators will overwrite some part of the style using the `sk-estimator` class
+    */
+
+    /* Pipeline and ColumnTransformer style (default) */
+
+    #sk-container-id-8 div.sk-toggleable {
+      /* Default theme specific background. It is overwritten whether we have a
+      specific estimator or a Pipeline/ColumnTransformer */
+      background-color: var(--sklearn-color-background);
+    }
+
+    /* Toggleable label */
+    #sk-container-id-8 label.sk-toggleable__label {
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      margin-bottom: 0;
+      padding: 0.5em;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    #sk-container-id-8 label.sk-toggleable__label-arrow:before {
+      /* Arrow on the left of the label */
+      content: "▸";
+      float: left;
+      margin-right: 0.25em;
+      color: var(--sklearn-color-icon);
+    }
+
+    #sk-container-id-8 label.sk-toggleable__label-arrow:hover:before {
+      color: var(--sklearn-color-text);
+    }
+
+    /* Toggleable content - dropdown */
+
+    #sk-container-id-8 div.sk-toggleable__content {
+      max-height: 0;
+      max-width: 0;
+      overflow: hidden;
+      text-align: left;
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-8 div.sk-toggleable__content.fitted {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    #sk-container-id-8 div.sk-toggleable__content pre {
+      margin: 0.2em;
+      border-radius: 0.25em;
+      color: var(--sklearn-color-text);
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-8 div.sk-toggleable__content.fitted pre {
+      /* unfitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    #sk-container-id-8 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+      /* Expand drop-down */
+      max-height: 200px;
+      max-width: 100%;
+      overflow: auto;
+    }
+
+    #sk-container-id-8 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+      content: "▾";
+    }
+
+    /* Pipeline/ColumnTransformer-specific style */
+
+    #sk-container-id-8 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-8 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Estimator-specific style */
+
+    /* Colorize estimator box */
+    #sk-container-id-8 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-8 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    #sk-container-id-8 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-8 div.sk-label label {
+      /* The background is the default theme color */
+      color: var(--sklearn-color-text-on-default-background);
+    }
+
+    /* On hover, darken the color of the background */
+    #sk-container-id-8 div.sk-label:hover label.sk-toggleable__label {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    /* Label box, darken color on hover, fitted */
+    #sk-container-id-8 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+      color: var(--sklearn-color-text);
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Estimator label */
+
+    #sk-container-id-8 div.sk-label label {
+      font-family: monospace;
+      font-weight: bold;
+      display: inline-block;
+      line-height: 1.2em;
+    }
+
+    #sk-container-id-8 div.sk-label-container {
+      text-align: center;
+    }
+
+    /* Estimator-specific */
+    #sk-container-id-8 div.sk-estimator {
+      font-family: monospace;
+      border: 1px dotted var(--sklearn-color-border-box);
+      border-radius: 0.25em;
+      box-sizing: border-box;
+      margin-bottom: 0.5em;
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-0);
+    }
+
+    #sk-container-id-8 div.sk-estimator.fitted {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-0);
+    }
+
+    /* on hover */
+    #sk-container-id-8 div.sk-estimator:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-2);
+    }
+
+    #sk-container-id-8 div.sk-estimator.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-2);
+    }
+
+    /* Specification for estimator info (e.g. "i" and "?") */
+
+    /* Common style for "i" and "?" */
+
+    .sk-estimator-doc-link,
+    a:link.sk-estimator-doc-link,
+    a:visited.sk-estimator-doc-link {
+      float: right;
+      font-size: smaller;
+      line-height: 1em;
+      font-family: monospace;
+      background-color: var(--sklearn-color-background);
+      border-radius: 1em;
+      height: 1em;
+      width: 1em;
+      text-decoration: none !important;
+      margin-left: 1ex;
+      /* unfitted */
+      border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+      color: var(--sklearn-color-unfitted-level-1);
+    }
+
+    .sk-estimator-doc-link.fitted,
+    a:link.sk-estimator-doc-link.fitted,
+    a:visited.sk-estimator-doc-link.fitted {
+      /* fitted */
+      border: var(--sklearn-color-fitted-level-1) 1pt solid;
+      color: var(--sklearn-color-fitted-level-1);
+    }
+
+    /* On hover */
+    div.sk-estimator:hover .sk-estimator-doc-link:hover,
+    .sk-estimator-doc-link:hover,
+    div.sk-label-container:hover .sk-estimator-doc-link:hover,
+    .sk-estimator-doc-link:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+    .sk-estimator-doc-link.fitted:hover,
+    div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+    .sk-estimator-doc-link.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    /* Span, style for the box shown on hovering the info icon */
+    .sk-estimator-doc-link span {
+      display: none;
+      z-index: 9999;
+      position: relative;
+      font-weight: normal;
+      right: .2ex;
+      padding: .5ex;
+      margin: .5ex;
+      width: min-content;
+      min-width: 20ex;
+      max-width: 50ex;
+      color: var(--sklearn-color-text);
+      box-shadow: 2pt 2pt 4pt #999;
+      /* unfitted */
+      background: var(--sklearn-color-unfitted-level-0);
+      border: .5pt solid var(--sklearn-color-unfitted-level-3);
+    }
+
+    .sk-estimator-doc-link.fitted span {
+      /* fitted */
+      background: var(--sklearn-color-fitted-level-0);
+      border: var(--sklearn-color-fitted-level-3);
+    }
+
+    .sk-estimator-doc-link:hover span {
+      display: block;
+    }
+
+    /* "?"-specific style due to the `<a>` HTML tag */
+
+    #sk-container-id-8 a.estimator_doc_link {
+      float: right;
+      font-size: 1rem;
+      line-height: 1em;
+      font-family: monospace;
+      background-color: var(--sklearn-color-background);
+      border-radius: 1rem;
+      height: 1rem;
+      width: 1rem;
+      text-decoration: none;
+      /* unfitted */
+      color: var(--sklearn-color-unfitted-level-1);
+      border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+    }
+
+    #sk-container-id-8 a.estimator_doc_link.fitted {
+      /* fitted */
+      border: var(--sklearn-color-fitted-level-1) 1pt solid;
+      color: var(--sklearn-color-fitted-level-1);
+    }
+
+    /* On hover */
+    #sk-container-id-8 a.estimator_doc_link:hover {
+      /* unfitted */
+      background-color: var(--sklearn-color-unfitted-level-3);
+      color: var(--sklearn-color-background);
+      text-decoration: none;
+    }
+
+    #sk-container-id-8 a.estimator_doc_link.fitted:hover {
+      /* fitted */
+      background-color: var(--sklearn-color-fitted-level-3);
+    }
+    </style><div id="sk-container-id-8" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
                     (&#x27;delayer&#x27;, Delayer(delays=[1, 2, 3, 4])),
                     (&#x27;kernelridgecv&#x27;,
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 200,
-                                                  &#x27;n_targets_batch_refit&#x27;: 200}))])</pre><b>Please rerun this cell to show the HTML repr or trust the notebook.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="3529103a-6d48-4131-940b-f9dc6c138b1c" type="checkbox" ><label for="3529103a-6d48-4131-940b-f9dc6c138b1c" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
+                                                  &#x27;n_targets_batch_refit&#x27;: 200}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-40" type="checkbox" ><label for="sk-estimator-id-40" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;&nbsp;Pipeline<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
                     (&#x27;delayer&#x27;, Delayer(delays=[1, 2, 3, 4])),
                     (&#x27;kernelridgecv&#x27;,
                      KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+                                   cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
                                    solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                                   &#x27;n_targets_batch&#x27;: 200,
-                                                  &#x27;n_targets_batch_refit&#x27;: 200}))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="854719be-2d86-4794-8698-5d3e29c89801" type="checkbox" ><label for="854719be-2d86-4794-8698-5d3e29c89801" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler(with_std=False)</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="9eb165d7-3883-4ad0-82e7-02f43cb3e219" type="checkbox" ><label for="9eb165d7-3883-4ad0-82e7-02f43cb3e219" class="sk-toggleable__label sk-toggleable__label-arrow">Delayer</label><div class="sk-toggleable__content"><pre>Delayer(delays=[1, 2, 3, 4])</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="f6d01104-9e1b-49be-af0f-fd8cdb0e8c1f" type="checkbox" ><label for="f6d01104-9e1b-49be-af0f-fd8cdb0e8c1f" class="sk-toggleable__label sk-toggleable__label-arrow">KernelRidgeCV</label><div class="sk-toggleable__content"><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
+                                                  &#x27;n_targets_batch_refit&#x27;: 200}))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-41" type="checkbox" ><label for="sk-estimator-id-41" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-42" type="checkbox" ><label for="sk-estimator-id-42" class="sk-toggleable__label  sk-toggleable__label-arrow ">Delayer</label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-43" type="checkbox" ><label for="sk-estimator-id-43" class="sk-toggleable__label  sk-toggleable__label-arrow ">KernelRidgeCV</label><div class="sk-toggleable__content "><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
            1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
            1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+                  cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
                   solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 200,
-                                 &#x27;n_targets_batch_refit&#x27;: 200})</pre></div></div></div></div></div></div></div>
+                                 &#x27;n_targets_batch_refit&#x27;: 200})</pre></div> </div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
 .. GENERATED FROM PYTHON SOURCE LINES 301-310
 
-.. code-block:: default
+.. code-block:: Python
 
     pipeline_baseline.fit(X_train, Y_train[:, mask])
     scores_baseline_mask = pipeline_baseline.score(X_test, Y_test[:, mask])
@@ -916,12 +2533,12 @@ spaces.
 Here we plot the comparison of model prediction accuracies with a 2D
 histogram. All 70k voxels are represented in this histogram, where the
 diagonal corresponds to identical model prediction accuracy for both models.
-A distibution deviating from the diagonal means that one model has better
+A distribution deviating from the diagonal means that one model has better
 predictive performance than the other.
 
 .. GENERATED FROM PYTHON SOURCE LINES 316-324
 
-.. code-block:: default
+.. code-block:: Python
 
     import matplotlib.pyplot as plt
     from voxelwise_tutorials.viz import plot_hist2d
@@ -973,7 +2590,7 @@ scores. These scores are corrected so that their sum is equal to the
 
 .. GENERATED FROM PYTHON SOURCE LINES 349-365
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from himalaya.scoring import r2_score_split
@@ -1012,7 +2629,7 @@ We can then plot the split scores on a flatmap with a 2D colormap.
 
 .. GENERATED FROM PYTHON SOURCE LINES 367-377
 
-.. code-block:: default
+.. code-block:: Python
 
 
     from voxelwise_tutorials.viz import plot_2d_flatmap_from_mapper
@@ -1062,7 +2679,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  48.497 seconds)
+   **Total running time of the script:** (1 minutes 58.143 seconds)
 
 
 .. _sphx_glr_download__auto_examples_shortclips_06_plot_banded_ridge_model.py:
@@ -1071,16 +2688,13 @@ References
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: 06_plot_banded_ridge_model.ipynb <06_plot_banded_ridge_model.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 06_plot_banded_ridge_model.py <06_plot_banded_ridge_model.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: 06_plot_banded_ridge_model.ipynb <06_plot_banded_ridge_model.ipynb>`
 
 
 .. only:: html

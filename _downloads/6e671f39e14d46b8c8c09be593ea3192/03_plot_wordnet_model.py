@@ -18,7 +18,7 @@ manually annotated on each frame of the movie stimulus. The semantic labels
 include nouns (such as "woman", "car", or "building") and verbs (such as
 "talking", "touching", or "walking"), for a total of 1705 distinct category
 labels. To interpret our model, labels can be organized in a graph of semantic
-relashionship based on the `Wordnet <https://wordnet.princeton.edu/>`_ dataset.
+relationship based on the `Wordnet <https://wordnet.princeton.edu/>`_ dataset.
 
 *Summary:* We first concatenate the features with multiple temporal delays to
 account for the slow hemodynamic response. We then use linear regression to fit
@@ -46,7 +46,7 @@ subject = "S01"
 # -------------
 #
 # We first load the fMRI responses. These responses have been preprocessed as
-# decribed in [1]_. The data is separated into a training set ``Y_train`` and a
+# described in [1]_. The data is separated into a training set ``Y_train`` and a
 # testing set ``Y_test``. The training set is used for fitting models, and
 # selecting the best models and hyperparameters. The test set is later used
 # to estimate the generalization performance of the selected model. The
@@ -258,7 +258,7 @@ print("(n_voxels,) =", scores.shape)
 
 ###############################################################################
 # If we fit the model on GPU, scores are returned on GPU using an array object
-# specfic to the backend we used (such as a ``torch.Tensor``). Thus, we need to
+# specific to the backend we used (such as a ``torch.Tensor``). Thus, we need to
 # move them into ``numpy`` arrays on CPU, to be able to use them for example in
 # a ``matplotlib`` figure.
 scores = backend.to_numpy(scores)
@@ -338,7 +338,7 @@ print("(n_delays * n_features, n_voxels) =", primal_coef.shape)
 # address this issue, we rescale the regression coefficient to have a norm
 # equal to the square-root of the :math:`R^2` scores. We found empirically that
 # this rescaling best matches results obtained with a regularization shared
-# accross voxels. This rescaling also removes the need to select only best
+# across voxels. This rescaling also removes the need to select only best
 # performing voxels, because voxels with low prediction accuracies are rescaled
 # to have a low norm.
 primal_coef /= np.linalg.norm(primal_coef, axis=0)[None]
