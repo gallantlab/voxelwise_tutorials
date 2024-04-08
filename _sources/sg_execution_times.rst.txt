@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**12:58.385** total execution time for 12 files **from all galleries**:
+**00:00.000** total execution time for 12 files **from all galleries**:
 
 .. container::
 
@@ -32,31 +32,28 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr__auto_examples_vim2_02_plot_ridge_model.py` (``../tutorials/vim2/02_plot_ridge_model.py``)
-     - 07:12.384
-     - 0.0
-   * - :ref:`sphx_glr__auto_examples_shortclips_06_plot_banded_ridge_model.py` (``../tutorials/shortclips/06_plot_banded_ridge_model.py``)
-     - 01:58.143
-     - 0.0
-   * - :ref:`sphx_glr__auto_examples_shortclips_03_plot_wordnet_model.py` (``../tutorials/shortclips/03_plot_wordnet_model.py``)
-     - 01:16.347
-     - 0.0
-   * - :ref:`sphx_glr__auto_examples_shortclips_05_plot_motion_energy_model.py` (``../tutorials/shortclips/05_plot_motion_energy_model.py``)
-     - 00:58.974
-     - 0.0
-   * - :ref:`sphx_glr__auto_examples_shortclips_04_plot_hemodynamic_response.py` (``../tutorials/shortclips/04_plot_hemodynamic_response.py``)
-     - 00:57.648
-     - 0.0
-   * - :ref:`sphx_glr__auto_examples_shortclips_01_plot_explainable_variance.py` (``../tutorials/shortclips/01_plot_explainable_variance.py``)
-     - 00:28.850
-     - 0.0
-   * - :ref:`sphx_glr__auto_examples_shortclips_02_plot_ridge_regression.py` (``../tutorials/shortclips/02_plot_ridge_regression.py``)
-     - 00:06.038
-     - 0.0
    * - :ref:`sphx_glr__auto_examples_shortclips_00_download_shortclips.py` (``../tutorials/shortclips/00_download_shortclips.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr__auto_examples_shortclips_00_setup_colab.py` (``../tutorials/shortclips/00_setup_colab.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_01_plot_explainable_variance.py` (``../tutorials/shortclips/01_plot_explainable_variance.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_02_plot_ridge_regression.py` (``../tutorials/shortclips/02_plot_ridge_regression.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_03_plot_wordnet_model.py` (``../tutorials/shortclips/03_plot_wordnet_model.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_04_plot_hemodynamic_response.py` (``../tutorials/shortclips/04_plot_hemodynamic_response.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_05_plot_motion_energy_model.py` (``../tutorials/shortclips/05_plot_motion_energy_model.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_shortclips_06_plot_banded_ridge_model.py` (``../tutorials/shortclips/06_plot_banded_ridge_model.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr__auto_examples_shortclips_07_extract_motion_energy.py` (``../tutorials/shortclips/07_extract_motion_energy.py``)
@@ -66,5 +63,8 @@ Computation times
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr__auto_examples_vim2_01_extract_motion_energy.py` (``../tutorials/vim2/01_extract_motion_energy.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr__auto_examples_vim2_02_plot_ridge_model.py` (``../tutorials/vim2/02_plot_ridge_model.py``)
      - 00:00.000
      - 0.0

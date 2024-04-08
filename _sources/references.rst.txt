@@ -128,7 +128,7 @@ Packages
 
 [p1] Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024).
    The Voxelwise Modeling framework: a tutorial introduction to fitting encoding models to fMRI data.
-   *Under review*.
+   https://doi.org/10.31234/osf.io/t975e
 
 [p2] Dupré La Tour, T., Eickenberg, M., Nunez-Elizalde, A.O., & Gallant, J. L. (2022).
     Feature-space selection with banded ridge regression.
