@@ -1,5 +1,5 @@
 [codespell]
-skip = .git,*.pdf,*.svg,*.css,.codespellrc
+skip = .git,*.pdf,*.svg,*.css,.codespellrc,build,_build,_auto_examples
 check-hidden = true
 ignore-regex = ^\s*"image/\S+": ".*
 # ignore-words-list =

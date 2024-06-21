@@ -164,7 +164,7 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
     alpha : float
         Transparency of the nodes.
     ax : Axes or None
-        Matplotlib Axes where the grap will be plotted. If None, the current
+        Matplotlib Axes where the graph will be plotted. If None, the current
         figure is used.
     extra_edges : list of (str, str)
         Add extra edges between named nodes. See the function ``load_wordnet``
