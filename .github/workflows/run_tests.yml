@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9, "3.10"]
+        python-version: [3.7, 3.8, 3.9, "3.10", "3.11"]
       max-parallel: 5
 
     steps:
@@ -65,9 +65,13 @@ jobs:
         pip install -q pytest pytest-cov codecov
         pytest --cov=./
 
-    - name: Run codecov
-      run: |
-        codecov
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        env_vars: OS,PYTHON
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: false
 
     - name: Run some tutorials
       run: |
