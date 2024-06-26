@@ -47,14 +47,15 @@ RUN apt-get update -qq \
     # Clean up
     && sync && conda clean --all --yes && sync \
     && rm -rf ~/.cache/pip/*
-RUN pip install Pillow==9.5.0
-WORKDIR /voxelwise_tutorials
-RUN pip install voxelwise_tutorials
-RUN git clone --depth 1 https://github.com/gallantlab/voxelwise_tutorials.git
-RUN CUDA_VER=$(echo "${CUDA_VERSION}" | sed 's/.$//' | tr -d '.') && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu${CUDA_VER} 
+RUN chmod 777 /opt/miniconda-py311_24.4.0-0/share
 RUN test "$(getent passwd nonroot)" \
     || useradd --no-user-group --create-home --shell /bin/bash nonroot
 USER nonroot
+RUN pip install Pillow==9.5.0
+WORKDIR /home/nonroot/voxelwise_tutorials
+RUN pip install voxelwise_tutorials
+RUN git clone --depth 1 https://github.com/gallantlab/voxelwise_tutorials.git
+RUN CUDA_VER=$(echo "${CUDA_VERSION}" | sed 's/.$//' | tr -d '.') && pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu${CUDA_VER} 
 RUN git config --global user.email 'you@example.com'
 RUN git config --global user.name 'Your Name'
 

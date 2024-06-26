@@ -45,14 +45,15 @@ RUN apt-get update -qq \
     # Clean up
     && sync && conda clean --all --yes && sync \
     && rm -rf ~/.cache/pip/*
-RUN pip install Pillow==9.5.0
-WORKDIR /voxelwise_tutorials
-RUN pip install voxelwise_tutorials
-RUN git clone --depth 1 https://github.com/gallantlab/voxelwise_tutorials.git
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+RUN chmod 777 /opt/miniconda-py311_24.4.0-0/share
 RUN test "$(getent passwd nonroot)" \
     || useradd --no-user-group --create-home --shell /bin/bash nonroot
 USER nonroot
+RUN pip install Pillow==9.5.0
+WORKDIR /home/nonroot/voxelwise_tutorials
+RUN pip install voxelwise_tutorials
+RUN git clone --depth 1 https://github.com/gallantlab/voxelwise_tutorials.git
+RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 RUN git config --global user.email 'you@example.com'
 RUN git config --global user.name 'Your Name'
 
@@ -116,13 +117,25 @@ RUN printf '{ \
     { \
       "name": "run", \
       "kwds": { \
+        "command": "chmod 777 /opt/miniconda-py311_24.4.0-0/share" \
+      } \
+    }, \
+    { \
+      "name": "user", \
+      "kwds": { \
+        "user": "nonroot" \
+      } \
+    }, \
+    { \
+      "name": "run", \
+      "kwds": { \
         "command": "pip install Pillow==9.5.0" \
       } \
     }, \
     { \
       "name": "workdir", \
       "kwds": { \
-        "path": "/voxelwise_tutorials" \
+        "path": "/home/nonroot/voxelwise_tutorials" \
       } \
     }, \
     { \
@@ -141,12 +154,6 @@ RUN printf '{ \
       "name": "run", \
       "kwds": { \
         "command": "pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu" \
-      } \
-    }, \
-    { \
-      "name": "user", \
-      "kwds": { \
-        "user": "nonroot" \
       } \
     }, \
     { \
