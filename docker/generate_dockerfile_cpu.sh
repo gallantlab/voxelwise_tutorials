@@ -1,7 +1,7 @@
 #!/bin/bash 
 docker run --rm repronim/neurodocker:latest generate docker \
     --pkg-manager apt \
-    --base-image nvidia/cuda:12.1.0-base-ubuntu20.04 \
+    --base-image ubuntu:20.04 \
     --env "DEBIAN_FRONTEND=noninteractive" \
     --run "chmod 777 /tmp" \
     --install build-essential git ca-certificates netbase\
@@ -12,7 +12,8 @@ docker run --rm repronim/neurodocker:latest generate docker \
     --workdir /voxelwise_tutorials \
     --run "pip install voxelwise_tutorials" \
     --run "git clone --depth 1 https://github.com/gallantlab/voxelwise_tutorials.git" \
-    --run "pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121" \
+    --run "pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu" \
+    --user nonroot \
     --run "git config --global user.email 'you@example.com'" \
     --run "git config --global user.name 'Your Name'" \
-    > Dockerfile
+    > cpu.Dockerfile

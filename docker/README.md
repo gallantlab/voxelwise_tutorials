@@ -2,7 +2,7 @@
 
 To build the CPU version, run 
 ```
-docker build --tag voxelwise_tutorials --file cpu.Dockerfile . --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) 
+docker build --tag voxelwise_tutorials --file cpu.Dockerfile . 
 ```
 and run with 
 ```
@@ -11,7 +11,7 @@ docker run --rm -it  --name voxelwise_tutorials  --publish 8888:8888     voxelwi
 
 To build the GPU version, make sure to have Nvidia Driver and CUDA installed. Check the CUDA version and build with 
 ```
-docker build --build-arg CUDA_VERSION=[version here] --tag voxelwise_tutorials --file gpu.Dockerfile . --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) 
+docker build --build-arg CUDA_VERSION=[version here] --tag voxelwise_tutorials --file gpu.Dockerfile . 
 ```
 Run with
 ```
