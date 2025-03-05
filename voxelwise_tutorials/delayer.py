@@ -1,9 +1,9 @@
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.utils.validation import check_is_fitted, check_array
+from sklearn.utils.validation import check_array, check_is_fitted
 
 
-class Delayer(BaseEstimator, TransformerMixin):
+class Delayer(TransformerMixin, BaseEstimator):
     """Scikit-learn Transformer to add delays to features.
 
     This assumes that the samples are ordered in time.
