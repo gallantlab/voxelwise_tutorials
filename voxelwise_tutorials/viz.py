@@ -326,18 +326,24 @@ def plot_2d_flatmap_from_mapper(
     vmax = np.percentile(voxels_1, 99) if vmax is None else vmax
     vmin2 = np.percentile(voxels_2, 1) if vmin2 is None else vmin2
     vmax2 = np.percentile(voxels_2, 99) if vmax2 is None else vmax2
-    if isinstance(alpha, np.ndarray):
-        alpha = map_voxels_to_flatmap(alpha, mapper_file)
-        alpha[np.isnan(alpha)] = 0
+    if isinstance(alpha, float):
+        alpha = np.full_like(voxels_1, alpha)
 
     # map to the 2D colormap
     mapped_rgba, cmap_image = _map_to_2d_cmap(
-        voxels_1, voxels_2, vmin=vmin, vmax=vmax, vmin2=vmin2, vmax2=vmax2, cmap=cmap
+        voxels_1,
+        voxels_2,
+        vmin=vmin,
+        vmax=vmax,
+        vmin2=vmin2,
+        vmax2=vmax2,
+        cmap=cmap,
+        alpha=alpha,
     )
 
     # plot the data
     image = map_voxels_to_flatmap(mapped_rgba, mapper_file)
-    ax.imshow(image, aspect="equal", zorder=1, alpha=alpha)
+    ax.imshow(image, aspect="equal", zorder=1)
 
     if with_colorbar:
         try:
@@ -360,7 +366,7 @@ def plot_2d_flatmap_from_mapper(
     return ax
 
 
-def _map_to_2d_cmap(data1, data2, vmin, vmax, vmin2, vmax2, cmap):
+def _map_to_2d_cmap(data1, data2, vmin, vmax, vmin2, vmax2, cmap, alpha=None):
     """Helpers, mapping two data arrays to a 2D colormap.
 
     Parameters
@@ -379,6 +385,8 @@ def _map_to_2d_cmap(data1, data2, vmin, vmax, vmin2, vmax2, cmap):
         Maximum value of the colormap for data2.
     cmap : str
         Name of the 2D pycortex colormap.
+    alpha : float in [0, 1], or array of shape (n_voxels, )
+        Transparency of the flatmap.
 
     Returns
     -------
@@ -403,9 +411,15 @@ def _map_to_2d_cmap(data1, data2, vmin, vmax, vmin2, vmax2, cmap):
 
     mapped_rgba = cmap_image[dim2.ravel(), dim1.ravel()]
 
-    # Preserve nan values with alpha = 0
+    # Preserve nan values by setting them to alpha = 0
     nans = np.logical_or(np.isnan(data1), np.isnan(data2))
-    mapped_rgba[nans, 3] = 0
+    if alpha is None:
+        mapped_rgba[nans, 3] = 0
+    else:
+        if isinstance(alpha, float):
+            alpha = np.full_like(data1, alpha)
+        alpha[nans] = 0
+        mapped_rgba[:, 3] = alpha
 
     return mapped_rgba, cmap_image
 
