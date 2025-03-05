@@ -1,9 +1,9 @@
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.utils.validation import check_is_fitted, check_array
+from sklearn.utils.validation import check_is_fitted, validate_data
 
 
-class Delayer(BaseEstimator, TransformerMixin):
+class Delayer(TransformerMixin, BaseEstimator):
     """Scikit-learn Transformer to add delays to features.
 
     This assumes that the samples are ordered in time.
@@ -50,7 +50,7 @@ class Delayer(BaseEstimator, TransformerMixin):
         -------
         self : returns an instance of self.
         """
-        X = self._validate_data(X, dtype='numeric')
+        X = validate_data(self, X, dtype='numeric')
         self.n_features_in_ = X.shape[1]
         return self
 
@@ -68,12 +68,9 @@ class Delayer(BaseEstimator, TransformerMixin):
             Transformed data.
         """
         check_is_fitted(self)
-        X = check_array(X, copy=True)
+        X = validate_data(self, X, reset=False, copy=True)
 
         n_samples, n_features = X.shape
-        if n_features != self.n_features_in_:
-            raise ValueError(
-                'Different number of features in X than during fit.')
 
         if self.delays is None:
             return X
