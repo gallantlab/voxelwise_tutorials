@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.utils.validation import check_array, check_is_fitted
+from sklearn.utils.validation import check_is_fitted, validate_data
 
 
 class Delayer(TransformerMixin, BaseEstimator):
@@ -50,7 +50,7 @@ class Delayer(TransformerMixin, BaseEstimator):
         -------
         self : returns an instance of self.
         """
-        X = self._validate_data(X, dtype='numeric')
+        X = validate_data(self, X, dtype='numeric')
         self.n_features_in_ = X.shape[1]
         return self
 
@@ -68,12 +68,9 @@ class Delayer(TransformerMixin, BaseEstimator):
             Transformed data.
         """
         check_is_fitted(self)
-        X = check_array(X, copy=True)
+        X = validate_data(self, X, reset=False, copy=True)
 
         n_samples, n_features = X.shape
-        if n_features != self.n_features_in_:
-            raise ValueError(
-                'Different number of features in X than during fit.')
 
         if self.delays is None:
             return X
