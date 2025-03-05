@@ -1,19 +1,26 @@
 import os
 
-import h5py
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.colors import LogNorm
-from matplotlib.colors import Normalize
-
 import cortex
+import h5py
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.colors import LogNorm, Normalize
 
-from .io import load_hdf5_array
-from .io import load_hdf5_sparse_array
+from .io import load_hdf5_array, load_hdf5_sparse_array
 
 
-def plot_hist2d(scores_1, scores_2, bins=100, cmin=1, vmin=None, vmax=None,
-                ax=None, norm=LogNorm(), colorbar=True, **kwargs):
+def plot_hist2d(
+    scores_1,
+    scores_2,
+    bins=100,
+    cmin=1,
+    vmin=None,
+    vmax=None,
+    ax=None,
+    norm=LogNorm(),
+    colorbar=True,
+    **kwargs,
+):
     """Plot a 2D histogram to compare voxelwise models performances.
 
     This is mostly based on matplotlib.pyplot.hist2d, but with more relevant
@@ -54,26 +61,33 @@ def plot_hist2d(scores_1, scores_2, bins=100, cmin=1, vmin=None, vmax=None,
     bins = np.linspace(vmin, vmax, bins) if isinstance(bins, int) else bins
     ax = plt.gca() if ax is None else ax
 
-    h = ax.hist2d(scores_1, scores_2, bins=bins, cmin=cmin, norm=norm,
-                  **kwargs)
+    h = ax.hist2d(scores_1, scores_2, bins=bins, cmin=cmin, norm=norm, **kwargs)
     if colorbar:
         cbar = ax.figure.colorbar(h[3], ax=ax)
-        cbar.ax.set_ylabel('number of voxels')
+        cbar.ax.set_ylabel("number of voxels")
 
-    ax.plot([vmin, vmax], [vmin, vmax], color='k', linewidth=0.5)
+    ax.plot([vmin, vmax], [vmin, vmax], color="k", linewidth=0.5)
     ax.set_xlim(vmin, vmax)
     ax.set_ylim(vmin, vmax)
     ax.grid()
     return ax
 
 
-def plot_flatmap_from_mapper(voxels, mapper_file, ax=None, alpha=0.7,
-                             cmap='inferno', vmin=None, vmax=None,
-                             with_curvature=True, with_rois=True,
-                             with_colorbar=True,
-                             colorbar_location=(.4, .9, .2, .05)):
+def plot_flatmap_from_mapper(
+    voxels,
+    mapper_file,
+    ax=None,
+    alpha=0.7,
+    cmap="inferno",
+    vmin=None,
+    vmax=None,
+    with_curvature=True,
+    with_rois=True,
+    with_colorbar=True,
+    colorbar_location=(0.4, 0.9, 0.2, 0.05),
+):
     """Plot a flatmap from a mapper file, with 1D data.
-    
+
     This function is equivalent to the pycortex functions:
     cortex.quickshow(cortex.Volume(voxels, ...), ...)
 
@@ -115,34 +129,40 @@ def plot_flatmap_from_mapper(voxels, mapper_file, ax=None, alpha=0.7,
     """
     # create a figure
     if ax is None:
-        flatmap_mask = load_hdf5_array(mapper_file, key='flatmap_mask')
-        figsize = np.array(flatmap_mask.shape) / 100.
+        flatmap_mask = load_hdf5_array(mapper_file, key="flatmap_mask")
+        figsize = np.array(flatmap_mask.shape) / 100.0
         fig = plt.figure(figsize=figsize)
         ax = fig.add_axes((0, 0, 1, 1))
-        ax.axis('off')
+        ax.axis("off")
 
     # process plotting parameters
     vmin = np.percentile(voxels, 1) if vmin is None else vmin
     vmax = np.percentile(voxels, 99) if vmax is None else vmax
     if isinstance(alpha, np.ndarray):
         alpha = map_voxels_to_flatmap(alpha, mapper_file)
+        alpha[np.isnan(alpha)] = 0
 
     # plot the data
     image = map_voxels_to_flatmap(voxels, mapper_file)
-    cimg = ax.imshow(image, aspect='equal', zorder=1, alpha=alpha, cmap=cmap,
-                     vmin=vmin, vmax=vmax)
+    cimg = ax.imshow(
+        image, aspect="equal", zorder=1, alpha=alpha, cmap=cmap, vmin=vmin, vmax=vmax
+    )
 
     if with_colorbar:
         try:
             cbar = ax.inset_axes(colorbar_location)
         except AttributeError:  # for matplotlib < 3.0
             cbar = ax.figure.add_axes(colorbar_location)
-        ax.figure.colorbar(cimg, cax=cbar, orientation='horizontal')
+        ax.figure.colorbar(cimg, cax=cbar, orientation="horizontal")
 
     # plot additional layers if present
-    _plot_addition_layers(ax=ax, n_voxels=voxels.shape[0],
-                          mapper_file=mapper_file,
-                          with_curvature=with_curvature, with_rois=with_rois)
+    _plot_addition_layers(
+        ax=ax,
+        n_voxels=voxels.shape[0],
+        mapper_file=mapper_file,
+        with_curvature=with_curvature,
+        with_rois=with_rois,
+    )
 
     return ax
 
@@ -165,8 +185,8 @@ def map_voxels_to_flatmap(voxels, mapper_file):
     image : array of shape (height, width) or (height, width, n_channels)
         Flatmap image.
     """
-    voxel_to_flatmap = load_hdf5_sparse_array(mapper_file, 'voxel_to_flatmap')
-    flatmap_mask = load_hdf5_array(mapper_file, 'flatmap_mask')
+    voxel_to_flatmap = load_hdf5_sparse_array(mapper_file, "voxel_to_flatmap")
+    flatmap_mask = load_hdf5_array(mapper_file, "flatmap_mask")
 
     ndim = voxels.ndim
     if ndim == 1:
@@ -177,8 +197,10 @@ def map_voxels_to_flatmap(voxels, mapper_file):
     n_voxels_0, n_channels = voxels.shape
     n_pixels_used, n_voxels_1 = voxel_to_flatmap.shape
     if n_voxels_0 != n_voxels_1:
-        raise ValueError(f"Dimension mismatch, {n_voxels_0} voxels given "
-                         f"while the mapper expects {n_voxels_1} voxels.")
+        raise ValueError(
+            f"Dimension mismatch, {n_voxels_0} voxels given "
+            f"while the mapper expects {n_voxels_1} voxels."
+        )
 
     # create image with nans, and array with used pixels
     img = np.full(shape=(width, height, n_channels), fill_value=np.nan)
@@ -198,31 +220,44 @@ def map_voxels_to_flatmap(voxels, mapper_file):
     return np.swapaxes(img, 0, 1)[::-1]
 
 
-def _plot_addition_layers(ax, n_voxels, mapper_file, with_curvature,
-                          with_rois):
+def _plot_addition_layers(ax, n_voxels, mapper_file, with_curvature, with_rois):
     """Helper function to plot additional layers if present."""
-    with h5py.File(mapper_file, mode='r') as hf:
+    with h5py.File(mapper_file, mode="r") as hf:
         if with_curvature and "flatmap_curvature" in hf.keys():
-            curvature = load_hdf5_array(mapper_file, key='flatmap_curvature')
+            curvature = load_hdf5_array(mapper_file, key="flatmap_curvature")
             background = np.swapaxes(curvature, 0, 1)[::-1]
         else:
             background = map_voxels_to_flatmap(np.ones(n_voxels), mapper_file)
-        ax.imshow(background, aspect='equal', cmap='gray', vmin=0, vmax=1,
-                  zorder=0)
+        ax.imshow(background, aspect="equal", cmap="gray", vmin=0, vmax=1, zorder=0)
 
         if with_rois and "flatmap_rois" in hf.keys():
-            rois = load_hdf5_array(mapper_file, key='flatmap_rois')
+            rois = load_hdf5_array(mapper_file, key="flatmap_rois")
             ax.imshow(
-                np.swapaxes(rois, 0, 1)[::-1], aspect='equal',
-                interpolation='bicubic', zorder=2)
+                np.swapaxes(rois, 0, 1)[::-1],
+                aspect="equal",
+                interpolation="bicubic",
+                zorder=2,
+            )
 
 
-def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
-                                alpha=0.7, cmap='BuOr_2D', vmin=None,
-                                vmax=None, vmin2=None, vmax2=None,
-                                with_curvature=True, with_rois=True,
-                                with_colorbar=True, label_1='', label_2='',
-                                colorbar_location=(.45, .85, .1, .1)):
+def plot_2d_flatmap_from_mapper(
+    voxels_1,
+    voxels_2,
+    mapper_file,
+    ax=None,
+    alpha=0.7,
+    cmap="BuOr_2D",
+    vmin=None,
+    vmax=None,
+    vmin2=None,
+    vmax2=None,
+    with_curvature=True,
+    with_rois=True,
+    with_colorbar=True,
+    label_1="",
+    label_2="",
+    colorbar_location=(0.45, 0.85, 0.1, 0.1),
+):
     """Plot a flatmap from a mapper file, with 2D data.
 
     This function is equivalent to the pycortex functions:
@@ -280,11 +315,11 @@ def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
     """
     # create a figure
     if ax is None:
-        flatmap_mask = load_hdf5_array(mapper_file, key='flatmap_mask')
-        figsize = np.array(flatmap_mask.shape) / 100.
+        flatmap_mask = load_hdf5_array(mapper_file, key="flatmap_mask")
+        figsize = np.array(flatmap_mask.shape) / 100.0
         fig = plt.figure(figsize=figsize)
         ax = fig.add_axes((0, 0, 1, 1))
-        ax.axis('off')
+        ax.axis("off")
 
     # process plotting parameters
     vmin = np.percentile(voxels_1, 1) if vmin is None else vmin
@@ -293,30 +328,34 @@ def plot_2d_flatmap_from_mapper(voxels_1, voxels_2, mapper_file, ax=None,
     vmax2 = np.percentile(voxels_2, 99) if vmax2 is None else vmax2
     if isinstance(alpha, np.ndarray):
         alpha = map_voxels_to_flatmap(alpha, mapper_file)
+        alpha[np.isnan(alpha)] = 0
 
     # map to the 2D colormap
-    mapped_rgba, cmap_image = _map_to_2d_cmap(voxels_1, voxels_2, vmin=vmin,
-                                              vmax=vmax, vmin2=vmin2,
-                                              vmax2=vmax2, cmap=cmap)
+    mapped_rgba, cmap_image = _map_to_2d_cmap(
+        voxels_1, voxels_2, vmin=vmin, vmax=vmax, vmin2=vmin2, vmax2=vmax2, cmap=cmap
+    )
 
     # plot the data
     image = map_voxels_to_flatmap(mapped_rgba, mapper_file)
-    ax.imshow(image, aspect='equal', zorder=1, alpha=alpha)
+    ax.imshow(image, aspect="equal", zorder=1, alpha=alpha)
 
     if with_colorbar:
         try:
             cbar = ax.inset_axes(colorbar_location)
         except AttributeError:  # for matplotlib < 3.0
             cbar = ax.figure.add_axes(colorbar_location)
-        cbar.imshow(cmap_image, aspect='equal',
-                    extent=(vmin, vmax, vmin2, vmax2))
+        cbar.imshow(cmap_image, aspect="equal", extent=(vmin, vmax, vmin2, vmax2))
         cbar.set(xlabel=label_1, ylabel=label_2)
         cbar.set(xticks=[vmin, vmax], yticks=[vmin2, vmax2])
 
     # plot additional layers if present
-    _plot_addition_layers(ax=ax, n_voxels=voxels_1.shape[0],
-                          mapper_file=mapper_file,
-                          with_curvature=with_curvature, with_rois=with_rois)
+    _plot_addition_layers(
+        ax=ax,
+        n_voxels=voxels_1.shape[0],
+        mapper_file=mapper_file,
+        with_curvature=with_curvature,
+        with_rois=with_rois,
+    )
 
     return ax
 
@@ -371,10 +410,22 @@ def _map_to_2d_cmap(data1, data2, vmin, vmax, vmin2, vmax2, cmap):
     return mapped_rgba, cmap_image
 
 
-def plot_3d_flatmap_from_mapper(voxels_1, voxels_2, voxels_3, mapper_file,
-                                ax=None, alpha=0.7, vmin=None, vmax=None,
-                                vmin2=None, vmax2=None, vmin3=None, vmax3=None,
-                                with_curvature=True, with_rois=True):
+def plot_3d_flatmap_from_mapper(
+    voxels_1,
+    voxels_2,
+    voxels_3,
+    mapper_file,
+    ax=None,
+    alpha=0.7,
+    vmin=None,
+    vmax=None,
+    vmin2=None,
+    vmax2=None,
+    vmin3=None,
+    vmax3=None,
+    with_curvature=True,
+    with_rois=True,
+):
     """Plot a flatmap from a mapper file, with 3D data.
 
     This function is equivalent to the pycortex functions:
@@ -431,11 +482,11 @@ def plot_3d_flatmap_from_mapper(voxels_1, voxels_2, voxels_3, mapper_file,
     """
     # create a figure
     if ax is None:
-        flatmap_mask = load_hdf5_array(mapper_file, key='flatmap_mask')
-        figsize = np.array(flatmap_mask.shape) / 100.
+        flatmap_mask = load_hdf5_array(mapper_file, key="flatmap_mask")
+        figsize = np.array(flatmap_mask.shape) / 100.0
         fig = plt.figure(figsize=figsize)
         ax = fig.add_axes((0, 0, 1, 1))
-        ax.axis('off')
+        ax.axis("off")
 
     # process plotting parameters
     vmin = np.percentile(voxels_1, 1) if vmin is None else vmin
@@ -444,26 +495,33 @@ def plot_3d_flatmap_from_mapper(voxels_1, voxels_2, voxels_3, mapper_file,
     vmax2 = np.percentile(voxels_2, 99) if vmax2 is None else vmax2
     vmin3 = np.percentile(voxels_3, 1) if vmin3 is None else vmin3
     vmax3 = np.percentile(voxels_3, 99) if vmax3 is None else vmax3
-    if isinstance(alpha, np.ndarray):
-        alpha = map_voxels_to_flatmap(alpha, mapper_file)
+
+    if isinstance(alpha, float):
+        alpha = np.full_like(voxels_1, alpha)
+
+    # Preserve nan values by setting voxels with nans to have an alpha of 0
+    nans = np.isnan(voxels_1) + np.isnan(voxels_2) + np.isnan(voxels_3)
+    alpha[nans != 0] = 0
 
     # Normalize the data
     voxels_1 = np.clip(Normalize(vmin, vmax)(voxels_1), 0, 1)
     voxels_2 = np.clip(Normalize(vmin2, vmax2)(voxels_2), 0, 1)
     voxels_3 = np.clip(Normalize(vmin3, vmax3)(voxels_3), 0, 1)
 
-    # Preserve nan values with alpha = 0
-    nans = np.isnan(voxels_1) + np.isnan(voxels_2) + np.isnan(voxels_3)
-    alpha_ = nans == 0
-    mapped_rgba = np.stack([voxels_1, voxels_2, voxels_3, alpha_]).T
+    # Create RGBA image
+    mapped_rgba = np.stack([voxels_1, voxels_2, voxels_3, alpha]).T
 
     # plot the data
     image = map_voxels_to_flatmap(mapped_rgba, mapper_file)
-    ax.imshow(image, aspect='equal', zorder=1, alpha=alpha)
+    ax.imshow(image, aspect="equal", zorder=1)
 
     # plot additional layers if present
-    _plot_addition_layers(ax=ax, n_voxels=voxels_1.shape[0],
-                          mapper_file=mapper_file,
-                          with_curvature=with_curvature, with_rois=with_rois)
+    _plot_addition_layers(
+        ax=ax,
+        n_voxels=voxels_1.shape[0],
+        mapper_file=mapper_file,
+        with_curvature=with_curvature,
+        with_rois=with_rois,
+    )
 
     return ax

@@ -144,7 +144,7 @@ DEFAULT_HIGHLIGHTED_NODES = [
 
 def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
                        alpha=1.0, ax=None, extra_edges=None,
-                       highlighted_nodes="default", directory=None):
+                       highlighted_nodes="default", directory=None, font_size=12):
     """Plot a wordnet graph, as in [Huth et al 2012].
 
     Note: Only plot categories that are in the wordnet graph loaded in the
@@ -176,6 +176,8 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
     directory : str or None
         Directory where the dataset has been downloaded. If None, use
         "shortclips" in ``voxelwise_tutorials.io.get_data_home()``.
+    font_size : int
+        Font size for the labels of the highlighted nodes.
 
     Returns
     -------
@@ -337,7 +339,8 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
     labels = dict([(name, name.split('.')[0]) for name in highlighted_nodes])
     pos = dict([(n, (x, y - 60)) for (n, (x, y)) in node_positions.items()])
     networkx.draw_networkx_labels(wordnet_graph, font_color='white',
-                                  labels=labels, font_weight="bold", pos=pos)
+                                  labels=labels, font_weight="bold", pos=pos,
+                                  font_size=font_size)
 
     return ax
 
