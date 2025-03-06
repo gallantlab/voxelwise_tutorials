@@ -1,4 +1,4 @@
-name: Run tutorials
+name: Tutorials
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  run-tests:
+  run-tutorials:
     runs-on: ubuntu-latest
     strategy:
       matrix:
