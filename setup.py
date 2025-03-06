@@ -19,7 +19,7 @@ requirements = [
     "numpy",
     "scipy",
     "h5py",
-    "scikit-learn>=0.23",
+    "scikit-learn>=1.6",
     "matplotlib",
     "networkx",
     "pydot",
