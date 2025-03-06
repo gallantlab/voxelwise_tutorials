@@ -1,4 +1,4 @@
-name: Run tests
+name: Run tutorials
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
       matrix:
         python-version: [3.9, "3.10", "3.11", "3.12", "3.13"]
       max-parallel: 5
-      fail-fast: false
+      fail-fast: true
 
     steps:
     - uses: actions/checkout@v4
@@ -60,16 +60,13 @@ jobs:
         git config --global user.email "github-actions@example.com"
         git config --global user.name "Github Actions"
 
-    - name: Test with pytest
+    - name: Run some tutorials
       run: |
-        # run the tests
-        pip install -q pytest pytest-cov codecov
-        pytest --cov=./
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v5
-      with:
-        env_vars: OS,PYTHON
-        fail_ci_if_error: true
-        token: ${{ secrets.CODECOV_TOKEN }}
-        verbose: false
+        # run tutorials with a shortcut option to skip model fitting
+        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/00_download_shortclips.py
+        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/01_plot_explainable_variance.py
+        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/02_plot_ridge_regression.py
+        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/03_plot_wordnet_model.py
+        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/04_plot_hemodynamic_response.py
+        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/05_plot_motion_energy_model.py
+        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/06_plot_banded_ridge_model.py
