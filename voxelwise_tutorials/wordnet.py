@@ -1,5 +1,5 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.collections import LineCollection
 
 cache = dict()
@@ -28,19 +28,20 @@ def load_wordnet(directory=None, recache=False):
     object and action categories across the human brain. Neuron, 76(6),
     1210-1224.
     """
-    if ("wordnet_graph" in cache and "wordnet_categories" in cache
-            and not recache):  # noqa
+    if "wordnet_graph" in cache and "wordnet_categories" in cache and not recache:  # noqa
         return cache["wordnet_graph"], cache["wordnet_categories"]
 
     import os
+
     import networkx
 
     if directory is None:
         from voxelwise_tutorials.io import get_data_home
+
         directory = get_data_home("shortclips")
 
-    dot_file = os.path.join(directory, 'utils', 'wordnet_graph.dot')
-    txt_file = os.path.join(directory, 'utils', 'wordnet_categories.txt')
+    dot_file = os.path.join(directory, "utils", "wordnet_graph.dot")
+    txt_file = os.path.join(directory, "utils", "wordnet_categories.txt")
 
     wordnet_graph = networkx.drawing.nx_pydot.read_dot(dot_file)
     with open(txt_file) as fff:
@@ -82,9 +83,11 @@ def correct_coefficients(primal_coef, feature_names, norm_by_depth=True):
     1210-1224.
     """
     import itertools
+
     import nltk
-    nltk.download('wordnet', quiet=True)
-    nltk.download('omw-1.4', quiet=True)
+
+    nltk.download("wordnet", quiet=True)
+    nltk.download("omw-1.4", quiet=True)
     from nltk.corpus import wordnet
 
     def _get_hypernyms(name):
@@ -101,7 +104,6 @@ def correct_coefficients(primal_coef, feature_names, norm_by_depth=True):
     for ii, name in enumerate(feature_names):
         for hypernym in _get_hypernyms(name):
             if hypernym.name() in feature_names:
-
                 idx = feature_names.index(hypernym.name())
                 update = primal_coef[idx]
 
@@ -119,32 +121,105 @@ def correct_coefficients(primal_coef, feature_names, norm_by_depth=True):
 
 
 DEFAULT_HIGHLIGHTED_NODES = [
-    "move.v.03", "turn.v.01", "jump.v.01", "change.v.02", "lean.v.01",
-    "bloom.v.01", "travel.v.01", "gallop.v.01", "walk.v.01", "rappel.v.01",
-    "touch.v.01", "hit.v.03", "move.v.02", "drag.v.01", "consume.v.02",
-    "fasten.v.01", "breathe.v.01", "organism.n.01", "animal.n.01",
-    "plant.n.02", "person.n.01", "athlete.n.01", "arthropod.n.01", "fish.n.01",
-    "reptile.n.01", "bird.n.01", "placental.n.01", "rodent.n.01",
-    "ungulate.n.01", "carnivore.n.01", "plant_organ.n.01",
-    "geological_formation.n.01", "hill.n.01", "location.n.01", "city.n.01",
-    "grassland.n.01", "body_part.n.01", "leg.n.01", "eye.n.01", "matter.n.03",
-    "food.n.01", "sky.n.01", "water.n.01", "material.n.01", "bamboo.n.01",
-    "atmospheric_phenomenon.n.01", "mist.n.01", "artifact.n.01", "way.n.06",
-    "road.n.01", "clothing.n.01", "structure.n.01", "building.n.01",
-    "room.n.01", "shop.n.01", "door.n.01", "implement.n.01", "kettle.n.01",
-    "equipment.n.01", "ball.n.01", "vehicle.n.01", "boat.n.01",
-    "wheeled_vehicle.n.01", "car.n.01", "furniture.n.01", "device.n.01",
-    "weapon.n.01", "gas_pump.n.01", "container.n.01", "bottle.n.01",
-    "laptop.n.01", "group.n.01", "herd.n.01", "measure.n.02",
-    "communication.n.02", "text.n.01", "attribute.n.02", "dirt.n.02",
-    "event.n.01", "rodeo.n.01", "wave.n.01", "communicate.v.02", "talk.v.02",
-    "rub.v.03"
+    "move.v.03",
+    "turn.v.01",
+    "jump.v.01",
+    "change.v.02",
+    "lean.v.01",
+    "bloom.v.01",
+    "travel.v.01",
+    "gallop.v.01",
+    "walk.v.01",
+    "rappel.v.01",
+    "touch.v.01",
+    "hit.v.03",
+    "move.v.02",
+    "drag.v.01",
+    "consume.v.02",
+    "fasten.v.01",
+    "breathe.v.01",
+    "organism.n.01",
+    "animal.n.01",
+    "plant.n.02",
+    "person.n.01",
+    "athlete.n.01",
+    "arthropod.n.01",
+    "fish.n.01",
+    "reptile.n.01",
+    "bird.n.01",
+    "placental.n.01",
+    "rodent.n.01",
+    "ungulate.n.01",
+    "carnivore.n.01",
+    "plant_organ.n.01",
+    "geological_formation.n.01",
+    "hill.n.01",
+    "location.n.01",
+    "city.n.01",
+    "grassland.n.01",
+    "body_part.n.01",
+    "leg.n.01",
+    "eye.n.01",
+    "matter.n.03",
+    "food.n.01",
+    "sky.n.01",
+    "water.n.01",
+    "material.n.01",
+    "bamboo.n.01",
+    "atmospheric_phenomenon.n.01",
+    "mist.n.01",
+    "artifact.n.01",
+    "way.n.06",
+    "road.n.01",
+    "clothing.n.01",
+    "structure.n.01",
+    "building.n.01",
+    "room.n.01",
+    "shop.n.01",
+    "door.n.01",
+    "implement.n.01",
+    "kettle.n.01",
+    "equipment.n.01",
+    "ball.n.01",
+    "vehicle.n.01",
+    "boat.n.01",
+    "wheeled_vehicle.n.01",
+    "car.n.01",
+    "furniture.n.01",
+    "device.n.01",
+    "weapon.n.01",
+    "gas_pump.n.01",
+    "container.n.01",
+    "bottle.n.01",
+    "laptop.n.01",
+    "group.n.01",
+    "herd.n.01",
+    "measure.n.02",
+    "communication.n.02",
+    "text.n.01",
+    "attribute.n.02",
+    "dirt.n.02",
+    "event.n.01",
+    "rodeo.n.01",
+    "wave.n.01",
+    "communicate.v.02",
+    "talk.v.02",
+    "rub.v.03",
 ]
 
 
-def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
-                       alpha=1.0, ax=None, extra_edges=None,
-                       highlighted_nodes="default", directory=None, font_size=12):
+def plot_wordnet_graph(
+    node_colors,
+    node_sizes,
+    zorder=None,
+    node_scale=200,
+    alpha=1.0,
+    ax=None,
+    extra_edges=None,
+    highlighted_nodes="default",
+    directory=None,
+    font_size=12,
+):
     """Plot a wordnet graph, as in [Huth et al 2012].
 
     Note: Only plot categories that are in the wordnet graph loaded in the
@@ -188,7 +263,7 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
     --------
     >>> import numpy as np
     >>> import matplotlib.pyplot as plt
-    >>> from voxelwise_tutorials.wordnet import plot_wordnet_graph, apply_cmap
+    >>> from voxelwise_tutorials.wordnet import plot_wordnet_graph
     >>> node_colors = np.random.rand(1705, 3)
     >>> node_sizes = np.random.rand(1705) + 0.5
     >>> plot_wordnet_graph(node_colors=node_colors, node_sizes=node_sizes)
@@ -218,15 +293,13 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
     ################
     # remove features not in the nodes (1705 -> 1583)
     node_names = list(wordnet_graph.nodes().keys())
-    indices = [
-        ii for ii, name in enumerate(wordnet_categories) if name in node_names
-    ]
+    indices = [ii for ii, name in enumerate(wordnet_categories) if name in node_names]
     order = [
-        list(np.array(wordnet_categories)[indices]).index(name)
-        for name in node_names
+        list(np.array(wordnet_categories)[indices]).index(name) for name in node_names
     ]
-    np.testing.assert_array_equal(node_names,
-                                  np.array(wordnet_categories)[indices][order])
+    np.testing.assert_array_equal(
+        node_names, np.array(wordnet_categories)[indices][order]
+    )
     node_colors = node_colors[indices][order]
     node_sizes = node_sizes[indices][order]
     if zorder is not None:
@@ -238,13 +311,16 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
     # Various checks
     if node_colors.min() < 0:
         raise ValueError(
-            'Negative value in node_colors, all values should be in [0, 1].')
+            "Negative value in node_colors, all values should be in [0, 1]."
+        )
     if node_colors.max() > 1:
         raise ValueError(
-            'Negative value in node_colors, all values should be in [0, 1].')
+            "Negative value in node_colors, all values should be in [0, 1]."
+        )
     if node_sizes.min() < 0:
         raise ValueError(
-            'Negative value in node_sizes, all values should be non-negative.')
+            "Negative value in node_sizes, all values should be non-negative."
+        )
     node_sizes /= node_sizes.max()
 
     ################
@@ -260,9 +336,12 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
 
     ################
     # create node positions and size dictionaries
-    node_positions = dict([(key.strip('"'),
-                            list(map(float, val['pos'].strip('"').split(","))))
-                           for key, val in wordnet_graph.nodes().items()])
+    node_positions = dict(
+        [
+            (key.strip('"'), list(map(float, val["pos"].strip('"').split(","))))
+            for key, val in wordnet_graph.nodes().items()
+        ]
+    )
     node_sizes = node_sizes * node_scale
     node_sizes_dict = dict(zip(node_names, node_sizes))
 
@@ -270,27 +349,34 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
     # plot edges using LineCollection
     edges = wordnet_graph.edges()
     linestyles = [
-        ':' if np.isnan([node_sizes_dict[e[0]], node_sizes_dict[e[1]]]).any()
-        else '-' for e in edges
+        ":" if np.isnan([node_sizes_dict[e[0]], node_sizes_dict[e[1]]]).any() else "-"
+        for e in edges
     ]
-    edge_positions = np.asarray([(node_positions[e[0]], node_positions[e[1]])
-                                 for e in edges])
-    edge_collection = LineCollection(edge_positions,
-                                     colors=(0.7, 0.7, 0.7, 1.0),
-                                     linewidths=0.7, antialiaseds=(1, ),
-                                     linestyles=linestyles,
-                                     transOffset=ax.transData)
+    edge_positions = np.asarray(
+        [(node_positions[e[0]], node_positions[e[1]]) for e in edges]
+    )
+    edge_collection = LineCollection(
+        edge_positions,
+        colors=(0.7, 0.7, 0.7, 1.0),
+        linewidths=0.7,
+        antialiaseds=(1,),
+        linestyles=linestyles,
+    )
     edge_collection.set_zorder(1)  # edges go behind nodes
     ax.add_collection(edge_collection)
 
     if extra_edges:
         # include these edges that aren't part of the layout
-        extra_edge_positions = np.asarray([
-            (node_positions[e[0]], node_positions[e[1]]) for e in extra_edges
-        ])
+        extra_edge_positions = np.asarray(
+            [(node_positions[e[0]], node_positions[e[1]]) for e in extra_edges]
+        )
         extra_edge_collection = LineCollection(
-            extra_edge_positions, colors=(0.7, 0.7, 0.7, 1.0), linewidths=0.5,
-            antialiaseds=(1, ), linestyle='-', transOffset=ax.transData)
+            extra_edge_positions,
+            colors=(0.7, 0.7, 0.7, 1.0),
+            linewidths=0.5,
+            antialiaseds=(1,),
+            linestyle="-",
+        )
 
         extra_edge_collection.set_zorder(1)
         ax.add_collection(extra_edge_collection)
@@ -298,9 +384,7 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
     ################
     # plot nodes with scatter
     xy = np.asarray([node_positions[v] for v in node_names])
-    highlighted_node_indices = [
-        node_names.index(hn) for hn in highlighted_nodes
-    ]
+    highlighted_node_indices = [node_names.index(hn) for hn in highlighted_nodes]
 
     kind_dict = dict(n="o", v="s")
     node_kinds = np.array([n.split(".")[1] for n in node_names])
@@ -313,11 +397,10 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
 
         # reorder to have highlighted nodes on top
         if highlighted_node_indices:
-            hnvec = np.zeros((indices.shape[0], ))
+            hnvec = np.zeros((indices.shape[0],))
             intersect = np.intersect1d(highlighted_node_indices, indices)
             if intersect.size > 0:
-                hnvec[np.array([list(indices).index(hn)
-                                for hn in intersect])] = 1
+                hnvec[np.array([list(indices).index(hn) for hn in intersect])] = 1
                 indices = indices[np.argsort(hnvec)]
 
         if zorder is not None:
@@ -330,17 +413,29 @@ def plot_wordnet_graph(node_colors, node_sizes, zorder=None, node_scale=200,
         else:
             norm_sizes = np.nan_to_num(node_sizes[indices])
 
-        ax.scatter(xy[indices, 0], xy[indices, 1], s=norm_sizes,
-                   c=node_colors[indices], marker=marker,
-                   edgecolors=list(np.array(edgecolors)[indices]), alpha=alpha)
+        ax.scatter(
+            xy[indices, 0],
+            xy[indices, 1],
+            s=norm_sizes,
+            c=node_colors[indices],
+            marker=marker,
+            edgecolors=list(np.array(edgecolors)[indices]),
+            alpha=alpha,
+        )
 
     ################
     # add labels for the highlighted nodes
-    labels = dict([(name, name.split('.')[0]) for name in highlighted_nodes])
+    labels = dict([(name, name.split(".")[0]) for name in highlighted_nodes])
     pos = dict([(n, (x, y - 60)) for (n, (x, y)) in node_positions.items()])
-    networkx.draw_networkx_labels(wordnet_graph, font_color='white',
-                                  labels=labels, font_weight="bold", pos=pos,
-                                  font_size=font_size)
+    networkx.draw_networkx_labels(
+        wordnet_graph,
+        font_color="white",
+        labels=labels,
+        font_weight="bold",
+        pos=pos,
+        font_size=font_size,
+        ax=ax,
+    )
 
     return ax
 
@@ -401,8 +496,7 @@ def scale_to_rgb_cube(node_colors, clip=2.0):
     return node_colors
 
 
-def apply_cmap(data, cmap=None, vmin=None, vmax=None, n_colors=None,
-               norm=None):
+def apply_cmap(data, cmap=None, vmin=None, vmax=None, n_colors=None, norm=None):
     """Apply a colormap to a 1D array, to get RGB colors.
 
     Parameters
@@ -441,9 +535,11 @@ def apply_cmap(data, cmap=None, vmin=None, vmax=None, n_colors=None,
     >>> plt.show()
     """
     from matplotlib import cm
+
     cmap = plt.get_cmap(cmap, lut=n_colors)
     if norm is None:
         from matplotlib import colors
+
         norm = colors.Normalize(vmin, vmax)
     cmapper = cm.ScalarMappable(norm=norm, cmap=cmap)
     data_rgb = cmapper.to_rgba(data)
