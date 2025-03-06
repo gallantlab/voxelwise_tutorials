@@ -29,10 +29,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    - uses: actions/cache@v4
-      with:
-        path: ~/voxelwise_tutorials_data/shortclips
-        key: shortclips-dataset
+    # - uses: actions/cache@v4
+    #   with:
+    #     path: ~/voxelwise_tutorials_data/shortclips
+    #     key: shortclips-dataset
 
     - name: Install dependencies
       run: |
@@ -41,10 +41,10 @@ jobs:
         # install himalaya from source to get early testing
         pip install git+https://github.com/gallantlab/himalaya.git
         pip install -e ."[github]"
-        # use neurodebian installer for travis
-        bash <(wget -q -O- http://neuro.debian.net/_files/neurodebian-travis.sh)
-        sudo apt-get update -qq
-        sudo apt-get install git-annex-standalone
+        # # use neurodebian installer for travis
+        # bash <(wget -q -O- http://neuro.debian.net/_files/neurodebian-travis.sh)
+        # sudo apt-get update -qq
+        # sudo apt-get install git-annex-standalone
 
     - name: Lint with flake8
       run: |
@@ -54,11 +54,11 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --ignore=E402,C901 --max-line-length=127 --statistics
 
-    - name: Config git-annex
-      run: |
-        # add some git config for git-annex
-        git config --global user.email "github-actions@example.com"
-        git config --global user.name "Github Actions"
+    # - name: Config git-annex
+    #   run: |
+    #     # add some git config for git-annex
+    #     git config --global user.email "github-actions@example.com"
+    #     git config --global user.name "Github Actions"
 
     - name: Test with pytest
       run: |
