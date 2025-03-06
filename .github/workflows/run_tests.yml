@@ -29,10 +29,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    # - uses: actions/cache@v4
-    #   with:
-    #     path: ~/voxelwise_tutorials_data/shortclips
-    #     key: shortclips-dataset
+    - uses: actions/cache@v4
+      with:
+        path: ~/voxelwise_tutorials_data/shortclips
+        key: shortclips-dataset
 
     - name: Install dependencies
       run: |
