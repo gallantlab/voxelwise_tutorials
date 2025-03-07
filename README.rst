@@ -90,8 +90,8 @@ The package ``voxelwise_tutorials`` has the following dependencies:
 .. |Github| image:: https://img.shields.io/badge/github-voxelwise_tutorials-blue
    :target: https://github.com/gallantlab/voxelwise_tutorials
 
-.. |Python| image:: https://img.shields.io/badge/python-3.7%2B-blue
-   :target: https://www.python.org/downloads/release/python-370
+.. |Python| image:: https://img.shields.io/badge/python-3.9%2B-blue
+   :target: https://www.python.org/downloads/release/python-390
 
 .. |License| image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
    :target: https://opensource.org/licenses/BSD-3-Clause
