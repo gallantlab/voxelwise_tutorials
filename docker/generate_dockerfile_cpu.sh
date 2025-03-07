@@ -7,14 +7,14 @@ docker run --rm repronim/neurodocker:latest generate docker \
     --install build-essential git ca-certificates netbase\
     --miniconda \
     version="py311_24.4.0-0" \
-    conda_install="python=3.11 gxx_linux-64 notebook numpy=1.26.4 git-annex" \
+    conda_install="gxx_linux-64 notebook jupyterlab numpy git-annex ipywidgets" \
     --run "chmod 777 /opt/miniconda-py311_24.4.0-0/share" \
-    --user nonroot \
-    --run "pip install Pillow==9.5.0" \
-    --workdir /home/nonroot/voxelwise_tutorials \
-    --run "pip install voxelwise_tutorials" \
-    --run "git clone --depth 1 https://github.com/gallantlab/voxelwise_tutorials.git" \
-    --run "pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu" \
+    --run "python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu" \
+    --user voxelwise \
+    --workdir /home/voxelwise \
+    --run "git clone https://github.com/gallantlab/voxelwise_tutorials.git --depth 1" \
+    --run "python -m pip install voxelwise_tutorials" \
     --run "git config --global user.email 'you@example.com'" \
     --run "git config --global user.name 'Your Name'" \
+    --workdir /home/voxelwise/voxelwise_tutorials/tutorials/notebooks/shortclips \
     > cpu.Dockerfile
