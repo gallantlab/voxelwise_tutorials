@@ -1,0 +1,47 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: Voxelwise Encoding Model tutorials
+author: Tom Dupré la Tour, Matteo Visconti di Oleggio Castello, Jack L. Gallant
+logo: book_assets/static/flatmap.png
+
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+execute:
+  execute_notebooks: cache
+  timeout: -1 # do not timeout
+  exclude_patterns:
+    - notebooks/shortclips/00_setup_colab.ipynb
+    - notebooks/shortclips/07_extract_motion_energy.ipynb
+    - notebooks/shortclips/07_extract_motion_energy.ipynb
+    - notebooks/vim2/00_download_vim2.ipynb
+    - notebooks/vim2/01_extract_motion_energy.ipynb
+    - notebooks/vim2/02_plot_ridge_model.ipynb
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_documents:
+    targetname: book.tex
+
+# Add a bibtex file so that we can create citations
+bibtex_bibfiles:
+  - references.bib
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/gallantlab/voxelwise_tutorials  # Online location of your book
+  path_to_book: docs  # Optional path to your book, relative to the repository root
+  branch: main  # Which branch of the repository should be used when creating links (optional)
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_issues_button: true
+  use_repository_button: true
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - dollarmath
+
+  
