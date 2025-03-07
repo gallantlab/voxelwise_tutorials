@@ -12,3 +12,4 @@ dist/
 # Documentation build
 doc/_build/
 doc/_auto_examples/
+tutorials/_build
