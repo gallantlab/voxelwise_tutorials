@@ -5,7 +5,7 @@ format: jb-article
 root: index
 sections:
 - file: voxelwise_modeling
-  title: Voxelwise modeling framework
+  title: Overview of the VEM framework
 - file: voxelwise_package
   title: Helper Python package
 - file: notebooks/shortclips/README

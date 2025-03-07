@@ -1,5 +1,4 @@
-Voxelwise modeling framework
-============================
+# Overview of the Voxelwise Encoding Model (VEM) framework
 
 A fundamental problem in neuroscience is to identify the information
 represented in different brain areas. 	In the VM framework, this problem is
@@ -11,8 +10,8 @@ while subjects perceive a stimulus or perform a task. Then, a set of features
 (that together constitute one or more *feature spaces*) is extracted from the
 stimulus or task at each point in time. For example, a video might be
 represented in terms of amount of motion in each part of the screen
-:ref:`[3]<nis2011>`, or in terms of semantic categories of the
-objects present in the scene :ref:`[4]<hut2012>`. Each feature space
+{cite}`nishimoto2011`, or in terms of semantic categories of the
+objects present in the scene {cite}`huth2012`. Each feature space
 corresponds to a different representation of the stimulus- or task-related
 information. The VM framework aims to identify if each feature space is encoded
 in brain activity. Each feature space thus corresponds to a hypothesis about
@@ -61,11 +60,11 @@ response function.
 
 After fitting the regression model, the model prediction accuracy is projected
 on the cortical surface for visualization. Our lab created the pycortex
-:ref:`[p3]<gao2015>` visualization software specifically for this purpose.
+{cite}`gao2015` visualization software specifically for this purpose.
 These prediction-accuracy maps reveal how information present in the feature
 space is represented across the entire cortical sheet. (Note that VM can also
 be applied to other brain structures, such as the cerebellum
-:ref:`[14]<leb2021>` and the hippocampus. However, those structures are more
+{cite}`lebel2021` and the hippocampus. However, those structures are more
 difficult to visualize computationally.) In an encoding model, all features are
 not equally useful to predict brain activity. To interpret which features are
 most useful to the model, VM uses the fit regression weights as a measure of
@@ -77,7 +76,7 @@ the feature combination that would maximally drive the voxel's activity. To
 visualize these high-dimensional feature tunings over all voxels, feature
 tunings are projected on fewer dimensions with principal component analysis,
 and the first few principal components are visualized over the cortical surface
-:ref:`[4]<hut2012>` :ref:`[8]<hut2016>`. These feature-tuning maps reflect
+{cite}`huth2012` {cite}`huth2016`. These feature-tuning maps reflect
 the selectivity of each voxel to thousands of stimulus and task features.
 
 In VM, comparing the prediction accuracy of different feature spaces within a
@@ -93,16 +92,16 @@ accuracy.
 Because different feature spaces used in a joint model might require different
 regularization levels, VM uses an extended form of ridge regression that
 provides a separate regularization parameter for each feature space. This
-extension is called banded ridge regression :ref:`[12]<nun2019>`. Banded ridge
+extension is called banded ridge regression {cite}`nunez2019`. Banded ridge
 regression also contains an implicit feature-space selection mechanism that
 tends to ignore feature spaces that are non-predictive or redundant
-:ref:`[15]<dup2022>`. This feature-space selection mechanism helps to
+{cite}`dupre2022`. This feature-space selection mechanism helps to
 disentangle correlated feature spaces and it improves generalization to new
 data. 
 
 To interpret the joint model, VM implements a variance decomposition method
 that quantifies the separate contributions of each feature space. Variance
 decomposition methods include variance partitioning, the split-correlation
-measure, or the product measure :ref:`[15]<dup2022>`. The obtained variance
+measure, or the product measure {cite}`dupre2022`. The obtained variance
 decomposition describes the contribution of each feature space to the joint
 encoding model predictions.

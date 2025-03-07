@@ -11,8 +11,8 @@ Cite this data set
 
 This tutorial is based on publicly available data `published on GIN
 <https://gin.g-node.org/gallantlab/shortclips>`_. If you publish any work using
-this data set, please cite the original publication [1]_, and the data set
-[2]_.
+this data set, please cite the original publication {cite}`huth2012`, and the data set
+{cite}`huth2022data`.
 """
 # sphinx_gallery_thumbnail_path = "static/download.png"
 ###############################################################################
@@ -21,6 +21,7 @@ this data set, please cite the original publication [1]_, and the data set
 
 # path of the data directory
 from voxelwise_tutorials.io import get_data_home
+
 directory = get_data_home(dataset="shortclips")
 print(directory)
 
@@ -73,10 +74,6 @@ for datafile in DATAFILES:
 # References
 # ----------
 #
-# .. [1] Huth, A. G., Nishimoto, S., Vu, A. T., & Gallant, J. L. (2012). A
-#     continuous semantic space describes the representation of thousands of
-#     object and action categories across the human brain. Neuron, 76(6),
-#     1210-1224.
-#
-# .. [2] Huth, A. G., Nishimoto, S., Vu, A. T., Dupré la Tour, T., & Gallant, J. L. (2022).
-#     Gallant Lab Natural Short Clips 3T fMRI Data. http://dx.doi.org/10.12751/g-node.vy1zjd
+# ```{bibliography}
+# :filter: docname in docnames
+# ```

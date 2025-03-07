@@ -44,4 +44,8 @@ parse:
     - amsmath
     - dollarmath
 
-  
+sphinx:
+  config:
+    bibtex_reference_style: author_year
+    # bibtex_bibfiles: references.bib
+
