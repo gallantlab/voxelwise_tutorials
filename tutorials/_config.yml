@@ -3,7 +3,7 @@
 
 title: Voxelwise Encoding Model tutorials
 author: Tom Dupré la Tour, Matteo Visconti di Oleggio Castello, Jack L. Gallant
-logo: book_assets/static/flatmap.png
+logo: static/flatmap.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
