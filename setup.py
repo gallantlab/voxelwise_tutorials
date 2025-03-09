@@ -1,5 +1,6 @@
 import re
 from pathlib import Path
+
 from setuptools import find_packages, setup
 
 # get version from voxelwise_tutorials/__init__.py
@@ -31,7 +32,7 @@ requirements = [
 ]
 
 extras_require = {
-    "docs": ["sphinx", "sphinx_gallery", "numpydoc", "nbformat"],
+    "docs": ["sphinx", "sphinx_gallery", "numpydoc", "nbformat", "jupyter-book"],
     "github": ["pytest"],
 }
 

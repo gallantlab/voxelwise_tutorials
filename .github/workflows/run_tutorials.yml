@@ -40,7 +40,7 @@ jobs:
         pip install -U wheel
         # install himalaya from source to get early testing
         pip install git+https://github.com/gallantlab/himalaya.git
-        pip install -e ."[github]"
+        pip install -e ."[docs,github]"
         # use neurodebian installer for travis
         bash <(wget -q -O- http://neuro.debian.net/_files/neurodebian-travis.sh)
         sudo apt-get update -qq
@@ -55,10 +55,4 @@ jobs:
     - name: Run some tutorials
       run: |
         # run tutorials with a shortcut option to skip model fitting
-        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/00_download_shortclips.py
-        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/01_plot_explainable_variance.py
-        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/02_plot_ridge_regression.py
-        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/03_plot_wordnet_model.py
-        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/04_plot_hemodynamic_response.py
-        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/05_plot_motion_energy_model.py
-        HIMALAYA_SKIP_FIT=True python tutorials/shortclips/06_plot_banded_ridge_model.py
+        HIMALAYA_SKIP_FIT=True jupyter-book build tutorials
