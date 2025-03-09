@@ -13,8 +13,6 @@ sections:
   sections:
   - file: notebooks/shortclips/00_download_shortclips
     title: Download the data set
-  - file: notebooks/shortclips/00_setup_colab
-    title: Setup Google Colab
   - file: notebooks/shortclips/01_plot_explainable_variance
     title: Compute the explainable variance
   - file: notebooks/shortclips/02_plot_ridge_regression

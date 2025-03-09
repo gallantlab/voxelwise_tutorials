@@ -13,7 +13,8 @@ execute:
   exclude_patterns:
     - notebooks/shortclips/00_setup_colab.ipynb
     - notebooks/shortclips/07_extract_motion_energy.ipynb
-    - notebooks/shortclips/07_extract_motion_energy.ipynb
+    - notebooks/shortclips/merged_for_colab_model_fitting.ipynb
+    - notebooks/shortclips/merged_for_colab.ipynb
     - notebooks/vim2/00_download_vim2.ipynb
     - notebooks/vim2/01_extract_motion_energy.ipynb
     - notebooks/vim2/02_plot_ridge_model.ipynb
@@ -43,9 +44,11 @@ parse:
   myst_enable_extensions:
     - amsmath
     - dollarmath
+    - colon_fence
+    - linkify
 
 sphinx:
   config:
     bibtex_reference_style: author_year
-    # bibtex_bibfiles: references.bib
+    # bibtex_bibfiles: 'references.bib'
 
