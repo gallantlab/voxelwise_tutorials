@@ -6,35 +6,23 @@ root: index
 sections:
 - file: voxelwise_modeling
   title: Overview of the VEM framework
-- file: voxelwise_package
-  title: Helper Python package
 - file: notebooks/shortclips/README
   title: Shortclips tutorial
   sections:
   - file: notebooks/shortclips/00_download_shortclips
-    title: Download the data set
   - file: notebooks/shortclips/01_plot_explainable_variance
-    title: Compute the explainable variance
   - file: notebooks/shortclips/02_plot_ridge_regression
-    title: Understand ridge regression and cross-validation
   - file: notebooks/shortclips/03_plot_wordnet_model
-    title: Fit a ridge model with wordnet features
   - file: notebooks/shortclips/04_plot_hemodynamic_response
-    title: Visualize the hemodynamic response
   - file: notebooks/shortclips/05_plot_motion_energy_model
-    title: Fit a ridge model with motion energy features
   - file: notebooks/shortclips/06_plot_banded_ridge_model
-    title: Fit a banded ridge model with both wordnet and motion energy features
   - file: notebooks/shortclips/07_extract_motion_energy
-    title: Extract motion energy features from the stimuli
 - file: notebooks/vim2/README
-  title: Vim-2 tutorial
+  title: Vim-2 tutorial (optional)
   sections:
   - file: notebooks/vim2/00_download_vim2
-    title: Download the data set from CRCNS
   - file: notebooks/vim2/01_extract_motion_energy
-    title: Extract motion energy features from the stimuli
   - file: notebooks/vim2/02_plot_ridge_model
-    title: Fit a ridge model with motion energy features
 - file: references
   title: References
+- file: voxelwise_package

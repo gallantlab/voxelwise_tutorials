@@ -9,40 +9,34 @@ If you use these tutorials for your work, consider citing the corresponding pape
 
 You can find a copy of the paper [here](https://github.com/gallantlab/voxelwise_tutorials/blob/main/paper/voxelwise_tutorials_paper.pdf).
 
-## Getting started
+## How to use the tutorials
 
-This website contains tutorials describing how to use the
-[Voxelwise Encoding Model framework](voxelwise_modeling.html).
+To explore the VEM tutorials, one can:
 
-To explore these tutorials, one can:
+1. Read the tutorials on this website (recommended)
+2. Run the notebooks in Google Colab (clicking on the following links opens Colab):
+  [all notebooks](https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab.ipynb) or [only the notebooks about model fitting](https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab_model_fitting.ipynb)
+3. Use the provided [Dockerfiles](https://github.com/gallantlab/voxelwise_tutorials/tree/main/docker) to run the notebooks locally (recommended for Windows users, as some of the packages used do not support Windows)
 
-- read the rendered examples in the tutorials
-  [gallery of examples](_auto_examples/index.html) (recommended)
-- run the Python scripts ([tutorials](https://github.com/gallantlab/voxelwise_tutorials/tree/main/tutorials) directory)
-- run the Jupyter notebooks ([tutorials/notebooks
-  ](https://github.com/gallantlab/voxelwise_tutorials/tree/main/tutorials/notebooks)
-  directory)
-- run the notebooks in Google Colab: 
-  [all notebooks](https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab.ipynb) or
-  [only the notebooks about model fitting](https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab_model_fitting.ipynb) -->
+The code of this project is available on GitHub at [gallantlab/voxelwise_tutorials
+](https://github.com/gallantlab/voxelwise_tutorials). 
 
-The tutorials are best explored in order, starting with the [Shortclips
-tutorial](_auto_examples/index.html).
-
-The project is available on GitHub at [gallantlab/voxelwise_tutorials
-](https://github.com/gallantlab/voxelwise_tutorials). On top of the tutorials
-scripts, the GitHub repository contains a Python package called
+The GitHub repository also contains a Python package called
 `voxelwise_tutorials`, which contains useful functions to download the data
 sets, load the files, process the data, and visualize the results. Install
-instructions are available [here](voxelwise_package.html).
+instructions are available [here](voxelwise_package.rst)
 
 ## Cite as
 
-If you use one of our packages in your work (`voxelwise_tutorials`
-{cite}`dupre2023`, `himalaya` {cite}`dupre2022`, `pycortex`
-{cite}`gao2015`, or `pymoten` {cite}`nunez2021software`), please cite the
-corresponding publications.
+Please cite the corresponding publications if you use the code or data in your work:
+- `voxelwise_tutorials` {cite}`dupre2023`
+- `himalaya` {cite}`dupre2022`
+- `pycortex` {cite}`gao2015`
+- `pymoten` {cite}`nunez2021software`
+- `shortclips` dataset {cite}`huth2022data`
+- `vim-2` dataset {cite}`nishimoto2014data`
 
-If you use one of our public datasets in your work 
-(`shortclips` {cite}`huth2022data`, `vim-2` {cite}`nishimoto2014data`), 
-please cite the corresponding publications.
+## References
+```{bibliography}
+:filter: docname in docnames
+```
