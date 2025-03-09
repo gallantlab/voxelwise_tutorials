@@ -29,13 +29,18 @@ To explore these tutorials, one can:
 
 - read the rendered examples in the tutorials
   `website <https://gallantlab.github.io/voxelwise_tutorials/>`_ (recommended)
-- run the Python scripts (`tutorials <tutorials>`_ directory)
-- run the Jupyter notebooks (`tutorials/notebooks <tutorials/notebooks>`_ directory)
 - run the merged notebook in
   `Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab.ipynb>`_.
+- run the Jupyter notebooks (`tutorials/notebooks <tutorials/notebooks>`_ directory) locally
 
 The tutorials are best explored in order, starting with the "Shortclips"
 tutorial.
+
+Dockerfiles
+===========
+This repository contains Dockerfiles to run the tutorials locally. Please see the
+instructions in the `docker <docker>`_ directory.
+
 
 Helper Python package
 =====================

@@ -1,8 +1,7 @@
 # Jupyter notebooks
 
-This directory contains a copy of each python script as a jupyter notebook.
-These notebooks are generated automatically by `sphinx-gallery`, and do not
-render any content. To see rendered versions of the tutorials, go to the
+This directory contains the jupyter notebooks of the VEM tutorials.
+To see rendered versions of the tutorials, go to the
 [tutorials website](https://gallantlab.github.io/voxelwise_tutorials).
 
 ## Run the notebooks
