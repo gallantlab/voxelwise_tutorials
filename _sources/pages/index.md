@@ -1,7 +1,7 @@
 # Voxelwise Encoding Model (VEM) tutorials
 
 Welcome to the tutorials on the Voxelwise Encoding Model framework from the
-[GallantLab](https://gallantlab.org).
+[Gallant Lab](https://gallantlab.org).
 
 If you use these tutorials for your work, consider citing the corresponding paper:
 

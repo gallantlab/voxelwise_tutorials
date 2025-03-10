@@ -586,9 +586,10 @@ encoding model. This quantity is called the <em>explainable variance</em>.</p>
 stimulus-dependent signal and noise. If we present the same stimulus multiple
 times and we record brain activity for each repetition, the stimulus-dependent
 signal will be the same across repetitions while the noise will vary across
-repetitions. In voxelwise modeling, the features used to model brain activity
-are the same for each repetition of the stimulus. Thus, encoding models will
-predict only the repeatable stimulus-dependent signal.</p>
+repetitions. In the Voxelwise Encoding Model framework,
+the features used to model brain activity are the same for each repetition of the
+stimulus. Thus, encoding models will predict only the repeatable stimulus-dependent
+signal.</p>
 <p>The stimulus-dependent signal can be estimated by taking the mean of brain
 responses over repeats of the same stimulus or experiment. The variance of the
 estimated stimulus-dependent signal, which we call the explainable variance, is
@@ -600,8 +601,8 @@ voxel for each of the <span class="math notranslate nohighlight">\(N\)</span> re
 across repetitions. For each repeat, we define the residual timeseries between
 brain response and average brain response as <span class="math notranslate nohighlight">\(r_i = y_i - \bar{y}\)</span>. The
 explainable variance (EV) is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6f888041-a7c1-48b7-ada3-2c0762b5d977">
-<span class="eqno">()<a class="headerlink" href="#equation-6f888041-a7c1-48b7-ada3-2c0762b5d977" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-862a99e8-6a33-4454-a626-cdd73ae24c98">
+<span class="eqno">()<a class="headerlink" href="#equation-862a99e8-6a33-4454-a626-cdd73ae24c98" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
 <p>In the literature, the explainable variance is also known as the <em>signal
 power</em>.</p>
 <p>For more information, see <span id="id1">Sahani and Linden [<a class="reference internal" href="#id130" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">2002</a>]</span>, <span id="id2">Hsu <em>et al.</em> [<a class="reference internal" href="#id131" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">2004</a>]</span>, and <span id="id3">Schoppe <em>et al.</em> [<a class="reference internal" href="#id132" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">2016</a>]</span>.</p>
@@ -2285,8 +2286,8 @@ way to disentangle the contribution of the two feature spaces. To do so, we
 take the kernel weights and the ridge (dual) weights corresponding to each
 feature space, and use them to compute the prediction from each feature space
 separately.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a9417916-18b3-4496-be80-3bc3fa747a00">
-<span class="eqno">()<a class="headerlink" href="#equation-a9417916-18b3-4496-be80-3bc3fa747a00" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-c34e03fb-8712-4d77-abfe-dbb00e19b39f">
+<span class="eqno">()<a class="headerlink" href="#equation-c34e03fb-8712-4d77-abfe-dbb00e19b39f" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
 <p>Then, we use these split predictions to compute split <span class="math notranslate nohighlight">\(\tilde{R}^2_i\)</span>
 scores. These scores are corrected so that their sum is equal to the
 <span class="math notranslate nohighlight">\(R^2\)</span> score of the full prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>
