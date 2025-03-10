@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>00_setup_colab.ipynb &#8212; Voxelwise Encoding Model tutorials</title>
+    <title>01_setup_colab.ipynb &#8212; Voxelwise Encoding Model tutorials</title>
   
   
   
@@ -387,7 +387,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>00_setup_colab.ipynb</h1>
+    <h1>01_setup_colab.ipynb</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -397,13 +397,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">00_setup_colab.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">01_setup_colab.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-google-colab">Setup Google Colab</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-runtime-to-use-a-gpu">Change runtime to use a GPU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data-and-install-all-required-dependencies">Download the data and install all required dependencies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies-and-download-the-data">Install all required dependencies and download the data</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-explainable-variance-ipynb">01_plot_explainable_variance.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-explainable-variance-ipynb">03_compute_explainable_variance.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-explainable-variance">Compute the explainable variance</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-of-the-data-directory">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Compute the explainable variance</a></li>
@@ -412,7 +412,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-wordnet-model-ipynb">03_plot_wordnet_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-wordnet-model-ipynb">05_fit_wordnet_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-wordnet-features">Fit a ridge model with wordnet features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">Load the data</a></li>
@@ -425,7 +425,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-motion-energy-model-ipynb">05_plot_motion_energy_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-motion-energy-model-ipynb">08_fit_motion_energy_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-motion-energy-features">Fit a ridge model with motion-energy features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id68">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id69">Load the data</a></li>
@@ -437,7 +437,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id75">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-banded-ridge-model-ipynb">06_plot_banded_ridge_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-banded-ridge-model-ipynb">09_fit_banded_ridge_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features">Fit a banded ridge model with both wordnet and motion-energy features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id102">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id103">Load the data</a></li>
@@ -462,22 +462,29 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="setup-colab-ipynb">
-<h1>00_setup_colab.ipynb<a class="headerlink" href="#setup-colab-ipynb" title="Link to this heading">#</a></h1>
+<h1>01_setup_colab.ipynb<a class="headerlink" href="#setup-colab-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="setup-google-colab">
 <h1>Setup Google Colab<a class="headerlink" href="#setup-google-colab" title="Link to this heading">#</a></h1>
 <p>In this script, we setup a Google Colab environment. This script will only work
-when run from <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>). You can
+when run from <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>. You can
 skip it if you run the tutorials on your machine.</p>
+<blockquote>
+<div><p><strong>Note:</strong> This script will install all the required dependencies and download the data.
+It will take around 10 minutes to run, but you need to run it only once in your Colab session.
+If your Colab session is disconnected, you will need to run this script again.</p>
+</div></blockquote>
 <section id="change-runtime-to-use-a-gpu">
 <h2>Change runtime to use a GPU<a class="headerlink" href="#change-runtime-to-use-a-gpu" title="Link to this heading">#</a></h2>
 <p>This tutorial is much faster when a GPU is available to run the computations.
 In Google Colab you can request access to a GPU by changing the runtime type.
 To do so, click the following menu options in Google Colab:</p>
-<p>(Menu) “Runtime” -&gt; “Change runtime type” -&gt; “Hardware accelerator” -&gt; “GPU”.</p>
+<blockquote>
+<div><p>(Menu) “Runtime” -&gt; “Change runtime type” -&gt; “Hardware accelerator” -&gt; “GPU”.</p>
+</div></blockquote>
 </section>
-<section id="download-the-data-and-install-all-required-dependencies">
-<h2>Download the data and install all required dependencies<a class="headerlink" href="#download-the-data-and-install-all-required-dependencies" title="Link to this heading">#</a></h2>
+<section id="install-all-required-dependencies-and-download-the-data">
+<h2>Install all required dependencies and download the data<a class="headerlink" href="#install-all-required-dependencies-and-download-the-data" title="Link to this heading">#</a></h2>
 <p>Uncomment and run the following cell to download the required packages.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -567,8 +574,8 @@ tutorials and pycortex.</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="plot-explainable-variance-ipynb">
-<h1>01_plot_explainable_variance.ipynb<a class="headerlink" href="#plot-explainable-variance-ipynb" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="compute-explainable-variance-ipynb">
+<h1>03_compute_explainable_variance.ipynb<a class="headerlink" href="#compute-explainable-variance-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="compute-the-explainable-variance">
 <h1>Compute the explainable variance<a class="headerlink" href="#compute-the-explainable-variance" title="Link to this heading">#</a></h1>
@@ -593,8 +600,8 @@ voxel for each of the <span class="math notranslate nohighlight">\(N\)</span> re
 across repetitions. For each repeat, we define the residual timeseries between
 brain response and average brain response as <span class="math notranslate nohighlight">\(r_i = y_i - \bar{y}\)</span>. The
 explainable variance (EV) is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2088979e-070b-4691-a826-22c4e59ab8d8">
-<span class="eqno">()<a class="headerlink" href="#equation-2088979e-070b-4691-a826-22c4e59ab8d8" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-adc30231-7504-4210-a402-d75e7ea719ec">
+<span class="eqno">()<a class="headerlink" href="#equation-adc30231-7504-4210-a402-d75e7ea719ec" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
 <p>In the literature, the explainable variance is also known as the <em>signal
 power</em>.</p>
 <p>For more information, see <span id="id1">Sahani and Linden [<a class="reference internal" href="#id130" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">2002</a>]</span>, <span id="id2">Hsu <em>et al.</em> [<a class="reference internal" href="#id131" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">2004</a>]</span>, and <span id="id3">Schoppe <em>et al.</em> [<a class="reference internal" href="#id132" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">2016</a>]</span>.</p>
@@ -879,8 +886,8 @@ does not use this function, so feel free to ignore.)</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="plot-wordnet-model-ipynb">
-<h1>03_plot_wordnet_model.ipynb<a class="headerlink" href="#plot-wordnet-model-ipynb" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="fit-wordnet-model-ipynb">
+<h1>05_fit_wordnet_model.ipynb<a class="headerlink" href="#fit-wordnet-model-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="fit-a-ridge-model-with-wordnet-features">
 <h1>Fit a ridge model with wordnet features<a class="headerlink" href="#fit-a-ridge-model-with-wordnet-features" title="Link to this heading">#</a></h1>
@@ -1507,8 +1514,8 @@ mentioned earlier.</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="plot-motion-energy-model-ipynb">
-<h1>05_plot_motion_energy_model.ipynb<a class="headerlink" href="#plot-motion-energy-model-ipynb" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="fit-motion-energy-model-ipynb">
+<h1>08_fit_motion_energy_model.ipynb<a class="headerlink" href="#fit-motion-energy-model-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="fit-a-ridge-model-with-motion-energy-features">
 <h1>Fit a ridge model with motion-energy features<a class="headerlink" href="#fit-a-ridge-model-with-motion-energy-features" title="Link to this heading">#</a></h1>
@@ -1863,8 +1870,8 @@ is described in the next example.</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="plot-banded-ridge-model-ipynb">
-<h1>06_plot_banded_ridge_model.ipynb<a class="headerlink" href="#plot-banded-ridge-model-ipynb" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="fit-banded-ridge-model-ipynb">
+<h1>09_fit_banded_ridge_model.ipynb<a class="headerlink" href="#fit-banded-ridge-model-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features">
 <h1>Fit a banded ridge model with both wordnet and motion-energy features<a class="headerlink" href="#fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features" title="Link to this heading">#</a></h1>
@@ -2278,8 +2285,8 @@ way to disentangle the contribution of the two feature spaces. To do so, we
 take the kernel weights and the ridge (dual) weights corresponding to each
 feature space, and use them to compute the prediction from each feature space
 separately.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bde26b33-b980-48d6-b9ca-3d6e24613f18">
-<span class="eqno">()<a class="headerlink" href="#equation-bde26b33-b980-48d6-b9ca-3d6e24613f18" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-1306b5de-6b31-43a8-948c-eb65fd23aa43">
+<span class="eqno">()<a class="headerlink" href="#equation-1306b5de-6b31-43a8-948c-eb65fd23aa43" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
 <p>Then, we use these split predictions to compute split <span class="math notranslate nohighlight">\(\tilde{R}^2_i\)</span>
 scores. These scores are corrected so that their sum is equal to the
 <span class="math notranslate nohighlight">\(R^2\)</span> score of the full prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>
@@ -2421,13 +2428,13 @@ regression approach <span id="id107">[<a class="reference internal" href="../../
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">00_setup_colab.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">01_setup_colab.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-google-colab">Setup Google Colab</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-runtime-to-use-a-gpu">Change runtime to use a GPU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data-and-install-all-required-dependencies">Download the data and install all required dependencies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies-and-download-the-data">Install all required dependencies and download the data</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-explainable-variance-ipynb">01_plot_explainable_variance.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-explainable-variance-ipynb">03_compute_explainable_variance.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-explainable-variance">Compute the explainable variance</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-of-the-data-directory">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Compute the explainable variance</a></li>
@@ -2436,7 +2443,7 @@ regression approach <span id="id107">[<a class="reference internal" href="../../
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-wordnet-model-ipynb">03_plot_wordnet_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-wordnet-model-ipynb">05_fit_wordnet_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-wordnet-features">Fit a ridge model with wordnet features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">Load the data</a></li>
@@ -2449,7 +2456,7 @@ regression approach <span id="id107">[<a class="reference internal" href="../../
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-motion-energy-model-ipynb">05_plot_motion_energy_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-motion-energy-model-ipynb">08_fit_motion_energy_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-motion-energy-features">Fit a ridge model with motion-energy features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id68">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id69">Load the data</a></li>
@@ -2461,7 +2468,7 @@ regression approach <span id="id107">[<a class="reference internal" href="../../
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id75">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-banded-ridge-model-ipynb">06_plot_banded_ridge_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-banded-ridge-model-ipynb">09_fit_banded_ridge_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features">Fit a banded ridge model with both wordnet and motion-energy features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id102">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id103">Load the data</a></li>

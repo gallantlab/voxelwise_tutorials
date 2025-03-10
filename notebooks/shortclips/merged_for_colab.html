@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>00_setup_colab.ipynb &#8212; Voxelwise Encoding Model tutorials</title>
+    <title>01_setup_colab.ipynb &#8212; Voxelwise Encoding Model tutorials</title>
   
   
   
@@ -387,7 +387,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>00_setup_colab.ipynb</h1>
+    <h1>01_setup_colab.ipynb</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -397,13 +397,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">00_setup_colab.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">01_setup_colab.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-google-colab">Setup Google Colab</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-runtime-to-use-a-gpu">Change runtime to use a GPU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data-and-install-all-required-dependencies">Download the data and install all required dependencies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies-and-download-the-data">Install all required dependencies and download the data</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-explainable-variance-ipynb">01_plot_explainable_variance.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-explainable-variance-ipynb">03_compute_explainable_variance.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-explainable-variance">Compute the explainable variance</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-of-the-data-directory">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Compute the explainable variance</a></li>
@@ -412,14 +412,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-ridge-regression-ipynb">02_plot_ridge_regression.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-ridge-regression-ipynb">04_understand_ridge_regression.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-ridge-regression-and-cross-validation">Understand ridge regression and cross-validation</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-least-squares-ols">Ordinary least squares (OLS)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression">Ridge regression</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-selection">Hyperparameter selection</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-wordnet-model-ipynb">03_plot_wordnet_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-wordnet-model-ipynb">05_fit_wordnet_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-wordnet-features">Fit a ridge model with wordnet features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">Load the data</a></li>
@@ -432,7 +432,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-hemodynamic-response-ipynb">04_plot_hemodynamic_response.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-hemodynamic-response-ipynb">06_visualize_hemodynamic_response.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-hemodynamic-response">Visualize the hemodynamic response</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id66">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id67">Load the data</a></li>
@@ -444,7 +444,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-hrf">Visualize the HRF</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-motion-energy-model-ipynb">05_plot_motion_energy_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-motion-energy-model-ipynb">08_fit_motion_energy_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-motion-energy-features">Fit a ridge model with motion-energy features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id73">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id74">Load the data</a></li>
@@ -456,7 +456,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id80">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-banded-ridge-model-ipynb">06_plot_banded_ridge_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-banded-ridge-model-ipynb">09_fit_banded_ridge_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features">Fit a banded ridge model with both wordnet and motion-energy features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id107">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id108">Load the data</a></li>
@@ -481,22 +481,29 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="setup-colab-ipynb">
-<h1>00_setup_colab.ipynb<a class="headerlink" href="#setup-colab-ipynb" title="Link to this heading">#</a></h1>
+<h1>01_setup_colab.ipynb<a class="headerlink" href="#setup-colab-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="setup-google-colab">
 <h1>Setup Google Colab<a class="headerlink" href="#setup-google-colab" title="Link to this heading">#</a></h1>
 <p>In this script, we setup a Google Colab environment. This script will only work
-when run from <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>). You can
+when run from <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>. You can
 skip it if you run the tutorials on your machine.</p>
+<blockquote>
+<div><p><strong>Note:</strong> This script will install all the required dependencies and download the data.
+It will take around 10 minutes to run, but you need to run it only once in your Colab session.
+If your Colab session is disconnected, you will need to run this script again.</p>
+</div></blockquote>
 <section id="change-runtime-to-use-a-gpu">
 <h2>Change runtime to use a GPU<a class="headerlink" href="#change-runtime-to-use-a-gpu" title="Link to this heading">#</a></h2>
 <p>This tutorial is much faster when a GPU is available to run the computations.
 In Google Colab you can request access to a GPU by changing the runtime type.
 To do so, click the following menu options in Google Colab:</p>
-<p>(Menu) “Runtime” -&gt; “Change runtime type” -&gt; “Hardware accelerator” -&gt; “GPU”.</p>
+<blockquote>
+<div><p>(Menu) “Runtime” -&gt; “Change runtime type” -&gt; “Hardware accelerator” -&gt; “GPU”.</p>
+</div></blockquote>
 </section>
-<section id="download-the-data-and-install-all-required-dependencies">
-<h2>Download the data and install all required dependencies<a class="headerlink" href="#download-the-data-and-install-all-required-dependencies" title="Link to this heading">#</a></h2>
+<section id="install-all-required-dependencies-and-download-the-data">
+<h2>Install all required dependencies and download the data<a class="headerlink" href="#install-all-required-dependencies-and-download-the-data" title="Link to this heading">#</a></h2>
 <p>Uncomment and run the following cell to download the required packages.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -586,8 +593,8 @@ tutorials and pycortex.</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="plot-explainable-variance-ipynb">
-<h1>01_plot_explainable_variance.ipynb<a class="headerlink" href="#plot-explainable-variance-ipynb" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="compute-explainable-variance-ipynb">
+<h1>03_compute_explainable_variance.ipynb<a class="headerlink" href="#compute-explainable-variance-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="compute-the-explainable-variance">
 <h1>Compute the explainable variance<a class="headerlink" href="#compute-the-explainable-variance" title="Link to this heading">#</a></h1>
@@ -612,8 +619,8 @@ voxel for each of the <span class="math notranslate nohighlight">\(N\)</span> re
 across repetitions. For each repeat, we define the residual timeseries between
 brain response and average brain response as <span class="math notranslate nohighlight">\(r_i = y_i - \bar{y}\)</span>. The
 explainable variance (EV) is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c56243ae-962d-4fe3-8761-d311c865c3f7">
-<span class="eqno">()<a class="headerlink" href="#equation-c56243ae-962d-4fe3-8761-d311c865c3f7" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-0714a4a4-c922-4438-868d-39fb9f73b0d6">
+<span class="eqno">()<a class="headerlink" href="#equation-0714a4a4-c922-4438-868d-39fb9f73b0d6" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
 <p>In the literature, the explainable variance is also known as the <em>signal
 power</em>.</p>
 <p>For more information, see <span id="id1">Sahani and Linden [<a class="reference internal" href="merged_for_colab_model_fitting.html#id130" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">2002</a>]</span>, <span id="id2">Hsu <em>et al.</em> [<a class="reference internal" href="merged_for_colab_model_fitting.html#id131" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">2004</a>]</span>, and <span id="id3">Schoppe <em>et al.</em> [<a class="reference internal" href="merged_for_colab_model_fitting.html#id132" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">2016</a>]</span>.</p>
@@ -898,8 +905,8 @@ does not use this function, so feel free to ignore.)</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="plot-ridge-regression-ipynb">
-<h1>02_plot_ridge_regression.ipynb<a class="headerlink" href="#plot-ridge-regression-ipynb" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="understand-ridge-regression-ipynb">
+<h1>04_understand_ridge_regression.ipynb<a class="headerlink" href="#understand-ridge-regression-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="understand-ridge-regression-and-cross-validation">
 <h1>Understand ridge regression and cross-validation<a class="headerlink" href="#understand-ridge-regression-and-cross-validation" title="Link to this heading">#</a></h1>
@@ -910,15 +917,15 @@ regularization hyper-parameter.</p>
 <p>Linear regression is a method to model the relation between some input
 variables <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{(n \times p)}\)</span> (the features) and an output
 variable <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{n}\)</span> (the target). Specifically, linear
-regression uses a vector of coefficient <span class="math notranslate nohighlight">\(w \in \mathbb{R}^{p}\)</span>` to
+regression uses a vector of coefficient <span class="math notranslate nohighlight">\(w \in \mathbb{R}^{p}\)</span> to
 predict the output</p>
-<div class="amsmath math notranslate nohighlight" id="equation-763a7d70-d515-4017-8b8d-6402e3fcc06a">
-<span class="eqno">()<a class="headerlink" href="#equation-763a7d70-d515-4017-8b8d-6402e3fcc06a" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-7319c1f7-33c5-4cee-96b0-86dc2289b0eb">
+<span class="eqno">()<a class="headerlink" href="#equation-7319c1f7-33c5-4cee-96b0-86dc2289b0eb" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
 <p>The model is considered accurate if the predictions <span class="math notranslate nohighlight">\(\hat{y}\)</span> are close
 to the true output values <span class="math notranslate nohighlight">\(y\)</span>. Therefore,  a good linear regression model
 is given by the vector <span class="math notranslate nohighlight">\(w\)</span> that minimizes the sum of squared errors:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fcbeae99-ffc3-4a62-a863-d89d82f69f28">
-<span class="eqno">()<a class="headerlink" href="#equation-fcbeae99-ffc3-4a62-a863-d89d82f69f28" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-1ceb8bee-a4c3-499d-9749-a97e4b59b980">
+<span class="eqno">()<a class="headerlink" href="#equation-1ceb8bee-a4c3-499d-9749-a97e4b59b980" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
 <p>This is the simplest model for linear regression, and it is known as <em>ordinary
 least squares</em> (OLS).</p>
 <section id="ordinary-least-squares-ols">
@@ -961,8 +968,8 @@ accuracy of the model, and thus the squared loss.</p>
 </div>
 <p>The linear coefficient leading to the minimum squared loss can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fbf5d26d-50ae-4bc8-96f1-b0872cdaa221">
-<span class="eqno">()<a class="headerlink" href="#equation-fbf5d26d-50ae-4bc8-96f1-b0872cdaa221" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-42531757-485a-4dd4-a692-be0c22fc5e22">
+<span class="eqno">()<a class="headerlink" href="#equation-42531757-485a-4dd4-a692-be0c22fc5e22" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
 <p>This is the OLS solution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1078,8 +1085,8 @@ data.</p>
 <p>To solve the instability and under-determinacy issues of OLS, OLS can be
 extended to <em>ridge regression</em>. Ridge regression considers a different
 optimization problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cdab8190-2456-4e4f-87e6-4237fefdcc92">
-<span class="eqno">()<a class="headerlink" href="#equation-cdab8190-2456-4e4f-87e6-4237fefdcc92" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-ca42356a-8c49-4726-98e3-bf923ee1fdbf">
+<span class="eqno">()<a class="headerlink" href="#equation-ca42356a-8c49-4726-98e3-bf923ee1fdbf" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
 <p>This optimization problem contains two terms: (i) a <em>data-fitting term</em>
 <span class="math notranslate nohighlight">\(||Xw - y||^2\)</span>, which ensures the regression correctly fits the
 training data; and (ii) a regularization term <span class="math notranslate nohighlight">\(\alpha||w||^2\)</span>, which
@@ -1108,8 +1115,8 @@ squared loss.</p>
 <p>To understand why the regularization term makes the solution more robust to
 noise, let’s consider the ridge solution. The ridge solution can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-083b6b4a-4a51-4b60-a477-3b372327bd41">
-<span class="eqno">()<a class="headerlink" href="#equation-083b6b4a-4a51-4b60-a477-3b372327bd41" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-a7bb1734-d1e7-4ad6-b9cf-448c7219ef6f">
+<span class="eqno">()<a class="headerlink" href="#equation-a7bb1734-d1e7-4ad6-b9cf-448c7219ef6f" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
 <p>where <code class="docutils literal notranslate"><span class="pre">I</span></code> is the identity matrix. In this formula, we can see that the
 inverted matrix is now <span class="math notranslate nohighlight">\((X^\top X + \alpha I)\)</span>. Compared to OLS, the
 additional term <span class="math notranslate nohighlight">\(\alpha I\)</span> adds a positive value <code class="docutils literal notranslate"><span class="pre">alpha</span></code> to all
@@ -1262,8 +1269,8 @@ hyperparameter selection. Thus, the process is called a <em>cross-validation</em
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="plot-wordnet-model-ipynb">
-<h1>03_plot_wordnet_model.ipynb<a class="headerlink" href="#plot-wordnet-model-ipynb" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="fit-wordnet-model-ipynb">
+<h1>05_fit_wordnet_model.ipynb<a class="headerlink" href="#fit-wordnet-model-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="fit-a-ridge-model-with-wordnet-features">
 <h1>Fit a ridge model with wordnet features<a class="headerlink" href="#fit-a-ridge-model-with-wordnet-features" title="Link to this heading">#</a></h1>
@@ -1890,8 +1897,8 @@ mentioned earlier.</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="plot-hemodynamic-response-ipynb">
-<h1>04_plot_hemodynamic_response.ipynb<a class="headerlink" href="#plot-hemodynamic-response-ipynb" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="visualize-hemodynamic-response-ipynb">
+<h1>06_visualize_hemodynamic_response.ipynb<a class="headerlink" href="#visualize-hemodynamic-response-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="visualize-the-hemodynamic-response">
 <h1>Visualize the hemodynamic response<a class="headerlink" href="#visualize-the-hemodynamic-response" title="Link to this heading">#</a></h1>
@@ -2216,8 +2223,8 @@ function (HRF).</p>
 coefficients <span class="math notranslate nohighlight">\(\beta\)</span> obtained with a ridge regression, but the primal
 coefficients can be computed from the dual coefficients using the training
 features <span class="math notranslate nohighlight">\(X\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8807c3e0-f200-4395-89cc-dbe6cc868d7c">
-<span class="eqno">()<a class="headerlink" href="#equation-8807c3e0-f200-4395-89cc-dbe6cc868d7c" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-895b1017-eec6-4fa3-aeb3-0e89085461c6">
+<span class="eqno">()<a class="headerlink" href="#equation-895b1017-eec6-4fa3-aeb3-0e89085461c6" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
 <p>To better visualize the HRF, we will refit a model with more delays, but only
 on a selection of voxels to speed up the computations.</p>
 <div class="cell docutils container">
@@ -2278,8 +2285,8 @@ two seconds.</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="plot-motion-energy-model-ipynb">
-<h1>05_plot_motion_energy_model.ipynb<a class="headerlink" href="#plot-motion-energy-model-ipynb" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="fit-motion-energy-model-ipynb">
+<h1>08_fit_motion_energy_model.ipynb<a class="headerlink" href="#fit-motion-energy-model-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="fit-a-ridge-model-with-motion-energy-features">
 <h1>Fit a ridge model with motion-energy features<a class="headerlink" href="#fit-a-ridge-model-with-motion-energy-features" title="Link to this heading">#</a></h1>
@@ -2634,8 +2641,8 @@ is described in the next example.</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="plot-banded-ridge-model-ipynb">
-<h1>06_plot_banded_ridge_model.ipynb<a class="headerlink" href="#plot-banded-ridge-model-ipynb" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="fit-banded-ridge-model-ipynb">
+<h1>09_fit_banded_ridge_model.ipynb<a class="headerlink" href="#fit-banded-ridge-model-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features">
 <h1>Fit a banded ridge model with both wordnet and motion-energy features<a class="headerlink" href="#fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features" title="Link to this heading">#</a></h1>
@@ -3049,8 +3056,8 @@ way to disentangle the contribution of the two feature spaces. To do so, we
 take the kernel weights and the ridge (dual) weights corresponding to each
 feature space, and use them to compute the prediction from each feature space
 separately.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c3647082-444c-4f38-b900-06bdc54efcf0">
-<span class="eqno">()<a class="headerlink" href="#equation-c3647082-444c-4f38-b900-06bdc54efcf0" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-16791ee9-c50e-4fd2-a260-dd2e0a7e543f">
+<span class="eqno">()<a class="headerlink" href="#equation-16791ee9-c50e-4fd2-a260-dd2e0a7e543f" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
 <p>Then, we use these split predictions to compute split <span class="math notranslate nohighlight">\(\tilde{R}^2_i\)</span>
 scores. These scores are corrected so that their sum is equal to the
 <span class="math notranslate nohighlight">\(R^2\)</span> score of the full prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>
@@ -3192,13 +3199,13 @@ regression approach <span id="id112">[<a class="reference internal" href="../../
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">00_setup_colab.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">01_setup_colab.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-google-colab">Setup Google Colab</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-runtime-to-use-a-gpu">Change runtime to use a GPU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data-and-install-all-required-dependencies">Download the data and install all required dependencies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies-and-download-the-data">Install all required dependencies and download the data</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-explainable-variance-ipynb">01_plot_explainable_variance.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-explainable-variance-ipynb">03_compute_explainable_variance.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-explainable-variance">Compute the explainable variance</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-of-the-data-directory">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Compute the explainable variance</a></li>
@@ -3207,14 +3214,14 @@ regression approach <span id="id112">[<a class="reference internal" href="../../
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-ridge-regression-ipynb">02_plot_ridge_regression.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-ridge-regression-ipynb">04_understand_ridge_regression.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-ridge-regression-and-cross-validation">Understand ridge regression and cross-validation</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-least-squares-ols">Ordinary least squares (OLS)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression">Ridge regression</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-selection">Hyperparameter selection</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-wordnet-model-ipynb">03_plot_wordnet_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-wordnet-model-ipynb">05_fit_wordnet_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-wordnet-features">Fit a ridge model with wordnet features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">Load the data</a></li>
@@ -3227,7 +3234,7 @@ regression approach <span id="id112">[<a class="reference internal" href="../../
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-hemodynamic-response-ipynb">04_plot_hemodynamic_response.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-hemodynamic-response-ipynb">06_visualize_hemodynamic_response.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-hemodynamic-response">Visualize the hemodynamic response</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id66">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id67">Load the data</a></li>
@@ -3239,7 +3246,7 @@ regression approach <span id="id112">[<a class="reference internal" href="../../
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-hrf">Visualize the HRF</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-motion-energy-model-ipynb">05_plot_motion_energy_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-motion-energy-model-ipynb">08_fit_motion_energy_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-motion-energy-features">Fit a ridge model with motion-energy features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id73">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id74">Load the data</a></li>
@@ -3251,7 +3258,7 @@ regression approach <span id="id112">[<a class="reference internal" href="../../
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id80">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-banded-ridge-model-ipynb">06_plot_banded_ridge_model.ipynb</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-banded-ridge-model-ipynb">09_fit_banded_ridge_model.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features">Fit a banded ridge model with both wordnet and motion-energy features</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id107">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id108">Load the data</a></li>
