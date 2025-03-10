@@ -184,14 +184,14 @@
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_modeling.html">Overview of the VEM framework</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="README.html">Shortclips tutorial</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="00_download_shortclips.html">Download the data set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01_plot_explainable_variance.html">Compute the explainable variance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="02_plot_ridge_regression.html">Understand ridge regression and cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03_plot_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04_plot_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05_plot_motion_energy_model.html">Fit a ridge model with motion-energy features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="06_plot_banded_ridge_model.html">Fit a banded ridge model with both wordnet and motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_download_shortclips.html">Download the data set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_compute_explainable_variance.html">Compute the explainable variance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_understand_ridge_regression.html">Understand ridge regression and cross-validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_fit_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_visualize_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
 <li class="toctree-l2"><a class="reference internal" href="07_extract_motion_energy.html">Extract motion-energy features from the stimuli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a ridge model with motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a banded ridge model with both wordnet and motion-energy features</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../vim2/README.html">Vim-2 tutorial (optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -593,8 +593,8 @@ voxel for each of the <span class="math notranslate nohighlight">\(N\)</span> re
 across repetitions. For each repeat, we define the residual timeseries between
 brain response and average brain response as <span class="math notranslate nohighlight">\(r_i = y_i - \bar{y}\)</span>. The
 explainable variance (EV) is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-518c6a9b-2ce8-429f-8f4e-a4f4d0670e31">
-<span class="eqno">()<a class="headerlink" href="#equation-518c6a9b-2ce8-429f-8f4e-a4f4d0670e31" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-2088979e-070b-4691-a826-22c4e59ab8d8">
+<span class="eqno">()<a class="headerlink" href="#equation-2088979e-070b-4691-a826-22c4e59ab8d8" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
 <p>In the literature, the explainable variance is also known as the <em>signal
 power</em>.</p>
 <p>For more information, see <span id="id1">Sahani and Linden [<a class="reference internal" href="#id130" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">2002</a>]</span>, <span id="id2">Hsu <em>et al.</em> [<a class="reference internal" href="#id131" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">2004</a>]</span>, and <span id="id3">Schoppe <em>et al.</em> [<a class="reference internal" href="#id132" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">2016</a>]</span>.</p>
@@ -2278,8 +2278,8 @@ way to disentangle the contribution of the two feature spaces. To do so, we
 take the kernel weights and the ridge (dual) weights corresponding to each
 feature space, and use them to compute the prediction from each feature space
 separately.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5388f994-e7be-4e2a-8322-295d0b580d45">
-<span class="eqno">()<a class="headerlink" href="#equation-5388f994-e7be-4e2a-8322-295d0b580d45" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-bde26b33-b980-48d6-b9ca-3d6e24613f18">
+<span class="eqno">()<a class="headerlink" href="#equation-bde26b33-b980-48d6-b9ca-3d6e24613f18" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
 <p>Then, we use these split predictions to compute split <span class="math notranslate nohighlight">\(\tilde{R}^2_i\)</span>
 scores. These scores are corrected so that their sum is equal to the
 <span class="math notranslate nohighlight">\(R^2\)</span> score of the full prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>

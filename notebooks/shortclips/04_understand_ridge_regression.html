@@ -1,0 +1,950 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Understand ridge regression and cross-validation &#8212; Voxelwise Encoding Model tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/shortclips/04_understand_ridge_regression';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Fit a ridge model with wordnet features" href="05_fit_wordnet_model.html" />
+    <link rel="prev" title="Compute the explainable variance" href="03_compute_explainable_variance.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pages/index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/flatmap.png" class="logo__image only-light" alt="Voxelwise Encoding Model tutorials - Home"/>
+    <script>document.write(`<img src="../../_static/flatmap.png" class="logo__image only-dark" alt="Voxelwise Encoding Model tutorials - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pages/index.html">
+                    Voxelwise Encoding Model (VEM) tutorials
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_modeling.html">Overview of the VEM framework</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Shortclips tutorial</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="02_download_shortclips.html">Download the data set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_compute_explainable_variance.html">Compute the explainable variance</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Understand ridge regression and cross-validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_fit_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_visualize_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07_extract_motion_energy.html">Extract motion-energy features from the stimuli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a ridge model with motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a banded ridge model with both wordnet and motion-energy features</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../vim2/README.html">Vim-2 tutorial (optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../vim2/00_download_vim2.html">Download the data set from CRCNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vim2/01_extract_motion_energy.html">Extract motion-energy features from the stimuli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vim2/02_plot_ridge_model.html">Fit a ridge model with motion energy features</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/gallantlab/voxelwise_tutorials" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gallantlab/voxelwise_tutorials/issues/new?title=Issue%20on%20page%20%2Fnotebooks/shortclips/04_understand_ridge_regression.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/shortclips/04_understand_ridge_regression.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Understand ridge regression and cross-validation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-least-squares-ols">Ordinary least squares (OLS)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression">Ridge regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-selection">Hyperparameter selection</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="understand-ridge-regression-and-cross-validation">
+<h1>Understand ridge regression and cross-validation<a class="headerlink" href="#understand-ridge-regression-and-cross-validation" title="Link to this heading">#</a></h1>
+<p>In future examples, we will model the fMRI responses using a regularized linear
+regression known as <em>ridge regression</em>. This example explains why we use ridge
+regression, and how to use cross-validation to select the appropriate
+regularization hyper-parameter.</p>
+<p>Linear regression is a method to model the relation between some input
+variables <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{(n \times p)}\)</span> (the features) and an output
+variable <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{n}\)</span> (the target). Specifically, linear
+regression uses a vector of coefficient <span class="math notranslate nohighlight">\(w \in \mathbb{R}^{p}\)</span> to
+predict the output</p>
+<div class="amsmath math notranslate nohighlight" id="equation-253f3f88-d090-4f7f-9115-281a7a2e27fe">
+<span class="eqno">(2)<a class="headerlink" href="#equation-253f3f88-d090-4f7f-9115-281a7a2e27fe" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
+<p>The model is considered accurate if the predictions <span class="math notranslate nohighlight">\(\hat{y}\)</span> are close
+to the true output values <span class="math notranslate nohighlight">\(y\)</span>. Therefore,  a good linear regression model
+is given by the vector <span class="math notranslate nohighlight">\(w\)</span> that minimizes the sum of squared errors:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-af5204d4-43c3-4e87-b187-c958e6c90d61">
+<span class="eqno">(3)<a class="headerlink" href="#equation-af5204d4-43c3-4e87-b187-c958e6c90d61" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
+<p>This is the simplest model for linear regression, and it is known as <em>ordinary
+least squares</em> (OLS).</p>
+<section id="ordinary-least-squares-ols">
+<h2>Ordinary least squares (OLS)<a class="headerlink" href="#ordinary-least-squares-ols" title="Link to this heading">#</a></h2>
+<p>To illustrate OLS, let’s use a toy dataset with a single features <code class="docutils literal notranslate"><span class="pre">X[:,0]</span></code>.
+On the plot below (left panel), each dot is a sample <code class="docutils literal notranslate"><span class="pre">(X[i,0],</span> <span class="pre">y[i])</span></code>, and
+the linear regression model is the line <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">X[:,0]</span> <span class="pre">*</span> <span class="pre">w[0]</span></code>. On each
+sample, the error between the prediction and the true value is shown by a
+gray line. By summing the squared errors over all samples, we get the squared
+loss. Plotting the squared loss for every value of <code class="docutils literal notranslate"><span class="pre">w</span></code> leads to a parabola
+(right panel).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.regression_toy</span> <span class="kn">import</span> <span class="n">create_regression_toy</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.regression_toy</span> <span class="kn">import</span> <span class="n">plot_1d</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plot_1d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/3ae0945c3e9a261e3cc6148b3272b48239b37b4946b3d4ec4141ff33b0ebb591.png" src="../../_images/3ae0945c3e9a261e3cc6148b3272b48239b37b4946b3d4ec4141ff33b0ebb591.png" />
+</div>
+</div>
+<p>By varying the linear coefficient <code class="docutils literal notranslate"><span class="pre">w</span></code>, we can change the prediction
+accuracy of the model, and thus the squared loss.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_1d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mf">0.2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/af01984f67f5a511727a2dfc4e281c89e69404cbd90c59f85ac41f8eb639748e.png" src="../../_images/af01984f67f5a511727a2dfc4e281c89e69404cbd90c59f85ac41f8eb639748e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_1d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/c285d4b00a2bb7327ba3e31d3ab9d7c0225f42e1d14baae9d21c17465100534f.png" src="../../_images/c285d4b00a2bb7327ba3e31d3ab9d7c0225f42e1d14baae9d21c17465100534f.png" />
+</div>
+</div>
+<p>The linear coefficient leading to the minimum squared loss can be found
+analytically with the formula:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-ca508ccb-fc89-4b5c-8482-e34fff729b99">
+<span class="eqno">(4)<a class="headerlink" href="#equation-ca508ccb-fc89-4b5c-8482-e34fff729b99" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
+<p>This is the OLS solution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w_ols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">plot_1d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w_ols</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/79e1a254491ad62822a7c59cc07c700e5257465c14eb70fbed04e38f47914885.png" src="../../_images/79e1a254491ad62822a7c59cc07c700e5257465c14eb70fbed04e38f47914885.png" />
+</div>
+</div>
+<p>Linear regression can also be used on more than one feature. On the next toy
+dataset, we will use two features <code class="docutils literal notranslate"><span class="pre">X[:,0]</span></code> and <code class="docutils literal notranslate"><span class="pre">X[:,1]</span></code>. The linear
+regression model is a now plane. Here again, summing the squared errors over
+all samples gives the squared loss.Plotting the squared loss for every value
+of <code class="docutils literal notranslate"><span class="pre">w[0]</span></code> and <code class="docutils literal notranslate"><span class="pre">w[1]</span></code> leads to a 2D parabola (right panel).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.regression_toy</span> <span class="kn">import</span> <span class="n">create_regression_toy</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.regression_toy</span> <span class="kn">import</span> <span class="n">plot_2d</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">show_noiseless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/ae0ae061b7a3204ca0df1b58f5c72fe12d4ca77ddb9af5aed6ff88f83075309e.png" src="../../_images/ae0ae061b7a3204ca0df1b58f5c72fe12d4ca77ddb9af5aed6ff88f83075309e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">show_noiseless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/58b8cb4af48fe565009c41ba3f947636ea99bfb8958eaafad1a80977ab3abf81.png" src="../../_images/58b8cb4af48fe565009c41ba3f947636ea99bfb8958eaafad1a80977ab3abf81.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span> <span class="n">show_noiseless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a75492d04f3bf0015fc346b678fad5cda8fd4949a7e7378fdad1e8c7c11b620c.png" src="../../_images/a75492d04f3bf0015fc346b678fad5cda8fd4949a7e7378fdad1e8c7c11b620c.png" />
+</div>
+</div>
+<p>Here again, the OLS solution can be found analytically with the same formula.
+Note that the OLS solution is not equal to the ground-truth coefficients used
+to generate the toy dataset (black cross), because we added some noise to the
+target values <code class="docutils literal notranslate"><span class="pre">y</span></code>. We want the solution we find to be as close as possible
+to the ground-truth coefficients, because it will allow the regression to
+generalize correctly to new data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w_ols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w_ols</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/766ed80327a9830128a3e6e8a6a27508b0b24ee5df9dd48e66acc601200c011c.png" src="../../_images/766ed80327a9830128a3e6e8a6a27508b0b24ee5df9dd48e66acc601200c011c.png" />
+</div>
+</div>
+<p>The situation becomes more interesting when the features in <code class="docutils literal notranslate"><span class="pre">X</span></code> are
+correlated. Here, we add a correlation between the first feature <code class="docutils literal notranslate"><span class="pre">X[:,</span> <span class="pre">0]</span></code>
+and the second feature <code class="docutils literal notranslate"><span class="pre">X[:,</span> <span class="pre">1]</span></code>. With this correlation, the squared loss
+function is no more isotropic, so the lines of equal loss are now ellipses
+instead of circles. Thus, when starting from the OLS solution, moving <code class="docutils literal notranslate"><span class="pre">w</span></code>
+toward the top left leads to a small change in the loss, whereas moving it
+toward the top right leads to a large change in the loss. This anisotropy
+makes the OLS solution less robust to noise in some particular directions
+(deviating more from the ground-truth coefficients).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+
+<span class="n">w_ols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w_ols</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/237060bd0799cd1dd77695f9463e54e9d572f67318acb1b73de6f1e82e3158e4.png" src="../../_images/237060bd0799cd1dd77695f9463e54e9d572f67318acb1b73de6f1e82e3158e4.png" />
+</div>
+</div>
+<p>The different robustness to noise can be understood mathematically by the
+fact that the OLS solution requires inverting the matrix <span class="math notranslate nohighlight">\((X^T X)\)</span>. The
+matrix inversion amounts to inverting the eigenvalues <span class="math notranslate nohighlight">\(\lambda_k\)</span> of
+the matrix. When the features are highly correlated, some eigenvalues
+<span class="math notranslate nohighlight">\(\lambda_k\)</span> are close to zero, and a small change in the features can
+have a large effect on the inverse. Thus, having small eigenvalues reduces
+the stability of the inversion. If the correlation is even higher, the
+smallest eigenvalues get closer to zero, and the OLS solution becomes even
+less stable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="mf">0.999</span><span class="p">)</span>
+
+<span class="n">w_ols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w_ols</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/263b483deb501667213f53432b208c580c9d427189cfbc8ab205c3c42eb506f9.png" src="../../_images/263b483deb501667213f53432b208c580c9d427189cfbc8ab205c3c42eb506f9.png" />
+</div>
+</div>
+<p>The instability can become even more pronounced with larger number of
+features, or with smaller numbers of samples.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="mf">0.999</span><span class="p">)</span>
+
+<span class="n">w_ols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">w_ols</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/36d667aea390a0fcd97275c8cb06cfff5abafdaf4d9bd5e459695253a7878044.png" src="../../_images/36d667aea390a0fcd97275c8cb06cfff5abafdaf4d9bd5e459695253a7878044.png" />
+</div>
+</div>
+<p>When the number of features is larger than the number of samples, the linear
+system becomes under-determined, which means that the OLS problem has an
+infinite number of solutions, most of which do not generalize well to new
+data.</p>
+</section>
+<section id="ridge-regression">
+<h2>Ridge regression<a class="headerlink" href="#ridge-regression" title="Link to this heading">#</a></h2>
+<p>To solve the instability and under-determinacy issues of OLS, OLS can be
+extended to <em>ridge regression</em>. Ridge regression considers a different
+optimization problem:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7ac6f82b-dd61-4d06-89f7-cf9ea8829f67">
+<span class="eqno">(5)<a class="headerlink" href="#equation-7ac6f82b-dd61-4d06-89f7-cf9ea8829f67" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
+<p>This optimization problem contains two terms: (i) a <em>data-fitting term</em>
+<span class="math notranslate nohighlight">\(||Xw - y||^2\)</span>, which ensures the regression correctly fits the
+training data; and (ii) a regularization term <span class="math notranslate nohighlight">\(\alpha||w||^2\)</span>, which
+forces the coefficients <span class="math notranslate nohighlight">\(w\)</span> to be close to zero. The regularization
+term increases the stability of the solution, at the cost of a bias toward
+zero.</p>
+<p>In the regularization term, <code class="docutils literal notranslate"><span class="pre">alpha</span></code> is a positive hyperparameter that
+controls the regularization strength. With a smaller <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, the solution
+will be closer to the OLS solution, and with a larger <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, the solution
+will be further from the OLS solution and closer to the origin.</p>
+<p>To illustrate this effect, the following plot shows the ridge solution for a
+particular value of <code class="docutils literal notranslate"><span class="pre">alpha</span></code>. The black circle corresponds to the line of
+equal regularization, whereas the blue ellipses are the lines of equal
+squared loss.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="mi">23</span>
+<span class="n">w_ridge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w_ridge</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/20e23c94f2319ff01b17d5e764290d360af5642ec0dfeec0bf5afebc28e8beb9.png" src="../../_images/20e23c94f2319ff01b17d5e764290d360af5642ec0dfeec0bf5afebc28e8beb9.png" />
+</div>
+</div>
+<p>To understand why the regularization term makes the solution more robust to
+noise, let’s consider the ridge solution. The ridge solution can be found
+analytically with the formula:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-34f11fc4-5e65-4369-9500-5fc9adbf0f32">
+<span class="eqno">(6)<a class="headerlink" href="#equation-34f11fc4-5e65-4369-9500-5fc9adbf0f32" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">I</span></code> is the identity matrix. In this formula, we can see that the
+inverted matrix is now <span class="math notranslate nohighlight">\((X^\top X + \alpha I)\)</span>. Compared to OLS, the
+additional term <span class="math notranslate nohighlight">\(\alpha I\)</span> adds a positive value <code class="docutils literal notranslate"><span class="pre">alpha</span></code> to all
+eigenvalues <span class="math notranslate nohighlight">\(\lambda_k\)</span> of <span class="math notranslate nohighlight">\((X^\top X)\)</span> before the matrix
+inversion. Inverting <span class="math notranslate nohighlight">\((\lambda_k + \alpha)\)</span> instead of
+<span class="math notranslate nohighlight">\(\lambda_k\)</span> reduces the instability caused by small eigenvalues. This
+explains why the ridge solution is more robust to noise than the OLS
+solution.</p>
+<p>In the following plots, we can see that even with a stronger correlation, the
+ridge solution is still reasonably close to the noiseless ground truth, while
+the OLS solution would be far off.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="mf">0.999</span><span class="p">)</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="mi">23</span>
+<span class="n">w_ridge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w_ridge</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/7989696a9ade74d93f50655fe2eb4eec57868520426f7ae1482f5e38a9f8ceb1.png" src="../../_images/7989696a9ade74d93f50655fe2eb4eec57868520426f7ae1482f5e38a9f8ceb1.png" />
+</div>
+</div>
+<p>Changing the regularization hyperparameter <span class="math notranslate nohighlight">\(\alpha\)</span> leads to another
+ridge solution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">correlation</span><span class="o">=</span><span class="mf">0.999</span><span class="p">)</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">w_ridge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plot_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w_ridge</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/321a7fffad0a813cca243091f660f63e6d102e35f2783cad11bb42e56dd92834.png" src="../../_images/321a7fffad0a813cca243091f660f63e6d102e35f2783cad11bb42e56dd92834.png" />
+</div>
+</div>
+<p>Side note: For every <span class="math notranslate nohighlight">\(\alpha\)</span>, at the corresponding ridge solution, the
+line of equal regularization and the line of equal loss are tangent. If the
+two lines were crossing, one could improve the ridge solution by moving along
+one line. It would improve one term while keeping the other term constant.</p>
+</section>
+<section id="hyperparameter-selection">
+<h2>Hyperparameter selection<a class="headerlink" href="#hyperparameter-selection" title="Link to this heading">#</a></h2>
+<p>One issue with ridge regression is that the hyperparameter <span class="math notranslate nohighlight">\(\alpha\)</span> is
+arbitrary. Different choices of hyperparameter lead to different models. To
+compare these models, we cannot compare the ability to fit the training data,
+because the best model would just be OLS (<span class="math notranslate nohighlight">\(alpha = 0\)</span>). Instead, we
+want to compare the ability of each model to generalize to new data. To
+estimate a model ability to generalize, we can compute its prediction
+accuracy on a separate dataset that was not used during the model fitting
+(i.e. not used to find the coefficients <span class="math notranslate nohighlight">\(w\)</span>).</p>
+<p>To illustrate this idea, we can split the data into two subsets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.regression_toy</span> <span class="kn">import</span> <span class="n">create_regression_toy</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.regression_toy</span> <span class="kn">import</span> <span class="n">plot_kfold2</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plot_kfold2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/b20d99d4e5f73784705434577216f454889035d22b5b5a1909c33d2cc0194036.png" src="../../_images/b20d99d4e5f73784705434577216f454889035d22b5b5a1909c33d2cc0194036.png" />
+</div>
+</div>
+<p>Then, we can fit a model on each subset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">plot_kfold2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a1bd1e3d8f36eafd8140883a57d35723b476eed6b0b9e67d32c7590ed9ce85b1.png" src="../../_images/a1bd1e3d8f36eafd8140883a57d35723b476eed6b0b9e67d32c7590ed9ce85b1.png" />
+</div>
+</div>
+<p>And compute the prediction accuracy of each model on the other subset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_kfold2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d393b0d48233e032d3bea1d6dca2dc3e7e4fc44c3e47bcdcd59b4160b25afb93.png" src="../../_images/d393b0d48233e032d3bea1d6dca2dc3e7e4fc44c3e47bcdcd59b4160b25afb93.png" />
+</div>
+</div>
+<p>In this way, we can evaluate the ridge regression (fit with a specific
+<span class="math notranslate nohighlight">\(\alpha\)</span>) on its ability to generalize to new data. If we do that for
+different hyperparameter candidates <span class="math notranslate nohighlight">\(\alpha\)</span>, we can select the model
+leading to the best out-of-set prediction accuracy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.regression_toy</span> <span class="kn">import</span> <span class="n">plot_cv_path</span>
+
+<span class="n">noise</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
+<span class="n">plot_cv_path</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/697e861d7d13b096cf1864d47539c43f5a7c60ddeca5d8818e63f06c080d7d7a.png" src="../../_images/697e861d7d13b096cf1864d47539c43f5a7c60ddeca5d8818e63f06c080d7d7a.png" />
+</div>
+</div>
+<p>In the example above, the noise level is low, so the best hyperparameter
+alpha is close to zero, and ridge regression is not much better than OLS.
+However, if the dataset has more noise, a lower number of samples, or more
+correlated features, the best hyperparameter can be higher. In this case,
+ridge regression is better than OLS.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">noise</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
+<span class="n">plot_cv_path</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/ff0927ee92c458a230466d93e31ea86124b0d32b8fa7716e9c447d1f227db9f6.png" src="../../_images/ff0927ee92c458a230466d93e31ea86124b0d32b8fa7716e9c447d1f227db9f6.png" />
+</div>
+</div>
+<p>When the noise level is too high, the best hyperparameter can be the largest
+on the grid. It either means that the grid is too small, or that the
+regression does not find a predictive link between the features and the
+target. In this case, the model with the lowest generalization error always
+predict zero (<span class="math notranslate nohighlight">\(w=0\)</span>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">noise</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_regression_toy</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
+<span class="n">plot_cv_path</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d339cb36863e532fb1eb74db36e23b4d60b5cec00ac8a033dbb5899e4dde3da5.png" src="../../_images/d339cb36863e532fb1eb74db36e23b4d60b5cec00ac8a033dbb5899e4dde3da5.png" />
+</div>
+</div>
+<p>To summarize, to select the best hyperparameter <span class="math notranslate nohighlight">\(\alpha\)</span>, the standard
+method is to perform a grid search:</p>
+<ul class="simple">
+<li><p>Split the training set into two subsets: one subset used to fit the
+models, and one subset to estimate the prediction accuracy (<em>validation
+set</em>)</p></li>
+<li><p>Define a number of hyperparameter candidates, for example [0.1, 1, 10,
+100].</p></li>
+<li><p>Fit a separate ridge model with each hyperparameter candidate
+<span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
+<li><p>Compute the prediction accuracy on the validation set.</p></li>
+<li><p>Select the hyperparameter candidate leading to the best validation
+accuracy.</p></li>
+</ul>
+<p>To make the grid search less sensitive to the choice of how the training data
+was split, the process can be repeated for multiple splits. Then, the
+different prediction accuracies can be averaged over splits before the
+hyperparameter selection. Thus, the process is called a <em>cross-validation</em>.</p>
+<p>Learn more about hyperparameter selection and cross-validation on the
+<a class="reference external" href="https://scikit-learn.org/stable/modules/cross_validation.html">scikit-learn documentation</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/shortclips"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_compute_explainable_variance.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Compute the explainable variance</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05_fit_wordnet_model.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Fit a ridge model with wordnet features</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-least-squares-ols">Ordinary least squares (OLS)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression">Ridge regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-selection">Hyperparameter selection</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Tom Dupré la Tour, Matteo Visconti di Oleggio Castello, Jack L. Gallant
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
