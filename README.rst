@@ -1,18 +1,18 @@
-============================
-Voxelwise modeling tutorials
-============================
+==================================
+Voxelwise Encoding Model tutorials
+==================================
 
 |Github| |Python| |License| |Build| |Build Tutorials| |Downloads|
 
-Welcome to the voxelwise modeling tutorial from the
-`GallantLab <https://gallantlab.org>`_.
+Welcome to the Voxelwise Encoding Model tutorials, brought to you by the
+`Gallant Lab <https://gallantlab.org>`_.
 
 Paper
 =====
 
 If you use these tutorials for your work, consider citing the corresponding paper:
 
-Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024). The Voxelwise Modeling framework: a tutorial introduction to fitting encoding models to fMRI data. https://doi.org/10.31234/osf.io/t975e
+   Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024). The Voxelwise Encoding Model framework: a tutorial introduction to fitting encoding models to fMRI data. https://doi.org/10.31234/osf.io/t975e
 
 You can find a copy of the paper `here <paper/voxelwise_tutorials_paper.pdf>`_.
 

@@ -1,6 +1,6 @@
 # Shortclips tutorial
 
-This tutorial describes how to use the Voxelwise Encoding Model framework on a visual
+This tutorial describes how to use the Voxelwise Encoding Model framework in a visual
 imaging experiment.
 
 ## Dataset
