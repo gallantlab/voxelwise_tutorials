@@ -1,115 +1,428 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+
+<html lang="en" data-content_root="./" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Voxelwise modeling framework &#8212; Voxelwise modeling tutorials 0.1 documentation</title>
+    <title>Overview of the Voxelwise Encoding Model (VEM) framework &#8212; Voxelwise Encoding Model tutorials</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=e9c93658" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=61a4c737" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-    <script src="_static/documentation_options.js?v=2709fde1"></script>
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'voxelwise_modeling';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Helper Python package" href="voxelwise_package.html" />
-    <link rel="prev" title="Fit a ridge model with motion energy features" href="_auto_examples/vim2/02_plot_ridge_model.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="next" title="Shortclips tutorial" href="notebooks/shortclips/README.html" />
+    <link rel="prev" title="Voxelwise Encoding Model (VEM) tutorials" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
 
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
   
   
-
-  </head><body>
-  <div class="document">
+  
+  
+  
     
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<p class="logo">
-  <a href="index.html">
-    <img class="logo" src="_static/flatmap.png" alt="Logo" />
     
-    <h1 class="logo logo-name">voxelwise</h1>
+      
     
-  </a>
-</p>
+    
+    <img src="_static/flatmap.png" class="logo__image only-light" alt="Voxelwise Encoding Model tutorials - Home"/>
+    <script>document.write(`<img src="_static/flatmap.png" class="logo__image only-dark" alt="Voxelwise Encoding Model tutorials - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
 
-
-
-<p class="blurb">Voxelwise modeling tutorials</p>
-
-
-
-
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=gallantlab&repo=voxelwise_tutorials&type=star&count=true&size=large&v=2"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
-
-
-
-
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="_auto_examples/vim2/02_plot_ridge_model.html" title="previous chapter">Fit a ridge model with motion energy features</a></li>
-      <li>Next: <a href="voxelwise_package.html" title="next chapter">Helper Python package</a></li>
-  </ul></li>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Voxelwise Encoding Model (VEM) tutorials
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Overview of the VEM framework</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="notebooks/shortclips/README.html">Shortclips tutorial</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/shortclips/00_download_shortclips.html">Download the data set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/shortclips/01_plot_explainable_variance.html">Compute the explainable variance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/shortclips/02_plot_ridge_regression.html">Understand ridge regression and cross-validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/shortclips/03_plot_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/shortclips/04_plot_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/shortclips/05_plot_motion_energy_model.html">Fit a ridge model with motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/shortclips/06_plot_banded_ridge_model.html">Fit a banded ridge model with both wordnet and motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/shortclips/07_extract_motion_energy.html">Extract motion-energy features from the stimuli</a></li>
 </ul>
-</div><h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="_auto_examples/index.html">Shortclips tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_auto_examples/index.html#vim-2-tutorial">Vim-2 tutorial</a></li>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="notebooks/vim2/README.html">Vim-2 tutorial (optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/vim2/00_download_vim2.html">Download the data set from CRCNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/vim2/01_extract_motion_energy.html">Extract motion-energy features from the stimuli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/vim2/02_plot_ridge_model.html">Fit a ridge model with motion energy features</a></li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Voxelwise modeling framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="voxelwise_package.html">Helper Python package</a></li>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
 </ul>
 
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/gallantlab/voxelwise_tutorials" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gallantlab/voxelwise_tutorials/issues/new?title=Issue%20on%20page%20%2Fvoxelwise_modeling.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/voxelwise_modeling.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Overview of the Voxelwise Encoding Model (VEM) framework</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
     </div>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-        </div>
-      </div>
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          
 
-          <div class="body" role="main">
-            
-  <section id="voxelwise-modeling-framework">
-<h1>Voxelwise modeling framework<a class="headerlink" href="#voxelwise-modeling-framework" title="Link to this heading">¶</a></h1>
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="overview-of-the-voxelwise-encoding-model-vem-framework">
+<h1>Overview of the Voxelwise Encoding Model (VEM) framework<a class="headerlink" href="#overview-of-the-voxelwise-encoding-model-vem-framework" title="Link to this heading">#</a></h1>
 <p>A fundamental problem in neuroscience is to identify the information
-represented in different brain areas.   In the VM framework, this problem is
+represented in different brain areas. 	In the VEM framework, this problem is
 solved using encoding models. An encoding model describes how various features
 of the stimulus (or task) predict the activity in some part of the brain. Using
-VM to fit an encoding model to blood oxygen level-dependent signals (BOLD)
+VEM to fit an encoding model to blood oxygen level-dependent signals (BOLD)
 recorded by fMRI involves several steps. First, brain activity is recorded
 while subjects perceive a stimulus or perform a task. Then, a set of features
 (that together constitute one or more <em>feature spaces</em>) is extracted from the
 stimulus or task at each point in time. For example, a video might be
 represented in terms of amount of motion in each part of the screen
-<a class="reference internal" href="references.html#nis2011"><span class="std std-ref">[3]</span></a>, or in terms of semantic categories of the
-objects present in the scene <a class="reference internal" href="references.html#hut2012"><span class="std std-ref">[4]</span></a>. Each feature space
+<span id="id1">[<a class="reference internal" href="notebooks/shortclips/05_plot_motion_energy_model.html#id8" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">Nishimoto <em>et al.</em>, 2011</a>]</span>, or in terms of semantic categories of the
+objects present in the scene <span id="id2">[<a class="reference internal" href="notebooks/shortclips/03_plot_wordnet_model.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>. Each feature space
 corresponds to a different representation of the stimulus- or task-related
-information. The VM framework aims to identify if each feature space is encoded
+information. The VEM framework aims to identify if each feature space is encoded
 in brain activity. Each feature space thus corresponds to a hypothesis about
 the stimulus- or task-related information that might be represented in some
 part of the brain. To test this hypothesis for some specific feature space, a
@@ -117,11 +430,11 @@ regression model is trained to predict brain activity from that feature space.
 The resulting regression model is called an <em>encoding model</em>. If the encoding
 model predicts brain activity significantly in some part of the brain, then one
 may conclude that some information represented in the feature space is also
-represented in brain activity. To maximize spatial resolution, in VM a separate
+represented in brain activity. To maximize spatial resolution, in VEM a separate
 encoding model is fit on each spatial sample in fMRI recordings (that is on
 each voxel), leading to <em>voxelwise encoding models</em>.</p>
 <p>Before fitting a voxelwise encoding model, it is sometimes possible to estimate
-an upper bound of the model prediction accuracy in each voxel. In VM, this
+an upper bound of the model prediction accuracy in each voxel. In VEM, this
 upper bound is called the noise ceiling, and it is related to a quantity called
 the explainable variance. The explainable variance quantifies the fraction of
 the variance in the data that is consistent across repetitions of the same
@@ -136,9 +449,9 @@ accuracy on new data. To minimize the chances of overfitting and to obtain a
 fair estimate of prediction accuracy, the comparison between model predictions
 and brain responses must be performed on a separate test data set that was not
 used during model training. The ability to evaluate a model on a separate test
-data set is a major strength of the VM framework. It provides a principled way
+data set is a major strength of the VEM framework. It provides a principled way
 to build complex models while limiting the amount of overfitting. To further
-reduce overfitting, the encoding model is regularized. In VM, regularization is
+reduce overfitting, the encoding model is regularized. In VEM, regularization is
 obtained by ridge regression, a common and powerful regularized regression
 method.</p>
 <p>To take into account the temporal delay between the stimulus and the
@@ -148,18 +461,18 @@ estimates a separate weight for each feature and for each delay. In this way,
 the regression builds for each feature the best combination of temporal delays
 to predict brain activity. This combination of temporal delays is sometimes
 called a finite impulse response (FIR) filter. By estimating a separate FIR
-filter per feature and per voxel, VM does not assume a unique hemodynamic
+filter per feature and per voxel, VEM does not assume a unique hemodynamic
 response function.</p>
 <p>After fitting the regression model, the model prediction accuracy is projected
 on the cortical surface for visualization. Our lab created the pycortex
-<a class="reference internal" href="references.html#gao2015"><span class="std std-ref">[p3]</span></a> visualization software specifically for this purpose.
+<span id="id3">[<a class="reference internal" href="#id29" title="J. S. Gao, A. G. Huth, M. D. Lescroart, and J. L. Gallant. Pycortex: an interactive surface visualizer for fMRI. Frontiers in Neuroinformatics, 2015. doi:10.3389/fninf.2015.00023.">Gao <em>et al.</em>, 2015</a>]</span> visualization software specifically for this purpose.
 These prediction-accuracy maps reveal how information present in the feature
-space is represented across the entire cortical sheet. (Note that VM can also
+space is represented across the entire cortical sheet. (Note that VEM can also
 be applied to other brain structures, such as the cerebellum
-<a class="reference internal" href="references.html#leb2021"><span class="std std-ref">[14]</span></a> and the hippocampus. However, those structures are more
+<span id="id4">[<a class="reference internal" href="#id24" title="A. LeBel, S. Jain, and A. G. Huth. Voxelwise encoding models show that cerebellar language representations are highly conceptual. Journal of Neuroscience, 41(50):10341–10355, 2021.">LeBel <em>et al.</em>, 2021</a>]</span> and the hippocampus. However, those structures are more
 difficult to visualize computationally.) In an encoding model, all features are
 not equally useful to predict brain activity. To interpret which features are
-most useful to the model, VM uses the fit regression weights as a measure of
+most useful to the model, VEM uses the fit regression weights as a measure of
 relative importance of each feature. A feature with a large absolute regression
 weight has a large impact on the predictions, whereas a feature with a
 regression weight close to zero has a small impact on the predictions. Overall,
@@ -168,55 +481,188 @@ the feature combination that would maximally drive the voxel’s activity. To
 visualize these high-dimensional feature tunings over all voxels, feature
 tunings are projected on fewer dimensions with principal component analysis,
 and the first few principal components are visualized over the cortical surface
-<a class="reference internal" href="references.html#hut2012"><span class="std std-ref">[4]</span></a> <a class="reference internal" href="references.html#hut2016"><span class="std std-ref">[8]</span></a>. These feature-tuning maps reflect
+<span id="id5">[<a class="reference internal" href="notebooks/shortclips/03_plot_wordnet_model.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span> <span id="id6">[<a class="reference internal" href="#id18" title="A. G. Huth, W. A. De Heer, T. L. Griffiths, F. E. Theunissen, and J. L. Gallant. Natural speech reveals the semantic maps that tile human cerebral cortex. Nature, 532(7600):453–458, 2016.">Huth <em>et al.</em>, 2016</a>]</span>. These feature-tuning maps reflect
 the selectivity of each voxel to thousands of stimulus and task features.</p>
-<p>In VM, comparing the prediction accuracy of different feature spaces within a
+<p>In VEM, comparing the prediction accuracy of different feature spaces within a
 single data set amounts to comparing competing hypotheses about brain
 representations. In each brain voxel, the best-predicting feature space
 corresponds to the best hypothesis about the information represented in that
 voxel. However, many voxels represent multiple feature spaces simultaneously.
-To take this possibility into account, in VM a joint encoding model is fit on
+To take this possibility into account, in VEM a joint encoding model is fit on
 multiple feature spaces simultaneously. The joint model automatically combines
 the information from all feature spaces to maximize the joint prediction
 accuracy.</p>
 <p>Because different feature spaces used in a joint model might require different
-regularization levels, VM uses an extended form of ridge regression that
+regularization levels, VEM uses an extended form of ridge regression that
 provides a separate regularization parameter for each feature space. This
-extension is called banded ridge regression <a class="reference internal" href="references.html#nun2019"><span class="std std-ref">[12]</span></a>. Banded ridge
+extension is called banded ridge regression <span id="id7">[<a class="reference internal" href="notebooks/shortclips/05_plot_motion_energy_model.html#id17" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>. Banded ridge
 regression also contains an implicit feature-space selection mechanism that
 tends to ignore feature spaces that are non-predictive or redundant
-<a class="reference internal" href="references.html#dup2022"><span class="std std-ref">[15]</span></a>. This feature-space selection mechanism helps to
+<span id="id8">[<a class="reference internal" href="notebooks/shortclips/05_plot_motion_energy_model.html#id20" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>]</span>. This feature-space selection mechanism helps to
 disentangle correlated feature spaces and it improves generalization to new
 data.</p>
-<p>To interpret the joint model, VM implements a variance decomposition method
+<p>To interpret the joint model, VEM implements a variance decomposition method
 that quantifies the separate contributions of each feature space. Variance
 decomposition methods include variance partitioning, the split-correlation
-measure, or the product measure <a class="reference internal" href="references.html#dup2022"><span class="std std-ref">[15]</span></a>. The obtained variance
+measure, or the product measure <span id="id9">[<a class="reference internal" href="notebooks/shortclips/05_plot_motion_energy_model.html#id20" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>]</span>. The obtained variance
 decomposition describes the contribution of each feature space to the joint
 encoding model predictions.</p>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id10">
+<div role="list" class="citation-list">
+<div class="citation" id="id25" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>DLTENEG22<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id8">1</a>,<a role="doc-backlink" href="#id9">2</a>)</span>
+<p>T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. <em>NeuroImage</em>, 267:119728, 2022. <a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2022.119728">doi:10.1016/j.neuroimage.2022.119728</a>.</p>
+</div>
+<div class="citation" id="id29" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">GHLG15</a><span class="fn-bracket">]</span></span>
+<p>J. S. Gao, A. G. Huth, M. D. Lescroart, and J. L. Gallant. Pycortex: an interactive surface visualizer for fMRI. <em>Frontiers in Neuroinformatics</em>, 2015. <a class="reference external" href="https://doi.org/10.3389/fninf.2015.00023">doi:10.3389/fninf.2015.00023</a>.</p>
+</div>
+<div class="citation" id="id18" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">HDHG+16</a><span class="fn-bracket">]</span></span>
+<p>A. G. Huth, W. A. De Heer, T. L. Griffiths, F. E. Theunissen, and J. L. Gallant. Natural speech reveals the semantic maps that tile human cerebral cortex. <em>Nature</em>, 532(7600):453–458, 2016.</p>
+</div>
+<div class="citation" id="id14" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>HNVG12<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
+<p>A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. <em>Neuron</em>, 76(6):1210–1224, 2012.</p>
+</div>
+<div class="citation" id="id24" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">LJH21</a><span class="fn-bracket">]</span></span>
+<p>A. LeBel, S. Jain, and A. G. Huth. Voxelwise encoding models show that cerebellar language representations are highly conceptual. <em>Journal of Neuroscience</em>, 41(50):10341–10355, 2021.</p>
+</div>
+<div class="citation" id="id13" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">NVN+11</a><span class="fn-bracket">]</span></span>
+<p>S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. <em>Current Biology</em>, 21(19):1641–1646, 2011.</p>
+</div>
+<div class="citation" id="id22" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">NEHG19</a><span class="fn-bracket">]</span></span>
+<p>A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. <em>Neuroimage</em>, 197:482–492, 2019.</p>
+</div>
+</div>
+</div>
+</section>
 </section>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
-          </div>
-          
-        </div>
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Voxelwise Encoding Model (VEM) tutorials</p>
       </div>
-    <div class="clearer"></div>
+    </a>
+    <a class="right-next"
+       href="notebooks/shortclips/README.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Shortclips tutorial</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
   </div>
-    <div class="footer">
-      &#169;2023, Gallant lab.
-      
-      |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
-      
-      |
-      <a href="_sources/voxelwise_modeling.rst.txt"
-          rel="nofollow">Page source</a>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Tom Dupré la Tour, Matteo Visconti di Oleggio Castello, Jack L. Gallant
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    
-
-    
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

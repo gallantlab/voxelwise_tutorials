@@ -1,0 +1,1 @@
+This is a test of a citation {cite}`nishimoto2011` in the middle of a

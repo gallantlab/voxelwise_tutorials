@@ -1,0 +1,98 @@
+Traceback (most recent call last):
+  File "/home/jlg/mvdoc/miniconda3/envs/voxelwise_tutorials/lib/python3.10/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/jlg/mvdoc/miniconda3/envs/voxelwise_tutorials/lib/python3.10/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/jlg/mvdoc/miniconda3/envs/voxelwise_tutorials/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 173, in wrapped
+    return loop.run_until_complete(inner)
+  File "/home/jlg/mvdoc/miniconda3/envs/voxelwise_tutorials/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/jlg/mvdoc/miniconda3/envs/voxelwise_tutorials/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/jlg/mvdoc/miniconda3/envs/voxelwise_tutorials/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/jlg/mvdoc/miniconda3/envs/voxelwise_tutorials/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import numpy as np
+from moten.io import imagearray2luminance
+from himalaya.progress_bar import bar
+
+
+def compute_luminance(train_or_test, batch_size=1024):
+
+    with h5py.File(os.path.join(directory, 'Stimuli.mat'), 'r') as f:
+
+        if train_or_test == 'train':
+            data = f['st']
+        elif train_or_test == 'test':
+            data = f['sv']
+        else:
+            raise ValueError('Unknown parameter train_or_test=%r.' %
+                             train_or_test)
+
+        title = "compute_luminance(%s)" % train_or_test
+        luminance = np.zeros((data.shape[0], data.shape[2], data.shape[3]))
+        for start in bar(range(0, data.shape[0], batch_size), title):
+            batch = slice(start, start + batch_size)
+
+            # transpose to corresponds to rgb2lab inputs
+            rgb_batch = np.transpose(data[batch], [0, 2, 3, 1])
+
+            # make sure we use uint8
+            if rgb_batch.dtype != 'uint8':
+                rgb_batch = np.int_(np.clip(rgb_batch, 0, 1) * 255).astype(
+                    np.uint8)
+
+            # convert RGB images to a single luminance channel
+            luminance[batch] = imagearray2luminance(rgb_batch)
+
+    return luminance
+
+
+luminance_train = compute_luminance("train")
+luminance_test = compute_luminance("test")
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mAttributeError[0m                            Traceback (most recent call last)
+Cell [0;32mIn[3], line 2[0m
+[1;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mnp[39;00m
+[0;32m----> 2[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmoten[39;00m[38;5;21;01m.[39;00m[38;5;21;01mio[39;00m [38;5;28;01mimport[39;00m imagearray2luminance
+[1;32m      3[0m [38;5;28;01mfrom[39;00m [38;5;21;01mhimalaya[39;00m[38;5;21;01m.[39;00m[38;5;21;01mprogress_bar[39;00m [38;5;28;01mimport[39;00m bar
+[1;32m      6[0m [38;5;28;01mdef[39;00m [38;5;21mcompute_luminance[39m(train_or_test, batch_size[38;5;241m=[39m[38;5;241m1024[39m):
+
+File [0;32m~/miniconda3/envs/voxelwise_tutorials/lib/python3.10/site-packages/moten/__init__.py:14[0m
+[1;32m      1[0m [38;5;124;03m'''[39;00m
+[1;32m      2[0m [38;5;124;03m'''[39;00m
+[1;32m      3[0m [38;5;66;03m#[39;00m
+[1;32m      4[0m [38;5;66;03m# Adapted from MATLAB code written by S. Nishimoto (see Nishimoto, et al., 2011).[39;00m
+[1;32m      5[0m [38;5;66;03m# Anwar O. Nunez-Elizalde (Jan, 2016)[39;00m
+[0;32m   (...)[0m
+[1;32m     12[0m [38;5;66;03m# internal imports[39;00m
+[1;32m     13[0m [38;5;66;03m##############################[39;00m
+[0;32m---> 14[0m [38;5;28;01mfrom[39;00m [38;5;21;01mmoten[39;00m [38;5;28;01mimport[39;00m (pyramids,
+[1;32m     15[0m                    utils,
+[1;32m     16[0m                    core,
+[1;32m     17[0m                    viz,
+[1;32m     18[0m                    io,
+[1;32m     19[0m                    )
+[1;32m     22[0m [38;5;66;03m# some default pyramids[39;00m
+[1;32m     23[0m default_pyramids [38;5;241m=[39m pyramids[38;5;241m.[39mDefaultPyramids()
+
+File [0;32m~/miniconda3/envs/voxelwise_tutorials/lib/python3.10/site-packages/moten/io.py:195[0m
+[1;32m    191[0m         grey_video[38;5;241m.[39mappend(grey_image)
+[1;32m    192[0m     [38;5;28;01mreturn[39;00m np[38;5;241m.[39masarray(grey_video)
+[0;32m--> 195[0m [38;5;28;01mdef[39;00m [38;5;21mimagearray2luminance[39m(uint8arr, size[38;5;241m=[39m[38;5;28;01mNone[39;00m, [38;5;28mfilter[39m[38;5;241m=[39m[43mImage[49m[38;5;241;43m.[39;49m[43mANTIALIAS[49m, dtype[38;5;241m=[39mnp[38;5;241m.[39mfloat64):
+[1;32m    196[0m [38;5;250m    [39m[38;5;124;03m'''Convert an array of uint8 RGB images to a luminance image[39;00m
+[1;32m    197[0m 
+[1;32m    198[0m [38;5;124;03m    Parameters[39;00m
+[0;32m   (...)[0m
+[1;32m    210[0m [38;5;124;03m        Pixel values are in the 0-100 range.[39;00m
+[1;32m    211[0m [38;5;124;03m    '''[39;00m
+[1;32m    212[0m     [38;5;28;01mfrom[39;00m [38;5;21;01mscipy[39;00m [38;5;28;01mimport[39;00m misc
+
+[0;31mAttributeError[0m: module 'PIL.Image' has no attribute 'ANTIALIAS'
+
