@@ -2,9 +2,9 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-article
-root: index
+root: pages/index
 sections:
-- file: voxelwise_modeling
+- file: pages/voxelwise_modeling
   title: Overview of the VEM framework
 - file: notebooks/shortclips/README
   title: Shortclips tutorial
@@ -23,6 +23,5 @@ sections:
   - file: notebooks/vim2/00_download_vim2
   - file: notebooks/vim2/01_extract_motion_energy
   - file: notebooks/vim2/02_plot_ridge_model
-- file: references
-  title: References
-- file: voxelwise_package
+- file: pages/references
+- file: pages/voxelwise_package
