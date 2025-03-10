@@ -343,6 +343,11 @@ def plot_2d_flatmap_from_mapper(
 
     # plot the data
     image = map_voxels_to_flatmap(mapped_rgba, mapper_file)
+    # imshow will give a warning if the image has nans,
+    # so make sure there are no nans in the image, 
+    # but preserve them in the alpha channel
+    nans = np.any(np.isnan(image[:, :, :3]), axis=2)
+    image[nans] = 0
     ax.imshow(image, aspect="equal", zorder=1)
 
     if with_colorbar:
