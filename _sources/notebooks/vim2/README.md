@@ -7,7 +7,7 @@ lobe, and with no mappers to plot the data on flatmaps.
 Using the "Shortclips tutorial" with full brain responses is recommended.
 :::
 
-This tutorial describes how to perform voxelwise modeling on a visual
+This tutorial describes how to use the Voxelwise Encoding Model framework in a visual
 imaging experiment.
 
 ## Data set

@@ -422,13 +422,13 @@ variables <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{(n \tim
 variable <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{n}\)</span> (the target). Specifically, linear
 regression uses a vector of coefficient <span class="math notranslate nohighlight">\(w \in \mathbb{R}^{p}\)</span> to
 predict the output</p>
-<div class="amsmath math notranslate nohighlight" id="equation-010741a2-76d5-4c9c-9869-185c0d3cb2c4">
-<span class="eqno">(2)<a class="headerlink" href="#equation-010741a2-76d5-4c9c-9869-185c0d3cb2c4" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-da76a1fe-87f6-46bd-9e9c-e09383d7cce8">
+<span class="eqno">(2)<a class="headerlink" href="#equation-da76a1fe-87f6-46bd-9e9c-e09383d7cce8" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
 <p>The model is considered accurate if the predictions <span class="math notranslate nohighlight">\(\hat{y}\)</span> are close
 to the true output values <span class="math notranslate nohighlight">\(y\)</span>. Therefore,  a good linear regression model
 is given by the vector <span class="math notranslate nohighlight">\(w\)</span> that minimizes the sum of squared errors:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-04e7999a-297e-4b03-8416-a103d7ff49bf">
-<span class="eqno">(3)<a class="headerlink" href="#equation-04e7999a-297e-4b03-8416-a103d7ff49bf" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-6da7fe0e-54ba-48f4-9aa1-d9bf075b11ab">
+<span class="eqno">(3)<a class="headerlink" href="#equation-6da7fe0e-54ba-48f4-9aa1-d9bf075b11ab" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
 <p>This is the simplest model for linear regression, and it is known as <em>ordinary
 least squares</em> (OLS).</p>
 <section id="ordinary-least-squares-ols">
@@ -480,8 +480,8 @@ accuracy of the model, and thus the squared loss.</p>
 </div>
 <p>The linear coefficient leading to the minimum squared loss can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-08541323-7db5-4c17-bea4-760241648a56">
-<span class="eqno">(4)<a class="headerlink" href="#equation-08541323-7db5-4c17-bea4-760241648a56" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-f012e063-7522-4b05-8e49-064f95b614c7">
+<span class="eqno">(4)<a class="headerlink" href="#equation-f012e063-7522-4b05-8e49-064f95b614c7" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
 <p>This is the OLS solution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -621,8 +621,8 @@ data.</p>
 <p>To solve the instability and under-determinacy issues of OLS, OLS can be
 extended to <em>ridge regression</em>. Ridge regression considers a different
 optimization problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-152e4fe6-61c3-4b05-b6f4-2b165911ccca">
-<span class="eqno">(5)<a class="headerlink" href="#equation-152e4fe6-61c3-4b05-b6f4-2b165911ccca" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-3b3d4e3f-b071-4c3f-a29b-8960c06b9e4d">
+<span class="eqno">(5)<a class="headerlink" href="#equation-3b3d4e3f-b071-4c3f-a29b-8960c06b9e4d" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
 <p>This optimization problem contains two terms: (i) a <em>data-fitting term</em>
 <span class="math notranslate nohighlight">\(||Xw - y||^2\)</span>, which ensures the regression correctly fits the
 training data; and (ii) a regularization term <span class="math notranslate nohighlight">\(\alpha||w||^2\)</span>, which
@@ -654,8 +654,8 @@ squared loss.</p>
 <p>To understand why the regularization term makes the solution more robust to
 noise, let’s consider the ridge solution. The ridge solution can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-492d00e7-ad9c-4c41-8a51-e718f0553dd4">
-<span class="eqno">(6)<a class="headerlink" href="#equation-492d00e7-ad9c-4c41-8a51-e718f0553dd4" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-a0efc9cb-9e9a-4048-9b95-83cf0418e6d0">
+<span class="eqno">(6)<a class="headerlink" href="#equation-a0efc9cb-9e9a-4048-9b95-83cf0418e6d0" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
 <p>where <code class="docutils literal notranslate"><span class="pre">I</span></code> is the identity matrix. In this formula, we can see that the
 inverted matrix is now <span class="math notranslate nohighlight">\((X^\top X + \alpha I)\)</span>. Compared to OLS, the
 additional term <span class="math notranslate nohighlight">\(\alpha I\)</span> adds a positive value <code class="docutils literal notranslate"><span class="pre">alpha</span></code> to all
