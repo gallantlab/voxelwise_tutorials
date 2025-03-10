@@ -1,43 +1,45 @@
-============================
-Voxelwise modeling tutorials
-============================
+==================================
+Voxelwise Encoding Model tutorials
+==================================
 
 |Github| |Python| |License| |Build| |Build Tutorials| |Downloads|
 
-Welcome to the voxelwise modeling tutorial from the
-`GallantLab <https://gallantlab.org>`_.
+Welcome to the Voxelwise Encoding Model tutorials, brought to you by the
+`Gallant Lab <https://gallantlab.org>`_.
 
 Paper
 =====
 
 If you use these tutorials for your work, consider citing the corresponding paper:
 
-Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024). The Voxelwise Modeling framework: a tutorial introduction to fitting encoding models to fMRI data. https://doi.org/10.31234/osf.io/t975e
+   Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024). The Voxelwise Encoding Model framework: a tutorial introduction to fitting encoding models to fMRI data. https://doi.org/10.31234/osf.io/t975e
 
 You can find a copy of the paper `here <paper/voxelwise_tutorials_paper.pdf>`_.
 
 Tutorials
 =========
 
-This repository contains tutorials describing how to use the voxelwise modeling
-framework. `Voxelwise modeling
-<https://gallantlab.github.io/voxelwise_tutorials/voxelwise_modeling.html>`_ is
+This repository contains tutorials describing how to use the Voxelwise Encoding Model 
+(VEM) framework. `VEM
+<https://gallantlab.github.io/voxelwise_tutorials/pages/voxelwise_modeling.html>`_ is
 a framework to perform functional magnetic resonance imaging (fMRI) data
 analysis, fitting encoding models at the voxel level.
 
 To explore these tutorials, one can:
 
-- read the rendered examples in the tutorials
-  `website <https://gallantlab.github.io/voxelwise_tutorials/>`_ (recommended)
-- run the merged notebook in
+- Read the rendered examples in the tutorials
+  `website <https://gallantlab.github.io/voxelwise_tutorials/>`_ (recommended).
+- Run the merged notebook in
   `Colab <https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab.ipynb>`_.
-- run the Jupyter notebooks (`tutorials/notebooks <tutorials/notebooks>`_ directory) locally
+- Run the Jupyter notebooks (`tutorials/notebooks <tutorials/notebooks>`_ directory) locally.
 
-The tutorials are best explored in order, starting with the "Shortclips"
-tutorial.
+The tutorials are best explored in order, starting with the "shortclips"
+tutorial. The "vim2" tutorial is optional and redundant with the "shortclips" one.
+
 
 Dockerfiles
 ===========
+
 This repository contains Dockerfiles to run the tutorials locally. Please see the
 instructions in the `docker <docker>`_ directory.
 

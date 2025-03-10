@@ -1,11 +1,11 @@
 # Voxelwise Encoding Model (VEM) tutorials
 
 Welcome to the tutorials on the Voxelwise Encoding Model framework from the
-[GallantLab](https://gallantlab.org).
+[Gallant Lab](https://gallantlab.org).
 
 If you use these tutorials for your work, consider citing the corresponding paper:
 
-> T. Dupré La Tour, M. Visconti di Oleggio Castello, and J. L. Gallant. The voxelwise modeling framework: a tutorial introduction to fitting encoding models to fMRI data. PsyArXiv, 2024. [doi:10.31234/osf.io/t975e.](https://doi.org/10.31234/osf.io/t975e)
+> T. Dupré La Tour, M. Visconti di Oleggio Castello, and J. L. Gallant. The Voxelwise Encoding Model framework: a tutorial introduction to fitting encoding models to fMRI data. PsyArXiv, 2024. [doi:10.31234/osf.io/t975e.](https://doi.org/10.31234/osf.io/t975e)
 
 You can find a copy of the paper [here](https://github.com/gallantlab/voxelwise_tutorials/blob/main/paper/voxelwise_tutorials_paper.pdf).
 
