@@ -87,7 +87,7 @@ data sets. Please follow the instructions in the
 `git-annex <https://git-annex.branchable.com/install/>`_ documentation to install
 it on your system.
 
-The tutorials and the package ```voxelwise_tutorials`` require Python 3.9 or higher.
+The tutorials and the package ``voxelwise_tutorials`` require Python 3.9 or higher.
 
 The package ``voxelwise_tutorials`` has the following Python dependencies:
 `numpy <https://github.com/numpy/numpy>`_,
