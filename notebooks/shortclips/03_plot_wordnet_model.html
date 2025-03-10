@@ -640,7 +640,7 @@ set. See the previous example for more details about ridge regression and
 hyperparameter selection.</p>
 <p>For computational reasons, when the number of features is larger than the
 number of samples, it is more efficient to solve ridge regression using the
-(equivalent) dual formulation <span id="id3">[<a class="reference internal" href="#id34" title="C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.">Saunders <em>et al.</em>, 1998</a>]</span>. This dual formulation is equivalent to
+(equivalent) dual formulation <span id="id3">[<a class="reference internal" href="merged_for_colab_model_fitting.html#id133" title="C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.">Saunders <em>et al.</em>, 1998</a>]</span>. This dual formulation is equivalent to
 kernel ridge regression with a linear kernel. Here, we have 3600 training
 samples, and 1705 * 4 = 6820 features (we multiply by 4 since we use 4 time
 delays), therefore it is more efficient to use kernel ridge regression.</p>
@@ -1164,7 +1164,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), a..., (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ...,...1, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -1173,13 +1173,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), a..., (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ...,...1, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Delayer</div></div></label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>KernelRidgeCV</div></div></label><div class="sk-toggleable__content "><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-              cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ...,...1, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199]))]),
               solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                              &#x27;n_targets_batch_refit&#x27;: 100})</pre></div> </div></div></div></div></div></div></div></div>
 </div>
@@ -1379,7 +1379,7 @@ coefficients variance.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PCA explained variance = [0.35199594 0.08103116 0.05653883 0.03766728]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PCA explained variance = [0.35199594 0.08103117 0.05653884 0.03766724]
 </pre></div>
 </div>
 </div>
@@ -1423,7 +1423,7 @@ color indicates the sign (red is positive, blue is negative).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/2ae51b1766c7d779b3a01d15c5b0bbab54ed54fb84376713de5c8a24bd07ad13.png" src="../../_images/2ae51b1766c7d779b3a01d15c5b0bbab54ed54fb84376713de5c8a24bd07ad13.png" />
+<img alt="../../_images/0e1bfc13ac962106d04225c1b0af8e2b5d48d1ff4df6b233d3e64e815c29e86f.png" src="../../_images/0e1bfc13ac962106d04225c1b0af8e2b5d48d1ff4df6b233d3e64e815c29e86f.png" />
 </div>
 </div>
 <p>According to <span id="id5">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, “this principal component distinguishes
@@ -1486,7 +1486,7 @@ wordnet graph, mapping the three vectors to RGB colors.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(n_nodes, n_channels) = (1705, 3)
 </pre></div>
 </div>
-<img alt="../../_images/8dd5ea5478352023a7fb50b538d1b5522f69d8a906841226e752c811133c5e5d.png" src="../../_images/8dd5ea5478352023a7fb50b538d1b5522f69d8a906841226e752c811133c5e5d.png" />
+<img alt="../../_images/8a0c7681a2118e7f80bd9c89f7dfe31fb53453949a0b284d14a99f6d94b047c5.png" src="../../_images/8a0c7681a2118e7f80bd9c89f7dfe31fb53453949a0b284d14a99f6d94b047c5.png" />
 </div>
 </div>
 <p>According to <span id="id8">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, “this graph shows that categories thought
@@ -1512,11 +1512,7 @@ similarly in the brain”.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(n_channels, n_voxels) = (3, 84038)
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/jlg/mvdoc/miniconda3/envs/voxelwise_tutorials/lib/python3.10/site-packages/matplotlib/cm.py:494: RuntimeWarning: invalid value encountered in cast
-  xx = (xx * 255).astype(np.uint8)
-</pre></div>
-</div>
-<img alt="../../_images/666e863f2e7fa8e488922477c869f97e935a2b1b580c6cb475c63401b3c2e50c.png" src="../../_images/666e863f2e7fa8e488922477c869f97e935a2b1b580c6cb475c63401b3c2e50c.png" />
+<img alt="../../_images/9a73c04c60bfe5ac731fbaa6d4504d4c5aba9ef2a8fd26f1e50de475bd979d80.png" src="../../_images/9a73c04c60bfe5ac731fbaa6d4504d4c5aba9ef2a8fd26f1e50de475bd979d80.png" />
 </div>
 </div>
 <p>Again, our results are different from the ones in <span id="id9">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, for the same reasons
