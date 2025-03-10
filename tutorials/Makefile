@@ -44,6 +44,11 @@ merge-notebooks:
 build:
 	jupyter book build --all $(SOURCEDIR)
 
+preview:
+	python -m http.server --directory _build/html 8000
+	@echo "Preview the book at http://localhost:8000"
+	@echo "Press Ctrl+C to stop the server"
+
 # -b gh_pages --single-branch (to clone only one branch)
 # --no-checkout (just fetches the root folder without content)
 # --depth 1 (since we don't need the history prior to the last commit)
