@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/vim2/02_plot_ridge_model';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="References" href="../../references.html" />
+    <link rel="next" title="References" href="../../pages/references.html" />
     <link rel="prev" title="Extract motion-energy features from the stimuli" href="01_extract_motion_energy.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -142,7 +142,7 @@
     
   
 
-<a class="navbar-brand logo" href="../../index.html">
+<a class="navbar-brand logo" href="../../pages/index.html">
   
   
   
@@ -174,13 +174,13 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="../../index.html">
+                <a class="reference internal" href="../../pages/index.html">
                     Voxelwise Encoding Model (VEM) tutorials
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">Overview of the VEM framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_modeling.html">Overview of the VEM framework</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../shortclips/README.html">Shortclips tutorial</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../shortclips/00_download_shortclips.html">Download the data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../shortclips/01_plot_explainable_variance.html">Compute the explainable variance</a></li>
@@ -198,8 +198,8 @@
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Fit a ridge model with motion energy features</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
 </ul>
 
     </div>
@@ -417,12 +417,12 @@ document.write(`
 <p>In this example, we model the fMRI responses with motion-energy features
 extracted from the movie stimulus. The model is a regularized linear regression
 model.</p>
-<p>This tutorial reproduces part of the analysis described in <span id="id1">Nishimoto <em>et al.</em> [<a class="reference internal" href="../shortclips/05_plot_motion_energy_model.html#id8" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>. See this publication for more details about the experiment, the
+<p>This tutorial reproduces part of the analysis described in <span id="id1">Nishimoto <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>. See this publication for more details about the experiment, the
 motion-energy features, along with more results and more discussions.</p>
 <p><em>Motion-energy features:</em> Motion-energy features result from filtering a video
 stimulus with spatio-temporal Gabor filters. A pyramid of filters is used to
 compute the motion-energy features at multiple spatial and temporal scales.
-Motion-energy features were introduced in <span id="id2">Nishimoto <em>et al.</em> [<a class="reference internal" href="../shortclips/05_plot_motion_energy_model.html#id8" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>.</p>
+Motion-energy features were introduced in <span id="id2">Nishimoto <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>.</p>
 <p><em>Summary:</em> We first concatenate the features with multiple delays, to account
 for the slow hemodynamic response. A linear regression model then weights each
 delayed feature with a different weight, to build a predictive model of BOLD
@@ -767,7 +767,7 @@ other.</p>
       </div>
     </a>
     <a class="right-next"
-       href="../../references.html"
+       href="../../pages/references.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>

@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -144,7 +144,7 @@
     
   
 
-<a class="navbar-brand logo" href="../../index.html">
+<a class="navbar-brand logo" href="../../pages/index.html">
   
   
   
@@ -176,13 +176,13 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="../../index.html">
+                <a class="reference internal" href="../../pages/index.html">
                     Voxelwise Encoding Model (VEM) tutorials
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">Overview of the VEM framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_modeling.html">Overview of the VEM framework</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Shortclips tutorial</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="00_download_shortclips.html">Download the data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01_plot_explainable_variance.html">Compute the explainable variance</a></li>
@@ -200,8 +200,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../vim2/02_plot_ridge_model.html">Fit a ridge model with motion energy features</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
 </ul>
 
     </div>
@@ -421,12 +421,12 @@ document.write(`
 <p>In this example, we model the fMRI responses with motion-energy features
 extracted from the movie stimulus. The model is a regularized linear regression
 model.</p>
-<p>This tutorial reproduces part of the analysis described in <span id="id1">Nishimoto <em>et al.</em> [<a class="reference internal" href="#id8" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>. See the original publication for more details about the experiment, the
+<p>This tutorial reproduces part of the analysis described in <span id="id1">Nishimoto <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>. See the original publication for more details about the experiment, the
 motion-energy features, along with more results and more discussions.</p>
 <p><em>Motion-energy features:</em> Motion-energy features result from filtering a video
 stimulus with spatio-temporal Gabor filters. A pyramid of filters is used to
 compute the motion-energy features at multiple spatial and temporal scales.
-Motion-energy features were introduced in <span id="id2">Nishimoto <em>et al.</em> [<a class="reference internal" href="#id8" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>. The downloaded
+Motion-energy features were introduced in <span id="id2">Nishimoto <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>. The downloaded
 dataset contains the pre-computed motion-energy features for the movie stimulus used
 in the experiment. You can see how to extract these motion-energy features in the
 <a class="reference internal" href="07_extract_motion_energy.html"><span class="std std-doc">Extract motion-energy features</span></a> tutorial.</p>
@@ -597,12 +597,6 @@ example for more details about the model definition.</p>
         <span class="n">solver_params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">n_targets_batch</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">n_alphas_batch</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                            <span class="n">n_targets_batch_refit</span><span class="o">=</span><span class="mi">100</span><span class="p">)),</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/jlg/mvdoc/miniconda3/envs/voxelwise_tutorials/lib/python3.10/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
-  from .autonotebook import tqdm as notebook_tqdm
 </pre></div>
 </div>
 </div>
@@ -1037,7 +1031,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), a...(array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 299...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -1046,13 +1040,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), a...(array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 299...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Delayer</div></div></label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>KernelRidgeCV</div></div></label><div class="sk-toggleable__content "><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-              cv=_CVIterableWrapper(cv=[(array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299]))]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 299...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099]))]),
               solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                              &#x27;n_targets_batch_refit&#x27;: 100})</pre></div> </div></div></div></div></div></div></div></div>
 </div>
@@ -1099,7 +1093,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 <p>The motion-energy features lead to large generalization scores in the
 early visual cortex (V1, V2, V3, …). For more discussions about these
-results, we refer the reader to the original publication <span id="id3">[<a class="reference internal" href="#id8" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">Nishimoto <em>et al.</em>, 2011</a>]</span>.</p>
+results, we refer the reader to the original publication <span id="id3">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">Nishimoto <em>et al.</em>, 2011</a>]</span>.</p>
 </section>
 <section id="compare-with-the-wordnet-model">
 <h2>Compare with the wordnet model<a class="headerlink" href="#compare-with-the-wordnet-model" title="Link to this heading">#</a></h2>
@@ -1184,10 +1178,6 @@ same flatmap, using a 2D colormap.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/jlg/mvdoc/miniconda3/envs/voxelwise_tutorials/lib/python3.10/site-packages/matplotlib/cm.py:494: RuntimeWarning: invalid value encountered in cast
-  xx = (xx * 255).astype(np.uint8)
-</pre></div>
-</div>
 <img alt="../../_images/2678ebb04d001cb895e6723da84fbe385fb8af20231cf8f71c7dc46bafb2af07.png" src="../../_images/2678ebb04d001cb895e6723da84fbe385fb8af20231cf8f71c7dc46bafb2af07.png" />
 </div>
 </div>
@@ -1208,7 +1198,7 @@ correlated with the “face” semantic category. Thus, motion-energy features
 could predict responses in face-responsive areas without encoding any
 semantic information.</p>
 <p>To better disentangle the two feature spaces, we developed a joint model
-called <code class="docutils literal notranslate"><span class="pre">banded</span> <span class="pre">ridge</span> <span class="pre">regression</span></code> <span id="id4">[<a class="reference internal" href="#id20" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="#id17" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>, which fits multiple feature spaces
+called <code class="docutils literal notranslate"><span class="pre">banded</span> <span class="pre">ridge</span> <span class="pre">regression</span></code> <span id="id4">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>, which fits multiple feature spaces
 simultaneously with optimal regularization for each feature space. This model
 is described in the next example.</p>
 </section>

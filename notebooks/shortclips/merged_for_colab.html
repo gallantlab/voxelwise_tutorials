@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -144,7 +144,7 @@
     
   
 
-<a class="navbar-brand logo" href="../../index.html">
+<a class="navbar-brand logo" href="../../pages/index.html">
   
   
   
@@ -176,13 +176,13 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="../../index.html">
+                <a class="reference internal" href="../../pages/index.html">
                     Voxelwise Encoding Model (VEM) tutorials
                 </a>
             </li>
         </ul>
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">Overview of the VEM framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_modeling.html">Overview of the VEM framework</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="README.html">Shortclips tutorial</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="00_download_shortclips.html">Download the data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01_plot_explainable_variance.html">Compute the explainable variance</a></li>
@@ -200,8 +200,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../vim2/02_plot_ridge_model.html">Fit a ridge model with motion energy features</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
 </ul>
 
     </div>
@@ -612,8 +612,8 @@ voxel for each of the <span class="math notranslate nohighlight">\(N\)</span> re
 across repetitions. For each repeat, we define the residual timeseries between
 brain response and average brain response as <span class="math notranslate nohighlight">\(r_i = y_i - \bar{y}\)</span>. The
 explainable variance (EV) is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f0a429ea-52f6-471d-bebf-c03a8241edb3">
-<span class="eqno">()<a class="headerlink" href="#equation-f0a429ea-52f6-471d-bebf-c03a8241edb3" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-33adc67b-8b11-452c-bfd6-ec980a57aa14">
+<span class="eqno">()<a class="headerlink" href="#equation-33adc67b-8b11-452c-bfd6-ec980a57aa14" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
 <p>In the literature, the explainable variance is also known as the <em>signal
 power</em>. For more information, see these references [1]_ [2]_ [3]_.</p>
 <section id="path-of-the-data-directory">
@@ -879,13 +879,13 @@ variables <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{(n \tim
 variable <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{n}\)</span> (the target). Specifically, linear
 regression uses a vector of coefficient <span class="math notranslate nohighlight">\(w \in \mathbb{R}^{p}\)</span>` to
 predict the output</p>
-<div class="amsmath math notranslate nohighlight" id="equation-78e74cca-e0e7-4f13-989d-a47c7c6f46f2">
-<span class="eqno">()<a class="headerlink" href="#equation-78e74cca-e0e7-4f13-989d-a47c7c6f46f2" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-29c0c175-c404-4515-9d8a-2cd81801d6e2">
+<span class="eqno">()<a class="headerlink" href="#equation-29c0c175-c404-4515-9d8a-2cd81801d6e2" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
 <p>The model is considered accurate if the predictions <span class="math notranslate nohighlight">\(\hat{y}\)</span> are close
 to the true output values <span class="math notranslate nohighlight">\(y\)</span>. Therefore,  a good linear regression model
 is given by the vector <span class="math notranslate nohighlight">\(w\)</span> that minimizes the sum of squared errors:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-59700dd2-725f-4ccb-9cbc-ba0e675f16c3">
-<span class="eqno">()<a class="headerlink" href="#equation-59700dd2-725f-4ccb-9cbc-ba0e675f16c3" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-7528e6d6-c7c2-4f2e-b375-651de4842e1c">
+<span class="eqno">()<a class="headerlink" href="#equation-7528e6d6-c7c2-4f2e-b375-651de4842e1c" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
 <p>This is the simplest model for linear regression, and it is known as <em>ordinary
 least squares</em> (OLS).</p>
 <section id="ordinary-least-squares-ols">
@@ -928,8 +928,8 @@ accuracy of the model, and thus the squared loss.</p>
 </div>
 <p>The linear coefficient leading to the minimum squared loss can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b644da15-3b2d-4d15-920c-d163b10853a1">
-<span class="eqno">()<a class="headerlink" href="#equation-b644da15-3b2d-4d15-920c-d163b10853a1" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-58bf1a3b-76c2-4054-8b68-15ab40f98966">
+<span class="eqno">()<a class="headerlink" href="#equation-58bf1a3b-76c2-4054-8b68-15ab40f98966" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
 <p>This is the OLS solution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1045,8 +1045,8 @@ data.</p>
 <p>To solve the instability and under-determinacy issues of OLS, OLS can be
 extended to <em>ridge regression</em>. Ridge regression considers a different
 optimization problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-83f3c14c-d8fc-4870-ab33-51e5769306fe">
-<span class="eqno">()<a class="headerlink" href="#equation-83f3c14c-d8fc-4870-ab33-51e5769306fe" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-df349966-7501-46b1-b0a0-85a7f0d3cf36">
+<span class="eqno">()<a class="headerlink" href="#equation-df349966-7501-46b1-b0a0-85a7f0d3cf36" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
 <p>This optimization problem contains two terms: (i) a <em>data-fitting term</em>
 <span class="math notranslate nohighlight">\(||Xw - y||^2\)</span>, which ensures the regression correctly fits the
 training data; and (ii) a regularization term <span class="math notranslate nohighlight">\(\alpha||w||^2\)</span>, which
@@ -1075,8 +1075,8 @@ squared loss.</p>
 <p>To understand why the regularization term makes the solution more robust to
 noise, let’s consider the ridge solution. The ridge solution can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3861df35-501a-4259-bc15-b44aad6e1ee9">
-<span class="eqno">()<a class="headerlink" href="#equation-3861df35-501a-4259-bc15-b44aad6e1ee9" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-0b0273f5-6b83-468e-a0d5-cf22b56967cc">
+<span class="eqno">()<a class="headerlink" href="#equation-0b0273f5-6b83-468e-a0d5-cf22b56967cc" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
 <p>where <code class="docutils literal notranslate"><span class="pre">I</span></code> is the identity matrix. In this formula, we can see that the
 inverted matrix is now <span class="math notranslate nohighlight">\((X^\top X + \alpha I)\)</span>. Compared to OLS, the
 additional term <span class="math notranslate nohighlight">\(\alpha I\)</span> adds a positive value <code class="docutils literal notranslate"><span class="pre">alpha</span></code> to all
@@ -2137,8 +2137,8 @@ function (HRF).</p>
 coefficients <span class="math notranslate nohighlight">\(\beta\)</span> obtained with a ridge regression, but the primal
 coefficients can be computed from the dual coefficients using the training
 features <span class="math notranslate nohighlight">\(X\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5d8eac51-53d4-4b78-976f-2f57c9df26ac">
-<span class="eqno">()<a class="headerlink" href="#equation-5d8eac51-53d4-4b78-976f-2f57c9df26ac" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-7f03b3d1-77cf-4353-8092-39962533a26d">
+<span class="eqno">()<a class="headerlink" href="#equation-7f03b3d1-77cf-4353-8092-39962533a26d" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
 <p>To better visualize the HRF, we will refit a model with more delays, but only
 on a selection of voxels to speed up the computations.</p>
 <div class="cell docutils container">
@@ -2920,8 +2920,8 @@ way to disentangle the contribution of the two feature spaces. To do so, we
 take the kernel weights and the ridge (dual) weights corresponding to each
 feature space, and use them to compute the prediction from each feature space
 separately.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bc58b075-d816-4734-9980-69401827f57b">
-<span class="eqno">()<a class="headerlink" href="#equation-bc58b075-d816-4734-9980-69401827f57b" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-337cabb9-d677-4232-9ba7-a4f0fd9f39f5">
+<span class="eqno">()<a class="headerlink" href="#equation-337cabb9-d677-4232-9ba7-a4f0fd9f39f5" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
 <p>Then, we use these split predictions to compute split <span class="math notranslate nohighlight">\(\tilde{R}^2_i\)</span>
 scores. These scores are corrected so that their sum is equal to the
 <span class="math notranslate nohighlight">\(R^2\)</span> score of the full prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>

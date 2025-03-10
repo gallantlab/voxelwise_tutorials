@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -142,7 +142,7 @@
     
   
 
-<a class="navbar-brand logo" href="../../index.html">
+<a class="navbar-brand logo" href="../../pages/index.html">
   
   
   
@@ -174,13 +174,13 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="../../index.html">
+                <a class="reference internal" href="../../pages/index.html">
                     Voxelwise Encoding Model (VEM) tutorials
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">Overview of the VEM framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_modeling.html">Overview of the VEM framework</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../shortclips/README.html">Shortclips tutorial</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../shortclips/00_download_shortclips.html">Download the data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../shortclips/01_plot_explainable_variance.html">Compute the explainable variance</a></li>
@@ -198,8 +198,8 @@
 <li class="toctree-l2"><a class="reference internal" href="02_plot_ridge_model.html">Fit a ridge model with motion energy features</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
 </ul>
 
     </div>
@@ -423,18 +423,18 @@ imaging experiment.</p>
 <section id="data-set">
 <h2>Data set<a class="headerlink" href="#data-set" title="Link to this heading">#</a></h2>
 <p>This tutorial is based on publicly available data published on
-<a class="reference external" href="https://crcns.org/data-sets/vc/vim-2/about-vim-2">CRCNS</a> <span id="id1">[<a class="reference internal" href="../../references.html#id24" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Gallant lab natural movie 4t fMRI data. 2014. doi:10.6080/K00Z715X.">Nishimoto <em>et al.</em>, 2014</a>]</span>.
+<a class="reference external" href="https://crcns.org/data-sets/vc/vim-2/about-vim-2">CRCNS</a> <span id="id1">[<a class="reference internal" href="../../pages/references.html#id24" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Gallant lab natural movie 4t fMRI data. 2014. doi:10.6080/K00Z715X.">Nishimoto <em>et al.</em>, 2014</a>]</span>.
 The data is briefly described in the dataset description
 <a class="reference external" href="https://crcns.org/files/data/vim-2/crcns-vim-2-data-description.pdf">PDF</a>,
-and in more details in the original publication <span id="id2">[<a class="reference internal" href="../shortclips/05_plot_motion_energy_model.html#id8" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">Nishimoto <em>et al.</em>, 2011</a>]</span>.
+and in more details in the original publication <span id="id2">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">Nishimoto <em>et al.</em>, 2011</a>]</span>.
 If you publish work using this data set, please cite the original
-publication <span id="id3">[<a class="reference internal" href="../shortclips/05_plot_motion_energy_model.html#id8" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">Nishimoto <em>et al.</em>, 2011</a>]</span>, and the CRCNS data set <span id="id4">[<a class="reference internal" href="../../references.html#id24" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Gallant lab natural movie 4t fMRI data. 2014. doi:10.6080/K00Z715X.">Nishimoto <em>et al.</em>, 2014</a>]</span>.</p>
+publication <span id="id3">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">Nishimoto <em>et al.</em>, 2011</a>]</span>, and the CRCNS data set <span id="id4">[<a class="reference internal" href="../../pages/references.html#id24" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Gallant lab natural movie 4t fMRI data. 2014. doi:10.6080/K00Z715X.">Nishimoto <em>et al.</em>, 2014</a>]</span>.</p>
 </section>
 <section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">#</a></h2>
 <p>This tutorial requires the following Python packages:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> and its dependencies (see <a class="reference internal" href="../../voxelwise_package.html"><span class="std std-doc">this page</span></a> for installation instructions)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> and its dependencies (see <a class="reference internal" href="#../../voxelwise_package.rst"><span class="xref myst">this page</span></a> for installation instructions)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cupy</span></code> or <code class="docutils literal notranslate"><span class="pre">pytorch</span></code> (optional, required to use a GPU backend in himalaya)</p></li>
 </ul>
 </section>

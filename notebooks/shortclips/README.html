@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Download the data set" href="00_download_shortclips.html" />
-    <link rel="prev" title="Overview of the Voxelwise Encoding Model (VEM) framework" href="../../voxelwise_modeling.html" />
+    <link rel="prev" title="Overview of the Voxelwise Encoding Model (VEM) framework" href="../../pages/voxelwise_modeling.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -142,7 +142,7 @@
     
   
 
-<a class="navbar-brand logo" href="../../index.html">
+<a class="navbar-brand logo" href="../../pages/index.html">
   
   
   
@@ -174,13 +174,13 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="../../index.html">
+                <a class="reference internal" href="../../pages/index.html">
                     Voxelwise Encoding Model (VEM) tutorials
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_modeling.html">Overview of the VEM framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_modeling.html">Overview of the VEM framework</a></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Shortclips tutorial</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="00_download_shortclips.html">Download the data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01_plot_explainable_variance.html">Compute the explainable variance</a></li>
@@ -198,8 +198,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../vim2/02_plot_ridge_model.html">Fit a ridge model with motion energy features</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/voxelwise_package.html"><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> helper package</a></li>
 </ul>
 
     </div>
@@ -419,21 +419,21 @@ imaging experiment.</p>
 <section id="dataset">
 <h2>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h2>
 <p>This tutorial is based on publicly available data <a class="reference external" href="https://gin.g-node.org/gallantlab/shortclips">published on
-GIN</a> <span id="id1">[<a class="reference internal" href="../../references.html#id25" title="A. G. Huth, S. Nishimoto, A. T. Vu, T. Dupré la Tour, and J. L. Gallant. Gallant lab natural short clips 3t fMRI data. 2022. doi:10.12751/g-node.vy1zjd.">Huth <em>et al.</em>, 2022</a>]</span>.
+GIN</a> <span id="id1">[<a class="reference internal" href="../../pages/references.html#id25" title="A. G. Huth, S. Nishimoto, A. T. Vu, T. Dupré la Tour, and J. L. Gallant. Gallant lab natural short clips 3t fMRI data. 2022. doi:10.12751/g-node.vy1zjd.">Huth <em>et al.</em>, 2022</a>]</span>.
 This data set contains BOLD fMRI responses in human subjects viewing a set of
 natural short movie clips. The functional data were collected in five subjects,
 in three sessions over three separate days for each subject. Details of the
-experiment are described in the original publication <span id="id2">[<a class="reference internal" href="03_plot_wordnet_model.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>. If
+experiment are described in the original publication <span id="id2">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>. If
 you publish work using this data set, please cite the original publications
-<span id="id3">[<a class="reference internal" href="03_plot_wordnet_model.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>, and the GIN data set <span id="id4">[<a class="reference internal" href="../../references.html#id25" title="A. G. Huth, S. Nishimoto, A. T. Vu, T. Dupré la Tour, and J. L. Gallant. Gallant lab natural short clips 3t fMRI data. 2022. doi:10.12751/g-node.vy1zjd.">Huth <em>et al.</em>, 2022</a>]</span>.</p>
+<span id="id3">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>, and the GIN data set <span id="id4">[<a class="reference internal" href="../../pages/references.html#id25" title="A. G. Huth, S. Nishimoto, A. T. Vu, T. Dupré la Tour, and J. L. Gallant. Gallant lab natural short clips 3t fMRI data. 2022. doi:10.12751/g-node.vy1zjd.">Huth <em>et al.</em>, 2022</a>]</span>.</p>
 </section>
 <section id="models">
 <h2>Models<a class="headerlink" href="#models" title="Link to this heading">#</a></h2>
 <p>This tutorial shows and compares analyses based on three different voxelwise encoding models:</p>
 <ol class="arabic simple">
-<li><p>A ridge model with <a class="reference internal" href="03_plot_wordnet_model.html"><span class="std std-doc">wordnet semantic features</span></a> as described in <span id="id5">[<a class="reference internal" href="03_plot_wordnet_model.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>.</p></li>
-<li><p>A ridge model with <a class="reference internal" href="05_plot_motion_energy_model.html"><span class="std std-doc">motion-energy features</span></a> as described in <span id="id6">[<a class="reference internal" href="05_plot_motion_energy_model.html#id8" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">Nishimoto <em>et al.</em>, 2011</a>]</span>.</p></li>
-<li><p>A banded-ridge model with <a class="reference internal" href="06_plot_banded_ridge_model.html"><span class="std std-doc">both feature spaces</span></a> as described in <span id="id7">[<a class="reference internal" href="05_plot_motion_energy_model.html#id17" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>.</p></li>
+<li><p>A ridge model with <a class="reference internal" href="03_plot_wordnet_model.html"><span class="std std-doc">wordnet semantic features</span></a> as described in <span id="id5">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>.</p></li>
+<li><p>A ridge model with <a class="reference internal" href="05_plot_motion_energy_model.html"><span class="std std-doc">motion-energy features</span></a> as described in <span id="id6">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">Nishimoto <em>et al.</em>, 2011</a>]</span>.</p></li>
+<li><p>A banded-ridge model with <a class="reference internal" href="06_plot_banded_ridge_model.html"><span class="std std-doc">both feature spaces</span></a> as described in <span id="id7">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>.</p></li>
 </ol>
 </section>
 <section id="scikit-learn-api">
@@ -451,7 +451,7 @@ the scikit-learn terminology, which is explained in great details in the
 <h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">#</a></h2>
 <p>This tutorial requires the following Python packages:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> and its dependencies (see <a class="reference internal" href="../../voxelwise_package.html"><span class="std std-doc">this page</span></a> for installation instructions)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">voxelwise_tutorials</span></code> and its dependencies (see <a class="reference internal" href="#../../voxelwise_package.rst"><span class="xref myst">this page</span></a> for installation instructions)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cupy</span></code> or <code class="docutils literal notranslate"><span class="pre">pytorch</span></code> (optional, required to use a GPU backend in himalaya)</p></li>
 </ul>
 </section>
@@ -515,7 +515,7 @@ the scikit-learn terminology, which is explained in great details in the
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../voxelwise_modeling.html"
+       href="../../pages/voxelwise_modeling.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
