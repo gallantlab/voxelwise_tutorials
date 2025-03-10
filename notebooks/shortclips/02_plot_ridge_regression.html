@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -422,13 +422,13 @@ variables <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{(n \tim
 variable <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{n}\)</span> (the target). Specifically, linear
 regression uses a vector of coefficient <span class="math notranslate nohighlight">\(w \in \mathbb{R}^{p}\)</span>` to
 predict the output</p>
-<div class="amsmath math notranslate nohighlight" id="equation-767245e8-1387-4205-aa5b-e04de16e936e">
-<span class="eqno">(2)<a class="headerlink" href="#equation-767245e8-1387-4205-aa5b-e04de16e936e" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-b321dc9a-1df7-4e72-96a4-f3fb6db7eac9">
+<span class="eqno">(2)<a class="headerlink" href="#equation-b321dc9a-1df7-4e72-96a4-f3fb6db7eac9" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
 <p>The model is considered accurate if the predictions <span class="math notranslate nohighlight">\(\hat{y}\)</span> are close
 to the true output values <span class="math notranslate nohighlight">\(y\)</span>. Therefore,  a good linear regression model
 is given by the vector <span class="math notranslate nohighlight">\(w\)</span> that minimizes the sum of squared errors:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1411829e-8408-4ade-90d5-c843793c09b7">
-<span class="eqno">(3)<a class="headerlink" href="#equation-1411829e-8408-4ade-90d5-c843793c09b7" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-da11d353-051a-45be-880f-d50e9c71c6ba">
+<span class="eqno">(3)<a class="headerlink" href="#equation-da11d353-051a-45be-880f-d50e9c71c6ba" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
 <p>This is the simplest model for linear regression, and it is known as <em>ordinary
 least squares</em> (OLS).</p>
 <section id="ordinary-least-squares-ols">
@@ -480,8 +480,8 @@ accuracy of the model, and thus the squared loss.</p>
 </div>
 <p>The linear coefficient leading to the minimum squared loss can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-14bb1fc9-a43d-4277-a18f-727922befc02">
-<span class="eqno">(4)<a class="headerlink" href="#equation-14bb1fc9-a43d-4277-a18f-727922befc02" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-4747a9e9-4416-46e5-bf27-2a975610578b">
+<span class="eqno">(4)<a class="headerlink" href="#equation-4747a9e9-4416-46e5-bf27-2a975610578b" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
 <p>This is the OLS solution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -621,8 +621,8 @@ data.</p>
 <p>To solve the instability and under-determinacy issues of OLS, OLS can be
 extended to <em>ridge regression</em>. Ridge regression considers a different
 optimization problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2a5c5fc7-049c-402b-b4b2-6c8232b6965d">
-<span class="eqno">(5)<a class="headerlink" href="#equation-2a5c5fc7-049c-402b-b4b2-6c8232b6965d" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-dbc35eb3-d4a6-44f9-b7c9-b7029d0fb3ef">
+<span class="eqno">(5)<a class="headerlink" href="#equation-dbc35eb3-d4a6-44f9-b7c9-b7029d0fb3ef" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
 <p>This optimization problem contains two terms: (i) a <em>data-fitting term</em>
 <span class="math notranslate nohighlight">\(||Xw - y||^2\)</span>, which ensures the regression correctly fits the
 training data; and (ii) a regularization term <span class="math notranslate nohighlight">\(\alpha||w||^2\)</span>, which
@@ -654,8 +654,8 @@ squared loss.</p>
 <p>To understand why the regularization term makes the solution more robust to
 noise, let’s consider the ridge solution. The ridge solution can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3744366d-d822-48c3-8d91-7f2f70a19647">
-<span class="eqno">(6)<a class="headerlink" href="#equation-3744366d-d822-48c3-8d91-7f2f70a19647" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-a16ebf11-c92b-46b2-a106-353575a070df">
+<span class="eqno">(6)<a class="headerlink" href="#equation-a16ebf11-c92b-46b2-a106-353575a070df" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
 <p>where <code class="docutils literal notranslate"><span class="pre">I</span></code> is the identity matrix. In this formula, we can see that the
 inverted matrix is now <span class="math notranslate nohighlight">\((X^\top X + \alpha I)\)</span>. Compared to OLS, the
 additional term <span class="math notranslate nohighlight">\(\alpha I\)</span> adds a positive value <code class="docutils literal notranslate"><span class="pre">alpha</span></code> to all

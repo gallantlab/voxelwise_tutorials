@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -612,8 +612,8 @@ voxel for each of the <span class="math notranslate nohighlight">\(N\)</span> re
 across repetitions. For each repeat, we define the residual timeseries between
 brain response and average brain response as <span class="math notranslate nohighlight">\(r_i = y_i - \bar{y}\)</span>. The
 explainable variance (EV) is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a15bf8d0-0f73-42ba-90d4-3cba6f4cdd3b">
-<span class="eqno">()<a class="headerlink" href="#equation-a15bf8d0-0f73-42ba-90d4-3cba6f4cdd3b" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-2e44a1a9-f77d-4618-9456-45485ee6d6cf">
+<span class="eqno">()<a class="headerlink" href="#equation-2e44a1a9-f77d-4618-9456-45485ee6d6cf" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
 <p>In the literature, the explainable variance is also known as the <em>signal
 power</em>.</p>
 <p>For more information, see <span id="id1">Sahani and Linden [<a class="reference internal" href="merged_for_colab_model_fitting.html#id130" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">2002</a>]</span>, <span id="id2">Hsu <em>et al.</em> [<a class="reference internal" href="merged_for_colab_model_fitting.html#id131" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">2004</a>]</span>, and <span id="id3">Schoppe <em>et al.</em> [<a class="reference internal" href="merged_for_colab_model_fitting.html#id132" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">2016</a>]</span>.</p>
@@ -912,13 +912,13 @@ variables <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{(n \tim
 variable <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{n}\)</span> (the target). Specifically, linear
 regression uses a vector of coefficient <span class="math notranslate nohighlight">\(w \in \mathbb{R}^{p}\)</span>` to
 predict the output</p>
-<div class="amsmath math notranslate nohighlight" id="equation-45839c79-05fe-45e3-9170-f8841803e2fc">
-<span class="eqno">()<a class="headerlink" href="#equation-45839c79-05fe-45e3-9170-f8841803e2fc" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-85df571e-1db7-4f61-96c0-0aa8f3e5c7d5">
+<span class="eqno">()<a class="headerlink" href="#equation-85df571e-1db7-4f61-96c0-0aa8f3e5c7d5" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
 <p>The model is considered accurate if the predictions <span class="math notranslate nohighlight">\(\hat{y}\)</span> are close
 to the true output values <span class="math notranslate nohighlight">\(y\)</span>. Therefore,  a good linear regression model
 is given by the vector <span class="math notranslate nohighlight">\(w\)</span> that minimizes the sum of squared errors:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-26788683-ea01-4a73-bd83-422a40ecc3a0">
-<span class="eqno">()<a class="headerlink" href="#equation-26788683-ea01-4a73-bd83-422a40ecc3a0" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-0bde9ff5-7858-40e8-b360-841543f68c94">
+<span class="eqno">()<a class="headerlink" href="#equation-0bde9ff5-7858-40e8-b360-841543f68c94" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
 <p>This is the simplest model for linear regression, and it is known as <em>ordinary
 least squares</em> (OLS).</p>
 <section id="ordinary-least-squares-ols">
@@ -961,8 +961,8 @@ accuracy of the model, and thus the squared loss.</p>
 </div>
 <p>The linear coefficient leading to the minimum squared loss can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b73436cb-ccd5-4ffe-bcc0-376b15a80903">
-<span class="eqno">()<a class="headerlink" href="#equation-b73436cb-ccd5-4ffe-bcc0-376b15a80903" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-584c8e34-c1d3-4c5b-8a40-d72168e5bf6d">
+<span class="eqno">()<a class="headerlink" href="#equation-584c8e34-c1d3-4c5b-8a40-d72168e5bf6d" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
 <p>This is the OLS solution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1078,8 +1078,8 @@ data.</p>
 <p>To solve the instability and under-determinacy issues of OLS, OLS can be
 extended to <em>ridge regression</em>. Ridge regression considers a different
 optimization problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bc7cc078-4a68-421e-8501-659062150e4a">
-<span class="eqno">()<a class="headerlink" href="#equation-bc7cc078-4a68-421e-8501-659062150e4a" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-3ea45cfb-15de-49a7-a619-c1249f164977">
+<span class="eqno">()<a class="headerlink" href="#equation-3ea45cfb-15de-49a7-a619-c1249f164977" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
 <p>This optimization problem contains two terms: (i) a <em>data-fitting term</em>
 <span class="math notranslate nohighlight">\(||Xw - y||^2\)</span>, which ensures the regression correctly fits the
 training data; and (ii) a regularization term <span class="math notranslate nohighlight">\(\alpha||w||^2\)</span>, which
@@ -1108,8 +1108,8 @@ squared loss.</p>
 <p>To understand why the regularization term makes the solution more robust to
 noise, let’s consider the ridge solution. The ridge solution can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3e121745-6d9e-4266-9b1c-2e2fed3ed382">
-<span class="eqno">()<a class="headerlink" href="#equation-3e121745-6d9e-4266-9b1c-2e2fed3ed382" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-66de0ab5-c9ae-4d55-b97d-459b7a272561">
+<span class="eqno">()<a class="headerlink" href="#equation-66de0ab5-c9ae-4d55-b97d-459b7a272561" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
 <p>where <code class="docutils literal notranslate"><span class="pre">I</span></code> is the identity matrix. In this formula, we can see that the
 inverted matrix is now <span class="math notranslate nohighlight">\((X^\top X + \alpha I)\)</span>. Compared to OLS, the
 additional term <span class="math notranslate nohighlight">\(\alpha I\)</span> adds a positive value <code class="docutils literal notranslate"><span class="pre">alpha</span></code> to all
@@ -2216,8 +2216,8 @@ function (HRF).</p>
 coefficients <span class="math notranslate nohighlight">\(\beta\)</span> obtained with a ridge regression, but the primal
 coefficients can be computed from the dual coefficients using the training
 features <span class="math notranslate nohighlight">\(X\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f4dc0643-f04a-4b52-afc0-71eedebdf99d">
-<span class="eqno">()<a class="headerlink" href="#equation-f4dc0643-f04a-4b52-afc0-71eedebdf99d" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-8bbab7e7-e8cf-4f5c-8669-436538cfdc5d">
+<span class="eqno">()<a class="headerlink" href="#equation-8bbab7e7-e8cf-4f5c-8669-436538cfdc5d" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
 <p>To better visualize the HRF, we will refit a model with more delays, but only
 on a selection of voxels to speed up the computations.</p>
 <div class="cell docutils container">
@@ -3049,8 +3049,8 @@ way to disentangle the contribution of the two feature spaces. To do so, we
 take the kernel weights and the ridge (dual) weights corresponding to each
 feature space, and use them to compute the prediction from each feature space
 separately.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8cb3e46e-8d6c-4d6a-a2b5-a76a406cf26a">
-<span class="eqno">()<a class="headerlink" href="#equation-8cb3e46e-8d6c-4d6a-a2b5-a76a406cf26a" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-a743ff95-bbf2-47e8-926f-5eae4bd8623a">
+<span class="eqno">()<a class="headerlink" href="#equation-a743ff95-bbf2-47e8-926f-5eae4bd8623a" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
 <p>Then, we use these split predictions to compute split <span class="math notranslate nohighlight">\(\tilde{R}^2_i\)</span>
 scores. These scores are corrected so that their sum is equal to the
 <span class="math notranslate nohighlight">\(R^2\)</span> score of the full prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>
