@@ -78,7 +78,18 @@ Developers can also install the package in editable mode via:
 Requirements
 ------------
 
-The package ``voxelwise_tutorials`` has the following dependencies:
+The tutorials are not compatible with Windows.
+If you are using Windows, we recommend running the tutorials on Google Colab or 
+in the provided Docker containers.
+
+`git-annex <https://git-annex.branchable.com/>`_ is required to download the
+data sets. Please follow the instructions in the
+`git-annex <https://git-annex.branchable.com/install/>`_ documentation to install
+it on your system.
+
+The tutorials and the package ```voxelwise_tutorials`` require Python 3.9 or higher.
+
+The package ``voxelwise_tutorials`` has the following Python dependencies:
 `numpy <https://github.com/numpy/numpy>`_,
 `scipy <https://github.com/scipy/scipy>`_,
 `h5py <https://github.com/h5py/h5py>`_,
