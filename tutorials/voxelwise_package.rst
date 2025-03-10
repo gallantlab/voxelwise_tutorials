@@ -1,5 +1,5 @@
 ``voxelwise_tutorials`` helper package
-=====================
+======================================
 
 |Github| |Python| |License|
 
