@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Fit a ridge model with wordnet features &#8212; Voxelwise Encoding Model tutorials</title>
+    <title>Fit a voxelwise encoding model with WordNet features &#8212; Voxelwise Encoding Model tutorials</title>
   
   
   
@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Visualize the hemodynamic response" href="06_visualize_hemodynamic_response.html" />
-    <link rel="prev" title="Understand ridge regression and cross-validation" href="04_understand_ridge_regression.html" />
+    <link rel="prev" title="Understand ridge regression and hyperparameter selection" href="04_understand_ridge_regression.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -186,12 +186,12 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Shortclips tutorial</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="02_download_shortclips.html">Download the data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03_compute_explainable_variance.html">Compute the explainable variance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04_understand_ridge_regression.html">Understand ridge regression and cross-validation</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Fit a ridge model with wordnet features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_understand_ridge_regression.html">Understand ridge regression and hyperparameter selection</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Fit a voxelwise encoding model with WordNet features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06_visualize_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
 <li class="toctree-l2"><a class="reference internal" href="07_extract_motion_energy.html">Extract motion-energy features from the stimuli</a></li>
-<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a ridge model with motion-energy features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a banded ridge model with both wordnet and motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a voxelwise encoding model with motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a voxelwise encoding model with both WordNet and motion-energy features</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../vim2/README.html">Vim-2 tutorial (optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -387,7 +387,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Fit a ridge model with wordnet features</h1>
+    <h1>Fit a voxelwise encoding model with WordNet features</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -417,8 +417,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="fit-a-ridge-model-with-wordnet-features">
-<h1>Fit a ridge model with wordnet features<a class="headerlink" href="#fit-a-ridge-model-with-wordnet-features" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="fit-a-voxelwise-encoding-model-with-wordnet-features">
+<h1>Fit a voxelwise encoding model with WordNet features<a class="headerlink" href="#fit-a-voxelwise-encoding-model-with-wordnet-features" title="Link to this heading">#</a></h1>
 <p>In this example, we model the fMRI responses with semantic “wordnet” features,
 manually annotated on each frame of the movie stimulus. The model is a
 regularized linear regression model, known as ridge regression. Since this
@@ -640,7 +640,7 @@ set. See the previous example for more details about ridge regression and
 hyperparameter selection.</p>
 <p>For computational reasons, when the number of features is larger than the
 number of samples, it is more efficient to solve ridge regression using the
-(equivalent) dual formulation <span id="id3">[<a class="reference internal" href="merged_for_colab_model_fitting.html#id133" title="C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.">Saunders <em>et al.</em>, 1998</a>]</span>. This dual formulation is equivalent to
+(equivalent) dual formulation <span id="id3">[<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id161" title="C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.">Saunders <em>et al.</em>, 1998</a>]</span>. This dual formulation is equivalent to
 kernel ridge regression with a linear kernel. Here, we have 3600 training
 samples, and 1705 * 4 = 6820 features (we multiply by 4 since we use 4 time
 delays), therefore it is more efficient to use kernel ridge regression.</p>
@@ -1572,7 +1572,7 @@ mentioned earlier.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Understand ridge regression and cross-validation</p>
+        <p class="prev-next-title">Understand ridge regression and hyperparameter selection</p>
       </div>
     </a>
     <a class="right-next"

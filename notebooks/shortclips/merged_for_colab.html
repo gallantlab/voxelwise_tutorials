@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>01_setup_colab.ipynb &#8212; Voxelwise Encoding Model tutorials</title>
+    <title>Setup Google Colab &#8212; Voxelwise Encoding Model tutorials</title>
   
   
   
@@ -186,12 +186,12 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="README.html">Shortclips tutorial</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="02_download_shortclips.html">Download the data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03_compute_explainable_variance.html">Compute the explainable variance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04_understand_ridge_regression.html">Understand ridge regression and cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05_fit_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_understand_ridge_regression.html">Understand ridge regression and hyperparameter selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_fit_wordnet_model.html">Fit a voxelwise encoding model with WordNet features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06_visualize_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
 <li class="toctree-l2"><a class="reference internal" href="07_extract_motion_energy.html">Extract motion-energy features from the stimuli</a></li>
-<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a ridge model with motion-energy features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a banded ridge model with both wordnet and motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a voxelwise encoding model with motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a voxelwise encoding model with both WordNet and motion-energy features</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../vim2/README.html">Vim-2 tutorial (optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -387,7 +387,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>01_setup_colab.ipynb</h1>
+    <h1>Setup Google Colab</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -397,31 +397,33 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">01_setup_colab.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-google-colab">Setup Google Colab</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Setup Google Colab</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-runtime-to-use-a-gpu">Change runtime to use a GPU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies-and-download-the-data">Install all required dependencies and download the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies">Install all required dependencies</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-explainable-variance-ipynb">03_compute_explainable_variance.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-explainable-variance">Compute the explainable variance</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-of-the-data-directory">Path of the data directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Compute the explainable variance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-subject-flatmap">Map to subject flatmap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-fsaverage">Map to “fsaverage”</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data-set">Download the data set</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cite-this-data-set">Cite this data set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download">Download</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-ridge-regression-ipynb">04_understand_ridge_regression.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-ridge-regression-and-cross-validation">Understand ridge regression and cross-validation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-explainable-variance">Compute the explainable variance</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-of-the-data-directory">Path of the data directory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Compute the explainable variance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-subject-flatmap">Map to subject flatmap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-fsaverage">Map to “fsaverage”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">References</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-ridge-regression-and-hyperparameter-selection">Understand ridge regression and hyperparameter selection</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-least-squares-ols">Ordinary least squares (OLS)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression">Ridge regression</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-selection">Hyperparameter selection</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-wordnet-model-ipynb">05_fit_wordnet_model.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-wordnet-features">Fit a ridge model with wordnet features</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Path of the data directory</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-voxelwise-encoding-model-with-wordnet-features">Fit a voxelwise encoding model with WordNet features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id59">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">Load the data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-cross-validation-scheme">Define the cross-validation scheme</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-model">Define the model</a></li>
@@ -429,43 +431,40 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-model-prediction-accuracy">Plot the model prediction accuracy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-selected-hyperparameters">Plot the selected hyperparameters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-regression-coefficients">Visualize the regression coefficients</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id68">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-hemodynamic-response-ipynb">06_visualize_hemodynamic_response.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-hemodynamic-response">Visualize the hemodynamic response</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id66">Path of the data directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id67">Load the data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id68">Define the cross-validation scheme</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id69">Define the model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id70">Fit the model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id94">Path of the data directory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id95">Load the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id96">Define the cross-validation scheme</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id97">Define the model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id98">Fit the model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intermission-understanding-delays">Intermission: understanding delays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-with-a-model-without-delays">Compare with a model without delays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-hrf">Visualize the HRF</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-motion-energy-model-ipynb">08_fit_motion_energy_model.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-motion-energy-features">Fit a ridge model with motion-energy features</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id73">Path of the data directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id74">Load the data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id75">Define the cross-validation scheme</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id76">Define the model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id77">Fit the model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-voxelwise-encoding-model-with-motion-energy-features">Fit a voxelwise encoding model with motion-energy features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id101">Path of the data directory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id102">Load the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id103">Define the cross-validation scheme</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id104">Define the model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id105">Fit the model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-model-performances">Plot the model performances</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-with-the-wordnet-model">Compare with the wordnet model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id80">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id108">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-banded-ridge-model-ipynb">09_fit_banded_ridge_model.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features">Fit a banded ridge model with both wordnet and motion-energy features</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id107">Path of the data directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id108">Load the data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id109">Define the cross-validation scheme</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id110">Define the model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id111">Fit the model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-voxelwise-encoding-model-with-both-wordnet-and-motion-energy-features">Fit a voxelwise encoding model with both WordNet and motion-energy features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id135">Path of the data directory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id136">Load the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id137">Define the cross-validation scheme</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id138">Define the model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id139">Fit the model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-with-a-ridge-model">Compare with a ridge model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-banded-ridge-split">Plot the banded ridge split</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id113">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id141">References</a></li>
 </ul>
 </li>
 </ul>
@@ -480,10 +479,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="setup-colab-ipynb">
-<h1>01_setup_colab.ipynb<a class="headerlink" href="#setup-colab-ipynb" title="Link to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="setup-google-colab">
+  <section class="tex2jax_ignore mathjax_ignore" id="setup-google-colab">
 <h1>Setup Google Colab<a class="headerlink" href="#setup-google-colab" title="Link to this heading">#</a></h1>
 <p>In this script, we setup a Google Colab environment. This script will only work
 when run from <a class="reference external" href="https://colab.research.google.com/">Google Colab</a>. You can
@@ -502,8 +498,8 @@ To do so, click the following menu options in Google Colab:</p>
 <div><p>(Menu) “Runtime” -&gt; “Change runtime type” -&gt; “Hardware accelerator” -&gt; “GPU”.</p>
 </div></blockquote>
 </section>
-<section id="install-all-required-dependencies-and-download-the-data">
-<h2>Install all required dependencies and download the data<a class="headerlink" href="#install-all-required-dependencies-and-download-the-data" title="Link to this heading">#</a></h2>
+<section id="install-all-required-dependencies">
+<h2>Install all required dependencies<a class="headerlink" href="#install-all-required-dependencies" title="Link to this heading">#</a></h2>
 <p>Uncomment and run the following cell to download the required packages.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -545,31 +541,6 @@ To do so, click the following menu options in Google Colab:</p>
 </div>
 </div>
 </div>
-<p>Now run the following cell to download the data for the tutorials.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">download_datalad</span>
-
-<span class="n">DATAFILES</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;features/motion_energy.hdf&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;features/wordnet.hdf&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;mappers/S01_mappers.hdf&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;responses/S01_responses.hdf&quot;</span><span class="p">,</span>
-<span class="p">]</span>
-
-<span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;https://gin.g-node.org/gallantlab/shortclips&quot;</span>
-<span class="n">destination</span> <span class="o">=</span> <span class="s2">&quot;/content/shortclips&quot;</span>
-
-<span class="k">for</span> <span class="n">datafile</span> <span class="ow">in</span> <span class="n">DATAFILES</span><span class="p">:</span>
-    <span class="n">local_filename</span> <span class="o">=</span> <span class="n">download_datalad</span><span class="p">(</span>
-        <span class="n">datafile</span><span class="p">,</span>
-        <span class="n">destination</span><span class="o">=</span><span class="n">destination</span><span class="p">,</span>
-        <span class="n">source</span><span class="o">=</span><span class="n">source</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
 <p>Now run the following cell to set up the environment variables for the
 tutorials and pycortex.</p>
 <div class="cell docutils container">
@@ -593,8 +564,132 @@ tutorials and pycortex.</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="compute-explainable-variance-ipynb">
-<h1>03_compute_explainable_variance.ipynb<a class="headerlink" href="#compute-explainable-variance-ipynb" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="download-the-data-set">
+<h1>Download the data set<a class="headerlink" href="#download-the-data-set" title="Link to this heading">#</a></h1>
+<p>In this script, we download the data set from Wasabi or GIN. No account is required.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This script will download approximately 2GB of data.</p>
+</div>
+<section id="cite-this-data-set">
+<h2>Cite this data set<a class="headerlink" href="#cite-this-data-set" title="Link to this heading">#</a></h2>
+<p>This tutorial is based on publicly available data <a class="reference external" href="https://gin.g-node.org/gallantlab/shortclips">published on GIN</a>. If you publish any work using
+this data set, please cite the original publication <span id="id1">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>, and the data set <span id="id2">[<a class="reference internal" href="../../pages/references.html#id25" title="A. G. Huth, S. Nishimoto, A. T. Vu, T. Dupré la Tour, and J. L. Gallant. Gallant lab natural short clips 3t fMRI data. 2022. doi:10.12751/g-node.vy1zjd.">Huth <em>et al.</em>, 2022</a>]</span>.</p>
+</section>
+<section id="download">
+<h2>Download<a class="headerlink" href="#download" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># path of the data directory</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="n">get_data_home</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;shortclips&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will only use the first subject in this tutorial, but you can run the same
+analysis on the four other subjects. Uncomment the lines in <code class="docutils literal notranslate"><span class="pre">DATAFILES</span></code> to
+download more subjects.</p>
+<p>We also skip the stimuli files, since the dataset provides two preprocessed
+feature spaces to fit voxelwise encoding models without requiring the original
+stimuli.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">download_datalad</span>
+
+<span class="n">DATAFILES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;features/motion_energy.hdf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;features/wordnet.hdf&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mappers/S01_mappers.hdf&quot;</span><span class="p">,</span>
+    <span class="c1"># &quot;mappers/S02_mappers.hdf&quot;,</span>
+    <span class="c1"># &quot;mappers/S03_mappers.hdf&quot;,</span>
+    <span class="c1"># &quot;mappers/S04_mappers.hdf&quot;,</span>
+    <span class="c1"># &quot;mappers/S05_mappers.hdf&quot;,</span>
+    <span class="s2">&quot;responses/S01_responses.hdf&quot;</span><span class="p">,</span>
+    <span class="c1"># &quot;responses/S02_responses.hdf&quot;,</span>
+    <span class="c1"># &quot;responses/S03_responses.hdf&quot;,</span>
+    <span class="c1"># &quot;responses/S04_responses.hdf&quot;,</span>
+    <span class="c1"># &quot;responses/S05_responses.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/test.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_00.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_01.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_02.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_03.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_04.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_05.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_06.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_07.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_08.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_09.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_10.hdf&quot;,</span>
+    <span class="c1"># &quot;stimuli/train_11.hdf&quot;,</span>
+<span class="p">]</span>
+
+<span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;https://gin.g-node.org/gallantlab/shortclips&quot;</span>
+
+<span class="k">for</span> <span class="n">datafile</span> <span class="ow">in</span> <span class="n">DATAFILES</span><span class="p">:</span>
+    <span class="n">local_filename</span> <span class="o">=</span> <span class="n">download_datalad</span><span class="p">(</span><span class="n">datafile</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">directory</span><span class="p">,</span>
+                                      <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id3">
+<div role="list" class="citation-list">
+<div class="citation" id="id18" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>DLTENEG22<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id107">1</a>,<a role="doc-backlink" href="#id134">2</a>,<a role="doc-backlink" href="#id140">3</a>)</span>
+<p>T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. <em>NeuroImage</em>, 267:119728, 2022. <a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2022.119728">doi:10.1016/j.neuroimage.2022.119728</a>.</p>
+</div>
+<div class="citation" id="id25" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id29">HBT04</a><span class="fn-bracket">]</span></span>
+<p>A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. <em>Network</em>, 2004.</p>
+</div>
+<div class="citation" id="id20" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">HNV+22</a><span class="fn-bracket">]</span></span>
+<p>A. G. Huth, S. Nishimoto, A. T. Vu, T. Dupré la Tour, and J. L. Gallant. Gallant lab natural short clips 3t fMRI data. 2022. <a class="reference external" href="https://doi.org/10.12751/g-node.vy1zjd">doi:10.12751/g-node.vy1zjd</a>.</p>
+</div>
+<div class="citation" id="id7" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>HNVG12<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id58">2</a>,<a role="doc-backlink" href="#id60">3</a>,<a role="doc-backlink" href="#id62">4</a>,<a role="doc-backlink" href="#id63">5</a>,<a role="doc-backlink" href="#id64">6</a>,<a role="doc-backlink" href="#id65">7</a>,<a role="doc-backlink" href="#id66">8</a>,<a role="doc-backlink" href="#id67">9</a>)</span>
+<p>A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. <em>Neuron</em>, 76(6):1210–1224, 2012.</p>
+</div>
+<div class="citation" id="id6" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>NVN+11<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id99">1</a>,<a role="doc-backlink" href="#id100">2</a>,<a role="doc-backlink" href="#id106">3</a>)</span>
+<p>S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. <em>Current Biology</em>, 21(19):1641–1646, 2011.</p>
+</div>
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>NEHG19<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id107">1</a>,<a role="doc-backlink" href="#id134">2</a>,<a role="doc-backlink" href="#id140">3</a>)</span>
+<p>A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. <em>Neuroimage</em>, 197:482–492, 2019.</p>
+</div>
+<div class="citation" id="id24" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id28">SL02</a><span class="fn-bracket">]</span></span>
+<p>M. Sahani and J. Linden. How linear are auditory cortical responses? <em>Adv. Neural Inf. Process. Syst.</em>, 2002.</p>
+</div>
+<div class="citation" id="id27" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id61">SGV98</a><span class="fn-bracket">]</span></span>
+<p>C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.</p>
+</div>
+<div class="citation" id="id26" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id30">SHW+16</a><span class="fn-bracket">]</span></span>
+<p>O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. <em>Front. Comput. Neurosci.</em>, 2016.</p>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">reset</span> -f
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="compute-the-explainable-variance">
 <h1>Compute the explainable variance<a class="headerlink" href="#compute-the-explainable-variance" title="Link to this heading">#</a></h1>
@@ -620,11 +715,11 @@ voxel for each of the <span class="math notranslate nohighlight">\(N\)</span> re
 across repetitions. For each repeat, we define the residual timeseries between
 brain response and average brain response as <span class="math notranslate nohighlight">\(r_i = y_i - \bar{y}\)</span>. The
 explainable variance (EV) is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bb5ec8a7-5788-4ee3-8dc8-83695e87ed69">
-<span class="eqno">()<a class="headerlink" href="#equation-bb5ec8a7-5788-4ee3-8dc8-83695e87ed69" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-d8bb1c09-5461-41e0-b1c3-f179b25b2644">
+<span class="eqno">()<a class="headerlink" href="#equation-d8bb1c09-5461-41e0-b1c3-f179b25b2644" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
 <p>In the literature, the explainable variance is also known as the <em>signal
 power</em>.</p>
-<p>For more information, see <span id="id1">Sahani and Linden [<a class="reference internal" href="merged_for_colab_model_fitting.html#id130" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">2002</a>]</span>, <span id="id2">Hsu <em>et al.</em> [<a class="reference internal" href="merged_for_colab_model_fitting.html#id131" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">2004</a>]</span>, and <span id="id3">Schoppe <em>et al.</em> [<a class="reference internal" href="merged_for_colab_model_fitting.html#id132" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">2016</a>]</span>.</p>
+<p>For more information, see <span id="id28">Sahani and Linden [<a class="reference internal" href="merged_for_colab_model_fitting.html#id158" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">2002</a>]</span>, <span id="id29">Hsu <em>et al.</em> [<a class="reference internal" href="merged_for_colab_model_fitting.html#id159" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">2004</a>]</span>, and <span id="id30">Schoppe <em>et al.</em> [<a class="reference internal" href="merged_for_colab_model_fitting.html#id160" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">2016</a>]</span>.</p>
 <section id="path-of-the-data-directory">
 <h2>Path of the data directory<a class="headerlink" href="#path-of-the-data-directory" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -646,8 +741,8 @@ power</em>.</p>
 </div>
 </div>
 </section>
-<section id="id4">
-<h2>Compute the explainable variance<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="id31">
+<h2>Compute the explainable variance<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -855,44 +950,48 @@ does not use this function, so feel free to ignore.)</p>
 </div>
 </div>
 </section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<div class="docutils container" id="id5">
+<section id="id32">
+<h2>References<a class="headerlink" href="#id32" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id33">
 <div role="list" class="citation-list">
-<div class="citation" id="id20" role="doc-biblioentry">
+<div class="citation" id="id48" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>DLTENEG22<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id79">1</a>,<a role="doc-backlink" href="#id106">2</a>,<a role="doc-backlink" href="#id112">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id107">1</a>,<a role="doc-backlink" href="#id134">2</a>,<a role="doc-backlink" href="#id140">3</a>)</span>
 <p>T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. <em>NeuroImage</em>, 267:119728, 2022. <a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2022.119728">doi:10.1016/j.neuroimage.2022.119728</a>.</p>
 </div>
-<div class="citation" id="id27" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">HBT04</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id55" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id29">HBT04</a><span class="fn-bracket">]</span></span>
 <p>A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. <em>Network</em>, 2004.</p>
 </div>
-<div class="citation" id="id9" role="doc-biblioentry">
+<div class="citation" id="id50" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">HNV+22</a><span class="fn-bracket">]</span></span>
+<p>A. G. Huth, S. Nishimoto, A. T. Vu, T. Dupré la Tour, and J. L. Gallant. Gallant lab natural short clips 3t fMRI data. 2022. <a class="reference external" href="https://doi.org/10.12751/g-node.vy1zjd">doi:10.12751/g-node.vy1zjd</a>.</p>
+</div>
+<div class="citation" id="id37" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>HNVG12<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id30">1</a>,<a role="doc-backlink" href="#id32">2</a>,<a role="doc-backlink" href="#id34">3</a>,<a role="doc-backlink" href="#id35">4</a>,<a role="doc-backlink" href="#id36">5</a>,<a role="doc-backlink" href="#id37">6</a>,<a role="doc-backlink" href="#id38">7</a>,<a role="doc-backlink" href="#id39">8</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id58">2</a>,<a role="doc-backlink" href="#id60">3</a>,<a role="doc-backlink" href="#id62">4</a>,<a role="doc-backlink" href="#id63">5</a>,<a role="doc-backlink" href="#id64">6</a>,<a role="doc-backlink" href="#id65">7</a>,<a role="doc-backlink" href="#id66">8</a>,<a role="doc-backlink" href="#id67">9</a>)</span>
 <p>A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. <em>Neuron</em>, 76(6):1210–1224, 2012.</p>
 </div>
-<div class="citation" id="id8" role="doc-biblioentry">
+<div class="citation" id="id36" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>NVN+11<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id71">1</a>,<a role="doc-backlink" href="#id72">2</a>,<a role="doc-backlink" href="#id78">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id99">1</a>,<a role="doc-backlink" href="#id100">2</a>,<a role="doc-backlink" href="#id106">3</a>)</span>
 <p>S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. <em>Current Biology</em>, 21(19):1641–1646, 2011.</p>
 </div>
-<div class="citation" id="id17" role="doc-biblioentry">
+<div class="citation" id="id45" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>NEHG19<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id79">1</a>,<a role="doc-backlink" href="#id106">2</a>,<a role="doc-backlink" href="#id112">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id107">1</a>,<a role="doc-backlink" href="#id134">2</a>,<a role="doc-backlink" href="#id140">3</a>)</span>
 <p>A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. <em>Neuroimage</em>, 197:482–492, 2019.</p>
 </div>
-<div class="citation" id="id26" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">SL02</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id54" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id28">SL02</a><span class="fn-bracket">]</span></span>
 <p>M. Sahani and J. Linden. How linear are auditory cortical responses? <em>Adv. Neural Inf. Process. Syst.</em>, 2002.</p>
 </div>
-<div class="citation" id="id29" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id33">SGV98</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id57" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id61">SGV98</a><span class="fn-bracket">]</span></span>
 <p>C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.</p>
 </div>
-<div class="citation" id="id28" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">SHW+16</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id56" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id30">SHW+16</a><span class="fn-bracket">]</span></span>
 <p>O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. <em>Front. Comput. Neurosci.</em>, 2016.</p>
 </div>
 </div>
@@ -906,27 +1005,24 @@ does not use this function, so feel free to ignore.)</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="understand-ridge-regression-ipynb">
-<h1>04_understand_ridge_regression.ipynb<a class="headerlink" href="#understand-ridge-regression-ipynb" title="Link to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="understand-ridge-regression-and-cross-validation">
-<h1>Understand ridge regression and cross-validation<a class="headerlink" href="#understand-ridge-regression-and-cross-validation" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="understand-ridge-regression-and-hyperparameter-selection">
+<h1>Understand ridge regression and hyperparameter selection<a class="headerlink" href="#understand-ridge-regression-and-hyperparameter-selection" title="Link to this heading">#</a></h1>
 <p>In future examples, we will model the fMRI responses using a regularized linear
 regression known as <em>ridge regression</em>. This example explains why we use ridge
 regression, and how to use cross-validation to select the appropriate
-regularization hyper-parameter.</p>
+regularization hyperparameter.</p>
 <p>Linear regression is a method to model the relation between some input
 variables <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{(n \times p)}\)</span> (the features) and an output
 variable <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{n}\)</span> (the target). Specifically, linear
 regression uses a vector of coefficient <span class="math notranslate nohighlight">\(w \in \mathbb{R}^{p}\)</span> to
 predict the output</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4bf11909-62be-4793-a876-e7e0cd403626">
-<span class="eqno">()<a class="headerlink" href="#equation-4bf11909-62be-4793-a876-e7e0cd403626" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-2cc1427d-d80b-4c36-9f7e-8fdd7f45b48a">
+<span class="eqno">()<a class="headerlink" href="#equation-2cc1427d-d80b-4c36-9f7e-8fdd7f45b48a" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
 <p>The model is considered accurate if the predictions <span class="math notranslate nohighlight">\(\hat{y}\)</span> are close
 to the true output values <span class="math notranslate nohighlight">\(y\)</span>. Therefore,  a good linear regression model
 is given by the vector <span class="math notranslate nohighlight">\(w\)</span> that minimizes the sum of squared errors:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ef9e77db-963d-4aea-b4c0-2b07744a6adf">
-<span class="eqno">()<a class="headerlink" href="#equation-ef9e77db-963d-4aea-b4c0-2b07744a6adf" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-84e2f4c6-37b0-4e73-af2a-7a8466ec79d1">
+<span class="eqno">()<a class="headerlink" href="#equation-84e2f4c6-37b0-4e73-af2a-7a8466ec79d1" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
 <p>This is the simplest model for linear regression, and it is known as <em>ordinary
 least squares</em> (OLS).</p>
 <section id="ordinary-least-squares-ols">
@@ -969,8 +1065,8 @@ accuracy of the model, and thus the squared loss.</p>
 </div>
 <p>The linear coefficient leading to the minimum squared loss can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b794d906-08c3-476b-835a-0dea8f548403">
-<span class="eqno">()<a class="headerlink" href="#equation-b794d906-08c3-476b-835a-0dea8f548403" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-f38a02e9-f1e2-4776-8981-5e8fd9e3e692">
+<span class="eqno">()<a class="headerlink" href="#equation-f38a02e9-f1e2-4776-8981-5e8fd9e3e692" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
 <p>This is the OLS solution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1086,8 +1182,8 @@ data.</p>
 <p>To solve the instability and under-determinacy issues of OLS, OLS can be
 extended to <em>ridge regression</em>. Ridge regression considers a different
 optimization problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b155c39a-a540-4953-97d9-801886859ad9">
-<span class="eqno">()<a class="headerlink" href="#equation-b155c39a-a540-4953-97d9-801886859ad9" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-7fcee0c1-86f0-4dc2-9c6d-93389c254d73">
+<span class="eqno">()<a class="headerlink" href="#equation-7fcee0c1-86f0-4dc2-9c6d-93389c254d73" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
 <p>This optimization problem contains two terms: (i) a <em>data-fitting term</em>
 <span class="math notranslate nohighlight">\(||Xw - y||^2\)</span>, which ensures the regression correctly fits the
 training data; and (ii) a regularization term <span class="math notranslate nohighlight">\(\alpha||w||^2\)</span>, which
@@ -1116,8 +1212,8 @@ squared loss.</p>
 <p>To understand why the regularization term makes the solution more robust to
 noise, let’s consider the ridge solution. The ridge solution can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9f21e829-1459-4351-8e0b-4a9612747c27">
-<span class="eqno">()<a class="headerlink" href="#equation-9f21e829-1459-4351-8e0b-4a9612747c27" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-667c4c7a-3167-468b-be4e-7b33085285b2">
+<span class="eqno">()<a class="headerlink" href="#equation-667c4c7a-3167-468b-be4e-7b33085285b2" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
 <p>where <code class="docutils literal notranslate"><span class="pre">I</span></code> is the identity matrix. In this formula, we can see that the
 inverted matrix is now <span class="math notranslate nohighlight">\((X^\top X + \alpha I)\)</span>. Compared to OLS, the
 additional term <span class="math notranslate nohighlight">\(\alpha I\)</span> adds a positive value <code class="docutils literal notranslate"><span class="pre">alpha</span></code> to all
@@ -1270,17 +1366,14 @@ hyperparameter selection. Thus, the process is called a <em>cross-validation</em
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="fit-wordnet-model-ipynb">
-<h1>05_fit_wordnet_model.ipynb<a class="headerlink" href="#fit-wordnet-model-ipynb" title="Link to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="fit-a-ridge-model-with-wordnet-features">
-<h1>Fit a ridge model with wordnet features<a class="headerlink" href="#fit-a-ridge-model-with-wordnet-features" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="fit-a-voxelwise-encoding-model-with-wordnet-features">
+<h1>Fit a voxelwise encoding model with WordNet features<a class="headerlink" href="#fit-a-voxelwise-encoding-model-with-wordnet-features" title="Link to this heading">#</a></h1>
 <p>In this example, we model the fMRI responses with semantic “wordnet” features,
 manually annotated on each frame of the movie stimulus. The model is a
 regularized linear regression model, known as ridge regression. Since this
 model is used to predict brain activity from the stimulus, it is called a
 (voxelwise) encoding model.</p>
-<p>This example reproduces part of the analysis described in <span id="id30">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>. See the original publication for more details about the experiment, the wordnet
+<p>This example reproduces part of the analysis described in <span id="id58">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>. See the original publication for more details about the experiment, the wordnet
 features, along with more results and more discussions.</p>
 <p><em>WordNet features:</em> The features used in this example are semantic labels
 manually annotated on each frame of the movie stimulus. The semantic labels
@@ -1300,8 +1393,8 @@ predictions to the corresponding ground-truth fMRI responses.</p>
 <p class="admonition-title">Note</p>
 <p>It should take less than 5 minutes to run the model fitting in this tutorial on a GPU. If you are using a CPU, it may take longer.</p>
 </div>
-<section id="id31">
-<h2>Path of the data directory<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
+<section id="id59">
+<h2>Path of the data directory<a class="headerlink" href="#id59" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
@@ -1323,7 +1416,7 @@ predictions to the corresponding ground-truth fMRI responses.</p>
 <section id="load-the-data">
 <h2>Load the data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h2>
 <p>We first load the fMRI responses. These responses have been preprocessed as
-described in <span id="id32">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>. The data is separated into a training set <code class="docutils literal notranslate"><span class="pre">Y_train</span></code> and a
+described in <span id="id60">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>. The data is separated into a training set <code class="docutils literal notranslate"><span class="pre">Y_train</span></code> and a
 testing set <code class="docutils literal notranslate"><span class="pre">Y_test</span></code>. The training set is used for fitting models, and
 selecting the best models and hyperparameters. The test set is later used
 to estimate the generalization performance of the selected model. The
@@ -1469,7 +1562,7 @@ set. See the previous example for more details about ridge regression and
 hyperparameter selection.</p>
 <p>For computational reasons, when the number of features is larger than the
 number of samples, it is more efficient to solve ridge regression using the
-(equivalent) dual formulation <span id="id33">[<a class="reference internal" href="merged_for_colab_model_fitting.html#id133" title="C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.">Saunders <em>et al.</em>, 1998</a>]</span>. This dual formulation is equivalent to
+(equivalent) dual formulation <span id="id61">[<a class="reference internal" href="merged_for_colab_model_fitting.html#id161" title="C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.">Saunders <em>et al.</em>, 1998</a>]</span>. This dual formulation is equivalent to
 kernel ridge regression with a linear kernel. Here, we have 3600 training
 samples, and 1705 * 4 = 6820 features (we multiply by 4 since we use 4 time
 delays), therefore it is more efficient to use kernel ridge regression.</p>
@@ -1631,7 +1724,7 @@ available spatial resolution: individual voxels.</p>
 <p>The best-predicted voxels are located in visual semantic areas like EBA, or
 FFA. This is expected since the wordnet features encode semantic information
 about the visual stimulus. For more discussions about these results, we refer
-the reader to the original publication <span id="id34">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>.</p>
+the reader to the original publication <span id="id62">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>.</p>
 </section>
 <section id="plot-the-selected-hyperparameters">
 <h2>Plot the selected hyperparameters<a class="headerlink" href="#plot-the-selected-hyperparameters" title="Link to this heading">#</a></h2>
@@ -1773,14 +1866,14 @@ color indicates the sign (red is positive, blue is negative).</p>
 </div>
 </div>
 </div>
-<p>According to <span id="id35">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, “this principal component distinguishes
+<p>According to <span id="id63">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, “this principal component distinguishes
 between categories with high stimulus energy (e.g. moving objects like
 <code class="docutils literal notranslate"><span class="pre">person</span></code> and <code class="docutils literal notranslate"><span class="pre">vehicle</span></code>) and those with low stimulus energy (e.g. stationary
 objects like <code class="docutils literal notranslate"><span class="pre">sky</span></code> and <code class="docutils literal notranslate"><span class="pre">city</span></code>)”.</p>
 <p>In this example, because we use only a single subject and we perform a
 different voxel selection, our result is slightly different than in the
 original publication. We also use a different regularization parameter in
-each voxel, while in <span id="id36">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span> all voxels had the same regularization parameter.
+each voxel, while in <span id="id64">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span> all voxels had the same regularization parameter.
 However, we do not aim at reproducing exactly the results of the original
 publication, but we rather describe the general approach.</p>
 <p>To project the principal component on the cortical surface, we first need to
@@ -1805,7 +1898,7 @@ use the fitted PCA to transform the primal weights of all voxels.</p>
 </div>
 <p>This flatmap shows in which brain regions the model has the largest
 projection on the first component. Again, this result is different from the
-one in <span id="id37">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, and should only be considered as reproducing the general
+one in <span id="id65">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, and should only be considered as reproducing the general
 approach.</p>
 <p>Following the analyses in the original publication, we also plot the next three principal components on the
 wordnet graph, mapping the three vectors to RGB colors.</p>
@@ -1824,7 +1917,7 @@ wordnet graph, mapping the three vectors to RGB colors.</p>
 </div>
 </div>
 </div>
-<p>According to <span id="id38">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, “this graph shows that categories thought
+<p>According to <span id="id66">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, “this graph shows that categories thought
 to be semantically related (e.g. athletes and walking) are represented
 similarly in the brain”.</p>
 <p>Finally, we project these principal components on the cortical surface.</p>
@@ -1844,47 +1937,51 @@ similarly in the brain”.</p>
 </div>
 </div>
 </div>
-<p>Again, our results are different from the ones in <span id="id39">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, for the same reasons
+<p>Again, our results are different from the ones in <span id="id67">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, for the same reasons
 mentioned earlier.</p>
 </section>
-<section id="id40">
-<h2>References<a class="headerlink" href="#id40" title="Link to this heading">#</a></h2>
-<div class="docutils container" id="id41">
+<section id="id68">
+<h2>References<a class="headerlink" href="#id68" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id69">
 <div role="list" class="citation-list">
-<div class="citation" id="id56" role="doc-biblioentry">
+<div class="citation" id="id84" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>DLTENEG22<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id79">1</a>,<a role="doc-backlink" href="#id106">2</a>,<a role="doc-backlink" href="#id112">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id107">1</a>,<a role="doc-backlink" href="#id134">2</a>,<a role="doc-backlink" href="#id140">3</a>)</span>
 <p>T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. <em>NeuroImage</em>, 267:119728, 2022. <a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2022.119728">doi:10.1016/j.neuroimage.2022.119728</a>.</p>
 </div>
-<div class="citation" id="id63" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">HBT04</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id91" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id29">HBT04</a><span class="fn-bracket">]</span></span>
 <p>A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. <em>Network</em>, 2004.</p>
 </div>
-<div class="citation" id="id45" role="doc-biblioentry">
+<div class="citation" id="id86" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">HNV+22</a><span class="fn-bracket">]</span></span>
+<p>A. G. Huth, S. Nishimoto, A. T. Vu, T. Dupré la Tour, and J. L. Gallant. Gallant lab natural short clips 3t fMRI data. 2022. <a class="reference external" href="https://doi.org/10.12751/g-node.vy1zjd">doi:10.12751/g-node.vy1zjd</a>.</p>
+</div>
+<div class="citation" id="id73" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>HNVG12<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id30">1</a>,<a role="doc-backlink" href="#id32">2</a>,<a role="doc-backlink" href="#id34">3</a>,<a role="doc-backlink" href="#id35">4</a>,<a role="doc-backlink" href="#id36">5</a>,<a role="doc-backlink" href="#id37">6</a>,<a role="doc-backlink" href="#id38">7</a>,<a role="doc-backlink" href="#id39">8</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id58">2</a>,<a role="doc-backlink" href="#id60">3</a>,<a role="doc-backlink" href="#id62">4</a>,<a role="doc-backlink" href="#id63">5</a>,<a role="doc-backlink" href="#id64">6</a>,<a role="doc-backlink" href="#id65">7</a>,<a role="doc-backlink" href="#id66">8</a>,<a role="doc-backlink" href="#id67">9</a>)</span>
 <p>A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. <em>Neuron</em>, 76(6):1210–1224, 2012.</p>
 </div>
-<div class="citation" id="id44" role="doc-biblioentry">
+<div class="citation" id="id72" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>NVN+11<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id71">1</a>,<a role="doc-backlink" href="#id72">2</a>,<a role="doc-backlink" href="#id78">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id99">1</a>,<a role="doc-backlink" href="#id100">2</a>,<a role="doc-backlink" href="#id106">3</a>)</span>
 <p>S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. <em>Current Biology</em>, 21(19):1641–1646, 2011.</p>
 </div>
-<div class="citation" id="id53" role="doc-biblioentry">
+<div class="citation" id="id81" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>NEHG19<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id79">1</a>,<a role="doc-backlink" href="#id106">2</a>,<a role="doc-backlink" href="#id112">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id107">1</a>,<a role="doc-backlink" href="#id134">2</a>,<a role="doc-backlink" href="#id140">3</a>)</span>
 <p>A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. <em>Neuroimage</em>, 197:482–492, 2019.</p>
 </div>
-<div class="citation" id="id62" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">SL02</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id90" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id28">SL02</a><span class="fn-bracket">]</span></span>
 <p>M. Sahani and J. Linden. How linear are auditory cortical responses? <em>Adv. Neural Inf. Process. Syst.</em>, 2002.</p>
 </div>
-<div class="citation" id="id65" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id33">SGV98</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id93" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id61">SGV98</a><span class="fn-bracket">]</span></span>
 <p>C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.</p>
 </div>
-<div class="citation" id="id64" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">SHW+16</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id92" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id30">SHW+16</a><span class="fn-bracket">]</span></span>
 <p>O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. <em>Front. Comput. Neurosci.</em>, 2016.</p>
 </div>
 </div>
@@ -1897,9 +1994,6 @@ mentioned earlier.</p>
 </div>
 </div>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="visualize-hemodynamic-response-ipynb">
-<h1>06_visualize_hemodynamic_response.ipynb<a class="headerlink" href="#visualize-hemodynamic-response-ipynb" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="visualize-the-hemodynamic-response">
 <h1>Visualize the hemodynamic response<a class="headerlink" href="#visualize-the-hemodynamic-response" title="Link to this heading">#</a></h1>
@@ -1921,8 +2015,8 @@ different delays.</p>
 <p>In this example, we show that a model without delays performs far worse than a
 model with delays. We also show how to visualize the estimated hemodynamic
 response function (HRF) from a model with delays.</p>
-<section id="id66">
-<h2>Path of the data directory<a class="headerlink" href="#id66" title="Link to this heading">#</a></h2>
+<section id="id94">
+<h2>Path of the data directory<a class="headerlink" href="#id94" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
@@ -1942,8 +2036,8 @@ response function (HRF) from a model with delays.</p>
 </div>
 </div>
 </section>
-<section id="id67">
-<h2>Load the data<a class="headerlink" href="#id67" title="Link to this heading">#</a></h2>
+<section id="id95">
+<h2>Load the data<a class="headerlink" href="#id95" title="Link to this heading">#</a></h2>
 <p>We first load the fMRI responses.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1997,8 +2091,8 @@ responses.</p>
 </div>
 </div>
 </section>
-<section id="id68">
-<h2>Define the cross-validation scheme<a class="headerlink" href="#id68" title="Link to this heading">#</a></h2>
+<section id="id96">
+<h2>Define the cross-validation scheme<a class="headerlink" href="#id96" title="Link to this heading">#</a></h2>
 <p>We define the same leave-one-run-out cross-validation split as in the
 previous example.</p>
 <div class="cell docutils container">
@@ -2024,8 +2118,8 @@ previous example.</p>
 </div>
 </div>
 </section>
-<section id="id69">
-<h2>Define the model<a class="headerlink" href="#id69" title="Link to this heading">#</a></h2>
+<section id="id97">
+<h2>Define the model<a class="headerlink" href="#id97" title="Link to this heading">#</a></h2>
 <p>We define the same model as in the previous example. See the previous
 example for more details about the model definition.</p>
 <div class="cell docutils container">
@@ -2070,8 +2164,8 @@ example for more details about the model definition.</p>
 </div>
 </div>
 </section>
-<section id="id70">
-<h2>Fit the model<a class="headerlink" href="#id70" title="Link to this heading">#</a></h2>
+<section id="id98">
+<h2>Fit the model<a class="headerlink" href="#id98" title="Link to this heading">#</a></h2>
 <p>We fit on the train set, and score on the test set.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2224,8 +2318,8 @@ function (HRF).</p>
 coefficients <span class="math notranslate nohighlight">\(\beta\)</span> obtained with a ridge regression, but the primal
 coefficients can be computed from the dual coefficients using the training
 features <span class="math notranslate nohighlight">\(X\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2574b2a0-40f2-48d7-80be-2dbfae13f864">
-<span class="eqno">()<a class="headerlink" href="#equation-2574b2a0-40f2-48d7-80be-2dbfae13f864" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-6935666e-052b-4a48-aa17-23c62a5bfa9a">
+<span class="eqno">()<a class="headerlink" href="#equation-6935666e-052b-4a48-aa17-23c62a5bfa9a" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
 <p>To better visualize the HRF, we will refit a model with more delays, but only
 on a selection of voxels to speed up the computations.</p>
 <div class="cell docutils container">
@@ -2286,20 +2380,17 @@ two seconds.</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="fit-motion-energy-model-ipynb">
-<h1>08_fit_motion_energy_model.ipynb<a class="headerlink" href="#fit-motion-energy-model-ipynb" title="Link to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="fit-a-ridge-model-with-motion-energy-features">
-<h1>Fit a ridge model with motion-energy features<a class="headerlink" href="#fit-a-ridge-model-with-motion-energy-features" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="fit-a-voxelwise-encoding-model-with-motion-energy-features">
+<h1>Fit a voxelwise encoding model with motion-energy features<a class="headerlink" href="#fit-a-voxelwise-encoding-model-with-motion-energy-features" title="Link to this heading">#</a></h1>
 <p>In this example, we model the fMRI responses with motion-energy features
 extracted from the movie stimulus. The model is a regularized linear regression
 model.</p>
-<p>This tutorial reproduces part of the analysis described in <span id="id71">Nishimoto <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>. See the original publication for more details about the experiment, the
+<p>This tutorial reproduces part of the analysis described in <span id="id99">Nishimoto <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>. See the original publication for more details about the experiment, the
 motion-energy features, along with more results and more discussions.</p>
 <p><em>Motion-energy features:</em> Motion-energy features result from filtering a video
 stimulus with spatio-temporal Gabor filters. A pyramid of filters is used to
 compute the motion-energy features at multiple spatial and temporal scales.
-Motion-energy features were introduced in <span id="id72">Nishimoto <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>. The downloaded
+Motion-energy features were introduced in <span id="id100">Nishimoto <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">2011</a>]</span>. The downloaded
 dataset contains the pre-computed motion-energy features for the movie stimulus used
 in the experiment. You can see how to extract these motion-energy features in the
 <a class="reference internal" href="07_extract_motion_energy.html"><span class="std std-doc">Extract motion-energy features</span></a> tutorial.</p>
@@ -2316,8 +2407,8 @@ comparing the model predictions with the ground-truth fMRI responses.</p>
 <p class="admonition-title">Note</p>
 <p>It should take less than 5 minutes to run the model fitting in this tutorial on a GPU. If you are using a CPU, it may take longer.</p>
 </div>
-<section id="id73">
-<h2>Path of the data directory<a class="headerlink" href="#id73" title="Link to this heading">#</a></h2>
+<section id="id101">
+<h2>Path of the data directory<a class="headerlink" href="#id101" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
@@ -2336,8 +2427,8 @@ comparing the model predictions with the ground-truth fMRI responses.</p>
 </div>
 </div>
 </section>
-<section id="id74">
-<h2>Load the data<a class="headerlink" href="#id74" title="Link to this heading">#</a></h2>
+<section id="id102">
+<h2>Load the data<a class="headerlink" href="#id102" title="Link to this heading">#</a></h2>
 <p>We first load the fMRI responses.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2390,8 +2481,8 @@ responses.</p>
 </div>
 </div>
 </section>
-<section id="id75">
-<h2>Define the cross-validation scheme<a class="headerlink" href="#id75" title="Link to this heading">#</a></h2>
+<section id="id103">
+<h2>Define the cross-validation scheme<a class="headerlink" href="#id103" title="Link to this heading">#</a></h2>
 <p>We define the same leave-one-run-out cross-validation split as in the
 previous example.</p>
 <div class="cell docutils container">
@@ -2417,8 +2508,8 @@ previous example.</p>
 </div>
 </div>
 </section>
-<section id="id76">
-<h2>Define the model<a class="headerlink" href="#id76" title="Link to this heading">#</a></h2>
+<section id="id104">
+<h2>Define the model<a class="headerlink" href="#id104" title="Link to this heading">#</a></h2>
 <p>We define the same model as in the previous example. See the previous
 example for more details about the model definition.</p>
 <div class="cell docutils container">
@@ -2457,8 +2548,8 @@ example for more details about the model definition.</p>
 </div>
 </div>
 </section>
-<section id="id77">
-<h2>Fit the model<a class="headerlink" href="#id77" title="Link to this heading">#</a></h2>
+<section id="id105">
+<h2>Fit the model<a class="headerlink" href="#id105" title="Link to this heading">#</a></h2>
 <p>We fit on the train set, and score on the test set.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2491,7 +2582,7 @@ example for more details about the model definition.</p>
 </div>
 <p>The motion-energy features lead to large generalization scores in the
 early visual cortex (V1, V2, V3, …). For more discussions about these
-results, we refer the reader to the original publication <span id="id78">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">Nishimoto <em>et al.</em>, 2011</a>]</span>.</p>
+results, we refer the reader to the original publication <span id="id106">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id13" title="S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. Current Biology, 21(19):1641–1646, 2011.">Nishimoto <em>et al.</em>, 2011</a>]</span>.</p>
 </section>
 <section id="compare-with-the-wordnet-model">
 <h2>Compare with the wordnet model<a class="headerlink" href="#compare-with-the-wordnet-model" title="Link to this heading">#</a></h2>
@@ -2587,48 +2678,52 @@ correlated with the “face” semantic category. Thus, motion-energy features
 could predict responses in face-responsive areas without encoding any
 semantic information.</p>
 <p>To better disentangle the two feature spaces, we developed a joint model
-called <code class="docutils literal notranslate"><span class="pre">banded</span> <span class="pre">ridge</span> <span class="pre">regression</span></code> <span id="id79">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>, which fits multiple feature spaces
+called <code class="docutils literal notranslate"><span class="pre">banded</span> <span class="pre">ridge</span> <span class="pre">regression</span></code> <span id="id107">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>, which fits multiple feature spaces
 simultaneously with optimal regularization for each feature space. This model
 is described in the next example.</p>
 </section>
-<section id="id80">
-<h2>References<a class="headerlink" href="#id80" title="Link to this heading">#</a></h2>
-<div class="docutils container" id="id81">
+<section id="id108">
+<h2>References<a class="headerlink" href="#id108" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id109">
 <div role="list" class="citation-list">
-<div class="citation" id="id96" role="doc-biblioentry">
+<div class="citation" id="id124" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>DLTENEG22<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id79">1</a>,<a role="doc-backlink" href="#id106">2</a>,<a role="doc-backlink" href="#id112">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id107">1</a>,<a role="doc-backlink" href="#id134">2</a>,<a role="doc-backlink" href="#id140">3</a>)</span>
 <p>T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. <em>NeuroImage</em>, 267:119728, 2022. <a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2022.119728">doi:10.1016/j.neuroimage.2022.119728</a>.</p>
 </div>
-<div class="citation" id="id103" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">HBT04</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id131" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id29">HBT04</a><span class="fn-bracket">]</span></span>
 <p>A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. <em>Network</em>, 2004.</p>
 </div>
-<div class="citation" id="id85" role="doc-biblioentry">
+<div class="citation" id="id126" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">HNV+22</a><span class="fn-bracket">]</span></span>
+<p>A. G. Huth, S. Nishimoto, A. T. Vu, T. Dupré la Tour, and J. L. Gallant. Gallant lab natural short clips 3t fMRI data. 2022. <a class="reference external" href="https://doi.org/10.12751/g-node.vy1zjd">doi:10.12751/g-node.vy1zjd</a>.</p>
+</div>
+<div class="citation" id="id113" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>HNVG12<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id30">1</a>,<a role="doc-backlink" href="#id32">2</a>,<a role="doc-backlink" href="#id34">3</a>,<a role="doc-backlink" href="#id35">4</a>,<a role="doc-backlink" href="#id36">5</a>,<a role="doc-backlink" href="#id37">6</a>,<a role="doc-backlink" href="#id38">7</a>,<a role="doc-backlink" href="#id39">8</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id58">2</a>,<a role="doc-backlink" href="#id60">3</a>,<a role="doc-backlink" href="#id62">4</a>,<a role="doc-backlink" href="#id63">5</a>,<a role="doc-backlink" href="#id64">6</a>,<a role="doc-backlink" href="#id65">7</a>,<a role="doc-backlink" href="#id66">8</a>,<a role="doc-backlink" href="#id67">9</a>)</span>
 <p>A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. <em>Neuron</em>, 76(6):1210–1224, 2012.</p>
 </div>
-<div class="citation" id="id84" role="doc-biblioentry">
+<div class="citation" id="id112" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>NVN+11<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id71">1</a>,<a role="doc-backlink" href="#id72">2</a>,<a role="doc-backlink" href="#id78">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id99">1</a>,<a role="doc-backlink" href="#id100">2</a>,<a role="doc-backlink" href="#id106">3</a>)</span>
 <p>S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. <em>Current Biology</em>, 21(19):1641–1646, 2011.</p>
 </div>
-<div class="citation" id="id93" role="doc-biblioentry">
+<div class="citation" id="id121" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>NEHG19<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id79">1</a>,<a role="doc-backlink" href="#id106">2</a>,<a role="doc-backlink" href="#id112">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id107">1</a>,<a role="doc-backlink" href="#id134">2</a>,<a role="doc-backlink" href="#id140">3</a>)</span>
 <p>A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. <em>Neuroimage</em>, 197:482–492, 2019.</p>
 </div>
-<div class="citation" id="id102" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">SL02</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id130" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id28">SL02</a><span class="fn-bracket">]</span></span>
 <p>M. Sahani and J. Linden. How linear are auditory cortical responses? <em>Adv. Neural Inf. Process. Syst.</em>, 2002.</p>
 </div>
-<div class="citation" id="id105" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id33">SGV98</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id133" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id61">SGV98</a><span class="fn-bracket">]</span></span>
 <p>C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.</p>
 </div>
-<div class="citation" id="id104" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">SHW+16</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id132" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id30">SHW+16</a><span class="fn-bracket">]</span></span>
 <p>O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. <em>Front. Comput. Neurosci.</em>, 2016.</p>
 </div>
 </div>
@@ -2642,16 +2737,13 @@ is described in the next example.</p>
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="fit-banded-ridge-model-ipynb">
-<h1>09_fit_banded_ridge_model.ipynb<a class="headerlink" href="#fit-banded-ridge-model-ipynb" title="Link to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features">
-<h1>Fit a banded ridge model with both wordnet and motion-energy features<a class="headerlink" href="#fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="fit-a-voxelwise-encoding-model-with-both-wordnet-and-motion-energy-features">
+<h1>Fit a voxelwise encoding model with both WordNet and motion-energy features<a class="headerlink" href="#fit-a-voxelwise-encoding-model-with-both-wordnet-and-motion-energy-features" title="Link to this heading">#</a></h1>
 <p>In this example, we model the fMRI responses with a <em>banded ridge regression</em>
 with two different feature spaces: motion energy and wordnet categories.</p>
 <p><em>Banded ridge regression:</em> Since the relative scaling of both feature spaces is
 unknown, we use two regularization hyperparameters (one per feature space) in a
-model called banded ridge regression <span id="id106">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>.
+model called banded ridge regression <span id="id134">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>.
 Just like with ridge regression, we optimize the hyperparameters over cross-validation.
 An efficient implementation of this model is available in the
 <a class="reference external" href="https://github.com/gallantlab/himalaya">himalaya</a> package.</p>
@@ -2661,8 +2753,8 @@ An efficient implementation of this model is available in the
 With a GPU backend, model fitting takes around 6 minutes.
 With a CPU backend, it can take more than an hour.</p>
 </div>
-<section id="id107">
-<h2>Path of the data directory<a class="headerlink" href="#id107" title="Link to this heading">#</a></h2>
+<section id="id135">
+<h2>Path of the data directory<a class="headerlink" href="#id135" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">get_data_home</span>
@@ -2681,8 +2773,8 @@ With a CPU backend, it can take more than an hour.</p>
 </div>
 </div>
 </section>
-<section id="id108">
-<h2>Load the data<a class="headerlink" href="#id108" title="Link to this heading">#</a></h2>
+<section id="id136">
+<h2>Load the data<a class="headerlink" href="#id136" title="Link to this heading">#</a></h2>
 <p>As in the previous examples, we first load the fMRI responses, which are our
 regression targets.</p>
 <div class="cell docutils container">
@@ -2774,8 +2866,8 @@ linear regression model.</p>
 </div>
 </div>
 </section>
-<section id="id109">
-<h2>Define the cross-validation scheme<a class="headerlink" href="#id109" title="Link to this heading">#</a></h2>
+<section id="id137">
+<h2>Define the cross-validation scheme<a class="headerlink" href="#id137" title="Link to this heading">#</a></h2>
 <p>We define again a leave-one-run-out cross-validation split scheme.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2800,8 +2892,8 @@ linear regression model.</p>
 </div>
 </div>
 </section>
-<section id="id110">
-<h2>Define the model<a class="headerlink" href="#id110" title="Link to this heading">#</a></h2>
+<section id="id138">
+<h2>Define the model<a class="headerlink" href="#id138" title="Link to this heading">#</a></h2>
 <p>The model pipeline contains similar steps than the pipeline from previous
 examples. We remove the mean of each feature with a <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code>,
 and add delays with a <code class="docutils literal notranslate"><span class="pre">Delayer</span></code>.</p>
@@ -2959,8 +3051,8 @@ features, here defined with <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 </section>
-<section id="id111">
-<h2>Fit the model<a class="headerlink" href="#id111" title="Link to this heading">#</a></h2>
+<section id="id139">
+<h2>Fit the model<a class="headerlink" href="#id139" title="Link to this heading">#</a></h2>
 <p>We fit on the train set, and score on the test set.</p>
 <p>To speed up the fit and to limit the memory peaks, we only fit on
 voxels with explainable variance above 0.1. If your GPU has sufficient memory, you can
@@ -3057,8 +3149,8 @@ way to disentangle the contribution of the two feature spaces. To do so, we
 take the kernel weights and the ridge (dual) weights corresponding to each
 feature space, and use them to compute the prediction from each feature space
 separately.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4a9c8657-7ac1-42e1-9989-98885d8a2be4">
-<span class="eqno">()<a class="headerlink" href="#equation-4a9c8657-7ac1-42e1-9989-98885d8a2be4" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-20a7dbeb-bada-4273-9b98-b50ee5ab7529">
+<span class="eqno">()<a class="headerlink" href="#equation-20a7dbeb-bada-4273-9b98-b50ee5ab7529" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
 <p>Then, we use these split predictions to compute split <span class="math notranslate nohighlight">\(\tilde{R}^2_i\)</span>
 scores. These scores are corrected so that their sum is equal to the
 <span class="math notranslate nohighlight">\(R^2\)</span> score of the full prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>
@@ -3107,46 +3199,50 @@ spaces had good prediction accuracy (see previous example). For example,
 motion-energy features predict brain activity in early visual cortex, while
 wordnet features predict in semantic visual areas. For more discussions about
 these results, we refer the reader to the publications describing the banded ridge
-regression approach <span id="id112">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>.</p>
+regression approach <span id="id140">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>.</p>
 </section>
-<section id="id113">
-<h2>References<a class="headerlink" href="#id113" title="Link to this heading">#</a></h2>
-<div class="docutils container" id="id114">
+<section id="id141">
+<h2>References<a class="headerlink" href="#id141" title="Link to this heading">#</a></h2>
+<div class="docutils container" id="id142">
 <div role="list" class="citation-list">
-<div class="citation" id="id129" role="doc-biblioentry">
+<div class="citation" id="id157" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>DLTENEG22<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id79">1</a>,<a role="doc-backlink" href="#id106">2</a>,<a role="doc-backlink" href="#id112">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id107">1</a>,<a role="doc-backlink" href="#id134">2</a>,<a role="doc-backlink" href="#id140">3</a>)</span>
 <p>T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. <em>NeuroImage</em>, 267:119728, 2022. <a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2022.119728">doi:10.1016/j.neuroimage.2022.119728</a>.</p>
 </div>
-<div class="citation" id="id136" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">HBT04</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id164" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id29">HBT04</a><span class="fn-bracket">]</span></span>
 <p>A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. <em>Network</em>, 2004.</p>
 </div>
-<div class="citation" id="id118" role="doc-biblioentry">
+<div class="citation" id="id159" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">HNV+22</a><span class="fn-bracket">]</span></span>
+<p>A. G. Huth, S. Nishimoto, A. T. Vu, T. Dupré la Tour, and J. L. Gallant. Gallant lab natural short clips 3t fMRI data. 2022. <a class="reference external" href="https://doi.org/10.12751/g-node.vy1zjd">doi:10.12751/g-node.vy1zjd</a>.</p>
+</div>
+<div class="citation" id="id146" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>HNVG12<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id30">1</a>,<a role="doc-backlink" href="#id32">2</a>,<a role="doc-backlink" href="#id34">3</a>,<a role="doc-backlink" href="#id35">4</a>,<a role="doc-backlink" href="#id36">5</a>,<a role="doc-backlink" href="#id37">6</a>,<a role="doc-backlink" href="#id38">7</a>,<a role="doc-backlink" href="#id39">8</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id58">2</a>,<a role="doc-backlink" href="#id60">3</a>,<a role="doc-backlink" href="#id62">4</a>,<a role="doc-backlink" href="#id63">5</a>,<a role="doc-backlink" href="#id64">6</a>,<a role="doc-backlink" href="#id65">7</a>,<a role="doc-backlink" href="#id66">8</a>,<a role="doc-backlink" href="#id67">9</a>)</span>
 <p>A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. <em>Neuron</em>, 76(6):1210–1224, 2012.</p>
 </div>
-<div class="citation" id="id117" role="doc-biblioentry">
+<div class="citation" id="id145" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>NVN+11<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id71">1</a>,<a role="doc-backlink" href="#id72">2</a>,<a role="doc-backlink" href="#id78">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id99">1</a>,<a role="doc-backlink" href="#id100">2</a>,<a role="doc-backlink" href="#id106">3</a>)</span>
 <p>S. Nishimoto, A. T. Vu, T. Naselaris, Y. Benjamini, B. Yu, and J. L. Gallant. Reconstructing visual experiences from brain activity evoked by natural movies. <em>Current Biology</em>, 21(19):1641–1646, 2011.</p>
 </div>
-<div class="citation" id="id126" role="doc-biblioentry">
+<div class="citation" id="id154" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>NEHG19<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id79">1</a>,<a role="doc-backlink" href="#id106">2</a>,<a role="doc-backlink" href="#id112">3</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id107">1</a>,<a role="doc-backlink" href="#id134">2</a>,<a role="doc-backlink" href="#id140">3</a>)</span>
 <p>A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. <em>Neuroimage</em>, 197:482–492, 2019.</p>
 </div>
-<div class="citation" id="id135" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">SL02</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id163" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id28">SL02</a><span class="fn-bracket">]</span></span>
 <p>M. Sahani and J. Linden. How linear are auditory cortical responses? <em>Adv. Neural Inf. Process. Syst.</em>, 2002.</p>
 </div>
-<div class="citation" id="id138" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id33">SGV98</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id166" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id61">SGV98</a><span class="fn-bracket">]</span></span>
 <p>C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.</p>
 </div>
-<div class="citation" id="id137" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">SHW+16</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id165" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id30">SHW+16</a><span class="fn-bracket">]</span></span>
 <p>O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. <em>Front. Comput. Neurosci.</em>, 2016.</p>
 </div>
 </div>
@@ -3200,31 +3296,33 @@ regression approach <span id="id112">[<a class="reference internal" href="../../
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">01_setup_colab.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-google-colab">Setup Google Colab</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Setup Google Colab</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-runtime-to-use-a-gpu">Change runtime to use a GPU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies-and-download-the-data">Install all required dependencies and download the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies">Install all required dependencies</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-explainable-variance-ipynb">03_compute_explainable_variance.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-explainable-variance">Compute the explainable variance</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-of-the-data-directory">Path of the data directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Compute the explainable variance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-subject-flatmap">Map to subject flatmap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-fsaverage">Map to “fsaverage”</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data-set">Download the data set</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cite-this-data-set">Cite this data set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download">Download</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-ridge-regression-ipynb">04_understand_ridge_regression.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-ridge-regression-and-cross-validation">Understand ridge regression and cross-validation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-explainable-variance">Compute the explainable variance</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-of-the-data-directory">Path of the data directory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Compute the explainable variance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-subject-flatmap">Map to subject flatmap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-fsaverage">Map to “fsaverage”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">References</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#understand-ridge-regression-and-hyperparameter-selection">Understand ridge regression and hyperparameter selection</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-least-squares-ols">Ordinary least squares (OLS)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression">Ridge regression</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameter-selection">Hyperparameter selection</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-wordnet-model-ipynb">05_fit_wordnet_model.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-wordnet-features">Fit a ridge model with wordnet features</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">Path of the data directory</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-voxelwise-encoding-model-with-wordnet-features">Fit a voxelwise encoding model with WordNet features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id59">Path of the data directory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">Load the data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-cross-validation-scheme">Define the cross-validation scheme</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-model">Define the model</a></li>
@@ -3232,43 +3330,40 @@ regression approach <span id="id112">[<a class="reference internal" href="../../
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-model-prediction-accuracy">Plot the model prediction accuracy</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-selected-hyperparameters">Plot the selected hyperparameters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-regression-coefficients">Visualize the regression coefficients</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id68">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-hemodynamic-response-ipynb">06_visualize_hemodynamic_response.ipynb</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-hemodynamic-response">Visualize the hemodynamic response</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id66">Path of the data directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id67">Load the data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id68">Define the cross-validation scheme</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id69">Define the model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id70">Fit the model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id94">Path of the data directory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id95">Load the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id96">Define the cross-validation scheme</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id97">Define the model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id98">Fit the model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intermission-understanding-delays">Intermission: understanding delays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-with-a-model-without-delays">Compare with a model without delays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-hrf">Visualize the HRF</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-motion-energy-model-ipynb">08_fit_motion_energy_model.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-ridge-model-with-motion-energy-features">Fit a ridge model with motion-energy features</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id73">Path of the data directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id74">Load the data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id75">Define the cross-validation scheme</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id76">Define the model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id77">Fit the model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-voxelwise-encoding-model-with-motion-energy-features">Fit a voxelwise encoding model with motion-energy features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id101">Path of the data directory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id102">Load the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id103">Define the cross-validation scheme</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id104">Define the model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id105">Fit the model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-model-performances">Plot the model performances</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-with-the-wordnet-model">Compare with the wordnet model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id80">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id108">References</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-banded-ridge-model-ipynb">09_fit_banded_ridge_model.ipynb</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-banded-ridge-model-with-both-wordnet-and-motion-energy-features">Fit a banded ridge model with both wordnet and motion-energy features</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id107">Path of the data directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id108">Load the data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id109">Define the cross-validation scheme</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id110">Define the model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id111">Fit the model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-a-voxelwise-encoding-model-with-both-wordnet-and-motion-energy-features">Fit a voxelwise encoding model with both WordNet and motion-energy features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id135">Path of the data directory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id136">Load the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id137">Define the cross-validation scheme</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id138">Define the model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id139">Fit the model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-with-a-ridge-model">Compare with a ridge model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-banded-ridge-split">Plot the banded ridge split</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id113">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id141">References</a></li>
 </ul>
 </li>
 </ul>

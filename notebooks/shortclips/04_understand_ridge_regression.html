@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Understand ridge regression and cross-validation &#8212; Voxelwise Encoding Model tutorials</title>
+    <title>Understand ridge regression and hyperparameter selection &#8212; Voxelwise Encoding Model tutorials</title>
   
   
   
@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/shortclips/04_understand_ridge_regression';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Fit a ridge model with wordnet features" href="05_fit_wordnet_model.html" />
+    <link rel="next" title="Fit a voxelwise encoding model with WordNet features" href="05_fit_wordnet_model.html" />
     <link rel="prev" title="Compute the explainable variance" href="03_compute_explainable_variance.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -186,12 +186,12 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Shortclips tutorial</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="02_download_shortclips.html">Download the data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03_compute_explainable_variance.html">Compute the explainable variance</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Understand ridge regression and cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05_fit_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Understand ridge regression and hyperparameter selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_fit_wordnet_model.html">Fit a voxelwise encoding model with WordNet features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06_visualize_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
 <li class="toctree-l2"><a class="reference internal" href="07_extract_motion_energy.html">Extract motion-energy features from the stimuli</a></li>
-<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a ridge model with motion-energy features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a banded ridge model with both wordnet and motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a voxelwise encoding model with motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a voxelwise encoding model with both WordNet and motion-energy features</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../vim2/README.html">Vim-2 tutorial (optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -387,7 +387,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Understand ridge regression and cross-validation</h1>
+    <h1>Understand ridge regression and hyperparameter selection</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -411,24 +411,24 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="understand-ridge-regression-and-cross-validation">
-<h1>Understand ridge regression and cross-validation<a class="headerlink" href="#understand-ridge-regression-and-cross-validation" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="understand-ridge-regression-and-hyperparameter-selection">
+<h1>Understand ridge regression and hyperparameter selection<a class="headerlink" href="#understand-ridge-regression-and-hyperparameter-selection" title="Link to this heading">#</a></h1>
 <p>In future examples, we will model the fMRI responses using a regularized linear
 regression known as <em>ridge regression</em>. This example explains why we use ridge
 regression, and how to use cross-validation to select the appropriate
-regularization hyper-parameter.</p>
+regularization hyperparameter.</p>
 <p>Linear regression is a method to model the relation between some input
 variables <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{(n \times p)}\)</span> (the features) and an output
 variable <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{n}\)</span> (the target). Specifically, linear
 regression uses a vector of coefficient <span class="math notranslate nohighlight">\(w \in \mathbb{R}^{p}\)</span> to
 predict the output</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1d4420e8-4c09-4f86-90fe-3e617a7bf61d">
-<span class="eqno">(2)<a class="headerlink" href="#equation-1d4420e8-4c09-4f86-90fe-3e617a7bf61d" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-4d8e7a72-f95e-45b0-8300-c88feaa9beea">
+<span class="eqno">(2)<a class="headerlink" href="#equation-4d8e7a72-f95e-45b0-8300-c88feaa9beea" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = Xw\end{align}\]</div>
 <p>The model is considered accurate if the predictions <span class="math notranslate nohighlight">\(\hat{y}\)</span> are close
 to the true output values <span class="math notranslate nohighlight">\(y\)</span>. Therefore,  a good linear regression model
 is given by the vector <span class="math notranslate nohighlight">\(w\)</span> that minimizes the sum of squared errors:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7bfcc882-1d5a-4ee0-86c3-0511cfcc090e">
-<span class="eqno">(3)<a class="headerlink" href="#equation-7bfcc882-1d5a-4ee0-86c3-0511cfcc090e" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-1a0b17c5-4527-49ed-82d6-6178a4173e16">
+<span class="eqno">(3)<a class="headerlink" href="#equation-1a0b17c5-4527-49ed-82d6-6178a4173e16" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2\end{align}\]</div>
 <p>This is the simplest model for linear regression, and it is known as <em>ordinary
 least squares</em> (OLS).</p>
 <section id="ordinary-least-squares-ols">
@@ -480,8 +480,8 @@ accuracy of the model, and thus the squared loss.</p>
 </div>
 <p>The linear coefficient leading to the minimum squared loss can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d772aa1c-919c-4bf2-8f9e-93e1faf5834e">
-<span class="eqno">(4)<a class="headerlink" href="#equation-d772aa1c-919c-4bf2-8f9e-93e1faf5834e" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-39886a10-bc4c-413a-96a6-a176b7120b6f">
+<span class="eqno">(4)<a class="headerlink" href="#equation-39886a10-bc4c-413a-96a6-a176b7120b6f" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X)^{-1}  X^\top y\end{align}\]</div>
 <p>This is the OLS solution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -621,8 +621,8 @@ data.</p>
 <p>To solve the instability and under-determinacy issues of OLS, OLS can be
 extended to <em>ridge regression</em>. Ridge regression considers a different
 optimization problem:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-883890df-0016-435a-827a-6cf2be497518">
-<span class="eqno">(5)<a class="headerlink" href="#equation-883890df-0016-435a-827a-6cf2be497518" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-68b52747-55d0-4018-84bc-cf843e167110">
+<span class="eqno">(5)<a class="headerlink" href="#equation-68b52747-55d0-4018-84bc-cf843e167110" title="Permalink to this equation">#</a></span>\[\begin{align}w = \arg\min_w ||Xw - y||^2 + \alpha ||w||^2\end{align}\]</div>
 <p>This optimization problem contains two terms: (i) a <em>data-fitting term</em>
 <span class="math notranslate nohighlight">\(||Xw - y||^2\)</span>, which ensures the regression correctly fits the
 training data; and (ii) a regularization term <span class="math notranslate nohighlight">\(\alpha||w||^2\)</span>, which
@@ -654,8 +654,8 @@ squared loss.</p>
 <p>To understand why the regularization term makes the solution more robust to
 noise, let’s consider the ridge solution. The ridge solution can be found
 analytically with the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4fba5c9d-c0e5-4850-ab14-99c4293d01f3">
-<span class="eqno">(6)<a class="headerlink" href="#equation-4fba5c9d-c0e5-4850-ab14-99c4293d01f3" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-1886f38e-bd35-4129-8cda-03e4abec2868">
+<span class="eqno">(6)<a class="headerlink" href="#equation-1886f38e-bd35-4129-8cda-03e4abec2868" title="Permalink to this equation">#</a></span>\[\begin{align}w = (X^\top X + \alpha I)^{-1}  X^\top y\end{align}\]</div>
 <p>where <code class="docutils literal notranslate"><span class="pre">I</span></code> is the identity matrix. In this formula, we can see that the
 inverted matrix is now <span class="math notranslate nohighlight">\((X^\top X + \alpha I)\)</span>. Compared to OLS, the
 additional term <span class="math notranslate nohighlight">\(\alpha I\)</span> adds a positive value <code class="docutils literal notranslate"><span class="pre">alpha</span></code> to all
@@ -870,7 +870,7 @@ hyperparameter selection. Thus, the process is called a <em>cross-validation</em
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Fit a ridge model with wordnet features</p>
+        <p class="prev-next-title">Fit a voxelwise encoding model with WordNet features</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/shortclips/03_compute_explainable_variance';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Understand ridge regression and cross-validation" href="04_understand_ridge_regression.html" />
+    <link rel="next" title="Understand ridge regression and hyperparameter selection" href="04_understand_ridge_regression.html" />
     <link rel="prev" title="Download the data set" href="02_download_shortclips.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -186,12 +186,12 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="README.html">Shortclips tutorial</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="02_download_shortclips.html">Download the data set</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Compute the explainable variance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04_understand_ridge_regression.html">Understand ridge regression and cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05_fit_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_understand_ridge_regression.html">Understand ridge regression and hyperparameter selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_fit_wordnet_model.html">Fit a voxelwise encoding model with WordNet features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06_visualize_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
 <li class="toctree-l2"><a class="reference internal" href="07_extract_motion_energy.html">Extract motion-energy features from the stimuli</a></li>
-<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a ridge model with motion-energy features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a banded ridge model with both wordnet and motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a voxelwise encoding model with motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a voxelwise encoding model with both WordNet and motion-energy features</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../vim2/README.html">Vim-2 tutorial (optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -437,11 +437,11 @@ voxel for each of the <span class="math notranslate nohighlight">\(N\)</span> re
 across repetitions. For each repeat, we define the residual timeseries between
 brain response and average brain response as <span class="math notranslate nohighlight">\(r_i = y_i - \bar{y}\)</span>. The
 explainable variance (EV) is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ebe8439d-b26d-442b-940e-5fe197dcdc70">
-<span class="eqno">(1)<a class="headerlink" href="#equation-ebe8439d-b26d-442b-940e-5fe197dcdc70" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-6b5c66f3-6a1c-4d78-b878-859915a0fd50">
+<span class="eqno">(1)<a class="headerlink" href="#equation-6b5c66f3-6a1c-4d78-b878-859915a0fd50" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
 <p>In the literature, the explainable variance is also known as the <em>signal
 power</em>.</p>
-<p>For more information, see <span id="id1">Sahani and Linden [<a class="reference internal" href="merged_for_colab_model_fitting.html#id130" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">2002</a>]</span>, <span id="id2">Hsu <em>et al.</em> [<a class="reference internal" href="merged_for_colab_model_fitting.html#id131" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">2004</a>]</span>, and <span id="id3">Schoppe <em>et al.</em> [<a class="reference internal" href="merged_for_colab_model_fitting.html#id132" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">2016</a>]</span>.</p>
+<p>For more information, see <span id="id1">Sahani and Linden [<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id158" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">2002</a>]</span>, <span id="id2">Hsu <em>et al.</em> [<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id159" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">2004</a>]</span>, and <span id="id3">Schoppe <em>et al.</em> [<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id160" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">2016</a>]</span>.</p>
 <section id="path-of-the-data-directory">
 <h2>Path of the data directory<a class="headerlink" href="#path-of-the-data-directory" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -772,7 +772,7 @@ does not use this function, so feel free to ignore.)</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Understand ridge regression and cross-validation</p>
+        <p class="prev-next-title">Understand ridge regression and hyperparameter selection</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

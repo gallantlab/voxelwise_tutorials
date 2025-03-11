@@ -184,12 +184,12 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="README.html">Shortclips tutorial</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="02_download_shortclips.html">Download the data set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03_compute_explainable_variance.html">Compute the explainable variance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="04_understand_ridge_regression.html">Understand ridge regression and cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05_fit_wordnet_model.html">Fit a ridge model with wordnet features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_understand_ridge_regression.html">Understand ridge regression and hyperparameter selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_fit_wordnet_model.html">Fit a voxelwise encoding model with WordNet features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06_visualize_hemodynamic_response.html">Visualize the hemodynamic response</a></li>
 <li class="toctree-l2"><a class="reference internal" href="07_extract_motion_energy.html">Extract motion-energy features from the stimuli</a></li>
-<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a ridge model with motion-energy features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a banded ridge model with both wordnet and motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_fit_motion_energy_model.html">Fit a voxelwise encoding model with motion-energy features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_fit_banded_ridge_model.html">Fit a voxelwise encoding model with both WordNet and motion-energy features</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../vim2/README.html">Vim-2 tutorial (optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -396,7 +396,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-runtime-to-use-a-gpu">Change runtime to use a GPU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies-and-download-the-data">Install all required dependencies and download the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies">Install all required dependencies</a></li>
 </ul>
             </nav>
         </div>
@@ -427,8 +427,8 @@ To do so, click the following menu options in Google Colab:</p>
 <div><p>(Menu) “Runtime” -&gt; “Change runtime type” -&gt; “Hardware accelerator” -&gt; “GPU”.</p>
 </div></blockquote>
 </section>
-<section id="install-all-required-dependencies-and-download-the-data">
-<h2>Install all required dependencies and download the data<a class="headerlink" href="#install-all-required-dependencies-and-download-the-data" title="Link to this heading">#</a></h2>
+<section id="install-all-required-dependencies">
+<h2>Install all required dependencies<a class="headerlink" href="#install-all-required-dependencies" title="Link to this heading">#</a></h2>
 <p>Uncomment and run the following cell to download the required packages.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -480,31 +480,6 @@ To do so, click the following menu options in Google Colab:</p>
 <span class="g g-Whitespace">      </span><span class="mi">9</span>                        <span class="s2">&quot;on your machine.&quot;</span><span class="p">)</span>
 
 <span class="ne">RuntimeError</span>: This script is only meant to be run from Google Colab. You can skip it if you run the tutorials on your machine.
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now run the following cell to download the data for the tutorials.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">download_datalad</span>
-
-<span class="n">DATAFILES</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;features/motion_energy.hdf&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;features/wordnet.hdf&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;mappers/S01_mappers.hdf&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;responses/S01_responses.hdf&quot;</span><span class="p">,</span>
-<span class="p">]</span>
-
-<span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;https://gin.g-node.org/gallantlab/shortclips&quot;</span>
-<span class="n">destination</span> <span class="o">=</span> <span class="s2">&quot;/content/shortclips&quot;</span>
-
-<span class="k">for</span> <span class="n">datafile</span> <span class="ow">in</span> <span class="n">DATAFILES</span><span class="p">:</span>
-    <span class="n">local_filename</span> <span class="o">=</span> <span class="n">download_datalad</span><span class="p">(</span>
-        <span class="n">datafile</span><span class="p">,</span>
-        <span class="n">destination</span><span class="o">=</span><span class="n">destination</span><span class="p">,</span>
-        <span class="n">source</span><span class="o">=</span><span class="n">source</span>
-    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -573,7 +548,7 @@ tutorials and pycortex.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-runtime-to-use-a-gpu">Change runtime to use a GPU</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies-and-download-the-data">Install all required dependencies and download the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-all-required-dependencies">Install all required dependencies</a></li>
 </ul>
   </nav></div>
 
