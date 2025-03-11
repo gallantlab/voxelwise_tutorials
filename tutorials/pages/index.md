@@ -15,7 +15,7 @@ To explore the VEM tutorials, one can:
 
 1. Read the tutorials on this website (recommended)
 2. Run the notebooks in Google Colab (clicking on the following links opens Colab):
-  [all notebooks](https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab.ipynb) or [only the notebooks about model fitting](https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/merged_for_colab_model_fitting.ipynb)
+  [all notebooks](https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/vem_tutorials_merged_for_colab.ipynb) or [only the notebooks about model fitting](https://colab.research.google.com/github/gallantlab/voxelwise_tutorials/blob/main/tutorials/notebooks/shortclips/vem_tutorials_merged_for_colab_model_fitting.ipynb)
 3. Use the provided [Dockerfiles](https://github.com/gallantlab/voxelwise_tutorials/tree/main/docker) to run the notebooks locally (recommended for Windows users, as some of the packages used do not support Windows)
 
 The code of this project is available on GitHub at [gallantlab/voxelwise_tutorials

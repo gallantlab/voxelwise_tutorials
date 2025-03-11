@@ -5,8 +5,8 @@ usage:
 python merge_notebooks.py A.ipynb B.ipynb C.ipynb > merged.ipynb
 """
 import io
-import sys
 import os.path
+import sys
 
 import nbformat
 
@@ -19,13 +19,15 @@ def merge_notebooks(filenames):
         if merged is None:
             merged = nb
             # add a Markdown cell with the file name, then all cells
-            merged.cells = [cell_with_title(title=os.path.basename(fname))
-                            ] + nb.cells
+            # merged.cells = [cell_with_title(title=os.path.basename(fname))
+            #                 ] + nb.cells
+            # Do not add the title cell, use the title in each notebook
+            merged.cells = nb.cells
         else:
             # add a code cell resetting all variables
             merged.cells.append(cell_with_reset())
             # add a Markdown cell with the file name
-            merged.cells.append(cell_with_title(title=os.path.basename(fname)))
+            # merged.cells.append(cell_with_title(title=os.path.basename(fname)))
             # add all cells from current notebook
             merged.cells.extend(nb.cells)
 
