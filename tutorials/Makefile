@@ -23,23 +23,25 @@ NBDIR = notebooks/shortclips
 merge-notebooks:
 	python merge_notebooks.py \
 		$(NBDIR)/01_setup_colab.ipynb \
+		$(NBDIR)/02_download_shortclips.ipynb \
 		$(NBDIR)/03_compute_explainable_variance.ipynb \
 		$(NBDIR)/04_understand_ridge_regression.ipynb \
 		$(NBDIR)/05_fit_wordnet_model.ipynb \
 		$(NBDIR)/06_visualize_hemodynamic_response.ipynb \
 		$(NBDIR)/08_fit_motion_energy_model.ipynb \
 		$(NBDIR)/09_fit_banded_ridge_model.ipynb \
-		> $(NBDIR)/merged_for_colab.ipynb
-	echo "Saved in $(NBDIR)/merged_for_colab.ipynb"
+		> $(NBDIR)/vem_tutorials_merged_for_colab.ipynb
+	echo "Saved in $(NBDIR)/vem_tutorials_merged_for_colab.ipynb"
 
 	python merge_notebooks.py \
 		$(NBDIR)/01_setup_colab.ipynb \
+		$(NBDIR)/02_download_shortclips.ipynb \
 		$(NBDIR)/03_compute_explainable_variance.ipynb \
 		$(NBDIR)/05_fit_wordnet_model.ipynb \
 		$(NBDIR)/08_fit_motion_energy_model.ipynb \
 		$(NBDIR)/09_fit_banded_ridge_model.ipynb \
-		> $(NBDIR)/merged_for_colab_model_fitting.ipynb
-	echo "Saved in $(NBDIR)/merged_for_colab_model_fitting.ipynb"
+		> $(NBDIR)/vem_tutorials_merged_for_colab_model_fitting.ipynb
+	echo "Saved in $(NBDIR)/vem_tutorials_merged_for_colab_model_fitting.ipynb"
 
 build:
 	jupyter book build --all $(SOURCEDIR)
