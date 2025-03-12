@@ -12,7 +12,7 @@ Paper
 
 If you use these tutorials for your work, consider citing the corresponding paper:
 
-   Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024). The Voxelwise Encoding Model framework: a tutorial introduction to fitting encoding models to fMRI data. https://doi.org/10.31234/osf.io/t975e
+   Dupré la Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024). The Voxelwise Encoding Model framework: a tutorial introduction to fitting encoding models to fMRI data. https://doi.org/10.31234/osf.io/t975e
 
 You can find a copy of the paper `here <paper/voxelwise_tutorials_paper.pdf>`_.
 
@@ -131,11 +131,11 @@ If you use one of our packages in your work (``voxelwise_tutorials`` [1]_,
 ``himalaya`` [2]_, ``pycortex`` [3]_, or ``pymoten`` [4]_), please cite the
 corresponding publications:
 
-.. [1] Dupré La Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024).
+.. [1] Dupré la Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2024).
    The Voxelwise Modeling framework: a tutorial introduction to fitting encoding models to fMRI data.
    https://doi.org/10.31234/osf.io/t975e
 
-.. [2] Dupré La Tour, T., Eickenberg, M., Nunez-Elizalde, A.O., & Gallant, J. L. (2022).
+.. [2] Dupré la Tour, T., Eickenberg, M., Nunez-Elizalde, A.O., & Gallant, J. L. (2022).
    Feature-space selection with banded ridge regression. NeuroImage.
    https://doi.org/10.1016/j.neuroimage.2022.119728
 
