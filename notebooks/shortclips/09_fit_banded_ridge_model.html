@@ -422,7 +422,7 @@ document.write(`
 with two different feature spaces: motion energy and wordnet categories.</p>
 <p><em>Banded ridge regression:</em> Since the relative scaling of both feature spaces is
 unknown, we use two regularization hyperparameters (one per feature space) in a
-model called banded ridge regression <span id="id1">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>.
+model called banded ridge regression <span id="id1">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré la Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré la Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>.
 Just like with ridge regression, we optimize the hyperparameters over cross-validation.
 An efficient implementation of this model is available in the
 <a class="reference external" href="https://github.com/gallantlab/himalaya">himalaya</a> package.</p>
@@ -2827,8 +2827,8 @@ way to disentangle the contribution of the two feature spaces. To do so, we
 take the kernel weights and the ridge (dual) weights corresponding to each
 feature space, and use them to compute the prediction from each feature space
 separately.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c515e9be-8919-4434-9ba6-8408cf6ab8bd">
-<span class="eqno">(8)<a class="headerlink" href="#equation-c515e9be-8919-4434-9ba6-8408cf6ab8bd" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-eab8ce78-6b79-4fd7-ad7d-866dfd1987d3">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eab8ce78-6b79-4fd7-ad7d-866dfd1987d3" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
 <p>Then, we use these split predictions to compute split <span class="math notranslate nohighlight">\(\tilde{R}^2_i\)</span>
 scores. These scores are corrected so that their sum is equal to the
 <span class="math notranslate nohighlight">\(R^2\)</span> score of the full prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>
@@ -2887,16 +2887,16 @@ spaces had good prediction accuracy (see previous example). For example,
 motion-energy features predict brain activity in early visual cortex, while
 wordnet features predict in semantic visual areas. For more discussions about
 these results, we refer the reader to the publications describing the banded ridge
-regression approach <span id="id2">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré La Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>.</p>
+regression approach <span id="id2">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré la Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré la Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>.</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <div class="docutils container" id="id3">
 <div role="list" class="citation-list">
 <div class="citation" id="id18" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>DLTENEG22<span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span>DlTENEG22<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
-<p>T. Dupré La Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. <em>NeuroImage</em>, 267:119728, 2022. <a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2022.119728">doi:10.1016/j.neuroimage.2022.119728</a>.</p>
+<p>T. Dupré la Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. <em>NeuroImage</em>, 267:119728, 2022. <a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2022.119728">doi:10.1016/j.neuroimage.2022.119728</a>.</p>
 </div>
 <div class="citation" id="id15" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>NEHG19<span class="fn-bracket">]</span></span>
