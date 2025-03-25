@@ -500,6 +500,32 @@ an upper bound of the model prediction accuracy (cf. previous example).</p>
 </div>
 </div>
 </div>
+<p>Before fitting an encoding model, the fMRI responses are typically z-scored over time. This normalization step is performed for two reasons.
+First, the regularized regression methods used to estimate encoding models generally assume the data to be normalized <span id="id3">[<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id167" title="Trevor Hastie, Robert Tibshirani, and Jerome Friedman. The Elements of Statistical Learning. Springer New York, 2009.">Hastie <em>et al.</em>, 2009</a>]</span>.
+Second, the temporal mean and standard deviation of a voxel are typically considered uninformative in fMRI because they can vary due to factors unrelated to the task, such as differences in signal-to-noise ratio (SNR).</p>
+<p>To preserve each run independent from the others, we z-score each run separately.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
+
+<span class="c1"># indice of first sample of each run</span>
+<span class="n">run_onsets</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;run_onsets&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">run_onsets</span><span class="p">)</span>
+
+<span class="c1"># zscore each training run separately</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">zscore</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">Y_train</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># zscore each test run separately</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[   0  300  600  900 1200 1500 1800 2100 2400 2700 3000 3300]
+</pre></div>
+</div>
+</div>
+</div>
 <p>If we repeat an experiment multiple times, part of the fMRI responses might
 change. However the modeling features do not change over the repeats, so the
 voxelwise encoding model will predict the same signal for each repeat. To
@@ -508,6 +534,9 @@ repeatable part of the signal by averaging the test repeats.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_test</span> <span class="o">=</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># We need to zscore the test data again, because we took the mean across repetitions.</span>
+<span class="c1"># This averaging step makes the standard deviation approximately equal to 1/sqrt(n_repeats)</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_samples_test, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
@@ -563,27 +592,13 @@ we should not put one time sample in the training set and the immediately
 following time sample in the validation set. Thus, we define here a
 leave-one-run-out cross-validation split that keeps each recording run
 intact.</p>
+<p>We define a cross-validation splitter, compatible with <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> API.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">check_cv</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.utils</span> <span class="kn">import</span> <span class="n">generate_leave_one_run_out</span>
 
-<span class="c1"># indice of first sample of each run</span>
-<span class="n">run_onsets</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;run_onsets&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">run_onsets</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[   0  300  600  900 1200 1500 1800 2100 2400 2700 3000 3300]
-</pre></div>
-</div>
-</div>
-</div>
-<p>We define a cross-validation splitter, compatible with <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> API.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_samples_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_samples_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">generate_leave_one_run_out</span><span class="p">(</span><span class="n">n_samples_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">)</span>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">check_cv</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span>  <span class="c1"># copy the cross-validation splitter into a reusable list</span>
 </pre></div>
@@ -594,12 +609,17 @@ intact.</p>
 <section id="define-the-model">
 <h2>Define the model<a class="headerlink" href="#define-the-model" title="Link to this heading">#</a></h2>
 <p>Now, let’s define the model pipeline.</p>
+<p>With regularized linear regression models, it is generally recommended to normalize
+(z-score) both the responses and the features before fitting the model <span id="id4">[<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id167" title="Trevor Hastie, Robert Tibshirani, and Jerome Friedman. The Elements of Statistical Learning. Springer New York, 2009.">Hastie <em>et al.</em>, 2009</a>]</span>.
+Z-scoring corresponds to removing the temporal mean and dividing by the temporal standard deviation.
+We already z-scored the fMRI responses after loading them, so now we need to specify
+in the model how to deal with the features.</p>
 <p>We first center the features, since we will not use an intercept. The mean
 value in fMRI recording is non-informative, so each run is detrended and
 demeaned independently, and we do not need to predict an intercept value in
 the linear model.</p>
-<p>However, we prefer to avoid normalizing by the standard deviation of each
-feature. If the features are extracted in a consistent way from the stimulus,
+<p>For this particular dataset and example, we do not normalize by the standard deviation
+of each feature. If the features are extracted in a consistent way from the stimulus,
 their relative scale is meaningful. Normalizing them independently from each
 other would remove this information. Moreover, the wordnet features are
 one-hot-encoded, which means that each feature is either present (1) or not
@@ -640,7 +660,7 @@ set. See the previous example for more details about ridge regression and
 hyperparameter selection.</p>
 <p>For computational reasons, when the number of features is larger than the
 number of samples, it is more efficient to solve ridge regression using the
-(equivalent) dual formulation <span id="id3">[<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id161" title="C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.">Saunders <em>et al.</em>, 1998</a>]</span>. This dual formulation is equivalent to
+(equivalent) dual formulation <span id="id5">[<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id166" title="C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.">Saunders <em>et al.</em>, 1998</a>]</span>. This dual formulation is equivalent to
 kernel ridge regression with a linear kernel. Here, we have 3600 training
 samples, and 1705 * 4 = 6820 features (we multiply by 4 since we use 4 time
 delays), therefore it is more efficient to use kernel ridge regression.</p>
@@ -1164,7 +1184,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ...,...1, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...799])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -1173,13 +1193,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ...,...1, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...799])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Delayer</div></div></label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>KernelRidgeCV</div></div></label><div class="sk-toggleable__content "><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ...,...1, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199]))]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([ 900,  901, ..., 1198, 1199])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
               solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                              &#x27;n_targets_batch_refit&#x27;: 100})</pre></div> </div></div></div></div></div></div></div></div>
 </div>
@@ -1243,7 +1263,7 @@ mapper to Freesurfer average surface.)</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/1a0e38670e652e566e3b98815d878d05a3bd454ffc9bcf1627f098e0ece8a440.png" src="../../_images/1a0e38670e652e566e3b98815d878d05a3bd454ffc9bcf1627f098e0ece8a440.png" />
+<img alt="../../_images/52ea315c606c7e554174f07625496ba7894ec5a626f3597ba2c428760b7accce.png" src="../../_images/52ea315c606c7e554174f07625496ba7894ec5a626f3597ba2c428760b7accce.png" />
 </div>
 </div>
 <p>We can see that the “wordnet” features successfully predict part of the
@@ -1255,7 +1275,7 @@ available spatial resolution: individual voxels.</p>
 <p>The best-predicted voxels are located in visual semantic areas like EBA, or
 FFA. This is expected since the wordnet features encode semantic information
 about the visual stimulus. For more discussions about these results, we refer
-the reader to the original publication <span id="id4">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>.</p>
+the reader to the original publication <span id="id6">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">Huth <em>et al.</em>, 2012</a>]</span>.</p>
 </section>
 <section id="plot-the-selected-hyperparameters">
 <h2>Plot the selected hyperparameters<a class="headerlink" href="#plot-the-selected-hyperparameters" title="Link to this heading">#</a></h2>
@@ -1276,7 +1296,7 @@ to zero. We do not need to extend the alpha range for these voxels.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/92ef10b18d87f51cceef6c15abeb9a7de075a11daef41fdb92dbc1b7086d9942.png" src="../../_images/92ef10b18d87f51cceef6c15abeb9a7de075a11daef41fdb92dbc1b7086d9942.png" />
+<img alt="../../_images/f080453085f77f54c9f1c1afddb0e813c8466fa1b7b2cf2e7fa75a46247ece47.png" src="../../_images/f080453085f77f54c9f1c1afddb0e813c8466fa1b7b2cf2e7fa75a46247ece47.png" />
 </div>
 </div>
 </section>
@@ -1379,12 +1399,12 @@ coefficients variance.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PCA explained variance = [0.35199594 0.08103117 0.05653884 0.03766724]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PCA explained variance = [0.35634248 0.08206306 0.05751063 0.03633177]
 </pre></div>
 </div>
 </div>
 </div>
-<p>Similarly to [1]_, we correct the coefficients of features linked by a
+<p>Similarly to <span id="id7">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, we correct the coefficients of features linked by a
 semantic relationship. When building the wordnet features, if a frame was
 labeled with <code class="docutils literal notranslate"><span class="pre">wolf</span></code>, the authors automatically added the semantically linked
 categories <code class="docutils literal notranslate"><span class="pre">canine</span></code>, <code class="docutils literal notranslate"><span class="pre">carnivore</span></code>, <code class="docutils literal notranslate"><span class="pre">placental</span> <span class="pre">mammal</span></code>, <code class="docutils literal notranslate"><span class="pre">mamma</span></code>, <code class="docutils literal notranslate"><span class="pre">vertebrate</span></code>,
@@ -1423,17 +1443,17 @@ color indicates the sign (red is positive, blue is negative).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/0e1bfc13ac962106d04225c1b0af8e2b5d48d1ff4df6b233d3e64e815c29e86f.png" src="../../_images/0e1bfc13ac962106d04225c1b0af8e2b5d48d1ff4df6b233d3e64e815c29e86f.png" />
+<img alt="../../_images/09830c857797de7f7841f4ed5ed3efaefffa9cfefb67dc6956cf79e3b1fad135.png" src="../../_images/09830c857797de7f7841f4ed5ed3efaefffa9cfefb67dc6956cf79e3b1fad135.png" />
 </div>
 </div>
-<p>According to <span id="id5">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, “this principal component distinguishes
+<p>According to <span id="id8">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, “this principal component distinguishes
 between categories with high stimulus energy (e.g. moving objects like
 <code class="docutils literal notranslate"><span class="pre">person</span></code> and <code class="docutils literal notranslate"><span class="pre">vehicle</span></code>) and those with low stimulus energy (e.g. stationary
 objects like <code class="docutils literal notranslate"><span class="pre">sky</span></code> and <code class="docutils literal notranslate"><span class="pre">city</span></code>)”.</p>
 <p>In this example, because we use only a single subject and we perform a
 different voxel selection, our result is slightly different than in the
 original publication. We also use a different regularization parameter in
-each voxel, while in <span id="id6">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span> all voxels had the same regularization parameter.
+each voxel, while in <span id="id9">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span> all voxels had the same regularization parameter.
 However, we do not aim at reproducing exactly the results of the original
 publication, but we rather describe the general approach.</p>
 <p>To project the principal component on the cortical surface, we first need to
@@ -1459,12 +1479,12 @@ use the fitted PCA to transform the primal weights of all voxels.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(n_components, n_voxels) = (4, 84038)
 </pre></div>
 </div>
-<img alt="../../_images/13ab76ba5ec296c1c2824638a558a03a00550af5d218e5a2ed2ea188cdeb56da.png" src="../../_images/13ab76ba5ec296c1c2824638a558a03a00550af5d218e5a2ed2ea188cdeb56da.png" />
+<img alt="../../_images/17984e4a93b4a9359f06f17ab5e2459ec9eac50183f3fcc9e158888f54b16c52.png" src="../../_images/17984e4a93b4a9359f06f17ab5e2459ec9eac50183f3fcc9e158888f54b16c52.png" />
 </div>
 </div>
 <p>This flatmap shows in which brain regions the model has the largest
 projection on the first component. Again, this result is different from the
-one in <span id="id7">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, and should only be considered as reproducing the general
+one in <span id="id10">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, and should only be considered as reproducing the general
 approach.</p>
 <p>Following the analyses in the original publication, we also plot the next three principal components on the
 wordnet graph, mapping the three vectors to RGB colors.</p>
@@ -1486,10 +1506,10 @@ wordnet graph, mapping the three vectors to RGB colors.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(n_nodes, n_channels) = (1705, 3)
 </pre></div>
 </div>
-<img alt="../../_images/8a0c7681a2118e7f80bd9c89f7dfe31fb53453949a0b284d14a99f6d94b047c5.png" src="../../_images/8a0c7681a2118e7f80bd9c89f7dfe31fb53453949a0b284d14a99f6d94b047c5.png" />
+<img alt="../../_images/d3a7a0b50142d7d4432d504bf753cba3961c5cade113d139aa1b3aafbe465cd9.png" src="../../_images/d3a7a0b50142d7d4432d504bf753cba3961c5cade113d139aa1b3aafbe465cd9.png" />
 </div>
 </div>
-<p>According to <span id="id8">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, “this graph shows that categories thought
+<p>According to <span id="id11">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, “this graph shows that categories thought
 to be semantically related (e.g. athletes and walking) are represented
 similarly in the brain”.</p>
 <p>Finally, we project these principal components on the cortical surface.</p>
@@ -1500,10 +1520,11 @@ similarly in the brain”.</p>
 <span class="n">voxel_colors</span> <span class="o">=</span> <span class="n">scale_to_rgb_cube</span><span class="p">(</span><span class="n">average_coef_transformed</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_channels, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">voxel_colors</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plot_3d_flatmap_from_mapper</span><span class="p">(</span><span class="n">voxel_colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">voxel_colors</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                 <span class="n">voxel_colors</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">mapper_file</span><span class="o">=</span><span class="n">mapper_file</span><span class="p">,</span>
-                                 <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmin2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmin3</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                 <span class="n">vmax3</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plot_3d_flatmap_from_mapper</span><span class="p">(</span>
+    <span class="n">voxel_colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">voxel_colors</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">voxel_colors</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> 
+    <span class="n">mapper_file</span><span class="o">=</span><span class="n">mapper_file</span><span class="p">,</span> 
+    <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmin2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmin3</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax3</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1512,23 +1533,28 @@ similarly in the brain”.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(n_channels, n_voxels) = (3, 84038)
 </pre></div>
 </div>
-<img alt="../../_images/9a73c04c60bfe5ac731fbaa6d4504d4c5aba9ef2a8fd26f1e50de475bd979d80.png" src="../../_images/9a73c04c60bfe5ac731fbaa6d4504d4c5aba9ef2a8fd26f1e50de475bd979d80.png" />
+<img alt="../../_images/2a893661e6d6194ada9cc82a4d16e14088dfe4813c0ef5cb208327e414dbba85.png" src="../../_images/2a893661e6d6194ada9cc82a4d16e14088dfe4813c0ef5cb208327e414dbba85.png" />
 </div>
 </div>
-<p>Again, our results are different from the ones in <span id="id9">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, for the same reasons
+<p>Again, our results are different from the ones in <span id="id12">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, for the same reasons
 mentioned earlier.</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<div class="docutils container" id="id10">
+<div class="docutils container" id="id13">
 <div role="list" class="citation-list">
-<div class="citation" id="id14" role="doc-biblioentry">
+<div class="citation" id="id38" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>HTF09<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id3">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
+<p>Trevor Hastie, Robert Tibshirani, and Jerome Friedman. <em>The Elements of Statistical Learning</em>. Springer New York, 2009.</p>
+</div>
+<div class="citation" id="id17" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>HNVG12<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id4">3</a>,<a role="doc-backlink" href="#id5">4</a>,<a role="doc-backlink" href="#id6">5</a>,<a role="doc-backlink" href="#id7">6</a>,<a role="doc-backlink" href="#id8">7</a>,<a role="doc-backlink" href="#id9">8</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id6">3</a>,<a role="doc-backlink" href="#id7">4</a>,<a role="doc-backlink" href="#id8">5</a>,<a role="doc-backlink" href="#id9">6</a>,<a role="doc-backlink" href="#id10">7</a>,<a role="doc-backlink" href="#id11">8</a>,<a role="doc-backlink" href="#id12">9</a>)</span>
 <p>A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. <em>Neuron</em>, 76(6):1210–1224, 2012.</p>
 </div>
-<div class="citation" id="id34" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">SGV98</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id37" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">SGV98</a><span class="fn-bracket">]</span></span>
 <p>C. Saunders, A. Gammerman, and V. Vovk. Ridge regression learning algorithm in dual variables. 1998.</p>
 </div>
 </div>

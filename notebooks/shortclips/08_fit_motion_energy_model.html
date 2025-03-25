@@ -470,11 +470,12 @@ comparing the model predictions with the ground-truth fMRI responses.</p>
 </section>
 <section id="load-the-data">
 <h2>Load the data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h2>
-<p>We first load the fMRI responses.</p>
+<p>We first load and normalize the fMRI responses.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">load_hdf5_array</span>
 
 <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s2">&quot;responses&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">_responses.hdf&quot;</span><span class="p">)</span>
@@ -483,6 +484,15 @@ comparing the model predictions with the ground-truth fMRI responses.</p>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_samples_train, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_repeats, n_samples_test, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># indice of first sample of each run</span>
+<span class="n">run_onsets</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;run_onsets&quot;</span><span class="p">)</span>
+
+<span class="c1"># zscore each training run separately</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">zscore</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">Y_train</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># zscore each test run separately</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -494,10 +504,11 @@ comparing the model predictions with the ground-truth fMRI responses.</p>
 </div>
 </div>
 <p>We average the test repeats, to remove the non-repeatable part of fMRI
-responses.</p>
+responses, and normalize the average across repeats.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_test</span> <span class="o">=</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_samples_test, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
@@ -1031,7 +1042,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 2...00, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...(array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 269...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -1040,13 +1051,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 2...00, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...(array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 269...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Delayer</div></div></label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>KernelRidgeCV</div></div></label><div class="sk-toggleable__content "><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 2...00, 301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899]))]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 269...1, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999]))]),
               solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                              &#x27;n_targets_batch_refit&#x27;: 100})</pre></div> </div></div></div></div></div></div></div></div>
 </div>
@@ -1088,7 +1099,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/052627f232e23282a118110cd35a5ce2045cf1136235f76813954c50b50bba75.png" src="../../_images/052627f232e23282a118110cd35a5ce2045cf1136235f76813954c50b50bba75.png" />
+<img alt="../../_images/3baba11d26180834e3675ec10d5df6addb0dbda4309f790b17961e82f30cf923.png" src="../../_images/3baba11d26180834e3675ec10d5df6addb0dbda4309f790b17961e82f30cf923.png" />
 </div>
 </div>
 <p>The motion-energy features lead to large generalization scores in the
@@ -1138,7 +1149,7 @@ or simply call fit again if we do not need to reuse the previous model.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/04ae0cf9eb0cc3ea4129d051566d469cbd2970fce57be9540dfe2c7366a55df4.png" src="../../_images/04ae0cf9eb0cc3ea4129d051566d469cbd2970fce57be9540dfe2c7366a55df4.png" />
+<img alt="../../_images/f48c6851499cb430d6a6288f2e8a8d164a16413fda88477f3650738095796ef4.png" src="../../_images/f48c6851499cb430d6a6288f2e8a8d164a16413fda88477f3650738095796ef4.png" />
 </div>
 </div>
 <p>We can also plot the comparison of model prediction accuracies with a 2D
@@ -1158,7 +1169,7 @@ predictive performance than the other.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/1813721b1a3b0cecb6dab47ed0c6371a4b3c983a54fa7c25e8bc67143ecbd650.png" src="../../_images/1813721b1a3b0cecb6dab47ed0c6371a4b3c983a54fa7c25e8bc67143ecbd650.png" />
+<img alt="../../_images/259d8a45c81ad6ec8987015bf15dc54e5d0068b5104adb005996c885b80590f2.png" src="../../_images/259d8a45c81ad6ec8987015bf15dc54e5d0068b5104adb005996c885b80590f2.png" />
 </div>
 </div>
 <p>Interestingly, the well predicted voxels are different in the two models.
@@ -1178,7 +1189,7 @@ same flatmap, using a 2D colormap.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/2678ebb04d001cb895e6723da84fbe385fb8af20231cf8f71c7dc46bafb2af07.png" src="../../_images/2678ebb04d001cb895e6723da84fbe385fb8af20231cf8f71c7dc46bafb2af07.png" />
+<img alt="../../_images/a08dbabd9dc0e62ca36f35dcbd50b43301772583b01aa82956c9666cc81ca2cf.png" src="../../_images/a08dbabd9dc0e62ca36f35dcbd50b43301772583b01aa82956c9666cc81ca2cf.png" />
 </div>
 </div>
 <p>The blue regions are well predicted by the motion-energy features, the orange

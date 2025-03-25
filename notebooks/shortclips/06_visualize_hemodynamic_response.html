@@ -464,11 +464,12 @@ response function (HRF) from a model with delays.</p>
 </section>
 <section id="load-the-data">
 <h2>Load the data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h2>
-<p>We first load the fMRI responses.</p>
+<p>We first load and normalize the fMRI responses.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">load_hdf5_array</span>
 
 <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s2">&quot;responses&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">_responses.hdf&quot;</span><span class="p">)</span>
@@ -477,6 +478,15 @@ response function (HRF) from a model with delays.</p>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_samples_train, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_repeats, n_samples_test, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># indice of first sample of each run</span>
+<span class="n">run_onsets</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;run_onsets&quot;</span><span class="p">)</span>
+
+<span class="c1"># zscore each training run separately</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">zscore</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">Y_train</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># zscore each test run separately</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -488,10 +498,11 @@ response function (HRF) from a model with delays.</p>
 </div>
 </div>
 <p>We average the test repeats, to remove the non-repeatable part of fMRI
-responses.</p>
+responses, and normalize the average across repeats.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_test</span> <span class="o">=</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_samples_test, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
@@ -538,27 +549,13 @@ responses.</p>
 <h2>Define the cross-validation scheme<a class="headerlink" href="#define-the-cross-validation-scheme" title="Link to this heading">#</a></h2>
 <p>We define the same leave-one-run-out cross-validation split as in the
 previous example.</p>
+<p>We define a cross-validation splitter, compatible with <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> API.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">check_cv</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.utils</span> <span class="kn">import</span> <span class="n">generate_leave_one_run_out</span>
 
-<span class="c1"># indice of first sample of each run</span>
-<span class="n">run_onsets</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;run_onsets&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">run_onsets</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[   0  300  600  900 1200 1500 1800 2100 2400 2700 3000 3300]
-</pre></div>
-</div>
-</div>
-</div>
-<p>We define a cross-validation splitter, compatible with <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> API.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_samples_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_samples_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">generate_leave_one_run_out</span><span class="p">(</span><span class="n">n_samples_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">)</span>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">check_cv</span><span class="p">(</span><span class="n">cv</span><span class="p">)</span>  <span class="c1"># copy the cross-validation splitter into a reusable list</span>
 </pre></div>
@@ -1032,7 +1029,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -1041,13 +1038,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...)), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Delayer</div></div></label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>KernelRidgeCV</div></div></label><div class="sk-toggleable__content "><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
               solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                              &#x27;n_targets_batch_refit&#x27;: 100})</pre></div> </div></div></div></div></div></div></div></div>
 </div>
@@ -1587,7 +1584,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  RidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                         cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                         cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
                          solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                         &#x27;n_targets_batch&#x27;: 500,
                                         &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -1595,13 +1592,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  RidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                         cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+                         cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
                          solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                         &#x27;n_targets_batch&#x27;: 500,
                                         &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>RidgeCV</div></div></label><div class="sk-toggleable__content "><pre>RidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-        cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([3000, 3001, ..., 3298, 3299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ...,...1, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699]))]),
+        cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
         solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                        &#x27;n_targets_batch_refit&#x27;: 100})</pre></div> </div></div></div></div></div></div></div></div>
 </div>
@@ -1641,7 +1638,7 @@ prediction accuracy than the other.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/948e77765384d40d5b0817fb311a632b45d3e4f65bfb0e210868b182a9ed7268.png" src="../../_images/948e77765384d40d5b0817fb311a632b45d3e4f65bfb0e210868b182a9ed7268.png" />
+<img alt="../../_images/e1dd69d9027c2c421f9215f39f847b6fe9b56fd99ccb71c6ca84355958ca1160.png" src="../../_images/e1dd69d9027c2c421f9215f39f847b6fe9b56fd99ccb71c6ca84355958ca1160.png" />
 </div>
 </div>
 <p>We see that the model with delays performs much better than the model without
@@ -1660,8 +1657,8 @@ function (HRF).</p>
 coefficients <span class="math notranslate nohighlight">\(\beta\)</span> obtained with a ridge regression, but the primal
 coefficients can be computed from the dual coefficients using the training
 features <span class="math notranslate nohighlight">\(X\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-647c6f7b-f485-4012-a2fa-40d3832f711b">
-<span class="eqno">(7)<a class="headerlink" href="#equation-647c6f7b-f485-4012-a2fa-40d3832f711b" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-f1d86722-8e06-4aea-b49c-3a222223828f">
+<span class="eqno">(7)<a class="headerlink" href="#equation-f1d86722-8e06-4aea-b49c-3a222223828f" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
 <p>To better visualize the HRF, we will refit a model with more delays, but only
 on a selection of voxels to speed up the computations.</p>
 <div class="cell docutils container">
@@ -1713,7 +1710,7 @@ on a selection of voxels to speed up the computations.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(n_delays, n_features, n_voxels) = (7, 1705, 10)
 </pre></div>
 </div>
-<img alt="../../_images/f11fbac9fc3bd041e9de758fd6c8ce6f8c87dc4e6854792380d1dbbf7ad2b2b9.png" src="../../_images/f11fbac9fc3bd041e9de758fd6c8ce6f8c87dc4e6854792380d1dbbf7ad2b2b9.png" />
+<img alt="../../_images/372a5a588ac9905e6870ddf027e429233b9cbfbc7b40b7f2b4942512e644437b.png" src="../../_images/372a5a588ac9905e6870ddf027e429233b9cbfbc7b40b7f2b4942512e644437b.png" />
 </div>
 </div>
 <p>We see that the hemodynamic response function (HRF) is captured in the model

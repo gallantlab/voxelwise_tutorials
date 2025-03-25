@@ -398,7 +398,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-of-the-data-directory">Path of the data directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Compute the explainable variance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Compute the explainable variance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-subject-flatmap">Map to subject flatmap</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-fsaverage">Map to “fsaverage”</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
@@ -437,11 +437,11 @@ voxel for each of the <span class="math notranslate nohighlight">\(N\)</span> re
 across repetitions. For each repeat, we define the residual timeseries between
 brain response and average brain response as <span class="math notranslate nohighlight">\(r_i = y_i - \bar{y}\)</span>. The
 explainable variance (EV) is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8e371fe2-e3f6-4e66-94c0-74505eac3a2c">
-<span class="eqno">(1)<a class="headerlink" href="#equation-8e371fe2-e3f6-4e66-94c0-74505eac3a2c" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-bfa362db-933b-4a97-a32b-9b7b570efbb5">
+<span class="eqno">(1)<a class="headerlink" href="#equation-bfa362db-933b-4a97-a32b-9b7b570efbb5" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
 <p>In the literature, the explainable variance is also known as the <em>signal
 power</em>.</p>
-<p>For more information, see <span id="id1">Sahani and Linden [<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id158" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">2002</a>]</span>, <span id="id2">Hsu <em>et al.</em> [<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id159" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">2004</a>]</span>, and <span id="id3">Schoppe <em>et al.</em> [<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id160" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">2016</a>]</span>.</p>
+<p>For more information, see <span id="id1">[<a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id164" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">Hsu <em>et al.</em>, 2004</a>, <a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id163" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">Sahani and Linden, 2002</a>, <a class="reference internal" href="vem_tutorials_merged_for_colab_model_fitting.html#id165" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">Schoppe <em>et al.</em>, 2016</a>]</span>.</p>
 <section id="path-of-the-data-directory">
 <h2>Path of the data directory<a class="headerlink" href="#path-of-the-data-directory" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -468,8 +468,8 @@ power</em>.</p>
 </div>
 </div>
 </section>
-<section id="id4">
-<h2>Compute the explainable variance<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h2>Compute the explainable variance<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -709,18 +709,18 @@ does not use this function, so feel free to ignore.)</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<div class="docutils container" id="id5">
+<div class="docutils container" id="id3">
 <div role="list" class="citation-list">
-<div class="citation" id="id27" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">HBT04</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id25" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">HBT04</a><span class="fn-bracket">]</span></span>
 <p>A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. <em>Network</em>, 2004.</p>
 </div>
-<div class="citation" id="id26" role="doc-biblioentry">
+<div class="citation" id="id24" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">SL02</a><span class="fn-bracket">]</span></span>
 <p>M. Sahani and J. Linden. How linear are auditory cortical responses? <em>Adv. Neural Inf. Process. Syst.</em>, 2002.</p>
 </div>
-<div class="citation" id="id28" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">SHW+16</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="id26" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">SHW+16</a><span class="fn-bracket">]</span></span>
 <p>O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. <em>Front. Comput. Neurosci.</em>, 2016.</p>
 </div>
 </div>
@@ -793,7 +793,7 @@ does not use this function, so feel free to ignore.)</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-of-the-data-directory">Path of the data directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Compute the explainable variance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Compute the explainable variance</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-subject-flatmap">Map to subject flatmap</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-to-fsaverage">Map to “fsaverage”</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
