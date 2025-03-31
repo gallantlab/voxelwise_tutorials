@@ -12,8 +12,9 @@ help:
 	@echo "  merge-notebooks Merge notebook files into single files for Colab"
 	@echo "  build           Build the jupyter book"
 	@echo "  push-pages      Push built book to GitHub Pages"
+	@echo "  preview         Preview the book locally"
 
-.PHONY: help Makefile clean merge-notebooks build push-pages
+.PHONY: help Makefile clean merge-notebooks build push-pages preview
 
 clean:
 	rm -rf $(BUILDDIR)/
