@@ -467,6 +467,7 @@ regression targets. We then normalize the data independently for each run.</p>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">load_hdf5_array</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.utils</span> <span class="kn">import</span> <span class="n">zscore_runs</span>
 
 <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s2">&quot;responses&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">_responses.hdf&quot;</span><span class="p">)</span>
 <span class="n">Y_train</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;Y_train&quot;</span><span class="p">)</span>
@@ -479,8 +480,7 @@ regression targets. We then normalize the data independently for each run.</p>
 <span class="n">run_onsets</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;run_onsets&quot;</span><span class="p">)</span>
 
 <span class="c1"># zscore each training run separately</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">zscore</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">Y_train</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">zscore_runs</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">)</span>
 <span class="c1"># zscore each test run separately</span>
 <span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -2166,7 +2166,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                                                                                   2,
                                                                                   3,
                                                                                   4]...
-                 MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799]))]),
+                 MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2...1, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                        kernels=&#x27;precomputed&#x27;,
                                        solver_params={&#x27;alphas&#x27;: array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
@@ -2194,7 +2194,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                                                                                   2,
                                                                                   3,
                                                                                   4]...
-                 MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799]))]),
+                 MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2...1, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                        kernels=&#x27;precomputed&#x27;,
                                        solver_params={&#x27;alphas&#x27;: array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
@@ -2215,7 +2215,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                                                 (&#x27;delayer&#x27;,
                                                  Delayer(delays=[1, 2, 3, 4])),
                                                 (&#x27;kernelizer&#x27;, Kernelizer())]),
-                                slice(1705, 8260, None))])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-16" type="checkbox" ><label for="sk-estimator-id-16" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>wordnet</div></div></label><div class="sk-toggleable__content "><pre>slice(0, 1705, None)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-17" type="checkbox" ><label for="sk-estimator-id-17" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-18" type="checkbox" ><label for="sk-estimator-id-18" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Delayer</div></div></label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-19" type="checkbox" ><label for="sk-estimator-id-19" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Kernelizer</div></div></label><div class="sk-toggleable__content "><pre>Kernelizer()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-20" type="checkbox" ><label for="sk-estimator-id-20" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>motion_energy</div></div></label><div class="sk-toggleable__content "><pre>slice(1705, 8260, None)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-21" type="checkbox" ><label for="sk-estimator-id-21" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-22" type="checkbox" ><label for="sk-estimator-id-22" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Delayer</div></div></label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-23" type="checkbox" ><label for="sk-estimator-id-23" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Kernelizer</div></div></label><div class="sk-toggleable__content "><pre>Kernelizer()</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-24" type="checkbox" ><label for="sk-estimator-id-24" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>MultipleKernelRidgeCV</div></div></label><div class="sk-toggleable__content "><pre>MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799]))]),
+                                slice(1705, 8260, None))])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-16" type="checkbox" ><label for="sk-estimator-id-16" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>wordnet</div></div></label><div class="sk-toggleable__content "><pre>slice(0, 1705, None)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-17" type="checkbox" ><label for="sk-estimator-id-17" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-18" type="checkbox" ><label for="sk-estimator-id-18" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Delayer</div></div></label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-19" type="checkbox" ><label for="sk-estimator-id-19" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Kernelizer</div></div></label><div class="sk-toggleable__content "><pre>Kernelizer()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-20" type="checkbox" ><label for="sk-estimator-id-20" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>motion_energy</div></div></label><div class="sk-toggleable__content "><pre>slice(1705, 8260, None)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-21" type="checkbox" ><label for="sk-estimator-id-21" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-22" type="checkbox" ><label for="sk-estimator-id-22" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Delayer</div></div></label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-23" type="checkbox" ><label for="sk-estimator-id-23" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Kernelizer</div></div></label><div class="sk-toggleable__content "><pre>Kernelizer()</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-24" type="checkbox" ><label for="sk-estimator-id-24" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>MultipleKernelRidgeCV</div></div></label><div class="sk-toggleable__content "><pre>MultipleKernelRidgeCV(cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2...1, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                       kernels=&#x27;precomputed&#x27;,
                       solver_params={&#x27;alphas&#x27;: array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
@@ -2256,64 +2256,64 @@ CPU backend, it can last 10 times more.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[                                        ] 0% | 0.00 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..                                      ] 5% | 4.85 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..                                      ] 5% | 4.89 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[....                                    ] 10% | 9.08 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[....                                    ] 10% | 9.15 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[......                                  ] 15% | 13.39 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[......                                  ] 15% | 13.33 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[........                                ] 20% | 17.58 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[........                                ] 20% | 17.50 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..........                              ] 25% | 21.75 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..........                              ] 25% | 21.66 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[............                            ] 30% | 25.93 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[............                            ] 30% | 25.84 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..............                          ] 35% | 30.09 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..............                          ] 35% | 29.97 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[................                        ] 40% | 34.27 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[................                        ] 40% | 34.14 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..................                      ] 45% | 38.44 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..................                      ] 45% | 38.38 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[....................                    ] 50% | 42.64 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[....................                    ] 50% | 42.57 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[......................                  ] 55% | 46.88 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[......................                  ] 55% | 46.74 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[........................                ] 60% | 51.08 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[........................                ] 60% | 50.90 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..........................              ] 65% | 55.26 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..........................              ] 65% | 55.07 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[............................            ] 70% | 59.44 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[............................            ] 70% | 59.24 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..............................          ] 75% | 63.68 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..............................          ] 75% | 63.40 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[................................        ] 80% | 67.88 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[................................        ] 80% | 67.62 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..................................      ] 85% | 72.07 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[..................................      ] 85% | 71.78 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[....................................    ] 90% | 76.26 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[....................................    ] 90% | 75.97 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[......................................  ] 95% | 80.43 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[......................................  ] 95% | 79.85 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[........................................] 100% | 84.61 sec | 20 random sampling with cv | 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[........................................] 100% | 84.03 sec | 20 random sampling with cv | 
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -2770,7 +2770,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array..., (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2...1, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 200,
                                               &#x27;n_targets_batch_refit&#x27;: 200}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-25" type="checkbox" ><label for="sk-estimator-id-25" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -2779,13 +2779,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...(array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array..., (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2...1, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 200,
                                               &#x27;n_targets_batch_refit&#x27;: 200}))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-26" type="checkbox" ><label for="sk-estimator-id-26" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-27" type="checkbox" ><label for="sk-estimator-id-27" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Delayer</div></div></label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-28" type="checkbox" ><label for="sk-estimator-id-28" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>KernelRidgeCV</div></div></label><div class="sk-toggleable__content "><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([   0,    1, ..., 3598, 3599]), array([2700, 2701, ..., 2998, 2999])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 209...1, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([1500, 1501, ..., 1798, 1799]))]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([300, 301, ..., 598, 599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, 299])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2...1, ..., 2698, 2699])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499]))]),
               solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 200,
                              &#x27;n_targets_batch_refit&#x27;: 200})</pre></div> </div></div></div></div></div></div></div></div>
 </div>
@@ -2821,7 +2821,7 @@ predictive performance than the other.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/15c34489d34e38fa7b9b89c5c1a3200d62e535b0e4c1c200fde8b2919e155910.png" src="../../_images/15c34489d34e38fa7b9b89c5c1a3200d62e535b0e4c1c200fde8b2919e155910.png" />
+<img alt="../../_images/171c5d6f7a599627706eba17b0eb9932962664d2f306c345b5615c249ed4b1f9.png" src="../../_images/171c5d6f7a599627706eba17b0eb9932962664d2f306c345b5615c249ed4b1f9.png" />
 </div>
 </div>
 <p>We see that the banded ridge model (<code class="docutils literal notranslate"><span class="pre">MultipleKernelRidgeCV</span></code>) outperforms
@@ -2838,8 +2838,8 @@ way to disentangle the contribution of the two feature spaces. To do so, we
 take the kernel weights and the ridge (dual) weights corresponding to each
 feature space, and use them to compute the prediction from each feature space
 separately.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8ad3a2f2-e983-4da6-8678-f42505ace8b8">
-<span class="eqno">(8)<a class="headerlink" href="#equation-8ad3a2f2-e983-4da6-8678-f42505ace8b8" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-67bdd031-e21a-4f10-ba74-d5a79d5097a4">
+<span class="eqno">(8)<a class="headerlink" href="#equation-67bdd031-e21a-4f10-ba74-d5a79d5097a4" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
 <p>Then, we use these split predictions to compute split <span class="math notranslate nohighlight">\(\tilde{R}^2_i\)</span>
 scores. These scores are corrected so that their sum is equal to the
 <span class="math notranslate nohighlight">\(R^2\)</span> score of the full prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>
@@ -2885,7 +2885,7 @@ scores. These scores are corrected so that their sum is equal to the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/51e4672ea4aa250a9fb8d4a524d5003747654939cbe6c40e9ed1e266114646bc.png" src="../../_images/51e4672ea4aa250a9fb8d4a524d5003747654939cbe6c40e9ed1e266114646bc.png" />
+<img alt="../../_images/377ee2b4f8cb0c78c136f232734b2d3697c54d40277a5c941f71954bfcf66565.png" src="../../_images/377ee2b4f8cb0c78c136f232734b2d3697c54d40277a5c941f71954bfcf66565.png" />
 </div>
 </div>
 <p>The blue regions are better predicted by the motion-energy features, the

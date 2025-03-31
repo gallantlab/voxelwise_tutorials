@@ -402,7 +402,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-cross-validation-scheme">Define the cross-validation scheme</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-model">Define the model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-the-model">Fit the model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intermission-understanding-delays">Intermission: understanding delays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-delays">Understanding delays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-with-a-model-without-delays">Compare with a model without delays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-hrf">Visualize the HRF</a></li>
 </ul>
@@ -471,6 +471,7 @@ response function (HRF) from a model with delays.</p>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">load_hdf5_array</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.utils</span> <span class="kn">import</span> <span class="n">zscore_runs</span>
 
 <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s2">&quot;responses&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">_responses.hdf&quot;</span><span class="p">)</span>
 <span class="n">Y_train</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;Y_train&quot;</span><span class="p">)</span>
@@ -483,8 +484,7 @@ response function (HRF) from a model with delays.</p>
 <span class="n">run_onsets</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;run_onsets&quot;</span><span class="p">)</span>
 
 <span class="c1"># zscore each training run separately</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">zscore</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">Y_train</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">zscore_runs</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">)</span>
 <span class="c1"># zscore each test run separately</span>
 <span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -1029,7 +1029,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array..., (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, ...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -1038,13 +1038,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array...9])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+                               cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array..., (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, ...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099]))]),
                                solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                               &#x27;n_targets_batch&#x27;: 500,
                                               &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Delayer</div></div></label><div class="sk-toggleable__content "><pre>Delayer(delays=[1, 2, 3, 4])</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>KernelRidgeCV</div></div></label><div class="sk-toggleable__content "><pre>KernelRidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+              cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, ...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099]))]),
               solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                              &#x27;n_targets_batch_refit&#x27;: 100})</pre></div> </div></div></div></div></div></div></div></div>
 </div>
@@ -1069,73 +1069,78 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 </section>
-<section id="intermission-understanding-delays">
-<h2>Intermission: understanding delays<a class="headerlink" href="#intermission-understanding-delays" title="Link to this heading">#</a></h2>
+<section id="understanding-delays">
+<h2>Understanding delays<a class="headerlink" href="#understanding-delays" title="Link to this heading">#</a></h2>
 <p>To have an intuitive understanding of what we accomplish by delaying the
 features before model fitting, we will simulate one voxel and a single
 feature. We will then create a <code class="docutils literal notranslate"><span class="pre">Delayer</span></code> object (which was used in the
-previous pipeline) and visualize its effect on our single feature. Let’s
-start by simulating the data.</p>
+previous pipeline) and visualize its effect on our single feature.</p>
+<p>Let’s start by simulating the data. We assume a simple scenario in which an event in
+our experiment occurred at <span class="math notranslate nohighlight">\(t = 20\)</span> seconds and lasted for 10 seconds. For each timepoint, our simulated feature
+is a simple variable that indicates whether the event occurred or not.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># number of total trs</span>
-<span class="n">n_trs</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="c1"># repetition time for the simulated data</span>
-<span class="n">TR</span> <span class="o">=</span> <span class="mf">2.0</span>
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_trs</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_trs</span><span class="p">)</span>
-<span class="c1"># add some arbitrary value to our feature</span>
-<span class="n">x</span><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">x</span> <span class="o">+=</span> <span class="n">rng</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_trs</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span>  <span class="c1"># add some noise</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">voxelwise_tutorials.delays_toy</span> <span class="kn">import</span> <span class="n">create_voxel_data</span>
 
-<span class="c1"># create a delayer object and delay the features</span>
-<span class="n">delayer</span> <span class="o">=</span> <span class="n">Delayer</span><span class="p">(</span><span class="n">delays</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">x_delayed</span> <span class="o">=</span> <span class="n">delayer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">])</span>
+<span class="c1"># simulate an activation pulse at 20 s for 10 s of duration</span>
+<span class="n">simulated_X</span><span class="p">,</span> <span class="n">simulated_Y</span><span class="p">,</span> <span class="n">times</span> <span class="o">=</span> <span class="n">create_voxel_data</span><span class="p">(</span><span class="n">onset</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>In the next cell we are plotting six lines. The subplot at the top shows the
-simulated BOLD response, while the other subplots show the simulated feature
-at different delays. The effect of the delayer is clear: it creates multiple
-copies of the original feature shifted forward in time by how many samples we
-requested (in this case, from 0 to 4 samples, which correspond to 0, 2, 4, 6,
-and 8 s in time with a 2 s TR).</p>
-<p>When these delayed features are used to fit a voxelwise encoding model, the
-brain response <span class="math notranslate nohighlight">\(y\)</span> at time <span class="math notranslate nohighlight">\(t\)</span> is simultaneously modeled by the
-feature <span class="math notranslate nohighlight">\(x\)</span> at times <span class="math notranslate nohighlight">\(t-0, t-2, t-4, t-6, t-8\)</span>. In the remaining
-of this example we will see that this method improves model prediction
-accuracy and it allows to account for the underlying shape of the hemodynamic
-response function.</p>
+<p>We next plot the simulated data. In this toy example, we assumed a “canonical”
+hemodynamic response function (HRF) (a double gamma function). This is an idealized
+HRF that is often used in the literature to model the BOLD response. In practice,
+however, the HRF can vary significantly across brain areas.</p>
+<p>Because of the HRF, notice that even though the event occurred at <span class="math notranslate nohighlight">\(t = 20\)</span> seconds,
+the BOLD response is delayed in time.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.delays_toy</span> <span class="kn">import</span> <span class="n">plot_delays_toy</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_trs</span><span class="p">)</span> <span class="o">*</span> <span class="n">TR</span>
-
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;BOLD response&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">xx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">x_delayed</span><span class="o">.</span><span class="n">T</span><span class="p">)):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
-        <span class="s2">&quot;$x(t - </span><span class="si">{0:.0f}</span><span class="s2">)$ (feature delayed by </span><span class="si">{1}</span><span class="s2"> sample</span><span class="si">{2}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">i</span> <span class="o">*</span> <span class="n">TR</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;s&quot;</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [s]&quot;</span><span class="p">)</span>
+<span class="n">plot_delays_toy</span><span class="p">(</span><span class="n">simulated_X</span><span class="p">,</span> <span class="n">simulated_Y</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/164759c1668f27bd6490bf8cb8416db08c9bfd8e025124e97b74082b727bb7e6.png" src="../../_images/164759c1668f27bd6490bf8cb8416db08c9bfd8e025124e97b74082b727bb7e6.png" />
+<img alt="../../_images/87fe52bd1d9d0da05b38b31605ca41d27a31bcaf5e6709db06e85d704a4464d8.png" src="../../_images/87fe52bd1d9d0da05b38b31605ca41d27a31bcaf5e6709db06e85d704a4464d8.png" />
 </div>
 </div>
+<p>We next create a <code class="docutils literal notranslate"><span class="pre">Delayer</span></code> object and use it to delay the simulated feature.
+The effect of the delayer is clear: it creates multiple
+copies of the original feature shifted forward in time by how many samples we
+requested (in this case, from 0 to 4 samples, which correspond to 0, 2, 4, 6,
+and 8 s in time with a 2 s TR).</p>
+<p>When these delayed features are used to fit a voxelwise encoding model, the
+brain response <span class="math notranslate nohighlight">\(y\)</span> at time <span class="math notranslate nohighlight">\(t\)</span> is simultaneously modeled by the
+feature <span class="math notranslate nohighlight">\(x\)</span> at times <span class="math notranslate nohighlight">\(t-0, t-2, t-4, t-6, t-8\)</span>. For example, the time sample highlighted
+in the plot below (<span class="math notranslate nohighlight">\(t = 30\)</span> seconds) is modeled by the features at
+<span class="math notranslate nohighlight">\(t = 30, 28, 26, 24, 22\)</span> seconds.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a delayer object and delay the features</span>
+<span class="n">delayer</span> <span class="o">=</span> <span class="n">Delayer</span><span class="p">(</span><span class="n">delays</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">simulated_X_delayed</span> <span class="o">=</span> <span class="n">delayer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">simulated_X</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">])</span>
+
+<span class="c1"># plot the simulated data and highlight t = 30</span>
+<span class="n">plot_delays_toy</span><span class="p">(</span><span class="n">simulated_X_delayed</span><span class="p">,</span> <span class="n">simulated_Y</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">highlight</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a5136df295677be4824e04187727d45c57df29d7d5d092c3a181de24f344622e.png" src="../../_images/a5136df295677be4824e04187727d45c57df29d7d5d092c3a181de24f344622e.png" />
+</div>
+</div>
+<p>This simple example shows how the delayed features take into account of the HRF.
+This approach is often referred to as a “finite impulse response” (FIR) model.
+By delaying the features, the regression model learns the weights for each voxel
+separately. Therefore, the FIR approach is able to adapt to the shape of the HRF in each
+voxel, without assuming a fixed canonical HRF shape.
+As we will see in the remaining of this notebook, this approach improves model
+prediction accuracy significantly.</p>
 </section>
 <section id="compare-with-a-model-without-delays">
 <h2>Compare with a model without delays<a class="headerlink" href="#compare-with-a-model-without-delays" title="Link to this heading">#</a></h2>
@@ -1584,7 +1589,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  RidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                         cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+                         cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, ...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099]))]),
                          solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                         &#x27;n_targets_batch&#x27;: 500,
                                         &#x27;n_targets_batch_refit&#x27;: 100}))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler(with_std=False)),
@@ -1592,13 +1597,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                  RidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-                         cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+                         cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, ...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099]))]),
                          solver_params={&#x27;n_alphas_batch&#x27;: 5,
                                         &#x27;n_targets_batch&#x27;: 500,
                                         &#x27;n_targets_batch_refit&#x27;: 100}))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler(with_std=False)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>RidgeCV</div></div></label><div class="sk-toggleable__content "><pre>RidgeCV(alphas=array([1.e+01, 1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06, 1.e+07, 1.e+08,
        1.e+09, 1.e+10, 1.e+11, 1.e+12, 1.e+13, 1.e+14, 1.e+15, 1.e+16,
        1.e+17, 1.e+18, 1.e+19, 1.e+20]),
-        cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099])), (array([   0,    1, ..., 3598, 3599]), array([2100, 2101, ..., 2398, 2399])), (array([   0,    1, ..., 3598, 3599]), array([1200, 1201, ..., 1498, 1499])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ...,...  1, ..., 298, 299])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599]))]),
+        cv=_CVIterableWrapper(cv=[(array([   0,    1, ..., 3598, 3599]), array([600, 601, ..., 898, 899])), (array([   0,    1, ..., 3598, 3599]), array([2400, 2401, ..., 2698, 2699])), (array([   0,    1, ..., 3298, 3299]), array([3300, 3301, ..., 3598, 3599])), (array([ 300,  301, ..., 3598, 3599]), array([  0,   1, ..., 298, ...301, ..., 598, 599])), (array([   0,    1, ..., 3598, 3599]), array([1800, 1801, ..., 2098, 2099]))]),
         solver_params={&#x27;n_alphas_batch&#x27;: 5, &#x27;n_targets_batch&#x27;: 500,
                        &#x27;n_targets_batch_refit&#x27;: 100})</pre></div> </div></div></div></div></div></div></div></div>
 </div>
@@ -1638,7 +1643,7 @@ prediction accuracy than the other.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/e1dd69d9027c2c421f9215f39f847b6fe9b56fd99ccb71c6ca84355958ca1160.png" src="../../_images/e1dd69d9027c2c421f9215f39f847b6fe9b56fd99ccb71c6ca84355958ca1160.png" />
+<img alt="../../_images/884d723cea2c1fa304a374b4b38b0b3282ae0190a19306dbe19703dde26c3976.png" src="../../_images/884d723cea2c1fa304a374b4b38b0b3282ae0190a19306dbe19703dde26c3976.png" />
 </div>
 </div>
 <p>We see that the model with delays performs much better than the model without
@@ -1657,8 +1662,8 @@ function (HRF).</p>
 coefficients <span class="math notranslate nohighlight">\(\beta\)</span> obtained with a ridge regression, but the primal
 coefficients can be computed from the dual coefficients using the training
 features <span class="math notranslate nohighlight">\(X\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f1d86722-8e06-4aea-b49c-3a222223828f">
-<span class="eqno">(7)<a class="headerlink" href="#equation-f1d86722-8e06-4aea-b49c-3a222223828f" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-4df48d47-613f-47f6-9853-099643cb7869">
+<span class="eqno">(7)<a class="headerlink" href="#equation-4df48d47-613f-47f6-9853-099643cb7869" title="Permalink to this equation">#</a></span>\[\begin{align}\beta = X^\top w\end{align}\]</div>
 <p>To better visualize the HRF, we will refit a model with more delays, but only
 on a selection of voxels to speed up the computations.</p>
 <div class="cell docutils container">
@@ -1788,7 +1793,7 @@ two seconds.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-cross-validation-scheme">Define the cross-validation scheme</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-model">Define the model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-the-model">Fit the model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intermission-understanding-delays">Intermission: understanding delays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-delays">Understanding delays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-with-a-model-without-delays">Compare with a model without delays</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-hrf">Visualize the HRF</a></li>
 </ul>
