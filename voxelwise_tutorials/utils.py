@@ -79,3 +79,26 @@ def explainable_variance(data, bias_correction=True, do_zscore=True):
         n_repeats = data.shape[0]
         ev = ev - (1 - ev) / (n_repeats - 1)
     return ev
+
+
+def zscore_runs(data, run_onsets):
+    """Perform z-scoring of fMRI data within each run.
+
+    Parameters
+    ----------
+    data : array of shape (n_samples, n_features)
+        fMRI responses in the training set.
+    run_onsets : array of int of shape (n_runs, )
+        Indices of the run onsets.
+        The first run is assumed to start at index 0.
+    
+    Returns
+    -------
+    zscored_data : array of shape (n_samples, n_features)
+        fMRI responses z-scored within each run.
+    """
+    # zscore each training run separately
+    orig_dtype = data.dtype
+    data = np.split(data.astype(np.float64), run_onsets[1:])
+    data = np.concatenate([scipy.stats.zscore(run, axis=0) for run in data], axis=0)
+    return data.astype(orig_dtype)
