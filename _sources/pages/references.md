@@ -11,12 +11,13 @@ publications {cite}`kay2008,naselaris2009,nishimoto2011,huth2012,cukur2013,cukur
 
 ## Packages
 
-- `voxelwise_tutorials` {cite}`dupre2023`
+- `voxelwise_tutorials` {cite}`dupre2025`
 - `himalaya` {cite}`dupre2022`
 - `pycortex` {cite}`gao2015`
 - `pymoten` {cite}`nunez2021software`
 
 ## Bibliography
+
 ```{bibliography}
 :filter: docname in docnames
 ```

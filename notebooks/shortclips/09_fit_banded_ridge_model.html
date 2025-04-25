@@ -2838,8 +2838,8 @@ way to disentangle the contribution of the two feature spaces. To do so, we
 take the kernel weights and the ridge (dual) weights corresponding to each
 feature space, and use them to compute the prediction from each feature space
 separately.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-67bdd031-e21a-4f10-ba74-d5a79d5097a4">
-<span class="eqno">(8)<a class="headerlink" href="#equation-67bdd031-e21a-4f10-ba74-d5a79d5097a4" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-77ef48cc-ea03-4d59-a25a-4eb211b77b86">
+<span class="eqno">(8)<a class="headerlink" href="#equation-77ef48cc-ea03-4d59-a25a-4eb211b77b86" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
 <p>Then, we use these split predictions to compute split <span class="math notranslate nohighlight">\(\tilde{R}^2_i\)</span>
 scores. These scores are corrected so that their sum is equal to the
 <span class="math notranslate nohighlight">\(R^2\)</span> score of the full prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>

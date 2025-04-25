@@ -703,8 +703,8 @@ voxel for each of the <span class="math notranslate nohighlight">\(N\)</span> re
 across repetitions. For each repeat, we define the residual timeseries between
 brain response and average brain response as <span class="math notranslate nohighlight">\(r_i = y_i - \bar{y}\)</span>. The
 explainable variance (EV) is estimated as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c16c5322-0a9e-40be-a148-7d3b5ae4eeef">
-<span class="eqno">()<a class="headerlink" href="#equation-c16c5322-0a9e-40be-a148-7d3b5ae4eeef" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-916fa3e9-674d-4da5-bcdf-3064c5330ddf">
+<span class="eqno">()<a class="headerlink" href="#equation-916fa3e9-674d-4da5-bcdf-3064c5330ddf" title="Permalink to this equation">#</a></span>\[\begin{align}\text{EV} = \frac{1}{N}\sum_{i=1}^N\text{Var}(y_i) - \frac{N}{N-1}\sum_{i=1}^N\text{Var}(r_i)\end{align}\]</div>
 <p>In the literature, the explainable variance is also known as the <em>signal
 power</em>.</p>
 <p>For more information, see <span id="id29">[<a class="reference internal" href="#id164" title="A. Hsu, A. Borst, and F. E. Theunissen. Quantifying variability in neural responses and its application for the validation of model predictions. Network, 2004.">Hsu <em>et al.</em>, 2004</a>, <a class="reference internal" href="#id163" title="M. Sahani and J. Linden. How linear are auditory cortical responses? Adv. Neural Inf. Process. Syst., 2002.">Sahani and Linden, 2002</a>, <a class="reference internal" href="#id165" title="O. Schoppe, N. S. Harper, B. Willmore, A. King, and J. Schnupp. Measuring the performance of neural models. Front. Comput. Neurosci., 2016.">Schoppe <em>et al.</em>, 2016</a>]</span>.</p>
@@ -1077,14 +1077,14 @@ Second, the temporal mean and standard deviation of a voxel are typically consid
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.utils</span> <span class="kn">import</span> <span class="n">zscore_runs</span>
 
 <span class="c1"># indice of first sample of each run</span>
 <span class="n">run_onsets</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;run_onsets&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">run_onsets</span><span class="p">)</span>
 
 <span class="c1"># zscore each training run separately</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">zscore</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">Y_train</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">zscore_runs</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">)</span>
 <span class="c1"># zscore each test run separately</span>
 <span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -1100,7 +1100,6 @@ repeatable part of the signal by averaging the test repeats.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y_test</span> <span class="o">=</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="c1"># We need to zscore the test data again, because we took the mean across repetitions.</span>
-<span class="c1"># This averaging step makes the standard deviation approximately equal to 1/sqrt(n_repeats)</span>
 <span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(n_samples_test, n_voxels) =&quot;</span><span class="p">,</span> <span class="n">Y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -1482,7 +1481,7 @@ coefficients variance.</p>
 <p>Similarly to <span id="id65">Huth <em>et al.</em> [<a class="reference internal" href="../../pages/voxelwise_modeling.html#id14" title="A. G. Huth, S. Nishimoto, A. T. Vu, and J. L. Gallant. A continuous semantic space describes the representation of thousands of object and action categories across the human brain. Neuron, 76(6):1210–1224, 2012.">2012</a>]</span>, we correct the coefficients of features linked by a
 semantic relationship. When building the wordnet features, if a frame was
 labeled with <code class="docutils literal notranslate"><span class="pre">wolf</span></code>, the authors automatically added the semantically linked
-categories <code class="docutils literal notranslate"><span class="pre">canine</span></code>, <code class="docutils literal notranslate"><span class="pre">carnivore</span></code>, <code class="docutils literal notranslate"><span class="pre">placental</span> <span class="pre">mammal</span></code>, <code class="docutils literal notranslate"><span class="pre">mamma</span></code>, <code class="docutils literal notranslate"><span class="pre">vertebrate</span></code>,
+categories <code class="docutils literal notranslate"><span class="pre">canine</span></code>, <code class="docutils literal notranslate"><span class="pre">carnivore</span></code>, <code class="docutils literal notranslate"><span class="pre">placental</span> <span class="pre">mammal</span></code>, <code class="docutils literal notranslate"><span class="pre">mammal</span></code>, <code class="docutils literal notranslate"><span class="pre">vertebrate</span></code>,
 <code class="docutils literal notranslate"><span class="pre">chordate</span></code>, <code class="docutils literal notranslate"><span class="pre">organism</span></code>, and <code class="docutils literal notranslate"><span class="pre">whole</span></code>. The authors thus argue that the same
 correction needs to be done on the coefficients.</p>
 <div class="cell docutils container">
@@ -1709,6 +1708,7 @@ comparing the model predictions with the ground-truth fMRI responses.</p>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">load_hdf5_array</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.utils</span> <span class="kn">import</span> <span class="n">zscore_runs</span>
 
 <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s2">&quot;responses&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">_responses.hdf&quot;</span><span class="p">)</span>
 <span class="n">Y_train</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;Y_train&quot;</span><span class="p">)</span>
@@ -1721,8 +1721,7 @@ comparing the model predictions with the ground-truth fMRI responses.</p>
 <span class="n">run_onsets</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;run_onsets&quot;</span><span class="p">)</span>
 
 <span class="c1"># zscore each training run separately</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">zscore</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">Y_train</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">zscore_runs</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">)</span>
 <span class="c1"># zscore each test run separately</span>
 <span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -1962,7 +1961,7 @@ correlated with the “face” semantic category. Thus, motion-energy features
 could predict responses in face-responsive areas without encoding any
 semantic information.</p>
 <p>To better disentangle the two feature spaces, we developed a joint model
-called <code class="docutils literal notranslate"><span class="pre">banded</span> <span class="pre">ridge</span> <span class="pre">regression</span></code> <span id="id106">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré la Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré la Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>, which fits multiple feature spaces
+called <strong>banded ridge regression</strong> <span id="id106">[<a class="reference internal" href="../../pages/voxelwise_modeling.html#id25" title="T. Dupré la Tour, M. Eickenberg, A.O. Nunez-Elizalde, and J. L. Gallant. Feature-space selection with banded ridge regression. NeuroImage, 267:119728, 2022. doi:10.1016/j.neuroimage.2022.119728.">Dupré la Tour <em>et al.</em>, 2022</a>, <a class="reference internal" href="../../pages/voxelwise_modeling.html#id22" title="A. O. Nunez-Elizalde, A. G. Huth, and J. L. Gallant. Voxelwise encoding models with non-spherical multivariate normal priors. Neuroimage, 197:482–492, 2019.">Nunez-Elizalde <em>et al.</em>, 2019</a>]</span>, which fits multiple feature spaces
 simultaneously with optimal regularization for each feature space. This model
 is described in the next example.</p>
 </section>
@@ -2072,6 +2071,7 @@ regression targets. We then normalize the data independently for each run.</p>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">zscore</span>
 <span class="kn">from</span> <span class="nn">voxelwise_tutorials.io</span> <span class="kn">import</span> <span class="n">load_hdf5_array</span>
+<span class="kn">from</span> <span class="nn">voxelwise_tutorials.utils</span> <span class="kn">import</span> <span class="n">zscore_runs</span>
 
 <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="s2">&quot;responses&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">_responses.hdf&quot;</span><span class="p">)</span>
 <span class="n">Y_train</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;Y_train&quot;</span><span class="p">)</span>
@@ -2084,8 +2084,7 @@ regression targets. We then normalize the data independently for each run.</p>
 <span class="n">run_onsets</span> <span class="o">=</span> <span class="n">load_hdf5_array</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;run_onsets&quot;</span><span class="p">)</span>
 
 <span class="c1"># zscore each training run separately</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">zscore</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">Y_train</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">zscore_runs</span><span class="p">(</span><span class="n">Y_train</span><span class="p">,</span> <span class="n">run_onsets</span><span class="p">)</span>
 <span class="c1"># zscore each test run separately</span>
 <span class="n">Y_test</span> <span class="o">=</span> <span class="n">zscore</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -2449,8 +2448,8 @@ way to disentangle the contribution of the two feature spaces. To do so, we
 take the kernel weights and the ridge (dual) weights corresponding to each
 feature space, and use them to compute the prediction from each feature space
 separately.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dd7e50eb-0068-41ce-a7b7-10d357b84732">
-<span class="eqno">()<a class="headerlink" href="#equation-dd7e50eb-0068-41ce-a7b7-10d357b84732" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-c529a395-4601-4918-a4f0-6757786ef70c">
+<span class="eqno">()<a class="headerlink" href="#equation-c529a395-4601-4918-a4f0-6757786ef70c" title="Permalink to this equation">#</a></span>\[\begin{align}\hat{y} = \sum_i^m \hat{y}_i = \sum_i^m \gamma_i K_i \hat{w}\end{align}\]</div>
 <p>Then, we use these split predictions to compute split <span class="math notranslate nohighlight">\(\tilde{R}^2_i\)</span>
 scores. These scores are corrected so that their sum is equal to the
 <span class="math notranslate nohighlight">\(R^2\)</span> score of the full prediction <span class="math notranslate nohighlight">\(\hat{y}\)</span>.</p>
