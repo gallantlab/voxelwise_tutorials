@@ -133,8 +133,8 @@ If you use one of our packages in your work (``voxelwise_tutorials`` [1]_,
 corresponding publications:
 
 .. [1] Dupré la Tour, T., Visconti di Oleggio Castello, M., & Gallant, J. L. (2025).
-   The Voxelwise Encoding Model framework: a tutorial introduction to fitting encoding models to fMRI data.
-   https://doi.org/10.31234/osf.io/t975e
+   The Voxelwise Encoding Model framework: A tutorial introduction to fitting encoding models to fMRI data.
+   Imaging Neuroscience. https://doi.org/10.1162/imag_a_00575
 
 .. [2] Dupré la Tour, T., Eickenberg, M., Nunez-Elizalde, A.O., & Gallant, J. L. (2022).
    Feature-space selection with banded ridge regression. NeuroImage.
