@@ -88,7 +88,8 @@ in the provided Docker containers.
 `git-annex <https://git-annex.branchable.com/>`_ is required to download the
 data sets. Please follow the instructions in the
 `git-annex documentation <https://git-annex.branchable.com/install/>`_ to install
-it on your system.
+it on your system. On Linux, a standalone build can also be installed from PyPI
+with ``pip install git-annex``.
 
 The tutorials and the package ``voxelwise_tutorials`` require Python 3.9 or higher.
 
